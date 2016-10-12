@@ -6,11 +6,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.sheepyang.onlylive.R;
+import me.sheepyang.onlylive.app.Constant;
+import me.sheepyang.onlylive.entity.Player;
+import me.sheepyang.onlylive.utils.DataUtil;
 
 /**
  * Created by SheepYang on 2016/10/8 22:01.
@@ -29,10 +33,23 @@ public class GameActivity extends BaseActivity {
     RadioButton rb4;
     @BindView(R.id.rb_5)
     RadioButton rb5;
+    @BindView(R.id.tv_cash)
+    TextView tvCash;
+    @BindView(R.id.tv_health)
+    TextView tvHealth;
+    @BindView(R.id.tv_debt)
+    TextView tvDebt;
+    @BindView(R.id.tv_house)
+    TextView tvHouse;
+    @BindView(R.id.tv_deposit)
+    TextView tvDeposit;
+    @BindView(R.id.tv_week)
+    TextView tvWeek;
     private boolean isStart;// 是否选择第一个城市并开始游戏
     private AlertDialog mHintDialog;
     private AlertDialog mNewsDialog;
     private AlertDialog mMessageDialog;
+    private Player mPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +58,22 @@ public class GameActivity extends BaseActivity {
         ButterKnife.bind(this);
         initView();
         initListener();
+        initData();
+    }
+
+    private void initData() {
+        mPlayer = DataUtil.getPlayerData();
+        if (mPlayer == null) {
+            showToast("暂无游戏数据，请开始新的游戏！");
+            onBackPressed();
+            return;
+        }
+        tvCash.setText(mPlayer.getCash() + "");
+        tvDebt.setText(mPlayer.getDebt() + "");
+        tvDeposit.setText(mPlayer.getDeposit() + "");
+        tvHealth.setText(mPlayer.getHealth() + "");
+        tvHouse.setText(mPlayer.getHouse() + "/" + Constant.CONFIG_TOTAL_HOUSE);
+        tvWeek.setText(mPlayer.getWeek() + "/" + Constant.CONFIG_TOTAL_WEEK);
     }
 
     private void initView() {
@@ -52,7 +85,6 @@ public class GameActivity extends BaseActivity {
 
                         }
                     })
-                    .setCancelable(false)
                     .create();
         }
         if (mMessageDialog == null) {
@@ -63,7 +95,12 @@ public class GameActivity extends BaseActivity {
                             showNewsDialog();
                         }
                     })
-                    .setCancelable(false)
+                    .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialog) {
+                            showNewsDialog();
+                        }
+                    })
                     .create();
         }
         if (mNewsDialog == null) {
@@ -74,7 +111,12 @@ public class GameActivity extends BaseActivity {
                             showShopDialog();
                         }
                     })
-                    .setCancelable(false)
+                    .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialog) {
+                            showShopDialog();
+                        }
+                    })
                     .create();
         }
     }

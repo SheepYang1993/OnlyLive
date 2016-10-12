@@ -19,8 +19,8 @@ import me.sheepyang.onlylive.R;
  */
 
 public class SelectGameModeDialog extends Dialog implements View.OnClickListener {
-    public static final int MODE_TRAINING = 3000;// 练习模式
-    public static final int MODE_RANKING = 3001;// 冲榜模式
+    public static final int MODE_RESUME = 3000;// 练习模式
+    public static final int MODE_NEW_GAME = 3001;// 冲榜模式
     private Context mContext;
     private Window mWindow;
     private OnSelectListener mListener;
@@ -75,12 +75,12 @@ public class SelectGameModeDialog extends Dialog implements View.OnClickListener
         switch (v.getId()) {
             case R.id.btn_mode1:
                 if (mListener != null) {
-                    mListener.OnSelect(v, MODE_TRAINING);
+                    mListener.OnSelect(v, MODE_NEW_GAME);
                 }
                 break;
             case R.id.btn_mode2:
                 if (mListener != null) {
-                    mListener.OnSelect(v, MODE_RANKING);
+                    mListener.OnSelect(v, MODE_RESUME);
                 }
                 break;
             default:

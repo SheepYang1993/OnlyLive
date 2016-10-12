@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 24
@@ -20,6 +21,15 @@ android {
     }
 }
 
+greendao {
+    schemaVersion 1
+    daoPackage 'me.sheepyang.onlylive.entity.dao'
+    targetGenDir 'src/main/java'
+    // schemaVersion--> 指定数据库schema版本号，迁移等操作会用到
+    // daoPackage --> dao的包名，包名默认是entity所在的包;
+    // targetGenDir --> 生成数据库文件的目录;
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -29,4 +39,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.2.1'
     compile 'com.jakewharton:butterknife:8.2.1'
+    compile 'org.greenrobot:greendao:3.0.1'
+    compile 'org.greenrobot:greendao-generator:3.0.0'
 }

@@ -137,11 +137,12 @@
             android:textSize="24sp" />
 
         <TextView
+            android:id="@+id/tv_cash"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:singleLine="true"
-            android:text="999"
+            android:text="——"
             android:textColor="@color/text_green"
             android:textSize="20sp" />
 
@@ -154,12 +155,13 @@
             android:textSize="24sp" />
 
         <TextView
+            android:id="@+id/tv_health"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
             android:layout_weight="1"
             android:singleLine="true"
-            android:text="80"
+            android:text="——"
             android:textColor="@color/text_green"
             android:textSize="20sp" />
     </LinearLayout>
@@ -180,11 +182,12 @@
             android:textSize="24sp" />
 
         <TextView
+            android:id="@+id/tv_debt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:singleLine="true"
-            android:text="999"
+            android:text="——"
             android:textColor="@color/text_red"
             android:textSize="20sp" />
 
@@ -197,12 +200,13 @@
             android:textSize="24sp" />
 
         <TextView
+            android:id="@+id/tv_house"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
             android:layout_weight="1"
             android:singleLine="true"
-            android:text="0/80"
+            android:text="——/——"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
     </LinearLayout>
@@ -223,11 +227,12 @@
             android:textSize="24sp" />
 
         <TextView
+            android:id="@+id/tv_deposit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:singleLine="true"
-            android:text="50"
+            android:text="——"
             android:textColor="@color/text_green"
             android:textSize="20sp" />
 
@@ -240,12 +245,13 @@
             android:textSize="24sp" />
 
         <TextView
+            android:id="@+id/tv_week"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
             android:layout_weight="1"
             android:singleLine="true"
-            android:text="0/52"
+            android:text="——/——"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
     </LinearLayout>
@@ -289,7 +295,6 @@
             android:layout_weight="1"
             android:background="@drawable/cb_black_red_selector"
             android:button="@android:color/transparent"
-            android:checked="true"
             android:gravity="center"
             android:text="还债"
             android:textColor="@android:color/white"

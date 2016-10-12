@@ -7,10 +7,11 @@ import android.view.View;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.sheepyang.onlylive.R;
+import me.sheepyang.onlylive.utils.DataUtil;
 import me.sheepyang.onlylive.widget.SelectGameModeDialog;
 
-import static me.sheepyang.onlylive.widget.SelectGameModeDialog.MODE_RANKING;
-import static me.sheepyang.onlylive.widget.SelectGameModeDialog.MODE_TRAINING;
+import static me.sheepyang.onlylive.widget.SelectGameModeDialog.MODE_NEW_GAME;
+import static me.sheepyang.onlylive.widget.SelectGameModeDialog.MODE_RESUME;
 
 public class MainActivity extends BaseActivity {
 
@@ -32,10 +33,11 @@ public class MainActivity extends BaseActivity {
             @Override
             public void OnSelect(View view, int mode) {
                 switch (mode) {
-                    case MODE_TRAINING:// 练习模式
+                    case MODE_RESUME:// 继续上一盘游戏
                         startActivity(new Intent(MainActivity.this, GameActivity.class));
                         break;
-                    case MODE_RANKING:// 冲榜模式
+                    case MODE_NEW_GAME:// 新的游戏
+                        DataUtil.initGameData();
                         startActivity(new Intent(MainActivity.this, GameActivity.class));
                         break;
                     default:

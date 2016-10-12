@@ -20,7 +20,7 @@
         android:background="@drawable/btn_black_red_selector"
         android:paddingBottom="25dp"
         android:paddingTop="25dp"
-        android:text="冲榜模式"
+        android:text="新的游戏"
         android:textColor="@android:color/white"
         android:textSize="40sp" />
 
@@ -36,7 +36,7 @@
         android:background="@drawable/btn_white_green_selector"
         android:paddingBottom="25dp"
         android:paddingTop="25dp"
-        android:text="练手模式"
+        android:text="继续游戏"
         android:textSize="40sp" />
 
 </LinearLayout>
