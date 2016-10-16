@@ -21,16 +21,26 @@ public class DaoMaster extends AbstractDaoMaster {
 
     /** Creates underlying database table using DAOs. */
     public static void createAllTables(Database db, boolean ifNotExists) {
+        EventDao.createTable(db, ifNotExists);
+        EventGoodsDao.createTable(db, ifNotExists);
         GoodsDao.createTable(db, ifNotExists);
-        JoinOwnerToGoodsDao.createTable(db, ifNotExists);
+        JoinEventGoodsToEventDao.createTable(db, ifNotExists);
+        JoinPlayerGoodsToPlayerDao.createTable(db, ifNotExists);
+        NumberDao.createTable(db, ifNotExists);
         PlayerDao.createTable(db, ifNotExists);
+        PlayerGoodsDao.createTable(db, ifNotExists);
     }
 
     /** Drops underlying database table using DAOs. */
     public static void dropAllTables(Database db, boolean ifExists) {
+        EventDao.dropTable(db, ifExists);
+        EventGoodsDao.dropTable(db, ifExists);
         GoodsDao.dropTable(db, ifExists);
-        JoinOwnerToGoodsDao.dropTable(db, ifExists);
+        JoinEventGoodsToEventDao.dropTable(db, ifExists);
+        JoinPlayerGoodsToPlayerDao.dropTable(db, ifExists);
+        NumberDao.dropTable(db, ifExists);
         PlayerDao.dropTable(db, ifExists);
+        PlayerGoodsDao.dropTable(db, ifExists);
     }
 
     /**
@@ -49,9 +59,14 @@ public class DaoMaster extends AbstractDaoMaster {
 
     public DaoMaster(Database db) {
         super(db, SCHEMA_VERSION);
+        registerDaoClass(EventDao.class);
+        registerDaoClass(EventGoodsDao.class);
         registerDaoClass(GoodsDao.class);
-        registerDaoClass(JoinOwnerToGoodsDao.class);
+        registerDaoClass(JoinEventGoodsToEventDao.class);
+        registerDaoClass(JoinPlayerGoodsToPlayerDao.class);
+        registerDaoClass(NumberDao.class);
         registerDaoClass(PlayerDao.class);
+        registerDaoClass(PlayerGoodsDao.class);
     }
 
     public DaoSession newSession() {

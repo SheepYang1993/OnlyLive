@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import me.sheepyang.onlylive.entity.dao.DaoMaster;
 import me.sheepyang.onlylive.entity.dao.DaoSession;
+import me.sheepyang.onlylive.utils.DataUtil;
+import me.sheepyang.onlylive.utils.SPUtil;
 
 /**
  * Created by SheepYang on 2016/10/13 00:30.

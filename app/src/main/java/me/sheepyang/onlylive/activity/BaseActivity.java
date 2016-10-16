@@ -1,5 +1,6 @@
 package me.sheepyang.onlylive.activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,10 +10,13 @@ import me.sheepyang.onlylive.utils.MyToast;
 
 public class BaseActivity extends AppCompatActivity implements View.OnClickListener {
     public Context mContext;
+    public ProgressDialog mPDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = this;
+        mPDialog = new ProgressDialog(mContext);
     }
 
     @Override

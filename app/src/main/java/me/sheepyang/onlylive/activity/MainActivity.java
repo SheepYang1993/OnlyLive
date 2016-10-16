@@ -8,6 +8,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.sheepyang.onlylive.R;
 import me.sheepyang.onlylive.utils.DataUtil;
+import me.sheepyang.onlylive.utils.SPUtil;
 import me.sheepyang.onlylive.widget.SelectGameModeDialog;
 
 import static me.sheepyang.onlylive.widget.SelectGameModeDialog.MODE_NEW_GAME;
@@ -16,12 +17,19 @@ import static me.sheepyang.onlylive.widget.SelectGameModeDialog.MODE_RESUME;
 public class MainActivity extends BaseActivity {
 
     private SelectGameModeDialog mDialog;
+    private boolean isInit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        // 初始化游戏数据
+        isInit = SPUtil.getBoolean(mContext, "isInit", false);
+        if (!isInit) {
+            DataUtil.initGameData();
+            SPUtil.putBoolean(mContext, "isInit", true);
+        }
         initView();
     }
 
@@ -33,11 +41,11 @@ public class MainActivity extends BaseActivity {
             @Override
             public void OnSelect(View view, int mode) {
                 switch (mode) {
-                    case MODE_RESUME:// 继续上一盘游戏
+                    case MODE_NEW_GAME:// 新的游戏
+                        DataUtil.initPlayerData();
                         startActivity(new Intent(MainActivity.this, GameActivity.class));
                         break;
-                    case MODE_NEW_GAME:// 新的游戏
-                        DataUtil.initGameData();
+                    case MODE_RESUME:// 继续上一盘游戏
                         startActivity(new Intent(MainActivity.this, GameActivity.class));
                         break;
                     default:

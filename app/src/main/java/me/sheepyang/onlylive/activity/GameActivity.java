@@ -12,7 +12,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.sheepyang.onlylive.R;
-import me.sheepyang.onlylive.app.Constant;
+import me.sheepyang.onlylive.app.Constants;
+import me.sheepyang.onlylive.entity.Event;
 import me.sheepyang.onlylive.entity.Player;
 import me.sheepyang.onlylive.utils.DataUtil;
 
@@ -45,7 +46,8 @@ public class GameActivity extends BaseActivity {
     TextView tvDeposit;
     @BindView(R.id.tv_week)
     TextView tvWeek;
-    private boolean isStart;// 是否选择第一个城市并开始游戏
+    private AlertDialog mRestartDialog;
+    private AlertDialog mQuitDialog;
     private AlertDialog mHintDialog;
     private AlertDialog mNewsDialog;
     private AlertDialog mMessageDialog;
@@ -72,11 +74,50 @@ public class GameActivity extends BaseActivity {
         tvDebt.setText(mPlayer.getDebt() + "");
         tvDeposit.setText(mPlayer.getDeposit() + "");
         tvHealth.setText(mPlayer.getHealth() + "");
-        tvHouse.setText(mPlayer.getHouse() + "/" + Constant.CONFIG_TOTAL_HOUSE);
-        tvWeek.setText(mPlayer.getWeek() + "/" + Constant.CONFIG_TOTAL_WEEK);
+        tvHouse.setText(mPlayer.getHouse() + "/" + Constants.CONFIG_TOTAL_HOUSE);
+        tvWeek.setText(mPlayer.getWeek() + "/" + Constants.CONFIG_TOTAL_WEEK);
     }
 
     private void initView() {
+        if (mRestartDialog == null) {
+            mRestartDialog = new AlertDialog.Builder(this)
+                    .setTitle("重新开始")
+                    .setMessage("现在给你一次再来一次的机会，这将会清除所有数据，确定重来？")
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            DataUtil.deletePlayerData();
+                            mRestartDialog.dismiss();
+                            onBackPressed();
+                        }
+                    })
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    })
+                    .create();
+        }
+        if (mQuitDialog == null) {
+            mQuitDialog = new AlertDialog.Builder(this)
+                    .setTitle("退出游戏")
+                    .setMessage("确认退出游戏？（数据将被保存）")
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mRestartDialog.dismiss();
+                            onBackPressed();
+                        }
+                    })
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    })
+                    .create();
+        }
         if (mHintDialog == null) {
             mHintDialog = new AlertDialog.Builder(this)
                     .setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -143,10 +184,16 @@ public class GameActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4, R.id.btn5, R.id.btn6, R.id.btn7, R.id.btn8, R.id.btn9, R.id.rb_1, R.id.rb_2, R.id.rb_3, R.id.rb_4, R.id.rb_5})
+    @OnClick({R.id.btn_restart, R.id.btn_quit, R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4, R.id.btn5, R.id.btn6, R.id.btn7, R.id.btn8, R.id.btn9, R.id.rb_1, R.id.rb_2, R.id.rb_3, R.id.rb_4, R.id.rb_5})
     public void onClick(View view) {
         super.onClick(view);
         switch (view.getId()) {
+            case R.id.btn_restart:
+                mRestartDialog.show();
+                break;
+            case R.id.btn_quit:
+                mQuitDialog.show();
+                break;
             case R.id.btn1:
             case R.id.btn2:
             case R.id.btn3:
@@ -156,7 +203,10 @@ public class GameActivity extends BaseActivity {
             case R.id.btn7:
             case R.id.btn8:
             case R.id.btn9:
-                isStart = true;
+                if (!mPlayer.getIsFirst()) {
+                    mPlayer.setIsFirst(true);
+                    DataUtil.setPlayerData(mPlayer);
+                }
                 showSurpriseDialog();
                 break;
             case R.id.rb_1:
@@ -194,8 +244,9 @@ public class GameActivity extends BaseActivity {
      * 显示意外事件对话框
      */
     private void showSurpriseDialog() {
-        mMessageDialog.setTitle("老乡见老乡，两眼泪汪汪");
-        mMessageDialog.setMessage("老乡送你2盒劣质化妆品。\n\n劣质化妆品x2");
+        Event event = DataUtil.getEvent();
+        mMessageDialog.setTitle(event.getTitle());
+        mMessageDialog.setMessage(event.getMessage());
         mMessageDialog.show();
     }
 
@@ -219,7 +270,7 @@ public class GameActivity extends BaseActivity {
      * 检查是否选择了第一个城市并开始游戏
      */
     private boolean checkIsStart() {
-        if (isStart == false) {
+        if (mPlayer.getIsFirst() == false) {
             mHintDialog.setTitle("选择城市");
             mHintDialog.setMessage("选择一个城市开始吧");
             mHintDialog.show();

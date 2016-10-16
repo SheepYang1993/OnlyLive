@@ -24,14 +24,15 @@ public class PlayerDao extends AbstractDao<Player, Long> {
      * Can be used for QueryBuilder and for referencing column names.
     */
     public static class Properties {
-        public final static Property Id = new Property(0, long.class, "id", true, "_id");
+        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Name = new Property(1, String.class, "name", false, "NAME");
-        public final static Property Cash = new Property(2, int.class, "cash", false, "CASH");
-        public final static Property Debt = new Property(3, int.class, "debt", false, "DEBT");
-        public final static Property Deposit = new Property(4, int.class, "deposit", false, "DEPOSIT");
-        public final static Property Health = new Property(5, int.class, "health", false, "HEALTH");
-        public final static Property House = new Property(6, int.class, "house", false, "HOUSE");
-        public final static Property Week = new Property(7, int.class, "week", false, "WEEK");
+        public final static Property IsFirst = new Property(2, boolean.class, "isFirst", false, "IS_FIRST");
+        public final static Property Cash = new Property(3, int.class, "cash", false, "CASH");
+        public final static Property Debt = new Property(4, int.class, "debt", false, "DEBT");
+        public final static Property Deposit = new Property(5, int.class, "deposit", false, "DEPOSIT");
+        public final static Property Health = new Property(6, int.class, "health", false, "HEALTH");
+        public final static Property House = new Property(7, int.class, "house", false, "HOUSE");
+        public final static Property Week = new Property(8, int.class, "week", false, "WEEK");
     };
 
     private DaoSession daoSession;
@@ -50,14 +51,15 @@ public class PlayerDao extends AbstractDao<Player, Long> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"PLAYER\" (" + //
-                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL ," + // 0: id
+                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"NAME\" TEXT," + // 1: name
-                "\"CASH\" INTEGER NOT NULL ," + // 2: cash
-                "\"DEBT\" INTEGER NOT NULL ," + // 3: debt
-                "\"DEPOSIT\" INTEGER NOT NULL ," + // 4: deposit
-                "\"HEALTH\" INTEGER NOT NULL ," + // 5: health
-                "\"HOUSE\" INTEGER NOT NULL ," + // 6: house
-                "\"WEEK\" INTEGER NOT NULL );"); // 7: week
+                "\"IS_FIRST\" INTEGER NOT NULL ," + // 2: isFirst
+                "\"CASH\" INTEGER NOT NULL ," + // 3: cash
+                "\"DEBT\" INTEGER NOT NULL ," + // 4: debt
+                "\"DEPOSIT\" INTEGER NOT NULL ," + // 5: deposit
+                "\"HEALTH\" INTEGER NOT NULL ," + // 6: health
+                "\"HOUSE\" INTEGER NOT NULL ," + // 7: house
+                "\"WEEK\" INTEGER NOT NULL );"); // 8: week
     }
 
     /** Drops the underlying database table. */
@@ -69,35 +71,45 @@ public class PlayerDao extends AbstractDao<Player, Long> {
     @Override
     protected final void bindValues(DatabaseStatement stmt, Player entity) {
         stmt.clearBindings();
-        stmt.bindLong(1, entity.getId());
+ 
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(1, id);
+        }
  
         String name = entity.getName();
         if (name != null) {
             stmt.bindString(2, name);
         }
-        stmt.bindLong(3, entity.getCash());
-        stmt.bindLong(4, entity.getDebt());
-        stmt.bindLong(5, entity.getDeposit());
-        stmt.bindLong(6, entity.getHealth());
-        stmt.bindLong(7, entity.getHouse());
-        stmt.bindLong(8, entity.getWeek());
+        stmt.bindLong(3, entity.getIsFirst() ? 1L: 0L);
+        stmt.bindLong(4, entity.getCash());
+        stmt.bindLong(5, entity.getDebt());
+        stmt.bindLong(6, entity.getDeposit());
+        stmt.bindLong(7, entity.getHealth());
+        stmt.bindLong(8, entity.getHouse());
+        stmt.bindLong(9, entity.getWeek());
     }
 
     @Override
     protected final void bindValues(SQLiteStatement stmt, Player entity) {
         stmt.clearBindings();
-        stmt.bindLong(1, entity.getId());
+ 
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(1, id);
+        }
  
         String name = entity.getName();
         if (name != null) {
             stmt.bindString(2, name);
         }
-        stmt.bindLong(3, entity.getCash());
-        stmt.bindLong(4, entity.getDebt());
-        stmt.bindLong(5, entity.getDeposit());
-        stmt.bindLong(6, entity.getHealth());
-        stmt.bindLong(7, entity.getHouse());
-        stmt.bindLong(8, entity.getWeek());
+        stmt.bindLong(3, entity.getIsFirst() ? 1L: 0L);
+        stmt.bindLong(4, entity.getCash());
+        stmt.bindLong(5, entity.getDebt());
+        stmt.bindLong(6, entity.getDeposit());
+        stmt.bindLong(7, entity.getHealth());
+        stmt.bindLong(8, entity.getHouse());
+        stmt.bindLong(9, entity.getWeek());
     }
 
     @Override
@@ -108,34 +120,36 @@ public class PlayerDao extends AbstractDao<Player, Long> {
 
     @Override
     public Long readKey(Cursor cursor, int offset) {
-        return cursor.getLong(offset + 0);
+        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
     }    
 
     @Override
     public Player readEntity(Cursor cursor, int offset) {
         Player entity = new Player( //
-            cursor.getLong(offset + 0), // id
+            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // name
-            cursor.getInt(offset + 2), // cash
-            cursor.getInt(offset + 3), // debt
-            cursor.getInt(offset + 4), // deposit
-            cursor.getInt(offset + 5), // health
-            cursor.getInt(offset + 6), // house
-            cursor.getInt(offset + 7) // week
+            cursor.getShort(offset + 2) != 0, // isFirst
+            cursor.getInt(offset + 3), // cash
+            cursor.getInt(offset + 4), // debt
+            cursor.getInt(offset + 5), // deposit
+            cursor.getInt(offset + 6), // health
+            cursor.getInt(offset + 7), // house
+            cursor.getInt(offset + 8) // week
         );
         return entity;
     }
      
     @Override
     public void readEntity(Cursor cursor, Player entity, int offset) {
-        entity.setId(cursor.getLong(offset + 0));
+        entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setCash(cursor.getInt(offset + 2));
-        entity.setDebt(cursor.getInt(offset + 3));
-        entity.setDeposit(cursor.getInt(offset + 4));
-        entity.setHealth(cursor.getInt(offset + 5));
-        entity.setHouse(cursor.getInt(offset + 6));
-        entity.setWeek(cursor.getInt(offset + 7));
+        entity.setIsFirst(cursor.getShort(offset + 2) != 0);
+        entity.setCash(cursor.getInt(offset + 3));
+        entity.setDebt(cursor.getInt(offset + 4));
+        entity.setDeposit(cursor.getInt(offset + 5));
+        entity.setHealth(cursor.getInt(offset + 6));
+        entity.setHouse(cursor.getInt(offset + 7));
+        entity.setWeek(cursor.getInt(offset + 8));
      }
     
     @Override

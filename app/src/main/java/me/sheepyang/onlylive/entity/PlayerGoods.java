@@ -2,27 +2,21 @@ package me.sheepyang.onlylive.entity;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.JoinEntity;
-import org.greenrobot.greendao.annotation.ToMany;
-
-import java.util.List;
-
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.ToOne;
 import org.greenrobot.greendao.DaoException;
 
 import me.sheepyang.onlylive.entity.dao.DaoSession;
-import me.sheepyang.onlylive.entity.dao.GoodsDao;
+import me.sheepyang.onlylive.entity.dao.PlayerGoodsDao;
 import me.sheepyang.onlylive.entity.dao.NumberDao;
 
 import org.greenrobot.greendao.annotation.NotNull;
 
 /**
- * 物品
- * Created by SheepYang on 2016/10/12 22:51.
+ * Created by SheepYang on 2016/10/16 22:32.
  */
 @Entity
-public class Goods {
+public class PlayerGoods {
     @Id(autoincrement = true)
     private Long id;
     private String name;
@@ -125,14 +119,14 @@ public class Goods {
     @Generated(hash = 791875021)
     private transient Long number__resolvedKey;
     /** called by internal mechanisms, do not call yourself. */
-    @Generated(hash = 2112467424)
+    @Generated(hash = 2105086736)
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;
-        myDao = daoSession != null ? daoSession.getGoodsDao() : null;
+        myDao = daoSession != null ? daoSession.getPlayerGoodsDao() : null;
     }
     /** Used for active entity operations. */
-    @Generated(hash = 258717323)
-    private transient GoodsDao myDao;
+    @Generated(hash = 105611981)
+    private transient PlayerGoodsDao myDao;
     /** Used to resolve relations */
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
@@ -166,15 +160,16 @@ public class Goods {
     public void setId(Long id) {
         this.id = id;
     }
-    @Generated(hash = 584686666)
-    public Goods(Long id, String name, String unit, Long numberId, Long priceId) {
+    @Generated(hash = 444668002)
+    public PlayerGoods(Long id, String name, String unit, Long numberId,
+            Long priceId) {
         this.id = id;
         this.name = name;
         this.unit = unit;
         this.numberId = numberId;
         this.priceId = priceId;
     }
-    @Generated(hash = 1770709345)
-    public Goods() {
+    @Generated(hash = 1542970823)
+    public PlayerGoods() {
     }
 }
