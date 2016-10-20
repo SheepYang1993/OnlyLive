@@ -8,14 +8,24 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.sheepyang.onlylive.R;
 import me.sheepyang.onlylive.app.Constants;
 import me.sheepyang.onlylive.entity.Event;
+import me.sheepyang.onlylive.entity.EventGoods;
+import me.sheepyang.onlylive.entity.Goods;
 import me.sheepyang.onlylive.entity.Player;
 import me.sheepyang.onlylive.utils.DataUtil;
+import me.sheepyang.onlylive.utils.MyLog;
+import me.sheepyang.onlylive.utils.StrUtil;
+import me.sheepyang.onlylive.utils.data.EventUtil;
+
+import static me.sheepyang.onlylive.utils.RandomUtil.getRandomNum;
+import static me.sheepyang.onlylive.utils.StrUtil.replaceChar;
 
 /**
  * Created by SheepYang on 2016/10/8 22:01.
@@ -244,9 +254,17 @@ public class GameActivity extends BaseActivity {
      * 显示意外事件对话框
      */
     private void showSurpriseDialog() {
-        Event event = DataUtil.getEvent();
+        showPDialog();
+        Event event = EventUtil.getRandomEvent();
+        String msg = event.getMessage();
+        List<EventGoods> eventGoodsList = event.getEventGoodsList();
+        for (int i = 0; i < eventGoodsList.size(); i++) {
+            EventGoods eventGoods = eventGoodsList.get(i);
+            msg = StrUtil.replaceChar(i, msg, eventGoods);// 替换掉字符串中的占位符
+        }
         mMessageDialog.setTitle(event.getTitle());
-        mMessageDialog.setMessage(event.getMessage());
+        mMessageDialog.setMessage(msg);
+        dismissPDialog();
         mMessageDialog.show();
     }
 

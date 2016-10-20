@@ -2,21 +2,24 @@ package me.sheepyang.onlylive.utils;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import me.sheepyang.onlylive.app.Constants;
 import me.sheepyang.onlylive.app.GameApplication;
 import me.sheepyang.onlylive.entity.Event;
 import me.sheepyang.onlylive.entity.EventGoods;
-import me.sheepyang.onlylive.entity.Goods;
-import me.sheepyang.onlylive.entity.JoinEventGoodsToEvent;
+import me.sheepyang.onlylive.entity.JoinPlayerGoodsToPlayer;
 import me.sheepyang.onlylive.entity.Number;
 import me.sheepyang.onlylive.entity.Player;
+import me.sheepyang.onlylive.entity.PlayerGoods;
 import me.sheepyang.onlylive.entity.dao.EventDao;
 import me.sheepyang.onlylive.entity.dao.GoodsDao;
-import me.sheepyang.onlylive.entity.dao.JoinEventGoodsToEventDao;
+import me.sheepyang.onlylive.entity.dao.JoinPlayerGoodsToPlayerDao;
 import me.sheepyang.onlylive.entity.dao.PlayerDao;
+import me.sheepyang.onlylive.entity.dao.PlayerGoodsDao;
+import me.sheepyang.onlylive.utils.data.EventGoodsUtil;
+import me.sheepyang.onlylive.utils.data.EventUtil;
+import me.sheepyang.onlylive.utils.data.GoodsUtil;
 
 /**
  * 游戏数据相关工具类
@@ -24,22 +27,22 @@ import me.sheepyang.onlylive.entity.dao.PlayerDao;
  */
 public class DataUtil {
     private static PlayerDao mPlayerDao;
-    private static GoodsDao mGoodsDao;
     private static EventDao mEventDao;
-    private static JoinEventGoodsToEventDao mJoinEventGoodsToEventDao;
+    private static PlayerGoodsDao mPlayerGoodsDao;
+    private static JoinPlayerGoodsToPlayerDao mJoinPlayerGoodsToPlayerDao;
 
     static {
         mPlayerDao = GameApplication.getInstances().getDaoSession().getPlayerDao();
-        mGoodsDao = GameApplication.getInstances().getDaoSession().getGoodsDao();
+        mPlayerGoodsDao = GameApplication.getInstances().getDaoSession().getPlayerGoodsDao();
         mEventDao = GameApplication.getInstances().getDaoSession().getEventDao();
-        mJoinEventGoodsToEventDao = GameApplication.getInstances().getDaoSession().getJoinEventGoodsToEventDao();
+        mJoinPlayerGoodsToPlayerDao = GameApplication.getInstances().getDaoSession().getJoinPlayerGoodsToPlayerDao();
     }
 
-    private static Object event;
-
     public static void initGameData() {
-        initEventData();
         initGoodsData();
+        initEventData();
+        initEventGoodsData();
+        initJoinEventGoodsToEvent();
         initNewsData();
     }
 
@@ -82,172 +85,56 @@ public class DataUtil {
      */
     private static void initEventData() {
         mEventDao.deleteAll();
-        List<Event> eventList = new ArrayList<>();
-        List<JoinEventGoodsToEvent> joinList = new ArrayList<>();
-        Event event1 = new Event();
-        event1.setIsGoodEvent(true);
-        event1.setTitle("老乡见老乡，两眼泪汪汪");
-        event1.setMessage("老乡送你 " + Constants.GOODS_NUMBER + Constants.GOODS_UNIT + "化妆品。\n\n" + Constants.GOODS_NAME + " x" + Constants.GOODS_NUMBER);
-        EventGoods eventGoods1 = new EventGoods();
-        eventGoods1.setName("劣质化妆品");
-        Number number1 = new Number();
-        number1.setMaxNumber(4);
-        number1.setMinNumber(1);
-        eventGoods1.setNumber(number1);
-        JoinEventGoodsToEvent joinEventGoodsToEvent1 = new JoinEventGoodsToEvent();
-        joinEventGoodsToEvent1.setEventGoodsId(eventGoods1.getId());
-        joinEventGoodsToEvent1.setEventId(event1.getId());
+        String title1 = "老乡见老乡，两眼泪汪汪";
+        String msg1 = "老乡送你 " + Constants.REPLACE_GOODS_NUMBER_0 + Constants.REPLACE_GOODS_UNIT_0 + "化妆品。\n\n" + Constants.REPLACE_GOODS_NAME_0 + " x" + Constants.REPLACE_GOODS_NUMBER_0;
+        EventUtil.create(title1, msg1);
 
-        Event event2 = new Event();
-        event2.setIsGoodEvent(true);
-        event2.setTitle("美男传说");
-        event2.setMessage("学生妹看你太帅，送你 " + Constants.GOODS_NUMBER + Constants.GOODS_UNIT + "有她艳照的手机。\n\n" + Constants.GOODS_NAME + " x" + Constants.GOODS_NUMBER);
-        EventGoods eventGoods2 = new EventGoods();
-        eventGoods2.setName("水货手机");
-        Number number2 = new Number();
-        number2.setMaxNumber(2);
-        number2.setMinNumber(1);
-        eventGoods2.setNumber(number2);
-        JoinEventGoodsToEvent joinEventGoodsToEvent2 = new JoinEventGoodsToEvent();
-        joinEventGoodsToEvent2.setEventGoodsId(eventGoods2.getId());
-        joinEventGoodsToEvent2.setEventId(event2.getId());
+        String title2 = "美男传说";
+        String msg2 = "学生妹看你太帅，送你 " + Constants.REPLACE_GOODS_NUMBER_0 + Constants.REPLACE_GOODS_UNIT_0 + "有她艳照的手机。\n\n" + Constants.REPLACE_GOODS_NAME_0 + " x" + Constants.REPLACE_GOODS_NUMBER_0;
+        EventUtil.create(title2, msg2);
 
-        Event event3 = new Event();
-        event3.setIsGoodEvent(true);
-        event3.setTitle("捡到地沟油");
-        event3.setMessage("路边捡到 " + Constants.GOODS_NUMBER + Constants.GOODS_UNIT + Constants.GOODS_NAME + "\n\n" + Constants.GOODS_NAME + " x" + Constants.GOODS_NUMBER);
-        EventGoods eventGoods3 = new EventGoods();
-        eventGoods3.setName("地沟油");
-        Number number3 = new Number();
-        number3.setMaxNumber(5);
-        number3.setMinNumber(1);
-        eventGoods3.setNumber(number3);
-        JoinEventGoodsToEvent joinEventGoodsToEvent3 = new JoinEventGoodsToEvent();
-        joinEventGoodsToEvent3.setEventGoodsId(eventGoods3.getId());
-        joinEventGoodsToEvent3.setEventId(event3.getId());
+        String title3 = "捡到地沟油";
+        String msg3 = "路边捡到 " + Constants.REPLACE_GOODS_NUMBER_0 + Constants.REPLACE_GOODS_UNIT_0 + Constants.REPLACE_GOODS_NAME_0 + "\n\n" + Constants.REPLACE_GOODS_NAME_0 + " x" + Constants.REPLACE_GOODS_NUMBER_0;
+        EventUtil.create(title3, msg3);
 
-        Event event4 = new Event();
-        event4.setIsGoodEvent(true);
-        event4.setTitle("出门靠朋友");
-        event4.setMessage("朋友送你 " + Constants.GOODS_NUMBER + Constants.GOODS_UNIT + "陈年白酒。\n\n" + Constants.GOODS_NAME + " x" + Constants.GOODS_NUMBER);
-        EventGoods eventGoods4 = new EventGoods();
-        eventGoods4.setName("假冒茅台");
-        Number number4 = new Number();
-        number4.setMaxNumber(5);
-        number4.setMinNumber(1);
-        eventGoods4.setNumber(number4);
-        JoinEventGoodsToEvent joinEventGoodsToEvent4 = new JoinEventGoodsToEvent();
-        joinEventGoodsToEvent4.setEventGoodsId(eventGoods4.getId());
-        joinEventGoodsToEvent4.setEventId(event4.getId());
+        String title4 = "出门靠朋友";
+        String msg4 = "朋友送你 " + Constants.REPLACE_GOODS_NUMBER_0 + Constants.REPLACE_GOODS_UNIT_0 + "陈年白酒。\n\n" + Constants.REPLACE_GOODS_NAME_0 + " x" + Constants.REPLACE_GOODS_NUMBER_0;
+        EventUtil.create(title4, msg4);
+    }
 
-//        Event event5 = new Event();
-//        event5.setIsGoodEvent(true);
-//        event5.setTitle("老乡见老乡，两眼泪汪汪");
-//        event5.setMessage("老乡送你 " + Constants.GOODS_NUMBER + Constants.GOODS_UNIT + Constants.GOODS_NAME + "\n\n" + Constants.GOODS_NAME + " x" + Constants.GOODS_NUMBER);
-//        EventGoods eventGoods5 = new EventGoods();
-//        eventGoods5.setName("假冒茅台");
-//        Number number5 = new Number();
-//        number5.setMaxNumber(5);
-//        number5.setMinNumber(1);
-//        eventGoods5.setNumber(number5);
-//        JoinEventGoodsToEvent joinEventGoodsToEvent5 = new JoinEventGoodsToEvent();
-//        joinEventGoodsToEvent5.setEventGoodsId(eventGoods5.getId());
-//        joinEventGoodsToEvent5.setEventId(event5.getId());
+    /**
+     * 初始化事件物品
+     */
+    private static void initEventGoodsData() {
+        EventGoodsUtil.deleteAll();
+        EventGoodsUtil.create("劣质化妆品", "盒", 4, 1);
+        EventGoodsUtil.create("水货手机", "部", 2, 1);
+        EventGoodsUtil.create("地沟油", "桶", 5, 1);
+        EventGoodsUtil.create("假冒茅台", "瓶", 5, 1);
+    }
 
-        eventList.add(event1);
-        eventList.add(event2);
-        eventList.add(event3);
-        eventList.add(event4);
-//        eventList.add(event5);
-
-        joinList.add(joinEventGoodsToEvent1);
-        joinList.add(joinEventGoodsToEvent2);
-        joinList.add(joinEventGoodsToEvent3);
-        joinList.add(joinEventGoodsToEvent4);
-//        joinList.add(joinEventGoodsToEvent5);
-
-        mJoinEventGoodsToEventDao.insertOrReplaceInTx(joinList);
-        mEventDao.insertInTx(eventList);
+    private static void initJoinEventGoodsToEvent() {
+        EventGoodsUtil.joinDeleteAll();
+        EventGoodsUtil.joinEventGoodsToEvent("劣质化妆品", "老乡见老乡，两眼泪汪汪");
+        EventGoodsUtil.joinEventGoodsToEvent("水货手机", "美男传说");
+        EventGoodsUtil.joinEventGoodsToEvent("地沟油", "捡到地沟油");
+        EventGoodsUtil.joinEventGoodsToEvent("假冒茅台", "出门靠朋友");
     }
 
     /**
      * 初始化所有物品信息
      */
     private static void initGoodsData() {
-        mGoodsDao.deleteAll();
-        List<Goods> goodsList = new ArrayList<>();
-        Goods goods1 = new Goods();
-        goods1.setName("假冒茅台");
-        Number price1 = new Number();
-        price1.setMaxNumber(1200);
-        price1.setMinNumber(100);
-        goods1.setPrice(price1);
-
-        Goods goods2 = new Goods();
-        goods2.setName("黑心棉");
-        Number price2 = new Number();
-        price2.setMaxNumber(999);
-        price2.setMinNumber(90);
-        goods2.setPrice(price2);
-
-        Goods goods3 = new Goods();
-        goods3.setName("北京户口");
-        Number price3 = new Number();
-        price3.setMaxNumber(120000);
-        price3.setMinNumber(25000);
-        goods3.setPrice(price3);
-
-        Goods goods4 = new Goods();
-        goods4.setName("名校学历");
-        Number price4 = new Number();
-        price4.setMaxNumber(80000);
-        price4.setMinNumber(6000);
-        goods4.setPrice(price4);
-
-        Goods goods5 = new Goods();
-        goods5.setName("走私海洛因");
-        Number price5 = new Number();
-        price5.setMaxNumber(4000);
-        price5.setMinNumber(10000);
-        goods5.setPrice(price5);
-
-        Goods goods6 = new Goods();
-        goods6.setName("高考答案");
-        Number price6 = new Number();
-        price6.setMaxNumber(700000);
-        price6.setMinNumber(300000);
-        goods6.setPrice(price6);
-
-        Goods goods7 = new Goods();
-        goods7.setName("走私汽车");
-        Number price7 = new Number();
-        price7.setMaxNumber(100000);
-        price7.setMinNumber(20000);
-        goods7.setPrice(price7);
-
-        Goods goods8 = new Goods();
-        goods8.setName("水货手机");
-        Number price8 = new Number();
-        price8.setMaxNumber(15000);
-        price8.setMinNumber(1800);
-        goods8.setPrice(price8);
-
-        Goods goods9 = new Goods();
-        goods9.setName("劣质化妆品");
-        Number price9 = new Number();
-        price9.setMaxNumber(1500);
-        price9.setMinNumber(200);
-        goods9.setPrice(price9);
-
-        goodsList.add(goods1);
-        goodsList.add(goods2);
-        goodsList.add(goods3);
-        goodsList.add(goods4);
-        goodsList.add(goods5);
-        goodsList.add(goods6);
-        goodsList.add(goods7);
-        goodsList.add(goods8);
-        mGoodsDao.insertOrReplaceInTx(goodsList);
+        GoodsUtil.deleteAll();
+        GoodsUtil.create("假冒茅台", 1200, 100);
+        GoodsUtil.create("黑心棉", 999, 90);
+        GoodsUtil.create("北京户口", 120000, 25000);
+        GoodsUtil.create("名校学历", 80000, 6000);
+        GoodsUtil.create("走私海洛因", 10000, 4000);
+        GoodsUtil.create("高考答案", 700000, 300000);
+        GoodsUtil.create("走私汽车", 100000, 20000);
+        GoodsUtil.create("水货手机", 15000, 1800);
+        GoodsUtil.create("劣质化妆品", 1500, 200);
     }
 
     /**
@@ -257,11 +144,44 @@ public class DataUtil {
 
     }
 
-    public static Event getEvent() {
-        long total = mEventDao.loadAll().size();
-        MyLog.i("total:" + total);
-        int rowId = RandomUtil.getRandomNum(1, (int) total);
-        MyLog.i("rowId:" + rowId);
-        return mEventDao.loadByRowId(rowId);
+    public static void addPlayGoods(EventGoods eventGoods, int goodsNum) {
+        QueryBuilder<PlayerGoods> qb = mPlayerGoodsDao.queryBuilder();
+        qb.where(PlayerGoodsDao.Properties.Name.eq(eventGoods.getName()));
+        List<PlayerGoods> list = qb.list();
+        if (list != null && list.size() > 0) {
+            PlayerGoods playerGoods = list.get(0);
+            Number newPrice = playerGoods.getPrice();
+            Number newGoodsNumber = playerGoods.getNumber();
+            // 计算获得物品后，物品的平均价格
+            // 公式 = 总价 / (原数量 + 新增数量)
+            float price = (float) (newPrice.getNumber() * newGoodsNumber.getNumber()) / (float) (newGoodsNumber.getNumber() + goodsNum);
+            newPrice.setNumber(Math.round(price));
+            playerGoods.setPrice(newPrice);
+            // 设置物品数量
+            newGoodsNumber.setNumber(newGoodsNumber.getNumber() + goodsNum);
+            playerGoods.setNumber(newGoodsNumber);
+
+            JoinPlayerGoodsToPlayer joinGoods = new JoinPlayerGoodsToPlayer();
+            joinGoods.setPlayerGoodsId(playerGoods.getId());
+            joinGoods.setPlayerId(getPlayerData().getId());
+            mJoinPlayerGoodsToPlayerDao.insertOrReplace(joinGoods);
+            mPlayerGoodsDao.insertOrReplace(playerGoods);
+        } else {// 玩家物品列表中没有该物品，则新建物品
+            PlayerGoods playerGoods = new PlayerGoods();
+            Number price = eventGoods.getPrice();
+            Number newGoodsNum = eventGoods.getNumber();
+            price.setNumber(0);
+            newGoodsNum.setNumber(0);
+            playerGoods.setPrice(price);
+            playerGoods.setNumber(newGoodsNum);
+            playerGoods.setName(eventGoods.getName());
+            playerGoods.setUnit(eventGoods.getUnit());
+
+            JoinPlayerGoodsToPlayer joinGoods = new JoinPlayerGoodsToPlayer();
+            joinGoods.setPlayerGoodsId(playerGoods.getId());
+            joinGoods.setPlayerId(getPlayerData().getId());
+            mJoinPlayerGoodsToPlayerDao.insertOrReplace(joinGoods);
+            mPlayerGoodsDao.insertOrReplace(playerGoods);
+        }
     }
 }

@@ -27,4 +27,16 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     public void showToast(String msg) {
         MyToast.showMessage(mContext, msg);
     }
+
+    public void showPDialog() {
+        if (!isFinishing() && mPDialog != null && !mPDialog.isShowing()) {
+            mPDialog.show();
+        }
+    }
+
+    public void dismissPDialog() {
+        if (!isFinishing() && mPDialog != null && mPDialog.isShowing()) {
+            mPDialog.dismiss();
+        }
+    }
 }

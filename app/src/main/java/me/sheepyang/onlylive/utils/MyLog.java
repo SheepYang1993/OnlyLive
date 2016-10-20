@@ -8,6 +8,7 @@ import android.util.Log;
 
 public class MyLog {
     private final static String TAG = "SheepYang";
+    private final static boolean isDebug = true;
 
     public static final int VERBOSE = 2;
     public static final int DEBUG = 3;
@@ -45,7 +46,10 @@ public class MyLog {
     }
 
     public static int i(String msg) {
-        return Log.i(TAG, msg);
+        if (isDebug) {
+            return Log.i(TAG, msg);
+        }
+        return 0;
     }
 
     public static int i(String msg, Throwable th) {

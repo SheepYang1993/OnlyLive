@@ -17,7 +17,23 @@ public class Constants {
     public static int CONFIG_TOTAL_WEEK = 52;// 游戏总周数
 
     // 突发事件中，需要被替换掉的字符串
-    public static final String GOODS_NUMBER = "%number%";// 物品数量
-    public static final String GOODS_UNIT = "%unit%";// 物品单位
-    public static final String GOODS_NAME = "%name%";// 物品名称
+    public static final String REPLACE_GOODS_NUMBER_0 = "%number_0%";// 物品数量0
+    public static final String REPLACE_GOODS_UNIT_0 = "%unit_0%";// 物品单位0
+    public static final String REPLACE_GOODS_NAME_0 = "%name_0%";// 物品名称0
+
+    public static final String REPLACE_GOODS_NUMBER_1 = "%number_1%";// 物品数量1
+    public static final String REPLACE_GOODS_UNIT_1 = "%unit_1%";// 物品单位1
+    public static final String REPLACE_GOODS_NAME_1 = "%name_1%";// 物品名称1
+
+    public static final String REPLACE_GOODS_NUMBER_2 = "%number_2%";// 物品数量2
+    public static final String REPLACE_GOODS_UNIT_2 = "%unit_2%";// 物品单位2
+    public static final String REPLACE_GOODS_NAME_2 = "%name_2%";// 物品名称2
+
+    public static final String REPLACE_GOODS_NUMBER_3 = "%number_3%";// 物品数量3
+    public static final String REPLACE_GOODS_UNIT_3 = "%unit_3%";// 物品单位3
+    public static final String REPLACE_GOODS_NAME_3 = "%name_3%";// 物品名称3
+
+    public static final String REPLACE_GOODS_NUMBER_4 = "%number_4%";// 物品数量4
+    public static final String REPLACE_GOODS_UNIT_4 = "%unit_4%";// 物品单位4
+    public static final String REPLACE_GOODS_NAME_4 = "%name_4%";// 物品名称4
 }
