@@ -9,6 +9,7 @@ import butterknife.OnClick;
 import me.sheepyang.onlylive.R;
 import me.sheepyang.onlylive.utils.DataUtil;
 import me.sheepyang.onlylive.utils.SPUtil;
+import me.sheepyang.onlylive.utils.data.PlayerUtil;
 import me.sheepyang.onlylive.widget.SelectGameModeDialog;
 
 import static me.sheepyang.onlylive.widget.SelectGameModeDialog.MODE_NEW_GAME;
@@ -42,11 +43,15 @@ public class MainActivity extends BaseActivity {
             public void OnSelect(View view, int mode) {
                 switch (mode) {
                     case MODE_NEW_GAME:// 新的游戏
-                        DataUtil.initPlayerData();
+                        PlayerUtil.initPlayerData();
                         startActivity(new Intent(MainActivity.this, GameActivity.class));
                         break;
                     case MODE_RESUME:// 继续上一盘游戏
-                        startActivity(new Intent(MainActivity.this, GameActivity.class));
+                        if (PlayerUtil.getPlayer() != null && !PlayerUtil.getPlayer().getIsFirst()) {
+                            startActivity(new Intent(MainActivity.this, GameActivity.class));
+                        } else {
+                            showToast("没有游戏记录，请重新开始一盘游戏");
+                        }
                         break;
                     default:
                         break;

@@ -3,8 +3,8 @@ package me.sheepyang.onlylive.utils;
 import freemarker.template.utility.StringUtil;
 import me.sheepyang.onlylive.app.Constants;
 import me.sheepyang.onlylive.entity.EventGoods;
+import me.sheepyang.onlylive.entity.Number;
 
-import static me.sheepyang.onlylive.utils.RandomUtil.getRandomNum;
 
 /**
  * Created by SheepYang on 2016/10/19 22:51.
@@ -12,8 +12,8 @@ import static me.sheepyang.onlylive.utils.RandomUtil.getRandomNum;
 
 public class StrUtil extends StringUtil {
 
-    public static String replaceChar(int i, String msg, EventGoods eventGoods) {
-        int goodsNum = getRandomNum(eventGoods.getNumber());
+    public static String replaceGoodsChar(int i, String msg, EventGoods eventGoods) {
+        int goodsNum = RandomUtil.getRandomNum(eventGoods.getNumber());
 //        DataUtil.addPlayGoods(eventGoods, goodsNum);// 添加物品至玩家物品列表(就是给玩家送礼物啦！)
         switch (i) {
             case 0:
@@ -44,6 +44,12 @@ public class StrUtil extends StringUtil {
             default:
                 break;
         }
+        return msg;
+    }
+
+    public static String replaceMoneyChar(String msg, Number money) {
+        int randomMoney = RandomUtil.getRandomNum(money);
+        msg = msg.replace(Constants.REPLACE_MONEY, randomMoney + "");
         return msg;
     }
 }

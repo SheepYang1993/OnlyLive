@@ -13,6 +13,7 @@ import me.sheepyang.onlylive.entity.dao.EventGoodsDao;
 import me.sheepyang.onlylive.utils.MyLog;
 import me.sheepyang.onlylive.utils.RandomUtil;
 
+import static android.R.attr.max;
 import static android.R.attr.name;
 
 /**
@@ -26,11 +27,21 @@ public class EventUtil {
         mEventDao = GameApplication.getInstances().getDaoSession().getEventDao();
     }
 
-    public static long create(String title, String msg) {
+    public static long create(boolean isGoodEvent, String title, String msg) {
         Event event = new Event();
-        event.setIsGoodEvent(true);
+        event.setIsGoodEvent(isGoodEvent);
         event.setTitle(title);
         event.setMessage(msg);
+        return mEventDao.insertOrReplace(event);
+    }
+
+    public static long create(boolean isGoodEvent, String title, String msg, int maxMoney, int minMoney) {
+        Event event = new Event();
+        event.setIsGoodEvent(isGoodEvent);
+        event.setTitle(title);
+        event.setMessage(msg);
+        long rowId = NumberUtil.create(maxMoney, minMoney);
+        event.setMoney(NumberUtil.getNumber(rowId));
         return mEventDao.insertOrReplace(event);
     }
 
@@ -41,7 +52,7 @@ public class EventUtil {
      */
     public static Event getRandomEvent() {
         long total = mEventDao.loadAll().size();
-        int rowId = RandomUtil.getRandomNum(1, (int) total);
+        int rowId = RandomUtil.getRandomNum((int) total, 1);
         return mEventDao.loadByRowId(rowId);
     }
 
@@ -54,5 +65,9 @@ public class EventUtil {
         } else {
             return null;
         }
+    }
+
+    public static void deleteAll() {
+        mEventDao.deleteAll();
     }
 }

@@ -6,7 +6,7 @@ package me.sheepyang.onlylive.app;
 
 public class Constants {
     // 重新开始一盘游戏的数值
-    public static int INIT_GAME_CASH = 999;// 现金
+    public static int INIT_GAME_CASH = 9999;// 现金
     public static int INIT_GAME_DEBT = 9000;// 负债
     public static int INIT_GAME_DEPOSIT = 50;// 存款
     public static int INIT_GAME_HEALTH = 80;// 健康
@@ -14,9 +14,12 @@ public class Constants {
     public static int INIT_GAME_WEEK = 0;// 周数
 
     public static int CONFIG_TOTAL_HOUSE = 80;// 总房子数量
-    public static int CONFIG_TOTAL_WEEK = 52;// 游戏总周数
+    public static int CONFIG_TOTAL_WEEK = 3;// 游戏总周数
+
 
     // 突发事件中，需要被替换掉的字符串
+    public static final String REPLACE_MONEY = "%money%";// 金钱
+
     public static final String REPLACE_GOODS_NUMBER_0 = "%number_0%";// 物品数量0
     public static final String REPLACE_GOODS_UNIT_0 = "%unit_0%";// 物品单位0
     public static final String REPLACE_GOODS_NAME_0 = "%name_0%";// 物品名称0

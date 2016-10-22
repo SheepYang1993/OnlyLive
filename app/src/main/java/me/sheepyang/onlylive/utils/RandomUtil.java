@@ -12,7 +12,7 @@ import static android.R.attr.max;
  */
 
 public class RandomUtil {
-    public static int getRandomNum(int min, int max) {
+    public static int getRandomNum(int max, int min) {
         return new Random().nextInt(max - min + 1) + min;
     }
 
