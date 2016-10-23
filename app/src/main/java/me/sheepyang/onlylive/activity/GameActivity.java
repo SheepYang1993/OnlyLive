@@ -449,7 +449,7 @@ public class GameActivity extends BaseActivity {
      */
     private boolean checkWeekAndState() {
         int week = mPlayer.getWeek() + 1;
-        if (week > Constants.INIT_GAME_WEEK_TOTAL) {
+        if (week > mPlayer.getWeekTotal()) {
             if (mEventDialog.isShowing()) {
                 mEventDialog.dismiss();
             }
