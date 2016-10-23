@@ -55,6 +55,8 @@ public class PlayerUtil {
         player.setHealth(Constants.INIT_GAME_HEALTH);// 健康
         player.setHouse(Constants.INIT_GAME_HOUSE);// 房子
         player.setWeek(Constants.INIT_GAME_WEEK);// 周数
+        player.setHouseTotal(Constants.INIT_GAME_HOUSE_TOTAL);// 总房子
+        player.setWeekTotal(Constants.INIT_GAME_WEEK_TOTAL);// 总周数
         mPlayerDao.insertOrReplace(player);
     }
 }

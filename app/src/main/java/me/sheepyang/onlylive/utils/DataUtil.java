@@ -42,7 +42,7 @@ public class DataUtil {
         String msg6 = "我哩个擦滴~洗衣服的时候兜里竟发现" + Constants.REPLACE_MONEY + "块钱";
         EventUtil.create(true, "要多做家务", msg6, 200, 200);
 
-        String msg7 = "朋友用你" + Constants.REPLACE_GOODS_NUMBER_0 + Constants.REPLACE_GOODS_UNIT_0 + Constants.REPLACE_GOODS_NAME_0;
+        String msg7 = "朋友送你" + Constants.REPLACE_GOODS_NUMBER_0 + Constants.REPLACE_GOODS_UNIT_0 + Constants.REPLACE_GOODS_NAME_0;
         EventUtil.create(true, "转基因试验", msg7);
     }
 

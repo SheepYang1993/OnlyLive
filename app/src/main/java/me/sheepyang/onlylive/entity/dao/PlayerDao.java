@@ -32,7 +32,9 @@ public class PlayerDao extends AbstractDao<Player, Long> {
         public final static Property Deposit = new Property(5, int.class, "deposit", false, "DEPOSIT");
         public final static Property Health = new Property(6, int.class, "health", false, "HEALTH");
         public final static Property House = new Property(7, int.class, "house", false, "HOUSE");
-        public final static Property Week = new Property(8, int.class, "week", false, "WEEK");
+        public final static Property HouseTotal = new Property(8, int.class, "houseTotal", false, "HOUSE_TOTAL");
+        public final static Property Week = new Property(9, int.class, "week", false, "WEEK");
+        public final static Property WeekTotal = new Property(10, int.class, "weekTotal", false, "WEEK_TOTAL");
     };
 
     private DaoSession daoSession;
@@ -59,7 +61,9 @@ public class PlayerDao extends AbstractDao<Player, Long> {
                 "\"DEPOSIT\" INTEGER NOT NULL ," + // 5: deposit
                 "\"HEALTH\" INTEGER NOT NULL ," + // 6: health
                 "\"HOUSE\" INTEGER NOT NULL ," + // 7: house
-                "\"WEEK\" INTEGER NOT NULL );"); // 8: week
+                "\"HOUSE_TOTAL\" INTEGER NOT NULL ," + // 8: houseTotal
+                "\"WEEK\" INTEGER NOT NULL ," + // 9: week
+                "\"WEEK_TOTAL\" INTEGER NOT NULL );"); // 10: weekTotal
     }
 
     /** Drops the underlying database table. */
@@ -87,7 +91,9 @@ public class PlayerDao extends AbstractDao<Player, Long> {
         stmt.bindLong(6, entity.getDeposit());
         stmt.bindLong(7, entity.getHealth());
         stmt.bindLong(8, entity.getHouse());
-        stmt.bindLong(9, entity.getWeek());
+        stmt.bindLong(9, entity.getHouseTotal());
+        stmt.bindLong(10, entity.getWeek());
+        stmt.bindLong(11, entity.getWeekTotal());
     }
 
     @Override
@@ -109,7 +115,9 @@ public class PlayerDao extends AbstractDao<Player, Long> {
         stmt.bindLong(6, entity.getDeposit());
         stmt.bindLong(7, entity.getHealth());
         stmt.bindLong(8, entity.getHouse());
-        stmt.bindLong(9, entity.getWeek());
+        stmt.bindLong(9, entity.getHouseTotal());
+        stmt.bindLong(10, entity.getWeek());
+        stmt.bindLong(11, entity.getWeekTotal());
     }
 
     @Override
@@ -134,7 +142,9 @@ public class PlayerDao extends AbstractDao<Player, Long> {
             cursor.getInt(offset + 5), // deposit
             cursor.getInt(offset + 6), // health
             cursor.getInt(offset + 7), // house
-            cursor.getInt(offset + 8) // week
+            cursor.getInt(offset + 8), // houseTotal
+            cursor.getInt(offset + 9), // week
+            cursor.getInt(offset + 10) // weekTotal
         );
         return entity;
     }
@@ -149,7 +159,9 @@ public class PlayerDao extends AbstractDao<Player, Long> {
         entity.setDeposit(cursor.getInt(offset + 5));
         entity.setHealth(cursor.getInt(offset + 6));
         entity.setHouse(cursor.getInt(offset + 7));
-        entity.setWeek(cursor.getInt(offset + 8));
+        entity.setHouseTotal(cursor.getInt(offset + 8));
+        entity.setWeek(cursor.getInt(offset + 9));
+        entity.setWeekTotal(cursor.getInt(offset + 10));
      }
     
     @Override

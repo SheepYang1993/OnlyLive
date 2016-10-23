@@ -6,8 +6,10 @@ import org.greenrobot.greendao.annotation.JoinEntity;
 import org.greenrobot.greendao.annotation.ToMany;
 
 import java.util.List;
+
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.DaoException;
+
 import me.sheepyang.onlylive.entity.dao.DaoSession;
 import me.sheepyang.onlylive.entity.dao.PlayerDao;
 import me.sheepyang.onlylive.entity.dao.PlayerGoodsDao;
@@ -27,7 +29,9 @@ public class Player {
     private int deposit;// 当前存款值
     private int health;// 当前健康值
     private int house;// 当前房子数量
+    private int houseTotal;// 总房子数量
     private int week;// 当前周数
+    private int weekTotal;// 总周数
     @ToMany
     @JoinEntity(
             entity = JoinPlayerGoodsToPlayer.class,
@@ -106,11 +110,23 @@ public class Player {
     /** Used to resolve relations */
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
+    public int getWeekTotal() {
+        return this.weekTotal;
+    }
+    public void setWeekTotal(int weekTotal) {
+        this.weekTotal = weekTotal;
+    }
     public int getWeek() {
         return this.week;
     }
     public void setWeek(int week) {
         this.week = week;
+    }
+    public int getHouseTotal() {
+        return this.houseTotal;
+    }
+    public void setHouseTotal(int houseTotal) {
+        this.houseTotal = houseTotal;
     }
     public int getHouse() {
         return this.house;
@@ -160,9 +176,10 @@ public class Player {
     public void setId(Long id) {
         this.id = id;
     }
-    @Generated(hash = 525045020)
+    @Generated(hash = 806835691)
     public Player(Long id, String name, boolean isFirst, int cash, int debt,
-            int deposit, int health, int house, int week) {
+            int deposit, int health, int house, int houseTotal, int week,
+            int weekTotal) {
         this.id = id;
         this.name = name;
         this.isFirst = isFirst;
@@ -171,7 +188,9 @@ public class Player {
         this.deposit = deposit;
         this.health = health;
         this.house = house;
+        this.houseTotal = houseTotal;
         this.week = week;
+        this.weekTotal = weekTotal;
     }
     @Generated(hash = 30709322)
     public Player() {

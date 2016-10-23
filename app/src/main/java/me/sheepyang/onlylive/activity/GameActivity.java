@@ -58,9 +58,10 @@ public class GameActivity extends BaseActivity {
     private AlertDialog mQuitDialog;// 退出游戏对话框
     private AlertDialog mHintDialog;
     private AlertDialog mNewsDialog;
-    private AlertDialog mEventDialog;// t突发事件对话框
+    private AlertDialog mEventDialog;// 突发事件对话框
     private AlertDialog mRepayDebtDialog;// 还债对话框
     private AlertDialog mHospitalDialog;// 医院治疗对话框
+    private AlertDialog mRentalDialog;// 租房对话框
 
 
     private Player mPlayer;
@@ -94,6 +95,23 @@ public class GameActivity extends BaseActivity {
     }
 
     private void initDialog() {
+        if (mRentalDialog == null) {
+            mRentalDialog = new AlertDialog.Builder(this)
+                    .setTitle("房屋中介")
+                    .setPositiveButton("租房", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            rentalHouse();
+                        }
+                    })
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    })
+                    .create();
+        }
         if (mFinishDialog == null) {
             mFinishDialog = new AlertDialog.Builder(this)
                     .setTitle("游戏结束")
@@ -227,6 +245,40 @@ public class GameActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 租房
+     */
+    private void rentalHouse() {
+        int houseNum = 0;
+        int houseMoney = 0;
+        if (mPlayer.getHouseTotal() <= Constants.INIT_GAME_HOUSE_TOTAL) {
+            houseNum = 120;
+            houseMoney = 800000;
+        } else if (mPlayer.getHouseTotal() <= 120) {
+            houseNum = 160;
+            houseMoney = 1200000;
+        } else if (mPlayer.getHouseTotal() <= 160) {
+            houseNum = 200;
+            houseMoney = 1800000;
+        } else {
+            houseNum = 240;
+            houseMoney = 3600000;
+        }
+        if (mPlayer.getHouseTotal() < 240) {
+            int cash = mPlayer.getCash();
+            if (cash >= houseMoney) {
+                mPlayer.setCash(cash - houseMoney);
+                mPlayer.setHouseTotal(houseNum);
+                PlayerUtil.setPlayer(mPlayer);
+                refreshPlayerData();
+            } else {
+                showToast("你带的现金不够！下次带好钱再过来吧！");
+            }
+        } else {
+            showToast("土豪，您已经买光我们所有的房屋了！");
+        }
+    }
+
     private void restartGame() {
         PlayerUtil.deletePlayer();
         if (mRestartDialog.isShowing()) {
@@ -281,10 +333,16 @@ public class GameActivity extends BaseActivity {
         mPlayer.setHealth(100);
         PlayerUtil.setPlayer(mPlayer);
         refreshPlayerData();
+        if (mHospitalDialog.isShowing()) {
+            mHospitalDialog.dismiss();
+        }
+        mHintDialog.setTitle("医院");
+        mHintDialog.setMessage("你喝下了神仙姐姐的药水，体力全满，一口气可以上5层楼!");
+        mHintDialog.show();
     }
 
     /**
-     * 刷新个人数据展示界面
+     * 刷新 个人数据 同时刷新 展示界面
      */
     private void refreshPlayerData() {
         mPlayer = PlayerUtil.getPlayer();
@@ -292,8 +350,8 @@ public class GameActivity extends BaseActivity {
         tvDebt.setText(mPlayer.getDebt() + "");
         tvDeposit.setText(mPlayer.getDeposit() + "");
         tvHealth.setText(mPlayer.getHealth() + "");
-        tvHouse.setText(mPlayer.getHouse() + "/" + Constants.CONFIG_TOTAL_HOUSE);
-        tvWeek.setText(mPlayer.getWeek() + "/" + Constants.CONFIG_TOTAL_WEEK);
+        tvHouse.setText(mPlayer.getHouse() + "/" + mPlayer.getHouseTotal());
+        tvWeek.setText(mPlayer.getWeek() + "/" + mPlayer.getWeekTotal());
     }
 
     private void initListener() {
@@ -391,7 +449,7 @@ public class GameActivity extends BaseActivity {
      */
     private boolean checkWeekAndState() {
         int week = mPlayer.getWeek() + 1;
-        if (week > Constants.CONFIG_TOTAL_WEEK) {
+        if (week > Constants.INIT_GAME_WEEK_TOTAL) {
             if (mEventDialog.isShowing()) {
                 mEventDialog.dismiss();
             }
@@ -413,7 +471,27 @@ public class GameActivity extends BaseActivity {
      * 显示租房对话框
      */
     private void showRentalDialog() {
-        showToast("显示租房对话框");
+        int houseNum;
+        int houseMoney;
+        if (mPlayer.getHouseTotal() <= Constants.INIT_GAME_HOUSE_TOTAL) {
+            houseNum = 120;
+            houseMoney = 800000;
+        } else if (mPlayer.getHouseTotal() <= 120) {
+            houseNum = 160;
+            houseMoney = 1200000;
+        } else if (mPlayer.getHouseTotal() <= 160) {
+            houseNum = 200;
+            houseMoney = 1800000;
+        } else {
+            houseNum = 240;
+            houseMoney = 3600000;
+        }
+        if (mPlayer.getHouseTotal() < 240) {
+            mRentalDialog.setMessage("您当前房屋容量为" + mPlayer.getHouseTotal() + "。\n我们有一套容量为" + houseNum + "的新房要出租，价格是" + houseMoney + "元，您要租下这套房子吗？");
+        } else {
+            mRentalDialog.setMessage("我们这边已经没有房屋出租了哦！您当前已经是最大容量的豪宅了！");
+        }
+        mRentalDialog.show();
     }
 
     /**
