@@ -17,6 +17,6 @@ public class RandomUtil {
     }
 
     public static int getRandomNum(Number number) {
-        return new Random().nextInt(number.getMaxNumber() - number.getMinNumber() + 1) + number.getMinNumber();
+        return (int) (new Random().nextInt((int) (number.getMaxNumber() - number.getMinNumber() + 1)) + number.getMinNumber());
     }
 }

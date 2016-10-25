@@ -24,9 +24,9 @@ public class Player {
     private Long id;
     private String name;
     private boolean isFirst;// 是否第一次进入游戏
-    private int cash;// 当前现金值
-    private int debt;// 当前负债值
-    private int deposit;// 当前存款值
+    private long cash;// 当前现金值
+    private long debt;// 当前负债值
+    private long deposit;// 当前存款值
     private int health;// 当前健康值
     private int house;// 当前房子数量
     private int houseTotal;// 总房子数量
@@ -140,22 +140,22 @@ public class Player {
     public void setHealth(int health) {
         this.health = health;
     }
-    public int getDeposit() {
+    public long getDeposit() {
         return this.deposit;
     }
-    public void setDeposit(int deposit) {
+    public void setDeposit(long deposit) {
         this.deposit = deposit;
     }
-    public int getDebt() {
+    public long getDebt() {
         return this.debt;
     }
-    public void setDebt(int debt) {
+    public void setDebt(long debt) {
         this.debt = debt;
     }
-    public int getCash() {
+    public long getCash() {
         return this.cash;
     }
-    public void setCash(int cash) {
+    public void setCash(long cash) {
         this.cash = cash;
     }
     public boolean getIsFirst() {
@@ -176,9 +176,9 @@ public class Player {
     public void setId(Long id) {
         this.id = id;
     }
-    @Generated(hash = 806835691)
-    public Player(Long id, String name, boolean isFirst, int cash, int debt,
-            int deposit, int health, int house, int houseTotal, int week,
+    @Generated(hash = 1140650845)
+    public Player(Long id, String name, boolean isFirst, long cash, long debt,
+            long deposit, int health, int house, int houseTotal, int week,
             int weekTotal) {
         this.id = id;
         this.name = name;

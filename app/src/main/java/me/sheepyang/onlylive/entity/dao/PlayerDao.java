@@ -27,9 +27,9 @@ public class PlayerDao extends AbstractDao<Player, Long> {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Name = new Property(1, String.class, "name", false, "NAME");
         public final static Property IsFirst = new Property(2, boolean.class, "isFirst", false, "IS_FIRST");
-        public final static Property Cash = new Property(3, int.class, "cash", false, "CASH");
-        public final static Property Debt = new Property(4, int.class, "debt", false, "DEBT");
-        public final static Property Deposit = new Property(5, int.class, "deposit", false, "DEPOSIT");
+        public final static Property Cash = new Property(3, long.class, "cash", false, "CASH");
+        public final static Property Debt = new Property(4, long.class, "debt", false, "DEBT");
+        public final static Property Deposit = new Property(5, long.class, "deposit", false, "DEPOSIT");
         public final static Property Health = new Property(6, int.class, "health", false, "HEALTH");
         public final static Property House = new Property(7, int.class, "house", false, "HOUSE");
         public final static Property HouseTotal = new Property(8, int.class, "houseTotal", false, "HOUSE_TOTAL");
@@ -137,9 +137,9 @@ public class PlayerDao extends AbstractDao<Player, Long> {
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // name
             cursor.getShort(offset + 2) != 0, // isFirst
-            cursor.getInt(offset + 3), // cash
-            cursor.getInt(offset + 4), // debt
-            cursor.getInt(offset + 5), // deposit
+            cursor.getLong(offset + 3), // cash
+            cursor.getLong(offset + 4), // debt
+            cursor.getLong(offset + 5), // deposit
             cursor.getInt(offset + 6), // health
             cursor.getInt(offset + 7), // house
             cursor.getInt(offset + 8), // houseTotal
@@ -154,9 +154,9 @@ public class PlayerDao extends AbstractDao<Player, Long> {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setIsFirst(cursor.getShort(offset + 2) != 0);
-        entity.setCash(cursor.getInt(offset + 3));
-        entity.setDebt(cursor.getInt(offset + 4));
-        entity.setDeposit(cursor.getInt(offset + 5));
+        entity.setCash(cursor.getLong(offset + 3));
+        entity.setDebt(cursor.getLong(offset + 4));
+        entity.setDeposit(cursor.getLong(offset + 5));
         entity.setHealth(cursor.getInt(offset + 6));
         entity.setHouse(cursor.getInt(offset + 7));
         entity.setHouseTotal(cursor.getInt(offset + 8));

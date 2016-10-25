@@ -10,10 +10,10 @@ import me.sheepyang.onlylive.R;
 import me.sheepyang.onlylive.utils.DataUtil;
 import me.sheepyang.onlylive.utils.SPUtil;
 import me.sheepyang.onlylive.utils.data.PlayerUtil;
-import me.sheepyang.onlylive.widget.SelectGameModeDialog;
+import me.sheepyang.onlylive.widget.dialog.SelectGameModeDialog;
 
-import static me.sheepyang.onlylive.widget.SelectGameModeDialog.MODE_NEW_GAME;
-import static me.sheepyang.onlylive.widget.SelectGameModeDialog.MODE_RESUME;
+import static me.sheepyang.onlylive.widget.dialog.SelectGameModeDialog.MODE_NEW_GAME;
+import static me.sheepyang.onlylive.widget.dialog.SelectGameModeDialog.MODE_RESUME;
 
 public class MainActivity extends BaseActivity {
 

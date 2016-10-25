@@ -11,25 +11,25 @@ import org.greenrobot.greendao.annotation.Generated;
 public class Number {
     @Id(autoincrement = true)
     private Long id;
-    private int number;
-    private int maxNumber;
-    private int minNumber;
-    public int getMinNumber() {
+    private long number;
+    private long maxNumber;
+    private long minNumber;
+    public long getMinNumber() {
         return this.minNumber;
     }
-    public void setMinNumber(int minNumber) {
+    public void setMinNumber(long minNumber) {
         this.minNumber = minNumber;
     }
-    public int getMaxNumber() {
+    public long getMaxNumber() {
         return this.maxNumber;
     }
-    public void setMaxNumber(int maxNumber) {
+    public void setMaxNumber(long maxNumber) {
         this.maxNumber = maxNumber;
     }
-    public int getNumber() {
+    public long getNumber() {
         return this.number;
     }
-    public void setNumber(int number) {
+    public void setNumber(long number) {
         this.number = number;
     }
     public Long getId() {
@@ -38,8 +38,8 @@ public class Number {
     public void setId(Long id) {
         this.id = id;
     }
-    @Generated(hash = 1397044366)
-    public Number(Long id, int number, int maxNumber, int minNumber) {
+    @Generated(hash = 389939164)
+    public Number(Long id, long number, long maxNumber, long minNumber) {
         this.id = id;
         this.number = number;
         this.maxNumber = maxNumber;

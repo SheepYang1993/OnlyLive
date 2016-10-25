@@ -1,4 +1,4 @@
-package me.sheepyang.onlylive.widget;
+package me.sheepyang.onlylive.widget.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -22,7 +22,6 @@ public class SelectGameModeDialog extends Dialog implements View.OnClickListener
     public static final int MODE_RESUME = 3000;// 练习模式
     public static final int MODE_NEW_GAME = 3001;// 冲榜模式
     private Context mContext;
-    private Window mWindow;
     private OnSelectListener mListener;
 
     public SelectGameModeDialog(Context context) {
@@ -50,8 +49,7 @@ public class SelectGameModeDialog extends Dialog implements View.OnClickListener
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_select_game_mode);
         ButterKnife.bind(this);
-        mWindow = getWindow();
-        mWindow.setBackgroundDrawable(new ColorDrawable());
+        getWindow().setBackgroundDrawable(new ColorDrawable());
         setCanceledOnTouchOutside(true);
     }
 
@@ -60,9 +58,9 @@ public class SelectGameModeDialog extends Dialog implements View.OnClickListener
         super.show();
         WindowManager windowManager = ((Activity) mContext).getWindowManager();
         Display display = windowManager.getDefaultDisplay();
-        WindowManager.LayoutParams lp = this.getWindow().getAttributes();
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
         lp.width = (int) (display.getWidth()); // 设置宽度
-        this.getWindow().setAttributes(lp);
+        getWindow().setAttributes(lp);
     }
 
     public void setOnSelectListener(OnSelectListener listener) {

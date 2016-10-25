@@ -1,6 +1,7 @@
 package me.sheepyang.onlylive.activity;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
@@ -20,9 +21,14 @@ import me.sheepyang.onlylive.app.Constants;
 import me.sheepyang.onlylive.entity.Event;
 import me.sheepyang.onlylive.entity.EventGoods;
 import me.sheepyang.onlylive.entity.Player;
+import me.sheepyang.onlylive.utils.MyLog;
 import me.sheepyang.onlylive.utils.StrUtil;
 import me.sheepyang.onlylive.utils.data.EventUtil;
 import me.sheepyang.onlylive.utils.data.PlayerUtil;
+import me.sheepyang.onlylive.widget.dialog.BankDialog;
+
+import static me.sheepyang.onlylive.widget.dialog.BankDialog.TYPE_GET_MONEY;
+import static me.sheepyang.onlylive.widget.dialog.BankDialog.TYPE_SAVE_MONEY;
 
 /**
  * Created by SheepYang on 2016/10/8 22:01.
@@ -62,6 +68,7 @@ public class GameActivity extends BaseActivity {
     private AlertDialog mRepayDebtDialog;// 还债对话框
     private AlertDialog mHospitalDialog;// 医院治疗对话框
     private AlertDialog mRentalDialog;// 租房对话框
+    private BankDialog mBankDialog;// 银行对话框
 
 
     private Player mPlayer;
@@ -95,6 +102,33 @@ public class GameActivity extends BaseActivity {
     }
 
     private void initDialog() {
+        if (mBankDialog == null) {
+            mBankDialog = new BankDialog(mContext);
+            mBankDialog.setOnClickListener(new BankDialog.OnClickListener() {
+                @Override
+                public void click(Dialog dialog, int tpye, int money) {
+                    MyLog.i("tpye:" + tpye + "money:" + money);
+                    long cash = mPlayer.getCash();
+                    long deposit = mPlayer.getDeposit();
+                    switch (tpye) {
+                        case TYPE_SAVE_MONEY:
+                            MyLog.i("" + TYPE_SAVE_MONEY);
+                            mPlayer.setCash(cash - money);
+                            mPlayer.setDeposit(deposit + money);
+                            break;
+                        case TYPE_GET_MONEY:
+                            MyLog.i("" + TYPE_GET_MONEY);
+                            mPlayer.setCash(cash + money);
+                            mPlayer.setDeposit(deposit - money);
+                            break;
+                        default:
+                            break;
+                    }
+                    PlayerUtil.setPlayer(mPlayer);
+                    refreshPlayerData();
+                }
+            });
+        }
         if (mRentalDialog == null) {
             mRentalDialog = new AlertDialog.Builder(this)
                     .setTitle("房屋中介")
@@ -265,7 +299,7 @@ public class GameActivity extends BaseActivity {
             houseMoney = 3600000;
         }
         if (mPlayer.getHouseTotal() < 240) {
-            int cash = mPlayer.getCash();
+            long cash = mPlayer.getCash();
             if (cash >= houseMoney) {
                 mPlayer.setCash(cash - houseMoney);
                 mPlayer.setHouseTotal(houseNum);
@@ -298,8 +332,8 @@ public class GameActivity extends BaseActivity {
      */
     private void toRepayDebt() {
         if (mPlayer.getDebt() > 0) {
-            int debt = mPlayer.getDebt();
-            int cash = mPlayer.getCash();
+            long debt = mPlayer.getDebt();
+            long cash = mPlayer.getCash();
             if (cash < debt) {
                 showToast("开什么玩笑，你的钱够吗？\n              来找抽是吧？");
                 return;
@@ -320,7 +354,7 @@ public class GameActivity extends BaseActivity {
      * 去治疗
      */
     private void toTreatment() {
-        int newMoney = mPlayer.getCash() - getTreatmentMoney();
+        long newMoney = mPlayer.getCash() - getTreatmentMoney();
         if (newMoney < 0) {
             showToast("没钱治什么病！赶快走！");
             return;
@@ -498,7 +532,9 @@ public class GameActivity extends BaseActivity {
      * 显示银行对话框
      */
     private void showBankDialog() {
-        showToast("显示银行对话框");
+        mBankDialog.setCash(mPlayer.getCash());
+        mBankDialog.setDeposit(mPlayer.getDeposit());
+        mBankDialog.show();
     }
 
     private void showRepayDebtDialog() {
