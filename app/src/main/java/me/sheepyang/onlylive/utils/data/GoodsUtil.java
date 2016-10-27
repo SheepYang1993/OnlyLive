@@ -1,5 +1,7 @@
 package me.sheepyang.onlylive.utils.data;
 
+import java.util.List;
+
 import me.sheepyang.onlylive.app.GameApplication;
 import me.sheepyang.onlylive.entity.Goods;
 import me.sheepyang.onlylive.entity.Number;
@@ -28,5 +30,9 @@ public class GoodsUtil {
 
     public static void deleteAll() {
         mGoodsDao.deleteAll();
+    }
+
+    public static List<Goods> getRandomList(int size) {
+        return mGoodsDao.loadAll();
     }
 }

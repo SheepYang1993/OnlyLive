@@ -26,6 +26,7 @@ import me.sheepyang.onlylive.utils.StrUtil;
 import me.sheepyang.onlylive.utils.data.EventUtil;
 import me.sheepyang.onlylive.utils.data.PlayerUtil;
 import me.sheepyang.onlylive.widget.dialog.BankDialog;
+import me.sheepyang.onlylive.widget.dialog.ShopDialog;
 
 import static me.sheepyang.onlylive.widget.dialog.BankDialog.TYPE_GET_MONEY;
 import static me.sheepyang.onlylive.widget.dialog.BankDialog.TYPE_SAVE_MONEY;
@@ -69,6 +70,7 @@ public class GameActivity extends BaseActivity {
     private AlertDialog mHospitalDialog;// 医院治疗对话框
     private AlertDialog mRentalDialog;// 租房对话框
     private BankDialog mBankDialog;// 银行对话框
+    private ShopDialog mShopDialog;// 交易对话框
 
 
     private Player mPlayer;
@@ -79,7 +81,6 @@ public class GameActivity extends BaseActivity {
         setContentView(R.layout.activity_game);
         ButterKnife.bind(this);
         initDialog();
-        initListener();
         initData();
         checkIsStart();
     }
@@ -102,6 +103,9 @@ public class GameActivity extends BaseActivity {
     }
 
     private void initDialog() {
+        if (mShopDialog == null) {
+            mShopDialog = new ShopDialog();
+        }
         if (mBankDialog == null) {
             mBankDialog = new BankDialog(mContext);
             mBankDialog.setOnClickListener(new BankDialog.OnClickListener() {
@@ -266,12 +270,14 @@ public class GameActivity extends BaseActivity {
                     .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            radioGroup.check(R.id.rb_4);
                             showShopDialog();
                         }
                     })
                     .setOnCancelListener(new DialogInterface.OnCancelListener() {
                         @Override
                         public void onCancel(DialogInterface dialog) {
+                            radioGroup.check(R.id.rb_4);
                             showShopDialog();
                         }
                     })
@@ -386,28 +392,6 @@ public class GameActivity extends BaseActivity {
         tvHealth.setText(mPlayer.getHealth() + "");
         tvHouse.setText(mPlayer.getHouse() + "/" + mPlayer.getHouseTotal());
         tvWeek.setText(mPlayer.getWeek() + "/" + mPlayer.getWeekTotal());
-    }
-
-    private void initListener() {
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.rb_1:
-                        break;
-                    case R.id.rb_2:
-                        break;
-                    case R.id.rb_3:
-                        break;
-                    case R.id.rb_4:
-                        break;
-                    case R.id.rb_5:
-                        break;
-                    default:
-                        break;
-                }
-            }
-        });
     }
 
     @OnClick({R.id.btn_restart, R.id.btn_quit, R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4, R.id.btn5, R.id.btn6, R.id.btn7, R.id.btn8, R.id.btn9, R.id.rb_1, R.id.rb_2, R.id.rb_3, R.id.rb_4, R.id.rb_5})
@@ -595,7 +579,7 @@ public class GameActivity extends BaseActivity {
      * 显示买卖物品对话框
      */
     private void showShopDialog() {
-        showToast("显示买卖物品对话框");
+        mShopDialog.show(getSupportFragmentManager(), "ShopDialog");
     }
 
     /**
