@@ -86,10 +86,34 @@ public class ShopDialog extends DialogFragment {
         list.add(new PlayerGoodsFragment());
         mAdapter = new GoodsFragmentAdapter(getChildFragmentManager(), list);// 注意，这边是ChildFragmentManager而不是FragmentManager
         viewpager.setAdapter(mAdapter);
-        viewpager.setCurrentItem(0);
+        viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (position) {
+                    case 0:
+                        setShopType(TYPE_BUY);
+                        break;
+                    case 1:
+                        setShopType(TYPE_SELL);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         tvCash.setText("现金：" + mPlayer.getCash());
         tvDeposit.setText("存款：" + mPlayer.getDeposit());
+        viewpager.setCurrentItem(0);
     }
 
     @Override
@@ -107,10 +131,10 @@ public class ShopDialog extends DialogFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rlBuy:// 买入
-                setShopType(TYPE_BUY);
+                viewpager.setCurrentItem(0);
                 break;
             case R.id.rlSell:// 卖出
-                setShopType(TYPE_SELL);
+                viewpager.setCurrentItem(1);
                 break;
             case R.id.btn_cancel:
                 dismiss();
