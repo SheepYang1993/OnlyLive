@@ -20,133 +20,26 @@ public class PlayerGoods {
     @Id(autoincrement = true)
     private Long id;
     private String name;
-    private String unit;// 物品单位
-    @ToOne(joinProperty = "numberId")
-    private Number number;
-    private Long numberId;
-    @ToOne(joinProperty = "priceId")
-    private Number price;
-    private Long priceId;
-    /**
-     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#refresh(Object)}.
-     * Entity must attached to an entity context.
-     */
-    @Generated(hash = 1942392019)
-    public void refresh() {
-        if (myDao == null) {
-            throw new DaoException("Entity is detached from DAO context");
-        }
-        myDao.refresh(this);
+    private long price;// 市场价格
+    private long number;// 数量
+    private long paid;// 进价
+    public long getPaid() {
+        return this.paid;
     }
-    /**
-     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#update(Object)}.
-     * Entity must attached to an entity context.
-     */
-    @Generated(hash = 713229351)
-    public void update() {
-        if (myDao == null) {
-            throw new DaoException("Entity is detached from DAO context");
-        }
-        myDao.update(this);
+    public void setPaid(long paid) {
+        this.paid = paid;
     }
-    /**
-     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#delete(Object)}.
-     * Entity must attached to an entity context.
-     */
-    @Generated(hash = 128553479)
-    public void delete() {
-        if (myDao == null) {
-            throw new DaoException("Entity is detached from DAO context");
-        }
-        myDao.delete(this);
+    public long getNumber() {
+        return this.number;
     }
-    /** called by internal mechanisms, do not call yourself. */
-    @Generated(hash = 528918466)
-    public void setPrice(Number price) {
-        synchronized (this) {
-            this.price = price;
-            priceId = price == null ? null : price.getId();
-            price__resolvedKey = priceId;
-        }
+    public void setNumber(long number) {
+        this.number = number;
     }
-    /** To-one relationship, resolved on first access. */
-    @Generated(hash = 1932576357)
-    public Number getPrice() {
-        Long __key = this.priceId;
-        if (price__resolvedKey == null || !price__resolvedKey.equals(__key)) {
-            final DaoSession daoSession = this.daoSession;
-            if (daoSession == null) {
-                throw new DaoException("Entity is detached from DAO context");
-            }
-            NumberDao targetDao = daoSession.getNumberDao();
-            Number priceNew = targetDao.load(__key);
-            synchronized (this) {
-                price = priceNew;
-                price__resolvedKey = __key;
-            }
-        }
-        return price;
+    public long getPrice() {
+        return this.price;
     }
-    @Generated(hash = 1564144330)
-    private transient Long price__resolvedKey;
-    /** called by internal mechanisms, do not call yourself. */
-    @Generated(hash = 447020683)
-    public void setNumber(Number number) {
-        synchronized (this) {
-            this.number = number;
-            numberId = number == null ? null : number.getId();
-            number__resolvedKey = numberId;
-        }
-    }
-    /** To-one relationship, resolved on first access. */
-    @Generated(hash = 217196591)
-    public Number getNumber() {
-        Long __key = this.numberId;
-        if (number__resolvedKey == null || !number__resolvedKey.equals(__key)) {
-            final DaoSession daoSession = this.daoSession;
-            if (daoSession == null) {
-                throw new DaoException("Entity is detached from DAO context");
-            }
-            NumberDao targetDao = daoSession.getNumberDao();
-            Number numberNew = targetDao.load(__key);
-            synchronized (this) {
-                number = numberNew;
-                number__resolvedKey = __key;
-            }
-        }
-        return number;
-    }
-    @Generated(hash = 791875021)
-    private transient Long number__resolvedKey;
-    /** called by internal mechanisms, do not call yourself. */
-    @Generated(hash = 2105086736)
-    public void __setDaoSession(DaoSession daoSession) {
-        this.daoSession = daoSession;
-        myDao = daoSession != null ? daoSession.getPlayerGoodsDao() : null;
-    }
-    /** Used for active entity operations. */
-    @Generated(hash = 105611981)
-    private transient PlayerGoodsDao myDao;
-    /** Used to resolve relations */
-    @Generated(hash = 2040040024)
-    private transient DaoSession daoSession;
-    public Long getPriceId() {
-        return this.priceId;
-    }
-    public void setPriceId(Long priceId) {
-        this.priceId = priceId;
-    }
-    public Long getNumberId() {
-        return this.numberId;
-    }
-    public void setNumberId(Long numberId) {
-        this.numberId = numberId;
-    }
-    public String getUnit() {
-        return this.unit;
-    }
-    public void setUnit(String unit) {
-        this.unit = unit;
+    public void setPrice(long price) {
+        this.price = price;
     }
     public String getName() {
         return this.name;
@@ -160,14 +53,13 @@ public class PlayerGoods {
     public void setId(Long id) {
         this.id = id;
     }
-    @Generated(hash = 444668002)
-    public PlayerGoods(Long id, String name, String unit, Long numberId,
-            Long priceId) {
+    @Generated(hash = 1400910085)
+    public PlayerGoods(Long id, String name, long price, long number, long paid) {
         this.id = id;
         this.name = name;
-        this.unit = unit;
-        this.numberId = numberId;
-        this.priceId = priceId;
+        this.price = price;
+        this.number = number;
+        this.paid = paid;
     }
     @Generated(hash = 1542970823)
     public PlayerGoods() {

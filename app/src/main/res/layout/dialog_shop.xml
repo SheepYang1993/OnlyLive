@@ -109,6 +109,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/tv_cost"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
@@ -119,11 +120,12 @@
                     android:textSize="16dp" />
 
                 <TextView
+                    android:id="@+id/tv_house"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:text="房子：4/80"
+                    android:text="房子："
                     android:textColor="@color/text_black"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -141,18 +143,20 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/tv_goods_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
-                    android:text="产品：高仿古董"
+                    android:text="物品："
                     android:textColor="@color/text_black"
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/tv_goods_num"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="数量：999"
+                    android:text="数量："
                     android:textColor="@color/text_black"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -165,18 +169,20 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/tv_goods_cash"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
-                    android:text="现金：99999999999"
+                    android:text="现金："
                     android:textColor="@color/text_black"
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/tv_goods_price"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="单价：9999999"
+                    android:text="单价："
                     android:textColor="@color/text_black"
                     android:textSize="16sp" />
             </LinearLayout>

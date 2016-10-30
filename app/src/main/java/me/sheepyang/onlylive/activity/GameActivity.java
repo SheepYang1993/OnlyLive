@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -60,6 +61,24 @@ public class GameActivity extends BaseActivity {
     TextView tvDeposit;
     @BindView(R.id.tv_week)
     TextView tvWeek;
+    @BindView(R.id.btn1)
+    Button btn1;
+    @BindView(R.id.btn2)
+    Button btn2;
+    @BindView(R.id.btn3)
+    Button btn3;
+    @BindView(R.id.btn4)
+    Button btn4;
+    @BindView(R.id.btn5)
+    Button btn5;
+    @BindView(R.id.btn6)
+    Button btn6;
+    @BindView(R.id.btn7)
+    Button btn7;
+    @BindView(R.id.btn8)
+    Button btn8;
+    @BindView(R.id.btn9)
+    Button btn9;
     private AlertDialog mFinishDialog;// 游戏结束对话框
     private AlertDialog mRestartDialog;// 重新开始游戏对话框
     private AlertDialog mQuitDialog;// 退出游戏对话框
@@ -74,6 +93,7 @@ public class GameActivity extends BaseActivity {
 
 
     private Player mPlayer;
+    private String mCity = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -271,14 +291,14 @@ public class GameActivity extends BaseActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             radioGroup.check(R.id.rb_4);
-                            showShopDialog();
+                            showShopDialog(mPlayer.getCity());
                         }
                     })
                     .setOnCancelListener(new DialogInterface.OnCancelListener() {
                         @Override
                         public void onCancel(DialogInterface dialog) {
                             radioGroup.check(R.id.rb_4);
-                            showShopDialog();
+                            showShopDialog(mPlayer.getCity());
                         }
                     })
                     .create();
@@ -405,15 +425,40 @@ public class GameActivity extends BaseActivity {
                 mQuitDialog.show();
                 break;
             case R.id.btn1:// 选择城市
+                mCity = btn1.getText().toString();
+                selectCity(mCity);
+                break;
             case R.id.btn2:
+                mCity = btn2.getText().toString();
+                selectCity(mCity);
+                break;
             case R.id.btn3:
+                mCity = btn3.getText().toString();
+                selectCity(mCity);
+                break;
             case R.id.btn4:
+                mCity = btn4.getText().toString();
+                selectCity(mCity);
+                break;
             case R.id.btn5:
+                mCity = btn5.getText().toString();
+                selectCity(mCity);
+                break;
             case R.id.btn6:
+                mCity = btn6.getText().toString();
+                selectCity(mCity);
+                break;
             case R.id.btn7:
+                mCity = btn7.getText().toString();
+                selectCity(mCity);
+                break;
             case R.id.btn8:
+                mCity = btn8.getText().toString();
+                selectCity(mCity);
+                break;
             case R.id.btn9:
-                selectCity();
+                mCity = btn9.getText().toString();
+                selectCity(mCity);
                 break;
             case R.id.rb_1:// 银行
                 if (!checkIsStart()) {
@@ -437,7 +482,7 @@ public class GameActivity extends BaseActivity {
                 if (!checkIsStart()) {
                     return;
                 }
-                showShopDialog();
+                showShopDialog(mPlayer.getCity());
                 break;
             case R.id.rb_5:// 租房
                 if (!checkIsStart()) {
@@ -450,11 +495,13 @@ public class GameActivity extends BaseActivity {
         }
     }
 
-    private void selectCity() {
+    private void selectCity(String city) {
         if (mPlayer.getIsFirst()) {
             mPlayer.setIsFirst(false);
-            PlayerUtil.setPlayer(mPlayer);
         }
+        mPlayer.setCity(city);
+        PlayerUtil.setPlayer(mPlayer);
+        refreshPlayerData();
         showSurpriseDialog();
 //        checkWeekAndState();
     }
@@ -578,7 +625,8 @@ public class GameActivity extends BaseActivity {
     /**
      * 显示买卖物品对话框
      */
-    private void showShopDialog() {
+    private void showShopDialog(String city) {
+        mShopDialog.setCity(city);
         mShopDialog.show(getSupportFragmentManager(), "ShopDialog");
     }
 
