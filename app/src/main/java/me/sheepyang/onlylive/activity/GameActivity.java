@@ -125,6 +125,29 @@ public class GameActivity extends BaseActivity {
     private void initDialog() {
         if (mShopDialog == null) {
             mShopDialog = new ShopDialog();
+            mShopDialog.setOnShopListener(new ShopDialog.OnShopListener() {
+                @Override
+                public void onBuySuccess() {
+                    refreshPlayerData();
+                    showToast("购买成功");
+                }
+
+                @Override
+                public void onBuyError(String msg) {
+                    showToast(msg);
+                }
+
+                @Override
+                public void onSellSuccess() {
+                    refreshPlayerData();
+                    showToast("出售成功");
+                }
+
+                @Override
+                public void onSellError(String msg) {
+                    showToast(msg);
+                }
+            });
         }
         if (mBankDialog == null) {
             mBankDialog = new BankDialog(mContext);

@@ -6,9 +6,9 @@ package me.sheepyang.onlylive.app;
 
 public class Constants {
     // 重新开始一盘游戏的数值
-    public static int INIT_GAME_CASH = 9999;// 现金
-    public static int INIT_GAME_DEBT = 9000;// 负债
-    public static int INIT_GAME_DEPOSIT = 50;// 存款
+    public static long INIT_GAME_CASH = 999999999999L;// 现金
+    public static long INIT_GAME_DEBT = 9000L;// 负债
+    public static long INIT_GAME_DEPOSIT = 50L;// 存款
     public static int INIT_GAME_HEALTH = 80;// 健康
     public static int INIT_GAME_HOUSE = 0;// 房子数量
     public static int INIT_GAME_WEEK = 0;// 周数

@@ -13,18 +13,35 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <me.sheepyang.onlylive.widget.MarqueeTextView
-            android:id="@+id/tv_title"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:ellipsize="marquee"
-            android:gravity="center_horizontal"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:singleLine="true"
-            android:text="交易"
-            android:textColor="@color/text_black"
-            android:textSize="28sp" />
+            android:layout_marginBottom="10dp">
+
+            <me.sheepyang.onlylive.widget.MarqueeTextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:ellipsize="marquee"
+                android:gravity="center_horizontal"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:singleLine="true"
+                android:text="交易"
+                android:textColor="@color/text_black"
+                android:textSize="28sp" />
+
+            <TextView
+                android:id="@+id/tv_title_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/tv_title"
+                android:layout_toRightOf="@id/tv_title"
+                android:singleLine="true"
+                android:text="(商店)"
+                android:textColor="@color/text_black"
+                android:textSize="20sp" />
+        </RelativeLayout>
 
         <me.sheepyang.onlylive.widget.MarqueeTextView
             android:id="@+id/tv_city"

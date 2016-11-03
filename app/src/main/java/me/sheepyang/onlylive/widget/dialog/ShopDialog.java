@@ -24,17 +24,20 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.sheepyang.onlylive.R;
+import me.sheepyang.onlylive.entity.Goods;
 import me.sheepyang.onlylive.entity.Player;
+import me.sheepyang.onlylive.entity.PlayerGoods;
 import me.sheepyang.onlylive.entity.ShopGoods;
 import me.sheepyang.onlylive.fragment.PlayerGoodsFragment;
 import me.sheepyang.onlylive.fragment.ShopGoodsFragment;
 import me.sheepyang.onlylive.utils.MyLog;
 import me.sheepyang.onlylive.utils.MyToast;
+import me.sheepyang.onlylive.utils.data.GoodsUtil;
 import me.sheepyang.onlylive.utils.data.PlayerGoodsUtil;
 import me.sheepyang.onlylive.utils.data.PlayerUtil;
+import me.sheepyang.onlylive.utils.data.ShopGoodsUtil;
 import me.sheepyang.onlylive.widget.MarqueeTextView;
 
-import static android.R.attr.max;
 import static me.sheepyang.onlylive.R.id.tv_goods_cash;
 
 /**
@@ -46,6 +49,8 @@ public class ShopDialog extends DialogFragment {
     private static final int TYPE_SELL = 131313;
     @BindView(R.id.viewpager)
     ViewPager viewpager;
+    @BindView(R.id.tv_title_hint)
+    TextView tvTitleHint;
     @BindView(R.id.tv_city)
     MarqueeTextView tvCity;
     @BindView(R.id.tvBuy)
@@ -82,8 +87,12 @@ public class ShopDialog extends DialogFragment {
     private Player mPlayer;
     private String mCity;
     private ShopGoodsFragment mShopGoodsFragment;
+    private PlayerGoodsFragment mPlayerGoodsFragment;
     private ShopGoods mShopGoods;
+    private PlayerGoods mPlayerGoods;
     private int mShopGoodsNum;
+    private int mPlayerGoodsNum;
+    private OnShopListener mListener;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -119,10 +128,17 @@ public class ShopDialog extends DialogFragment {
         seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                mShopGoodsNum = progress;
-                tvCost.setText("花费：" + progress * mShopGoods.getPrice());
-                tvGoodsNum.setText("数量：" + progress);
-                tvHouse.setText("房子：" + (mPlayer.getHouse() + progress) + "/" + mPlayer.getHouseTotal());
+                if (viewpager.getCurrentItem() == 0) {// 买入
+                    mShopGoodsNum = progress;
+                    tvCost.setText("花费：" + progress * mShopGoods.getPrice());
+                    tvHouse.setText("房子：" + (mPlayer.getHouse() + progress) + "/" + mPlayer.getHouseTotal());
+                    tvGoodsNum.setText("数量：" + progress);
+                } else if (viewpager.getCurrentItem() == 1) {// 卖出
+                    mPlayerGoodsNum = progress;
+                    tvCost.setText("销售额：" + progress * mPlayerGoods.getPaid());// 数量 * 进价
+                    tvHouse.setText("利润：" + progress * (mPlayerGoods.getPrice() - mPlayerGoods.getPaid()));// 市价 - 进价
+                    tvGoodsNum.setText("数量：" + progress);
+                }
             }
 
             @Override
@@ -147,6 +163,18 @@ public class ShopDialog extends DialogFragment {
                 setSeekBar(shopGoods);
             }
         });
+        mPlayerGoodsFragment.setOnItemClickListener(new PlayerGoodsFragment.OnItemClickListener() {
+            @Override
+            public void onItemClick(PlayerGoods playerGoods) {
+                mPlayerGoods = playerGoods;
+                llHint1.setVisibility(View.VISIBLE);
+                llHint2.setVisibility(View.GONE);
+                tvGoodsName.setText("物品：" + mPlayerGoods.getName());
+                tvGoodsPrice.setText("市价：" + mPlayerGoods.getPrice() + "");
+                tvGoodsCash.setText("进价：" + mPlayerGoods.getPaid() + "");
+                setSeekBar(playerGoods);
+            }
+        });
         viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -161,6 +189,7 @@ public class ShopDialog extends DialogFragment {
                         break;
                     case 1:
                         setShopType(TYPE_SELL);
+                        mPlayerGoodsFragment.refreshData();// 刷新界面数据
                         break;
                     default:
                         break;
@@ -174,11 +203,22 @@ public class ShopDialog extends DialogFragment {
         });
     }
 
+    public void setOnShopListener(OnShopListener listener) {
+        mListener = listener;
+    }
+
     private void initView() {
         List<Fragment> list = new ArrayList<>();
         mShopGoodsFragment = new ShopGoodsFragment();
+        mPlayerGoodsFragment = new PlayerGoodsFragment();
+
+        List<Goods> goodsList = GoodsUtil.getRandomList(20);
+        List<ShopGoods> shopGoodsList = ShopGoodsUtil.getShopGoodsList(goodsList);
+        mShopGoodsFragment.setShopGoodsList(shopGoodsList);
+        mPlayerGoodsFragment.setShopGoodsList(shopGoodsList);
+
         list.add(mShopGoodsFragment);
-        list.add(new PlayerGoodsFragment());
+        list.add(mPlayerGoodsFragment);
         mAdapter = new GoodsFragmentAdapter(getChildFragmentManager(), list);// 注意，这边是ChildFragmentManager而不是FragmentManager
         viewpager.setAdapter(mAdapter);
     }
@@ -188,19 +228,13 @@ public class ShopDialog extends DialogFragment {
         super.show(fm, tag);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        viewpager.setCurrentItem(0);
-    }
-
     @OnClick({R.id.rlBuy, R.id.rlSell, R.id.btn_cancel, R.id.btn_ok})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.rlBuy:// 买入
+            case R.id.rlBuy:// 选择买入
                 viewpager.setCurrentItem(0);
                 break;
-            case R.id.rlSell:// 卖出
+            case R.id.rlSell:// 选择卖出
                 viewpager.setCurrentItem(1);
                 break;
             case R.id.btn_cancel:
@@ -212,7 +246,6 @@ public class ShopDialog extends DialogFragment {
                 } else if (viewpager.getCurrentItem() == 1) {// 卖出
 
                 }
-//                dismiss();
                 break;
             default:
                 break;
@@ -224,19 +257,26 @@ public class ShopDialog extends DialogFragment {
             if (mShopGoodsNum <= 0) {
                 int totalGoodsNum = (int) (mPlayer.getCash() / mShopGoods.getPrice());// 现金最多能买商品个数
                 int houseNum = mPlayer.getHouseTotal() - mPlayer.getHouse();// 房子能装下的商品个数
+                String msg = "";
                 if (totalGoodsNum <= 0) {// 现金连一件商品都买不起
-                    MyToast.showMessage(getActivity(), "没有足够的现金");
+                    msg = "没有足够的现金";
                 } else if (houseNum <= 0) {// 房子已经装不下更多商品
-                    MyToast.showMessage(getActivity(), "房子里已经放不下东西啦");
+                    msg = "房子里已经放不下东西啦";
+                }
+                if (mListener != null) {
+                    mListener.onBuyError(msg);
                 }
             } else {
                 MyLog.i("买入 -> 物品：" + mShopGoods.getName() + "， 单价：" + mShopGoods.getPrice() + "， 数量：" + mShopGoodsNum);
-                mPlayer.setCash(mShopGoods.getPrice() * mShopGoodsNum);
+                mPlayer.setCash(mPlayer.getCash() - mShopGoods.getPrice() * mShopGoodsNum);
+                mPlayer.setHouse(mPlayer.getHouse() + mShopGoodsNum);
                 PlayerUtil.setPlayer(mPlayer);
                 PlayerGoodsUtil.addPlayGoods(mShopGoods, mShopGoodsNum);
+                setSeekBar(mShopGoods);
                 refreshView();
-                MyToast.showMessage(getActivity(), "购买成功");
-                dismiss();
+                if (mListener != null) {
+                    mListener.onBuySuccess();
+                }
             }
         } else {
             MyToast.showMessage(getActivity(), "请选择买入的物品");
@@ -245,6 +285,8 @@ public class ShopDialog extends DialogFragment {
 
     private void refreshView() {
         mPlayer = PlayerUtil.getPlayer();
+        tvHouse.setText("房子：" + mPlayer.getHouse() + "/" + mPlayer.getHouseTotal());
+        tvCash.setText("现金：" + mPlayer.getCash());
         tvGoodsCash.setText("现金：" + mPlayer.getCash());
     }
 
@@ -253,12 +295,14 @@ public class ShopDialog extends DialogFragment {
         llHint2.setVisibility(View.VISIBLE);
         switch (type) {
             case TYPE_BUY:
+                tvTitleHint.setText("（商店）");
                 rlBuy.setBackgroundResource(R.drawable.bg_white_shape);
                 rlSell.setBackgroundResource(R.drawable.bg_black_shape);
                 tvBuy.setTextColor(getResources().getColor(R.color.text_black));
                 tvSell.setTextColor(getResources().getColor(R.color.text_white));
                 break;
             case TYPE_SELL:
+                tvTitleHint.setText("（背包）");
                 rlBuy.setBackgroundResource(R.drawable.bg_black_shape);
                 rlSell.setBackgroundResource(R.drawable.bg_white_shape);
                 tvBuy.setTextColor(getResources().getColor(R.color.text_white));
@@ -271,6 +315,10 @@ public class ShopDialog extends DialogFragment {
 
     public void setCity(String city) {
         mCity = city;
+    }
+
+    public void setSeekBar(PlayerGoods playerGoods) {
+
     }
 
     public void setSeekBar(ShopGoods shopGoods) {
@@ -307,5 +355,15 @@ public class ShopDialog extends DialogFragment {
         public int getCount() {
             return mDataList.size();
         }
+    }
+
+    public interface OnShopListener {
+        void onBuySuccess();
+
+        void onBuyError(String msg);
+
+        void onSellSuccess();
+
+        void onSellError(String msg);
     }
 }

@@ -7,7 +7,6 @@ import java.util.List;
 import me.sheepyang.onlylive.app.GameApplication;
 import me.sheepyang.onlylive.entity.EventGoods;
 import me.sheepyang.onlylive.entity.JoinPlayerGoodsToPlayer;
-import me.sheepyang.onlylive.entity.Number;
 import me.sheepyang.onlylive.entity.PlayerGoods;
 import me.sheepyang.onlylive.entity.ShopGoods;
 import me.sheepyang.onlylive.entity.dao.JoinPlayerGoodsToPlayerDao;
@@ -24,6 +23,14 @@ public class PlayerGoodsUtil {
     static {
         mPlayerGoodsDao = GameApplication.getInstances().getDaoSession().getPlayerGoodsDao();
         mJoinPlayerGoodsToPlayerDao = GameApplication.getInstances().getDaoSession().getJoinPlayerGoodsToPlayerDao();
+    }
+
+    public static List<PlayerGoods> loadAll() {
+        return mPlayerGoodsDao.loadAll();
+    }
+
+    public static void deleteAll() {
+        mPlayerGoodsDao.deleteAll();
     }
 
     public static void addPlayGoods(ShopGoods shopGoods, int shopGoodsNum) {
@@ -110,5 +117,32 @@ public class PlayerGoodsUtil {
 //            mJoinPlayerGoodsToPlayerDao.insertOrReplace(joinGoods);
 //            mPlayerGoodsDao.insertOrReplace(playerGoods);
 //        }
+    }
+
+    /**
+     * 清除所有物品的市价
+     */
+    public static void clearPrice() {
+        List<PlayerGoods> list = mPlayerGoodsDao.loadAll();
+        for (int i = 0; i < list.size(); i++) {
+            list.get(i).setPrice(-1);
+        }
+        mPlayerGoodsDao.insertOrReplaceInTx(list);
+    }
+
+
+    /**
+     * 设置物品的市价
+     */
+    public static void setPrice(List<ShopGoods> shopGoodsList) {
+        for (int i = 0; i < shopGoodsList.size(); i++) {
+            ShopGoods shopGoods = shopGoodsList.get(i);
+            QueryBuilder<PlayerGoods> qb = mPlayerGoodsDao.queryBuilder();
+            qb.where(PlayerGoodsDao.Properties.Name.eq(shopGoods.getName()));
+            List<PlayerGoods> list = qb.list();
+            if (list != null && list.size() > 0) {
+                list.get(0).setPrice(shopGoods.getPrice());
+            }
+        }
     }
 }

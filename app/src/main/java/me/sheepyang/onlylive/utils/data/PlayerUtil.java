@@ -58,5 +58,6 @@ public class PlayerUtil {
         player.setHouseTotal(Constants.INIT_GAME_HOUSE_TOTAL);// 总房子
         player.setWeekTotal(Constants.INIT_GAME_WEEK_TOTAL);// 总周数
         mPlayerDao.insertOrReplace(player);
+        PlayerGoodsUtil.deleteAll();// 清除玩家背包数据
     }
 }
