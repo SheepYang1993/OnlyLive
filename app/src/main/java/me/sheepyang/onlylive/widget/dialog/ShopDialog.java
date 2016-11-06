@@ -44,7 +44,7 @@ import static me.sheepyang.onlylive.R.id.tv_goods_cash;
  * Created by SheepYang on 2016/10/27 21:26.
  */
 
-public class ShopDialog extends DialogFragment {
+public class ShopDialog extends BaseDialogFragment {
     private static final int TYPE_BUY = 121212;
     private static final int TYPE_SELL = 131313;
     @BindView(R.id.viewpager)
@@ -93,13 +93,6 @@ public class ShopDialog extends DialogFragment {
     private int mShopGoodsNum;
     private int mPlayerGoodsNum;
     private OnShopListener mListener;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setCancelable(true);
-        setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light_Dialog_MinWidth);
-    }
 
     @Nullable
     @Override
@@ -230,11 +223,6 @@ public class ShopDialog extends DialogFragment {
     public void onResume() {
         super.onResume();
         viewpager.setCurrentItem(0);
-    }
-
-    @Override
-    public void show(FragmentManager fm, String tag) {
-        super.show(fm, tag);
     }
 
     @OnClick({R.id.rlBuy, R.id.rlSell, R.id.btn_cancel, R.id.btn_ok})
