@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +39,8 @@ import me.sheepyang.onlylive.utils.data.PlayerUtil;
 import me.sheepyang.onlylive.utils.data.ShopGoodsUtil;
 import me.sheepyang.onlylive.widget.MarqueeTextView;
 
+import static android.R.attr.max;
+import static me.sheepyang.onlylive.R.id.seekbar;
 import static me.sheepyang.onlylive.R.id.tv_goods_cash;
 
 /**
@@ -93,6 +96,7 @@ public class ShopDialog extends BaseDialogFragment {
     private int mShopGoodsNum;
     private int mPlayerGoodsNum;
     private OnShopListener mListener;
+    private long mSeekbarMax;
 
     @Nullable
     @Override
@@ -122,18 +126,24 @@ public class ShopDialog extends BaseDialogFragment {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (viewpager.getCurrentItem() == 0) {// 买入
-                    mShopGoodsNum = progress;
-                    tvHouse.setText("房子：" + (mPlayer.getHouse() + progress) + "/" + mPlayer.getHouseTotal());
-                    tvGoodsNum.setText("数量：" + progress);
+                    BigDecimal percent = new BigDecimal((float) progress / seekBar.getMax());// 百分比
+                    BigDecimal bdShopGoodsNum = new BigDecimal((double) mSeekbarMax + "");
+                    BigDecimal result = bdShopGoodsNum.multiply(percent);
+                    mShopGoodsNum = result.intValue();
+                    tvGoodsNum.setText("数量：" + mShopGoodsNum);
+                    tvHouse.setText("房子：" + (mPlayer.getHouse() + mShopGoodsNum) + "/" + mPlayer.getHouseTotal());
                     if (mShopGoods != null) {
-                        tvCost.setText("花费：" + progress * mShopGoods.getPrice());
+                        tvCost.setText("花费：" + mShopGoodsNum * mShopGoods.getPrice());
                     }
                 } else if (viewpager.getCurrentItem() == 1) {// 卖出
-                    mPlayerGoodsNum = progress;
-                    tvGoodsNum.setText("数量：" + progress);
+                    BigDecimal percent = new BigDecimal((float) progress / seekBar.getMax());// 百分比
+                    BigDecimal bdShopGoodsNum = new BigDecimal((double) mSeekbarMax + "");
+                    BigDecimal result = bdShopGoodsNum.multiply(percent);
+                    mPlayerGoodsNum = result.intValue();
+                    tvGoodsNum.setText("数量：" + mPlayerGoodsNum);
                     if (mPlayerGoods != null) {
-                        tvCost.setText("销售额：" + progress * mPlayerGoods.getPaid());// 数量 * 进价
-                        tvHouse.setText("利润：" + progress * (mPlayerGoods.getPrice() - mPlayerGoods.getPaid()));// 市价 - 进价
+                        tvCost.setText("销售额：" + mPlayerGoodsNum * mPlayerGoods.getPaid());// 数量 * 进价
+                        tvHouse.setText("利润：" + mPlayerGoodsNum * (mPlayerGoods.getPrice() - mPlayerGoods.getPaid()));// 市价 - 进价
                     }
                 }
             }
@@ -157,7 +167,7 @@ public class ShopDialog extends BaseDialogFragment {
                 tvGoodsName.setText("物品：" + mShopGoods.getName());
                 tvGoodsPrice.setText("单价：" + mShopGoods.getPrice() + "");
                 tvGoodsCash.setText("现金：" + mPlayer.getCash() + "");
-                setSeekBar(shopGoods);
+                setSeekBarToMax(shopGoods);
             }
         });
         mPlayerGoodsFragment.setOnItemClickListener(new PlayerGoodsFragment.OnItemClickListener() {
@@ -169,7 +179,7 @@ public class ShopDialog extends BaseDialogFragment {
                 tvGoodsName.setText("物品：" + mPlayerGoods.getName());
                 tvGoodsPrice.setText("市价：" + mPlayerGoods.getPrice() + "");
                 tvGoodsCash.setText("进价：" + mPlayerGoods.getPaid() + "");
-                setSeekBar(playerGoods);
+                setSeekBarToMax(playerGoods);
             }
         });
         viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -275,7 +285,7 @@ public class ShopDialog extends BaseDialogFragment {
                 setShopType(TYPE_SELL);
             }
             mPlayer = PlayerUtil.getPlayer();
-            setSeekBar(mPlayerGoods);
+            setSeekBarToMax(mPlayerGoods);
             mPlayerGoodsFragment.refreshData();
             refreshView();
             if (mListener != null) {
@@ -313,7 +323,7 @@ public class ShopDialog extends BaseDialogFragment {
                 mPlayer.setHouse(mPlayer.getHouse() + mShopGoodsNum);
                 PlayerUtil.setPlayer(mPlayer);
                 PlayerGoodsUtil.addPlayGoods(mShopGoods, mShopGoodsNum);
-                setSeekBar(mShopGoods);
+                setSeekBarToMax(mShopGoods);
                 mPlayerGoodsFragment.refreshData();// 刷新界面数据
                 refreshView();
                 if (mListener != null) {
@@ -327,9 +337,25 @@ public class ShopDialog extends BaseDialogFragment {
 
     private void refreshView() {
         mPlayer = PlayerUtil.getPlayer();
-        tvHouse.setText("房子：" + mPlayer.getHouse() + "/" + mPlayer.getHouseTotal());
         tvCash.setText("现金：" + mPlayer.getCash());
-        tvGoodsCash.setText("现金：" + mPlayer.getCash());
+        tvDeposit.setText("存款：" + mPlayer.getDeposit());
+        if (viewpager.getCurrentItem() == 0) {// 买入
+            tvHouse.setText("房子：" + mPlayer.getHouse() + "/" + mPlayer.getHouseTotal());
+            tvCost.setText("花费：" + mShopGoodsNum * mShopGoods.getPrice());
+
+            tvGoodsName.setText("物品：" + mShopGoods.getName());
+            tvGoodsNum.setText("数量：" + mShopGoodsNum);
+            tvGoodsCash.setText("现金：" + mPlayer.getCash());
+            tvGoodsPrice.setText("单价：" + mShopGoods.getPrice() + "");
+        } else if (viewpager.getCurrentItem() == 1) {// 卖出
+            tvCost.setText("销售额：" + mPlayerGoodsNum * mPlayerGoods.getPaid());// 数量 * 进价
+            tvHouse.setText("利润：" + mPlayerGoodsNum * (mPlayerGoods.getPrice() - mPlayerGoods.getPaid()));// 市价 - 进价
+
+            tvGoodsName.setText("物品：" + mPlayerGoods.getName());
+            tvGoodsNum.setText("数量：" + mPlayerGoodsNum);
+            tvGoodsCash.setText("进价：" + mPlayerGoods.getPaid() + "");
+            tvGoodsPrice.setText("市价：" + mPlayerGoods.getPrice() + "");
+        }
     }
 
     private void setShopType(int type) {
@@ -359,30 +385,36 @@ public class ShopDialog extends BaseDialogFragment {
         mCity = city;
     }
 
-    public void setSeekBar(PlayerGoods playerGoods) {
+    public void setSeekBarToMax(PlayerGoods playerGoods) {
         if (playerGoods != null) {
-            seekbar.setMax((int) playerGoods.getNumber());
-            seekbar.setProgress((int) playerGoods.getNumber());
+            mSeekbarMax = playerGoods.getNumber();
+            mPlayerGoodsNum = (int) mSeekbarMax;
+            tvCost.setText("销售额：" + mSeekbarMax * mPlayerGoods.getPaid());// 数量 * 进价
+            tvHouse.setText("利润：" + mSeekbarMax * (mPlayerGoods.getPrice() - mPlayerGoods.getPaid()));// 市价 - 进价
+            seekbar.setProgress(seekbar.getMax());
         }
     }
 
-    public void setSeekBar(ShopGoods shopGoods) {
-        long totalGoodsNum = (mPlayer.getCash() / shopGoods.getPrice());// 现金最多能买商品个数
-        long houseNum = mPlayer.getHouseTotal() - mPlayer.getHouse();// 房子能装下的商品个数
-        MyLog.i("seekbar -> 剩余空间:" + houseNum + ", 能够购买:" + totalGoodsNum);
-        MyLog.i("seekbar -> 玩家现金:" + mPlayer.getCash() + ", 物品价格:" + shopGoods.getPrice());
-        int max;
-        if (houseNum <= 0 || totalGoodsNum <= 0) {// 当现金连一件商品都买不起的时候  或者  房子已经装不下更多商品时
-            max = 0;
-        } else {
-            if (houseNum >= totalGoodsNum) {
-                max = (int) totalGoodsNum;
+    public void setSeekBarToMax(ShopGoods shopGoods) {
+        if (shopGoods != null) {
+            long totalGoodsNum = (mPlayer.getCash() / shopGoods.getPrice());// 现金最多能买商品个数
+            long houseNum = mPlayer.getHouseTotal() - mPlayer.getHouse();// 房子能装下的商品个数
+            MyLog.i("seekbar -> 剩余空间:" + houseNum + ", 能够购买:" + totalGoodsNum);
+            MyLog.i("seekbar -> 玩家现金:" + mPlayer.getCash() + ", 物品价格:" + shopGoods.getPrice());
+            if (houseNum <= 0 || totalGoodsNum <= 0) {// 当现金连一件商品都买不起的时候  或者  房子已经装不下更多商品时
+                mSeekbarMax = 0;
             } else {
-                max = (int) houseNum;
+                if (houseNum >= totalGoodsNum) {
+                    mSeekbarMax = (int) totalGoodsNum;
+                } else {
+                    mSeekbarMax = (int) houseNum;
+                }
             }
+            mShopGoodsNum = (int) mSeekbarMax;
+            tvHouse.setText("房子：" + (mPlayer.getHouse() + mSeekbarMax) + "/" + mPlayer.getHouseTotal());
+            tvCost.setText("花费：" + mSeekbarMax * mShopGoods.getPrice());
+            seekbar.setProgress(seekbar.getMax());
         }
-        seekbar.setMax(max);
-        seekbar.setProgress(max);
     }
 
     private class GoodsFragmentAdapter extends FragmentPagerAdapter {

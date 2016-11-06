@@ -6,7 +6,7 @@ package me.sheepyang.onlylive.app;
 
 public class Constants {
     // 重新开始一盘游戏的数值
-    public static long INIT_GAME_CASH = 999999999999L;// 现金
+    public static long INIT_GAME_CASH = 99999999999999L;// 现金
     public static long INIT_GAME_DEBT = 9000L;// 负债
     public static long INIT_GAME_DEPOSIT = 50L;// 存款
     public static int INIT_GAME_HEALTH = 80;// 健康

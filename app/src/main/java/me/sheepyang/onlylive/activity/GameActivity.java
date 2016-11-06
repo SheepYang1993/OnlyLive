@@ -27,6 +27,7 @@ import me.sheepyang.onlylive.utils.StrUtil;
 import me.sheepyang.onlylive.utils.data.EventUtil;
 import me.sheepyang.onlylive.utils.data.PlayerUtil;
 import me.sheepyang.onlylive.widget.dialog.BankDialog;
+import me.sheepyang.onlylive.widget.dialog.MessageDialog;
 import me.sheepyang.onlylive.widget.dialog.ShopDialog;
 
 import static me.sheepyang.onlylive.widget.dialog.BankDialog.TYPE_GET_MONEY;
@@ -79,15 +80,15 @@ public class GameActivity extends BaseActivity {
     Button btn8;
     @BindView(R.id.btn9)
     Button btn9;
-    private AlertDialog mFinishDialog;// 游戏结束对话框
-    private AlertDialog mRestartDialog;// 重新开始游戏对话框
-    private AlertDialog mQuitDialog;// 退出游戏对话框
-    private AlertDialog mHintDialog;
-    private AlertDialog mNewsDialog;
-    private AlertDialog mEventDialog;// 突发事件对话框
-    private AlertDialog mRepayDebtDialog;// 还债对话框
-    private AlertDialog mHospitalDialog;// 医院治疗对话框
-    private AlertDialog mRentalDialog;// 租房对话框
+    private MessageDialog mFinishDialog;// 游戏结束对话框
+    private MessageDialog mRestartDialog;// 重新开始游戏对话框
+    private MessageDialog mQuitDialog;// 退出游戏对话框
+    private MessageDialog mHintDialog;
+    private MessageDialog mNewsDialog;
+    private MessageDialog mEventDialog;// 突发事件对话框
+    private MessageDialog mRepayDebtDialog;// 还债对话框
+    private MessageDialog mHospitalDialog;// 医院治疗对话框
+    private MessageDialog mRentalDialog;// 租房对话框
     private BankDialog mBankDialog;// 银行对话框
     private ShopDialog mShopDialog;// 交易对话框
 
@@ -153,7 +154,7 @@ public class GameActivity extends BaseActivity {
             mBankDialog = new BankDialog(mContext);
             mBankDialog.setOnClickListener(new BankDialog.OnClickListener() {
                 @Override
-                public void click(Dialog dialog, int tpye, int money) {
+                public void click(Dialog dialog, int tpye, long money) {
                     MyLog.i("tpye:" + tpye + "money:" + money);
                     long cash = mPlayer.getCash();
                     long deposit = mPlayer.getDeposit();
@@ -177,154 +178,142 @@ public class GameActivity extends BaseActivity {
             });
         }
         if (mRentalDialog == null) {
-            mRentalDialog = new AlertDialog.Builder(this)
-                    .setTitle("房屋中介")
-                    .setPositiveButton("租房", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            rentalHouse();
-                        }
-                    })
-                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+            mRentalDialog = new MessageDialog();
+            mRentalDialog.setTitle("房屋中介");
+            mRentalDialog.setOkClickListener("租房", new MessageDialog.OnOkClickListener() {
+                @Override
+                public void onClick(View view) {
+                    rentalHouse();
+                }
+            });
+            mRentalDialog.setCancelClickListener("取消", new MessageDialog.OnCancelClickListener() {
+                @Override
+                public void onClick(View view) {
 
-                        }
-                    })
-                    .create();
+                }
+            });
         }
         if (mFinishDialog == null) {
-            mFinishDialog = new AlertDialog.Builder(this)
-                    .setTitle("游戏结束")
-                    .setCancelable(false)
-                    .setPositiveButton("重来", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            restartGame();
-                        }
-                    })
-                    .setNegativeButton("退出", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            quitGame();
-                        }
-                    })
-                    .create();
+            mFinishDialog = new MessageDialog();
+            mFinishDialog.setTitle("游戏结束");
+            mFinishDialog.setOkClickListener("重来", new MessageDialog.OnOkClickListener() {
+                @Override
+                public void onClick(View view) {
+                    restartGame();
+                }
+            });
+            mFinishDialog.setCancelClickListener("退出", new MessageDialog.OnCancelClickListener() {
+                @Override
+                public void onClick(View view) {
+                    quitGame();
+                }
+            });
         }
         if (mRepayDebtDialog == null) {
-            mRepayDebtDialog = new AlertDialog.Builder(this)
-                    .setTitle("债务")
-                    .setPositiveButton("还债", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            toRepayDebt();
-                        }
-                    })
-                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+            mRepayDebtDialog = new MessageDialog();
+            mRepayDebtDialog.setTitle("债务");
+            mRepayDebtDialog.setOkClickListener("还债", new MessageDialog.OnOkClickListener() {
+                @Override
+                public void onClick(View view) {
+                    toRepayDebt();
+                }
+            });
+            mRepayDebtDialog.setCancelClickListener("取消", new MessageDialog.OnCancelClickListener() {
+                @Override
+                public void onClick(View view) {
 
-                        }
-                    })
-                    .create();
+                }
+            });
         }
         if (mHospitalDialog == null) {
-            mHospitalDialog = new AlertDialog.Builder(this)
-                    .setTitle("医院")
-                    .setPositiveButton("治疗", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            toTreatment();
-                        }
-                    })
-                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+            mHospitalDialog = new MessageDialog();
+            mHospitalDialog.setTitle("医院");
+            mHospitalDialog.setOkClickListener("治疗", new MessageDialog.OnOkClickListener() {
+                @Override
+                public void onClick(View view) {
+                    toTreatment();
+                }
+            });
+            mHospitalDialog.setCancelClickListener("取消", new MessageDialog.OnCancelClickListener() {
+                @Override
+                public void onClick(View view) {
 
-                        }
-                    })
-                    .create();
+                }
+            });
         }
         if (mRestartDialog == null) {
-            mRestartDialog = new AlertDialog.Builder(this)
-                    .setTitle("重新开始")
-                    .setMessage("现在给你一次再来一次的机会，这将会清除所有数据，确定重来？")
-                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            restartGame();
-                        }
-                    })
-                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+            mRestartDialog = new MessageDialog();
+            mRestartDialog.setTitle("重新开始");
+            mRestartDialog.setMessage("现在给你一次再来一次的机会，这将会清除所有数据，确定重来？");
+            mRestartDialog.setOkClickListener("确定", new MessageDialog.OnOkClickListener() {
+                @Override
+                public void onClick(View view) {
+                    restartGame();
+                }
+            });
+            mRestartDialog.setCancelClickListener("取消", new MessageDialog.OnCancelClickListener() {
+                @Override
+                public void onClick(View view) {
 
-                        }
-                    })
-                    .create();
+                }
+            });
         }
         if (mQuitDialog == null) {
-            mQuitDialog = new AlertDialog.Builder(this)
-                    .setTitle("退出游戏")
-                    .setMessage("确认退出游戏？（数据将被保存）")
-                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            mRestartDialog.dismiss();
-                            quitGame();
-                        }
-                    })
-                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+            mQuitDialog = new MessageDialog();
+            mQuitDialog.setTitle("退出游戏");
+            mQuitDialog.setMessage("确认退出游戏？（数据将被保存）");
+            mQuitDialog.setOkClickListener("确定", new MessageDialog.OnOkClickListener() {
+                @Override
+                public void onClick(View view) {
+                    quitGame();
+                }
+            });
+            mQuitDialog.setCancelClickListener("取消", new MessageDialog.OnCancelClickListener() {
+                @Override
+                public void onClick(View view) {
 
-                        }
-                    })
-                    .create();
+                }
+            });
         }
         if (mHintDialog == null) {
-            mHintDialog = new AlertDialog.Builder(this)
-                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+            mHintDialog = new MessageDialog();
+            mHintDialog.setOkClickListener("确定", new MessageDialog.OnOkClickListener() {
+                @Override
+                public void onClick(View view) {
 
-                        }
-                    })
-                    .create();
+                }
+            });
         }
         if (mEventDialog == null) {
-            mEventDialog = new AlertDialog.Builder(this)
-                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            showNewsDialog();
-                        }
-                    })
-                    .setOnCancelListener(new DialogInterface.OnCancelListener() {
-                        @Override
-                        public void onCancel(DialogInterface dialog) {
-                            showNewsDialog();
-                        }
-                    })
-                    .create();
+            mEventDialog = new MessageDialog();
+            mEventDialog.setOkClickListener("确定", new MessageDialog.OnOkClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mEventDialog.dismiss();
+                }
+            });
+            mEventDialog.setDismissListener(new MessageDialog.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    showNewsDialog();
+                }
+            });
         }
         if (mNewsDialog == null) {
-            mNewsDialog = new AlertDialog.Builder(this)
-                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            radioGroup.check(R.id.rb_4);
-                            showShopDialog(mPlayer.getCity());
-                        }
-                    })
-                    .setOnCancelListener(new DialogInterface.OnCancelListener() {
-                        @Override
-                        public void onCancel(DialogInterface dialog) {
-                            radioGroup.check(R.id.rb_4);
-                            showShopDialog(mPlayer.getCity());
-                        }
-                    })
-                    .create();
+            mNewsDialog = new MessageDialog();
+            mNewsDialog.setOkClickListener("确定", new MessageDialog.OnOkClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mNewsDialog.dismiss();
+                }
+            });
+            mNewsDialog.setDismissListener(new MessageDialog.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    radioGroup.check(R.id.rb_4);
+                    showShopDialog(mPlayer.getCity());
+                }
+            });
         }
     }
 
@@ -364,13 +353,12 @@ public class GameActivity extends BaseActivity {
 
     private void restartGame() {
         PlayerUtil.deletePlayer();
-        if (mRestartDialog.isShowing()) {
+        if (mRestartDialog.isVisible()) {
             mRestartDialog.dismiss();
         }
-        if (mFinishDialog.isShowing()) {
+        if (mFinishDialog.isVisible()) {
             mFinishDialog.dismiss();
         }
-        mRestartDialog.dismiss();
         PlayerUtil.initPlayerData();
         refreshPlayerData();
         checkIsStart();
@@ -393,7 +381,7 @@ public class GameActivity extends BaseActivity {
             refreshPlayerData();
             mHintDialog.setTitle("债务");
             mHintDialog.setMessage("欠款" + debt + "元已还清，总算松了口气");
-            mHintDialog.show();
+            mHintDialog.show(getSupportFragmentManager(), "hint");
         } else {
             showToast("你没欠我钱呀，兄弟这是打算请我去大宝剑？");
         }
@@ -416,12 +404,12 @@ public class GameActivity extends BaseActivity {
         mPlayer.setHealth(100);
         PlayerUtil.setPlayer(mPlayer);
         refreshPlayerData();
-        if (mHospitalDialog.isShowing()) {
+        if (mHospitalDialog.isVisible()) {
             mHospitalDialog.dismiss();
         }
         mHintDialog.setTitle("医院");
         mHintDialog.setMessage("你喝下了神仙姐姐的药水，体力全满，一口气可以上5层楼!");
-        mHintDialog.show();
+        mHintDialog.show(getSupportFragmentManager(), "hint");
     }
 
     /**
@@ -442,10 +430,10 @@ public class GameActivity extends BaseActivity {
         super.onClick(view);
         switch (view.getId()) {
             case R.id.btn_restart:
-                mRestartDialog.show();
+                mRestartDialog.show(getSupportFragmentManager(), "RestartDialog");
                 break;
             case R.id.btn_quit:
-                mQuitDialog.show();
+                mQuitDialog.show(getSupportFragmentManager(), "QuitDialog");
                 break;
             case R.id.btn1:// 选择城市
                 mCity = btn1.getText().toString();
@@ -543,14 +531,14 @@ public class GameActivity extends BaseActivity {
     private boolean checkWeekAndState() {
         int week = mPlayer.getWeek() + 1;
         if (week > mPlayer.getWeekTotal()) {
-            if (mEventDialog.isShowing()) {
+            if (mEventDialog.isVisible()) {
                 mEventDialog.dismiss();
             }
-            if (mNewsDialog.isShowing()) {
+            if (mNewsDialog.isVisible()) {
                 mNewsDialog.dismiss();
             }
             mFinishDialog.setMessage("当前为第" + mPlayer.getWeek() + "周数。\n当前资产为：" + mPlayer.getCash() + mPlayer.getDeposit() + "\n游戏结束！");
-            mFinishDialog.show();
+            mFinishDialog.show(getSupportFragmentManager(), "FinishDialog");
             return false;
         } else {
             mPlayer.setWeek(week);
@@ -584,7 +572,7 @@ public class GameActivity extends BaseActivity {
         } else {
             mRentalDialog.setMessage("我们这边已经没有房屋出租了哦！您当前已经是最大容量的豪宅了！");
         }
-        mRentalDialog.show();
+        mRentalDialog.show(getSupportFragmentManager(), "RentalDialog");
     }
 
     /**
@@ -599,10 +587,10 @@ public class GameActivity extends BaseActivity {
     private void showRepayDebtDialog() {
         if (mPlayer.getDebt() <= 0) {
             mRepayDebtDialog.setMessage("兄弟，咱们已经两清了！有空一起去喝喝小酒，把把小妞，吹吹小曲啊！哈哈~");
-            mRepayDebtDialog.show();
+            mRepayDebtDialog.show(getSupportFragmentManager(), "RepayDebtDialog");
         } else {
             mRepayDebtDialog.setMessage("你欠我的" + mPlayer.getDebt() + "元，今天能还不？");
-            mRepayDebtDialog.show();
+            mRepayDebtDialog.show(getSupportFragmentManager(), "RepayDebtDialog");
         }
     }
 
@@ -615,7 +603,7 @@ public class GameActivity extends BaseActivity {
         } else {
             mHospitalDialog.setMessage("你当前的健康值" + mPlayer.getHealth() + "，治愈需要花费" + getTreatmentMoney() + "元，需要治疗么？");
         }
-        mHospitalDialog.show();
+        mHospitalDialog.show(getSupportFragmentManager(), "HospitalDialog");
     }
 
     /**
@@ -638,7 +626,7 @@ public class GameActivity extends BaseActivity {
         mEventDialog.setTitle(event.getTitle());
         mEventDialog.setMessage(msg);
         dismissPDialog();
-        mEventDialog.show();
+        mEventDialog.show(getSupportFragmentManager(), "EventDialog");
     }
 
     /**
@@ -647,7 +635,7 @@ public class GameActivity extends BaseActivity {
     private void showNewsDialog() {
         mNewsDialog.setTitle("《民生观察》");
         mNewsDialog.setMessage("今日发生多起恶犬伤人事件，请市民自购装备，注意自身安全！");
-        mNewsDialog.show();
+        mNewsDialog.show(getSupportFragmentManager(), "NewsDialog");
     }
 
     /**
@@ -665,7 +653,7 @@ public class GameActivity extends BaseActivity {
         if (mPlayer.getIsFirst() == true) {
             mHintDialog.setTitle("选择城市");
             mHintDialog.setMessage("选择一个城市开始吧");
-            mHintDialog.show();
+            mHintDialog.show(getSupportFragmentManager(), "hint");
             return false;
         }
         return true;

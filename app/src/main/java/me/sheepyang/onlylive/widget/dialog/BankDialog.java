@@ -14,10 +14,13 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.sheepyang.onlylive.R;
+import me.sheepyang.onlylive.utils.MyLog;
 import me.sheepyang.onlylive.widget.MarqueeTextView;
 
 /**
@@ -47,7 +50,7 @@ public class BankDialog extends Dialog {
     private long mCash;
     private long mDeposit;
     private int mType;
-    private int mMoney;
+    private long mMoney;
     private OnClickListener mListener;
 
     public BankDialog(Context context) {
@@ -80,8 +83,18 @@ public class BankDialog extends Dialog {
         seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                mMoney = progress;
-                tvMoney.setText(mMoney + "");
+                BigDecimal percent = new BigDecimal((float) progress / seekBar.getMax());// 百分比
+                BigDecimal bdCash = null;
+                if (mType == TYPE_SAVE_MONEY) {
+                    bdCash = new BigDecimal((double) mCash + "");
+                } else if (mType == TYPE_GET_MONEY) {
+                    bdCash = new BigDecimal((double) mDeposit + "");
+                }
+                if (bdCash != null) {
+                    BigDecimal result = bdCash.multiply(percent);
+                    mMoney = result.longValue();
+                    tvMoney.setText(mMoney + "");
+                }
             }
 
             @Override
@@ -105,8 +118,8 @@ public class BankDialog extends Dialog {
                 tvSaveMoney.setTextColor(mContext.getResources().getColor(R.color.text_black));
                 tvGetMoney.setTextColor(mContext.getResources().getColor(R.color.text_white));
                 tvHint.setText("存入：");
-                seekbar.setMax((int) mCash);
-                seekbar.setProgress((int) mCash);
+                tvMoney.setText(mCash + "");
+                seekbar.setProgress(seekbar.getMax());
                 break;
             case TYPE_GET_MONEY:// 取钱
                 rlSaveMoney.setBackgroundResource(R.drawable.bg_black_shape);
@@ -114,8 +127,9 @@ public class BankDialog extends Dialog {
                 tvSaveMoney.setTextColor(mContext.getResources().getColor(R.color.text_white));
                 tvGetMoney.setTextColor(mContext.getResources().getColor(R.color.text_black));
                 tvHint.setText("取出：");
-                seekbar.setMax((int) mDeposit);
-                seekbar.setProgress((int) mDeposit);
+                tvHint.setText("存入：");
+                tvMoney.setText(mDeposit + "");
+                seekbar.setProgress(seekbar.getMax());
                 break;
             default:
                 break;
@@ -175,6 +189,6 @@ public class BankDialog extends Dialog {
     }
 
     public interface OnClickListener {
-        void click(Dialog dialog, int tpye, int money);
+        void click(Dialog dialog, int tpye, long money);
     }
 }
