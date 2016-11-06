@@ -42,14 +42,14 @@ public class PlayerGoodsUtil {
             long paid = playerGoods.getPaid();
             long goodsNumber = playerGoods.getNumber();
             // 计算获得物品后，物品的平均价格
-            float newPaid;
+            float totalNum = (float) (goodsNumber + shopGoodsNum);
+            float totalPrice;
             if (paid == 0) {
-                // 公式 = 总价 / (原数量 + 新增数量)
-                newPaid = (float) (shopGoods.getPrice() * goodsNumber) / (float) (goodsNumber + shopGoodsNum);
+                totalPrice = shopGoods.getPrice() * shopGoodsNum;
             } else {
-                // 公式 = 总价 / (原数量 + 新增数量)
-                newPaid = (float) (paid * goodsNumber) / (float) (goodsNumber + shopGoodsNum);
+                totalPrice = paid * goodsNumber + shopGoods.getPrice() * shopGoodsNum;
             }
+            float newPaid = totalPrice / totalNum;// 公式 = 总价 / 总数量
             paid = Math.round(newPaid);
             playerGoods.setPaid(paid);// 设置进价
             playerGoods.setPrice(shopGoods.getPrice());// 设置市价
@@ -144,5 +144,13 @@ public class PlayerGoodsUtil {
                 list.get(0).setPrice(shopGoods.getPrice());
             }
         }
+    }
+
+    public static void delete(PlayerGoods playerGoods) {
+        mPlayerGoodsDao.delete(playerGoods);
+    }
+
+    public static void insertOrReplace(PlayerGoods playerGoods) {
+        mPlayerGoodsDao.insertOrReplace(playerGoods);
     }
 }

@@ -49,6 +49,7 @@ public class PlayerUtil {
             player.setId(Long.valueOf(1));
         }
         player.setIsFirst(true);
+        player.setCity("");
         player.setCash(Constants.INIT_GAME_CASH);// 现金
         player.setDebt(Constants.INIT_GAME_DEBT);// 负债
         player.setDeposit(Constants.INIT_GAME_DEPOSIT);// 存款

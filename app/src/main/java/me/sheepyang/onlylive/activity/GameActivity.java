@@ -519,14 +519,19 @@ public class GameActivity extends BaseActivity {
     }
 
     private void selectCity(String city) {
-        if (mPlayer.getIsFirst()) {
-            mPlayer.setIsFirst(false);
-        }
-        mPlayer.setCity(city);
-        PlayerUtil.setPlayer(mPlayer);
-        refreshPlayerData();
-        showSurpriseDialog();
+        if (city.equals(mPlayer.getCity())) {
+            showToast("你现在就在" + city + "，换个地方逛逛吧");
+            return;
+        } else {
+            if (mPlayer.getIsFirst()) {
+                mPlayer.setIsFirst(false);
+            }
+            mPlayer.setCity(city);
+            PlayerUtil.setPlayer(mPlayer);
+            refreshPlayerData();
+            showSurpriseDialog();
 //        checkWeekAndState();
+        }
     }
 
     /**

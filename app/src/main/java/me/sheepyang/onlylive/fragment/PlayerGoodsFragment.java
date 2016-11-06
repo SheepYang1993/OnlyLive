@@ -55,6 +55,13 @@ public class PlayerGoodsFragment extends BaseFragment {
 
     private void initData() {
         mData = getPlayerGoods();
+        if (mData == null || mData.size() <= 0) {
+            listview.setVisibility(View.GONE);
+            tvNoData.setVisibility(View.VISIBLE);
+        } else {
+            listview.setVisibility(View.VISIBLE);
+            tvNoData.setVisibility(View.GONE);
+        }
         mAdapter = new PlayerGoodsAdapter(mContext, mData);
         listview.setAdapter(mAdapter);
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -73,6 +80,13 @@ public class PlayerGoodsFragment extends BaseFragment {
 
     public void refreshData() {
         mData = getPlayerGoods();
+        if (mData == null || mData.size() <= 0) {
+            listview.setVisibility(View.GONE);
+            tvNoData.setVisibility(View.VISIBLE);
+        } else {
+            listview.setVisibility(View.VISIBLE);
+            tvNoData.setVisibility(View.GONE);
+        }
         mAdapter.updata(mData);
         if (mData == null || mData.size() <= 0) {
             tvNoData.setVisibility(View.VISIBLE);

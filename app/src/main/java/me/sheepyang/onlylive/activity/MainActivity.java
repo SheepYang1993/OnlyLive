@@ -43,6 +43,7 @@ public class MainActivity extends BaseActivity {
             public void OnSelect(View view, int mode) {
                 switch (mode) {
                     case MODE_NEW_GAME:// 新的游戏
+                        PlayerUtil.deletePlayer();
                         PlayerUtil.initPlayerData();
                         startActivity(new Intent(MainActivity.this, GameActivity.class));
                         break;

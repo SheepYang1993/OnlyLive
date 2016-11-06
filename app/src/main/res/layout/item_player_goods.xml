@@ -53,12 +53,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="市价："
+                android:text="进价："
                 android:textColor="@color/text_black"
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/tv_price"
+                android:id="@+id/tv_paid"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:text="111"
@@ -77,12 +77,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="进价："
+                android:text="市价："
                 android:textColor="@color/text_black"
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/tv_paid"
+                android:id="@+id/tv_price"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:text="111"

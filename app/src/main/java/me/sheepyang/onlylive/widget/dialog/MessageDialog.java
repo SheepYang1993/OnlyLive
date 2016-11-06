@@ -6,11 +6,15 @@ import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Display;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import me.sheepyang.onlylive.R;
 import me.sheepyang.onlylive.widget.MarqueeTextView;
 
@@ -21,6 +25,12 @@ import me.sheepyang.onlylive.widget.MarqueeTextView;
 public class MessageDialog extends Dialog {
     @BindView(R.id.tv_title)
     MarqueeTextView tvTitle;
+    @BindView(R.id.tv_content)
+    TextView tvContent;
+    @BindView(R.id.btn_cancel)
+    Button btnCancel;
+    @BindView(R.id.btn_ok)
+    Button btnOk;
     private Context mContext;
 
     public MessageDialog(Context context) {
@@ -66,5 +76,17 @@ public class MessageDialog extends Dialog {
         WindowManager.LayoutParams lp = getWindow().getAttributes();
         lp.width = (int) (display.getWidth()); // 设置宽度
         getWindow().setAttributes(lp);
+    }
+
+    @OnClick({R.id.btn_cancel, R.id.btn_ok})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_cancel:
+                break;
+            case R.id.btn_ok:
+                break;
+            default:
+                break;
+        }
     }
 }
