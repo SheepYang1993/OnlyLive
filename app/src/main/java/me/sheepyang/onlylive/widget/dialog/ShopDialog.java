@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -39,8 +38,6 @@ import me.sheepyang.onlylive.utils.data.PlayerUtil;
 import me.sheepyang.onlylive.utils.data.ShopGoodsUtil;
 import me.sheepyang.onlylive.widget.MarqueeTextView;
 
-import static android.R.attr.max;
-import static me.sheepyang.onlylive.R.id.seekbar;
 import static me.sheepyang.onlylive.R.id.tv_goods_cash;
 
 /**
@@ -340,21 +337,24 @@ public class ShopDialog extends BaseDialogFragment {
         tvCash.setText("现金：" + mPlayer.getCash());
         tvDeposit.setText("存款：" + mPlayer.getDeposit());
         if (viewpager.getCurrentItem() == 0) {// 买入
+            if (mShopGoods != null) {
+                tvCost.setText("花费：" + mShopGoodsNum * mShopGoods.getPrice());
+                tvGoodsName.setText("物品：" + mShopGoods.getName());
+                tvGoodsNum.setText("数量：" + mShopGoodsNum);
+                tvGoodsPrice.setText("单价：" + mShopGoods.getPrice() + "");
+            }
             tvHouse.setText("房子：" + mPlayer.getHouse() + "/" + mPlayer.getHouseTotal());
-            tvCost.setText("花费：" + mShopGoodsNum * mShopGoods.getPrice());
-
-            tvGoodsName.setText("物品：" + mShopGoods.getName());
-            tvGoodsNum.setText("数量：" + mShopGoodsNum);
             tvGoodsCash.setText("现金：" + mPlayer.getCash());
-            tvGoodsPrice.setText("单价：" + mShopGoods.getPrice() + "");
         } else if (viewpager.getCurrentItem() == 1) {// 卖出
-            tvCost.setText("销售额：" + mPlayerGoodsNum * mPlayerGoods.getPaid());// 数量 * 进价
-            tvHouse.setText("利润：" + mPlayerGoodsNum * (mPlayerGoods.getPrice() - mPlayerGoods.getPaid()));// 市价 - 进价
+            if (mPlayerGoods != null) {
+                tvCost.setText("销售额：" + mPlayerGoodsNum * mPlayerGoods.getPaid());// 数量 * 进价
+                tvHouse.setText("利润：" + mPlayerGoodsNum * (mPlayerGoods.getPrice() - mPlayerGoods.getPaid()));// 市价 - 进价
 
-            tvGoodsName.setText("物品：" + mPlayerGoods.getName());
-            tvGoodsNum.setText("数量：" + mPlayerGoodsNum);
-            tvGoodsCash.setText("进价：" + mPlayerGoods.getPaid() + "");
-            tvGoodsPrice.setText("市价：" + mPlayerGoods.getPrice() + "");
+                tvGoodsName.setText("物品：" + mPlayerGoods.getName());
+                tvGoodsNum.setText("数量：" + mPlayerGoodsNum);
+                tvGoodsCash.setText("进价：" + mPlayerGoods.getPaid() + "");
+                tvGoodsPrice.setText("市价：" + mPlayerGoods.getPrice() + "");
+            }
         }
     }
 

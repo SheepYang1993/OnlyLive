@@ -1,6 +1,5 @@
 package me.sheepyang.onlylive.activity;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -91,7 +90,6 @@ public class GameActivity extends BaseActivity {
     private MessageDialog mRentalDialog;// 租房对话框
     private BankDialog mBankDialog;// 银行对话框
     private ShopDialog mShopDialog;// 交易对话框
-
 
     private Player mPlayer;
     private String mCity = "";
@@ -195,6 +193,7 @@ public class GameActivity extends BaseActivity {
         }
         if (mFinishDialog == null) {
             mFinishDialog = new MessageDialog();
+            mFinishDialog.setCancelable(false);
             mFinishDialog.setTitle("游戏结束");
             mFinishDialog.setOkClickListener("重来", new MessageDialog.OnOkClickListener() {
                 @Override
@@ -289,7 +288,7 @@ public class GameActivity extends BaseActivity {
             mEventDialog.setOkClickListener("确定", new MessageDialog.OnOkClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mEventDialog.dismiss();
+                    dismissAllDialog();
                 }
             });
             mEventDialog.setDismissListener(new MessageDialog.OnDismissListener() {
@@ -304,7 +303,7 @@ public class GameActivity extends BaseActivity {
             mNewsDialog.setOkClickListener("确定", new MessageDialog.OnOkClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mNewsDialog.dismiss();
+                    dismissAllDialog();
                 }
             });
             mNewsDialog.setDismissListener(new MessageDialog.OnDismissListener() {
@@ -353,12 +352,7 @@ public class GameActivity extends BaseActivity {
 
     private void restartGame() {
         PlayerUtil.deletePlayer();
-        if (mRestartDialog.isVisible()) {
-            mRestartDialog.dismiss();
-        }
-        if (mFinishDialog.isVisible()) {
-            mFinishDialog.dismiss();
-        }
+        dismissAllDialog();
         PlayerUtil.initPlayerData();
         refreshPlayerData();
         checkIsStart();
@@ -381,6 +375,7 @@ public class GameActivity extends BaseActivity {
             refreshPlayerData();
             mHintDialog.setTitle("债务");
             mHintDialog.setMessage("欠款" + debt + "元已还清，总算松了口气");
+            dismissAllDialog();
             mHintDialog.show(getSupportFragmentManager(), "hint");
         } else {
             showToast("你没欠我钱呀，兄弟这是打算请我去大宝剑？");
@@ -404,11 +399,9 @@ public class GameActivity extends BaseActivity {
         mPlayer.setHealth(100);
         PlayerUtil.setPlayer(mPlayer);
         refreshPlayerData();
-        if (mHospitalDialog.isVisible()) {
-            mHospitalDialog.dismiss();
-        }
         mHintDialog.setTitle("医院");
         mHintDialog.setMessage("你喝下了神仙姐姐的药水，体力全满，一口气可以上5层楼!");
+        dismissAllDialog();
         mHintDialog.show(getSupportFragmentManager(), "hint");
     }
 
@@ -430,9 +423,11 @@ public class GameActivity extends BaseActivity {
         super.onClick(view);
         switch (view.getId()) {
             case R.id.btn_restart:
+                dismissAllDialog();
                 mRestartDialog.show(getSupportFragmentManager(), "RestartDialog");
                 break;
             case R.id.btn_quit:
+                dismissAllDialog();
                 mQuitDialog.show(getSupportFragmentManager(), "QuitDialog");
                 break;
             case R.id.btn1:// 选择城市
@@ -514,34 +509,69 @@ public class GameActivity extends BaseActivity {
             if (mPlayer.getIsFirst()) {
                 mPlayer.setIsFirst(false);
             }
+            checkWeek();
             mPlayer.setCity(city);
             PlayerUtil.setPlayer(mPlayer);
             refreshPlayerData();
             showSurpriseDialog();
-//        checkWeekAndState();
+        }
+    }
+
+    private void dismissAllDialog() {
+        if (mFinishDialog.isVisible()) {
+            mFinishDialog.dismiss();
+        }
+        if (mRestartDialog.isVisible()) {
+            mRestartDialog.dismiss();
+        }
+        if (mQuitDialog.isVisible()) {
+            mQuitDialog.dismiss();
+        }
+        if (mHintDialog.isVisible()) {
+            mHintDialog.dismiss();
+        }
+        if (mNewsDialog.isVisible()) {
+            mNewsDialog.dismiss();
+        }
+        if (mEventDialog.isVisible()) {
+            mEventDialog.dismiss();
+        }
+        if (mRepayDebtDialog.isVisible()) {
+            mRepayDebtDialog.dismiss();
+        }
+        if (mHospitalDialog.isVisible()) {
+            mHospitalDialog.dismiss();
+        }
+        if (mRentalDialog.isVisible()) {
+            mRentalDialog.dismiss();
+        }
+        if (mBankDialog.isShowing()) {
+            mBankDialog.dismiss();
+        }
+        if (mShopDialog.isVisible()) {
+            mShopDialog.dismiss();
         }
     }
 
     /**
      * 在每次购买物品之后
-     * 检查当前游戏状态，判断游戏是否结束
+     * 检查当前游戏周数，判断游戏是否结束
      *
      * @return
      */
-    private boolean checkWeekAndState() {
-        int week = mPlayer.getWeek() + 1;
-        if (week > mPlayer.getWeekTotal()) {
-            if (mEventDialog.isVisible()) {
-                mEventDialog.dismiss();
-            }
-            if (mNewsDialog.isVisible()) {
-                mNewsDialog.dismiss();
-            }
-            mFinishDialog.setMessage("当前为第" + mPlayer.getWeek() + "周数。\n当前资产为：" + mPlayer.getCash() + mPlayer.getDeposit() + "\n游戏结束！");
+    private boolean checkWeek() {
+        BigDecimal bdCash = new BigDecimal(mPlayer.getCash());
+        BigDecimal bdDebt = new BigDecimal(mPlayer.getDebt());
+        BigDecimal bdDeposit = new BigDecimal(mPlayer.getDeposit());
+        BigDecimal bdResult = bdCash.add(bdDeposit).subtract(bdDebt);// 现金 + 存款 - 负债
+        MyLog.i("当前为第" + mPlayer.getWeek() + "周。\n当前资产为：" + bdResult.toString());
+        if (mPlayer.getWeek() >= mPlayer.getWeekTotal()) {
+            mFinishDialog.setMessage("当前为第" + mPlayer.getWeek() + "周。\n当前资产为：" + mPlayer.getCash() + mPlayer.getDeposit() + "\n游戏结束！");
+            dismissAllDialog();
             mFinishDialog.show(getSupportFragmentManager(), "FinishDialog");
             return false;
         } else {
-            mPlayer.setWeek(week);
+            mPlayer.setWeek(mPlayer.getWeek() + 1);
             PlayerUtil.setPlayer(mPlayer);
             refreshPlayerData();
             return true;
@@ -552,6 +582,7 @@ public class GameActivity extends BaseActivity {
      * 显示租房对话框
      */
     private void showRentalDialog() {
+        dismissAllDialog();
         int houseNum;
         int houseMoney;
         if (mPlayer.getHouseTotal() <= Constants.INIT_GAME_HOUSE_TOTAL) {
@@ -579,12 +610,14 @@ public class GameActivity extends BaseActivity {
      * 显示银行对话框
      */
     private void showBankDialog() {
+        dismissAllDialog();
         mBankDialog.setCash(mPlayer.getCash());
         mBankDialog.setDeposit(mPlayer.getDeposit());
         mBankDialog.show();
     }
 
     private void showRepayDebtDialog() {
+        dismissAllDialog();
         if (mPlayer.getDebt() <= 0) {
             mRepayDebtDialog.setMessage("兄弟，咱们已经两清了！有空一起去喝喝小酒，把把小妞，吹吹小曲啊！哈哈~");
             mRepayDebtDialog.show(getSupportFragmentManager(), "RepayDebtDialog");
@@ -598,6 +631,7 @@ public class GameActivity extends BaseActivity {
      * 显示医院对话框
      */
     private void showHospitalDialog() {
+        dismissAllDialog();
         if (mPlayer.getHealth() == 100) {
             mHospitalDialog.setMessage("你现在壮的跟头牛似得，不需要治疗！");
         } else {
@@ -610,6 +644,7 @@ public class GameActivity extends BaseActivity {
      * 显示意外事件对话框
      */
     private void showSurpriseDialog() {
+        dismissAllDialog();
         showPDialog();
         Event event = EventUtil.getRandomEvent();
         String msg = event.getMessage();
@@ -633,6 +668,7 @@ public class GameActivity extends BaseActivity {
      * 显示新闻对话框
      */
     private void showNewsDialog() {
+        dismissAllDialog();
         mNewsDialog.setTitle("《民生观察》");
         mNewsDialog.setMessage("今日发生多起恶犬伤人事件，请市民自购装备，注意自身安全！");
         mNewsDialog.show(getSupportFragmentManager(), "NewsDialog");
@@ -642,6 +678,7 @@ public class GameActivity extends BaseActivity {
      * 显示买卖物品对话框
      */
     private void showShopDialog(String city) {
+        dismissAllDialog();
         mShopDialog.setCity(city);
         mShopDialog.show(getSupportFragmentManager(), "ShopDialog");
     }
@@ -650,6 +687,7 @@ public class GameActivity extends BaseActivity {
      * 检查是否选择了第一个城市并开始游戏
      */
     private boolean checkIsStart() {
+        dismissAllDialog();
         if (mPlayer.getIsFirst() == true) {
             mHintDialog.setTitle("选择城市");
             mHintDialog.setMessage("选择一个城市开始吧");
