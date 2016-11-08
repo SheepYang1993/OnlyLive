@@ -194,7 +194,7 @@ public class GameActivity extends BaseActivity {
         if (mFinishDialog == null) {
             mFinishDialog = new MessageDialog();
             mFinishDialog.setCancelable(false);
-            mFinishDialog.setTitle("游戏结束");
+            mFinishDialog.setTitle("游戏结束！");
             mFinishDialog.setOkClickListener("重来", new MessageDialog.OnOkClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -509,11 +509,12 @@ public class GameActivity extends BaseActivity {
             if (mPlayer.getIsFirst()) {
                 mPlayer.setIsFirst(false);
             }
-            checkWeek();
-            mPlayer.setCity(city);
-            PlayerUtil.setPlayer(mPlayer);
-            refreshPlayerData();
-            showSurpriseDialog();
+            if (checkWeek()) {
+                mPlayer.setCity(city);
+                PlayerUtil.setPlayer(mPlayer);
+                refreshPlayerData();
+                showSurpriseDialog();
+            }
         }
     }
 
@@ -564,9 +565,9 @@ public class GameActivity extends BaseActivity {
         BigDecimal bdDebt = new BigDecimal(mPlayer.getDebt());
         BigDecimal bdDeposit = new BigDecimal(mPlayer.getDeposit());
         BigDecimal bdResult = bdCash.add(bdDeposit).subtract(bdDebt);// 现金 + 存款 - 负债
-        MyLog.i("当前为第" + mPlayer.getWeek() + "周。\n当前资产为：" + bdResult.toString());
+        MyLog.i("当前为第" + mPlayer.getWeek() + "周。\n总资产为：" + bdResult.toString());
         if (mPlayer.getWeek() >= mPlayer.getWeekTotal()) {
-            mFinishDialog.setMessage("当前为第" + mPlayer.getWeek() + "周。\n当前资产为：" + mPlayer.getCash() + mPlayer.getDeposit() + "\n游戏结束！");
+            mFinishDialog.setMessage("当前为第" + mPlayer.getWeek() + "周。\n总资产为：" + bdResult.toString() + "\n游戏结束！");
             dismissAllDialog();
             mFinishDialog.show(getSupportFragmentManager(), "FinishDialog");
             return false;
