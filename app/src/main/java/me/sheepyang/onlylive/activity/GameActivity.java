@@ -22,6 +22,7 @@ import me.sheepyang.onlylive.entity.Event;
 import me.sheepyang.onlylive.entity.EventGoods;
 import me.sheepyang.onlylive.entity.Player;
 import me.sheepyang.onlylive.utils.MyLog;
+import me.sheepyang.onlylive.utils.RandomUtil;
 import me.sheepyang.onlylive.utils.StrUtil;
 import me.sheepyang.onlylive.utils.data.EventUtil;
 import me.sheepyang.onlylive.utils.data.PlayerUtil;
@@ -510,7 +511,10 @@ public class GameActivity extends BaseActivity {
                 mPlayer.setIsFirst(false);
             }
             if (checkWeek()) {
-                mPlayer.setCity(city);
+                BigDecimal bdDept = new BigDecimal(mPlayer.getDebt());
+                BigDecimal bdResult = bdDept.multiply(new BigDecimal(RandomUtil.getRandomNum(15, 11)).divide(new BigDecimal(10), 3, BigDecimal.ROUND_HALF_UP));
+                mPlayer.setDebt(bdResult.longValue());// 设置当前负债，算法是 当前负债 *（1.1~1.5）倍，后期再优化利息的算法
+                mPlayer.setCity(city);// 设置当前所在城市
                 PlayerUtil.setPlayer(mPlayer);
                 refreshPlayerData();
                 showSurpriseDialog();
