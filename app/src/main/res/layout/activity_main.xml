@@ -7,6 +7,12 @@
     android:orientation="vertical"
     tools:context="me.sheepyang.onlylive.activity.MainActivity">
 
+    <Button
+        android:id="@+id/btn_update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="更新" />
+
     <LinearLayout
         android:id="@+id/ll_play"
         android:layout_width="200dp"

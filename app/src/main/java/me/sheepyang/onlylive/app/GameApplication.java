@@ -6,6 +6,10 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.tencent.bugly.crashreport.CrashReport;
 
+import cn.bmob.push.BmobPush;
+import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobInstallation;
+import cn.bmob.v3.update.BmobUpdateAgent;
 import me.sheepyang.onlylive.entity.dao.DaoMaster;
 import me.sheepyang.onlylive.entity.dao.DaoSession;
 
@@ -30,6 +34,12 @@ public class GameApplication extends Application {
         // ● 自定义日志将会在Logcat中输出。
         // 建议在测试阶段建议设置成true，发布时设置为false。
         CrashReport.initCrashReport(getApplicationContext(), Constants.BUGLY_ID, true);
+        // 初始化Bmob
+        Bmob.initialize(this, Constants.BMOB_APP_ID);
+        // 使用推送服务时的初始化操作
+        BmobInstallation.getCurrentInstallation().save();
+        // 启动推送服务
+        BmobPush.startWork(this);
         mInstances = this;
         // 初始化数据库
         setDatabase();

@@ -5,6 +5,9 @@ package me.sheepyang.onlylive.app;
  */
 
 public class Constants {
+
+    //Bmob APP ID
+    public static final String BMOB_APP_ID = "871db967cf7c20d22831e2631f1f10d9";
     //Bugly ID
     public static final String BUGLY_ID = "900059113";
 
