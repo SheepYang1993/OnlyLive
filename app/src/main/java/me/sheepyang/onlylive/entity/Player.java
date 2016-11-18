@@ -6,10 +6,8 @@ import org.greenrobot.greendao.annotation.JoinEntity;
 import org.greenrobot.greendao.annotation.ToMany;
 
 import java.util.List;
-
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.DaoException;
-
 import me.sheepyang.onlylive.entity.dao.DaoSession;
 import me.sheepyang.onlylive.entity.dao.PlayerDao;
 import me.sheepyang.onlylive.entity.dao.PlayerGoodsDao;
@@ -25,14 +23,14 @@ public class Player {
     private String name;
     private boolean isFirst;// 是否第一次进入游戏
     private String city;// 当前所在城市
-    private long cash;// 当前现金值
-    private long debt;// 当前负债值
-    private long deposit;// 当前存款值
-    private int health;// 当前健康值
-    private int house;// 当前房子数量
-    private int houseTotal;// 总房子数量
-    private int week;// 当前周数
-    private int weekTotal;// 总周数
+    private String cash;// 当前现金值
+    private String debt;// 当前负债值
+    private String deposit;// 当前存款值
+    private String health;// 当前健康值
+    private String house;// 当前房子数量
+    private String houseTotal;// 总房子数量
+    private String week;// 当前周数
+    private String weekTotal;// 总周数
     @ToMany
     @JoinEntity(
             entity = JoinPlayerGoodsToPlayer.class,
@@ -40,7 +38,6 @@ public class Player {
             targetProperty = "playerGoodsId"
     )
     private List<PlayerGoods> playerGoodsList;
-
     /**
      * Convenient call for {@link org.greenrobot.greendao.AbstractDao#refresh(Object)}.
      * Entity must attached to an entity context.
@@ -52,7 +49,6 @@ public class Player {
         }
         myDao.refresh(this);
     }
-
     /**
      * Convenient call for {@link org.greenrobot.greendao.AbstractDao#update(Object)}.
      * Entity must attached to an entity context.
@@ -64,7 +60,6 @@ public class Player {
         }
         myDao.update(this);
     }
-
     /**
      * Convenient call for {@link org.greenrobot.greendao.AbstractDao#delete(Object)}.
      * Entity must attached to an entity context.
@@ -76,15 +71,11 @@ public class Player {
         }
         myDao.delete(this);
     }
-
-    /**
-     * Resets a to-many relationship, making the next get call to query for a fresh result.
-     */
+    /** Resets a to-many relationship, making the next get call to query for a fresh result. */
     @Generated(hash = 1775365651)
     public synchronized void resetPlayerGoodsList() {
         playerGoodsList = null;
     }
-
     /**
      * To-many relationship, resolved on first access (and after reset).
      * Changes to to-many relations are not persisted, make changes to the target entity.
@@ -99,133 +90,101 @@ public class Player {
             PlayerGoodsDao targetDao = daoSession.getPlayerGoodsDao();
             List<PlayerGoods> playerGoodsListNew = targetDao._queryPlayer_PlayerGoodsList(id);
             synchronized (this) {
-                if (playerGoodsList == null) {
+                if(playerGoodsList == null) {
                     playerGoodsList = playerGoodsListNew;
                 }
             }
         }
         return playerGoodsList;
     }
-
-    /**
-     * called by internal mechanisms, do not call yourself.
-     */
+    /** called by internal mechanisms, do not call yourself. */
     @Generated(hash = 1600887847)
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getPlayerDao() : null;
     }
-
-    /**
-     * Used for active entity operations.
-     */
+    /** Used for active entity operations. */
     @Generated(hash = 2108114900)
     private transient PlayerDao myDao;
-    /**
-     * Used to resolve relations
-     */
+    /** Used to resolve relations */
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
-
-    public int getWeekTotal() {
+    public String getWeekTotal() {
         return this.weekTotal;
     }
-
-    public void setWeekTotal(int weekTotal) {
+    public void setWeekTotal(String weekTotal) {
         this.weekTotal = weekTotal;
     }
-
-    public int getWeek() {
+    public String getWeek() {
         return this.week;
     }
-
-    public void setWeek(int week) {
+    public void setWeek(String week) {
         this.week = week;
     }
-
-    public int getHouseTotal() {
+    public String getHouseTotal() {
         return this.houseTotal;
     }
-
-    public void setHouseTotal(int houseTotal) {
+    public void setHouseTotal(String houseTotal) {
         this.houseTotal = houseTotal;
     }
-
-    public int getHouse() {
+    public String getHouse() {
         return this.house;
     }
-
-    public void setHouse(int house) {
+    public void setHouse(String house) {
         this.house = house;
     }
-
-    public int getHealth() {
+    public String getHealth() {
         return this.health;
     }
-
-    public void setHealth(int health) {
+    public void setHealth(String health) {
         this.health = health;
     }
-
-    public long getDeposit() {
+    public String getDeposit() {
         return this.deposit;
     }
-
-    public void setDeposit(long deposit) {
+    public void setDeposit(String deposit) {
         this.deposit = deposit;
     }
-
-    public long getDebt() {
+    public String getDebt() {
         return this.debt;
     }
-
-    public void setDebt(long debt) {
+    public void setDebt(String debt) {
         this.debt = debt;
     }
-
-    public long getCash() {
+    public String getCash() {
         return this.cash;
     }
-
-    public void setCash(long cash) {
+    public void setCash(String cash) {
         this.cash = cash;
     }
-
-    public boolean getIsFirst() {
-        return this.isFirst;
-    }
-
-    public void setIsFirst(boolean isFirst) {
-        this.isFirst = isFirst;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getCity() {
         return this.city;
     }
-
     public void setCity(String city) {
         this.city = city;
     }
-
-    @Generated(hash = 79336590)
-    public Player(Long id, String name, boolean isFirst, String city, long cash, long debt,
-            long deposit, int health, int house, int houseTotal, int week, int weekTotal) {
+    public boolean getIsFirst() {
+        return this.isFirst;
+    }
+    public void setIsFirst(boolean isFirst) {
+        this.isFirst = isFirst;
+    }
+    public String getName() {
+        return this.name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public Long getId() {
+        return this.id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+    @Generated(hash = 1253903671)
+    public Player(Long id, String name, boolean isFirst, String city, String cash,
+            String debt, String deposit, String health, String house,
+            String houseTotal, String week, String weekTotal) {
         this.id = id;
         this.name = name;
         this.isFirst = isFirst;
@@ -239,7 +198,6 @@ public class Player {
         this.week = week;
         this.weekTotal = weekTotal;
     }
-
     @Generated(hash = 30709322)
     public Player() {
     }

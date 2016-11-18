@@ -3,13 +3,12 @@ package me.sheepyang.onlylive.entity;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.ToOne;
+import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.DaoException;
 import me.sheepyang.onlylive.entity.dao.DaoSession;
 import me.sheepyang.onlylive.entity.dao.EventGoodsDao;
 import me.sheepyang.onlylive.entity.dao.NumberDao;
-import org.greenrobot.greendao.annotation.NotNull;
 
 /**
  * 突发事件中的物品

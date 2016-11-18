@@ -8,11 +8,8 @@ import me.sheepyang.onlylive.app.GameApplication;
 import me.sheepyang.onlylive.entity.Event;
 import me.sheepyang.onlylive.entity.EventGoods;
 import me.sheepyang.onlylive.entity.JoinEventGoodsToEvent;
-import me.sheepyang.onlylive.entity.Number;
 import me.sheepyang.onlylive.entity.dao.EventGoodsDao;
 import me.sheepyang.onlylive.entity.dao.JoinEventGoodsToEventDao;
-
-import static android.R.attr.max;
 
 /**
  * Created by SheepYang on 2016/10/20 21:15.
@@ -27,7 +24,7 @@ public class EventGoodsUtil {
         mJoinEventGoodsToEventDao = GameApplication.getInstances().getDaoSession().getJoinEventGoodsToEventDao();
     }
 
-    public static long create(String goodsName, String unit, int max, int min) {
+    public static long create(String goodsName, String unit, String max, String min) {
         EventGoods goods = new EventGoods();
         goods.setName(goodsName);
         goods.setUnit(unit);

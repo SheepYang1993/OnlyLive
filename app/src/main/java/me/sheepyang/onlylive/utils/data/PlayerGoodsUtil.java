@@ -11,6 +11,7 @@ import me.sheepyang.onlylive.entity.PlayerGoods;
 import me.sheepyang.onlylive.entity.ShopGoods;
 import me.sheepyang.onlylive.entity.dao.JoinPlayerGoodsToPlayerDao;
 import me.sheepyang.onlylive.entity.dao.PlayerGoodsDao;
+import me.sheepyang.onlylive.utils.MathUtil;
 
 /**
  * Created by SheepYang on 2016/10/22 17:53.
@@ -33,29 +34,27 @@ public class PlayerGoodsUtil {
         mPlayerGoodsDao.deleteAll();
     }
 
-    public static void addPlayGoods(ShopGoods shopGoods, int shopGoodsNum) {
+    public static void addPlayGoods(ShopGoods shopGoods, String shopGoodsNum) {
         QueryBuilder<PlayerGoods> qb = mPlayerGoodsDao.queryBuilder();
         qb.where(PlayerGoodsDao.Properties.Name.eq(shopGoods.getName()));
         List<PlayerGoods> list = qb.list();
         if (list != null && list.size() > 0) {
             PlayerGoods playerGoods = list.get(0);
-            long paid = playerGoods.getPaid();
-            long goodsNumber = playerGoods.getNumber();
+            String paid = playerGoods.getPaid();
+            String goodsNumber = playerGoods.getNumber();
             // 计算获得物品后，物品的平均价格
-            float totalNum = (float) (goodsNumber + shopGoodsNum);
-            float totalPrice;
-            if (paid == 0) {
-                totalPrice = shopGoods.getPrice() * shopGoodsNum;
+            String totalNum = MathUtil.add(goodsNumber, shopGoodsNum);
+            String totalPrice;
+            if (MathUtil.eq(paid, "0")) {
+                totalPrice = MathUtil.multiply(shopGoods.getPrice(), shopGoodsNum);
             } else {
-                totalPrice = paid * goodsNumber + shopGoods.getPrice() * shopGoodsNum;
+                totalPrice = MathUtil.add(MathUtil.multiply(paid, goodsNumber), MathUtil.multiply(shopGoods.getPrice(), shopGoodsNum));
             }
-            float newPaid = totalPrice / totalNum;// 公式 = 总价 / 总数量
-            paid = Math.round(newPaid);
-            playerGoods.setPaid(paid);// 设置进价
+            playerGoods.setPaid(MathUtil.divide(totalPrice, totalNum));// 设置进价, 公式 = 总价 / 总数量
             playerGoods.setPrice(shopGoods.getPrice());// 设置市价
 
             // 设置物品数量
-            long newGoodsNumber = goodsNumber + shopGoodsNum;
+            String newGoodsNumber = MathUtil.add(goodsNumber, shopGoodsNum);
             playerGoods.setNumber(newGoodsNumber);
             mPlayerGoodsDao.insertOrReplace(playerGoods);
 
@@ -78,7 +77,7 @@ public class PlayerGoodsUtil {
         }
     }
 
-    public static void addPlayGoods(EventGoods eventGoods, int goodsNum) {
+    public static void addPlayGoods(EventGoods eventGoods, String goodsNum) {
 //        QueryBuilder<PlayerGoods> qb = mPlayerGoodsDao.queryBuilder();
 //        qb.where(PlayerGoodsDao.Properties.Name.eq(eventGoods.getName()));
 //        List<PlayerGoods> list = qb.list();
@@ -125,7 +124,7 @@ public class PlayerGoodsUtil {
     public static void clearPrice() {
         List<PlayerGoods> list = mPlayerGoodsDao.loadAll();
         for (int i = 0; i < list.size(); i++) {
-            list.get(i).setPrice(-1);
+            list.get(i).setPrice("-1");
         }
         mPlayerGoodsDao.insertOrReplaceInTx(list);
     }

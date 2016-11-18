@@ -13,6 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.sheepyang.onlylive.R;
 import me.sheepyang.onlylive.entity.PlayerGoods;
+import me.sheepyang.onlylive.utils.MathUtil;
 
 /**
  * Created by SheepYang on 2016/10/28 21:26.
@@ -60,7 +61,7 @@ public class PlayerGoodsAdapter extends BaseAdapter {
         }
         PlayerGoods playerGoods = mData.get(position);
         vh.tvName.setText(playerGoods.getName());
-        if (playerGoods.getPrice() < 0) {
+        if (MathUtil.lt(playerGoods.getPrice(), "0")) {
             vh.tvPrice.setText("有价无市");// 没有市价，表示现在市场不能够出售该物品
         } else {
             vh.tvPrice.setText(playerGoods.getPrice() + "");

@@ -1,19 +1,18 @@
 package me.sheepyang.onlylive.entity;
 
-import org.greenrobot.greendao.DaoException;
 import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.JoinEntity;
 import org.greenrobot.greendao.annotation.ToMany;
 import org.greenrobot.greendao.annotation.ToOne;
 
 import java.util.List;
-
+import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.DaoException;
 import me.sheepyang.onlylive.entity.dao.DaoSession;
 import me.sheepyang.onlylive.entity.dao.EventDao;
-import me.sheepyang.onlylive.entity.dao.EventGoodsDao;
 import me.sheepyang.onlylive.entity.dao.NumberDao;
+import me.sheepyang.onlylive.entity.dao.EventGoodsDao;
 
 /**
  * 突发事件

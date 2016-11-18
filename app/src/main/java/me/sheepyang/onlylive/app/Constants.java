@@ -5,15 +5,18 @@ package me.sheepyang.onlylive.app;
  */
 
 public class Constants {
+    //Bugly ID
+    public static final String BUGLY_ID = "900059113";
+
     // 重新开始一盘游戏的数值
-    public static long INIT_GAME_CASH = 99999999999999L;// 现金
-    public static long INIT_GAME_DEBT = 9000L;// 负债
-    public static long INIT_GAME_DEPOSIT = 50L;// 存款
-    public static int INIT_GAME_HEALTH = 80;// 健康
-    public static int INIT_GAME_HOUSE = 0;// 房子数量
-    public static int INIT_GAME_WEEK = 0;// 周数
-    public static int INIT_GAME_HOUSE_TOTAL = 80;// 总房子数量
-    public static int INIT_GAME_WEEK_TOTAL = 5;// 游戏总周数
+    public static final String INIT_GAME_CASH = "99999999999999";// 现金
+    public static final String INIT_GAME_DEBT = "9000";// 负债
+    public static final String INIT_GAME_DEPOSIT = "50";// 存款
+    public static final String INIT_GAME_HEALTH = "80";// 健康
+    public static final String INIT_GAME_HOUSE = "0";// 房子数量
+    public static final String INIT_GAME_WEEK = "0";// 周数
+    public static final String INIT_GAME_HOUSE_TOTAL = "80";// 总房子数量
+    public static final String INIT_GAME_WEEK_TOTAL = "5";// 游戏总周数
 
 
     // 突发事件中，需要被替换掉的字符串

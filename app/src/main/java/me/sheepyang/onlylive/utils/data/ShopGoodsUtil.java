@@ -1,17 +1,12 @@
 package me.sheepyang.onlylive.utils.data;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import me.sheepyang.onlylive.app.GameApplication;
 import me.sheepyang.onlylive.entity.Goods;
 import me.sheepyang.onlylive.entity.ShopGoods;
-import me.sheepyang.onlylive.entity.dao.JoinPlayerGoodsToPlayerDao;
-import me.sheepyang.onlylive.entity.dao.PlayerGoodsDao;
 import me.sheepyang.onlylive.entity.dao.ShopGoodsDao;
 import me.sheepyang.onlylive.utils.RandomUtil;
-
-import static me.sheepyang.onlylive.utils.RandomUtil.getRandomNum;
 
 /**
  * Created by SheepYang on 2016/10/28 20:58.
@@ -28,7 +23,7 @@ public class ShopGoodsUtil {
         ShopGoods shopGoods = new ShopGoods();
         shopGoods.setName(goods.getName());
         int price = RandomUtil.getRandomNum(goods.getPrice());
-        shopGoods.setPrice(price);
+        shopGoods.setPrice(price + "");
         return mShopGoodsDao.insertOrReplace(shopGoods);
     }
 

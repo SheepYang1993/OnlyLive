@@ -2,9 +2,6 @@ package me.sheepyang.onlylive.entity;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
-
-import static android.R.attr.id;
-
 import org.greenrobot.greendao.annotation.Generated;
 
 /**

@@ -2,20 +2,12 @@ package me.sheepyang.onlylive.entity;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.JoinEntity;
-import org.greenrobot.greendao.annotation.ToMany;
-
-import java.util.List;
-
-import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.ToOne;
+import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.DaoException;
-
 import me.sheepyang.onlylive.entity.dao.DaoSession;
 import me.sheepyang.onlylive.entity.dao.GoodsDao;
 import me.sheepyang.onlylive.entity.dao.NumberDao;
-
-import org.greenrobot.greendao.annotation.NotNull;
 
 /**
  * 物品

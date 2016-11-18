@@ -1,13 +1,7 @@
 package me.sheepyang.onlylive.utils.data;
 
-import org.greenrobot.greendao.query.QueryBuilder;
-
-import java.util.List;
-
 import me.sheepyang.onlylive.app.GameApplication;
-import me.sheepyang.onlylive.entity.EventGoods;
 import me.sheepyang.onlylive.entity.Number;
-import me.sheepyang.onlylive.entity.dao.EventGoodsDao;
 import me.sheepyang.onlylive.entity.dao.NumberDao;
 
 /**
@@ -21,7 +15,7 @@ public class NumberUtil {
         mNumberDao = GameApplication.getInstances().getDaoSession().getNumberDao();
     }
 
-    public static long create(int max, int min) {
+    public static long create(String max, String min) {
         Number number = new Number();
         number.setMaxNumber(max);
         number.setMinNumber(min);

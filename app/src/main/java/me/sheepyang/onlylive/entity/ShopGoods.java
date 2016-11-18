@@ -2,13 +2,7 @@ package me.sheepyang.onlylive.entity;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.ToOne;
 import org.greenrobot.greendao.annotation.Generated;
-import org.greenrobot.greendao.DaoException;
-
-import me.sheepyang.onlylive.entity.dao.DaoSession;
-import me.sheepyang.onlylive.entity.dao.ShopGoodsDao;
-import me.sheepyang.onlylive.entity.dao.NumberDao;
 
 /**
  * Created by SheepYang on 2016/10/27 22:51.
@@ -18,11 +12,11 @@ public class ShopGoods {
     @Id(autoincrement = true)
     private Long id;
     private String name;
-    private long price;
-    public long getPrice() {
+    private String price;
+    public String getPrice() {
         return this.price;
     }
-    public void setPrice(long price) {
+    public void setPrice(String price) {
         this.price = price;
     }
     public String getName() {
@@ -37,8 +31,8 @@ public class ShopGoods {
     public void setId(Long id) {
         this.id = id;
     }
-    @Generated(hash = 376052819)
-    public ShopGoods(Long id, String name, long price) {
+    @Generated(hash = 529930273)
+    public ShopGoods(Long id, String name, String price) {
         this.id = id;
         this.name = name;
         this.price = price;

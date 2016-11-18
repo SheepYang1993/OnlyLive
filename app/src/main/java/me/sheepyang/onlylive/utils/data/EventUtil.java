@@ -4,17 +4,10 @@ import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.util.List;
 
-import me.sheepyang.onlylive.app.Constants;
 import me.sheepyang.onlylive.app.GameApplication;
 import me.sheepyang.onlylive.entity.Event;
-import me.sheepyang.onlylive.entity.EventGoods;
 import me.sheepyang.onlylive.entity.dao.EventDao;
-import me.sheepyang.onlylive.entity.dao.EventGoodsDao;
-import me.sheepyang.onlylive.utils.MyLog;
 import me.sheepyang.onlylive.utils.RandomUtil;
-
-import static android.R.attr.max;
-import static android.R.attr.name;
 
 /**
  * Created by SheepYang on 2016/10/20 21:36.
@@ -35,7 +28,7 @@ public class EventUtil {
         return mEventDao.insertOrReplace(event);
     }
 
-    public static long create(boolean isGoodEvent, String title, String msg, int maxMoney, int minMoney) {
+    public static long create(boolean isGoodEvent, String title, String msg, String maxMoney, String minMoney) {
         Event event = new Event();
         event.setIsGoodEvent(isGoodEvent);
         event.setTitle(title);

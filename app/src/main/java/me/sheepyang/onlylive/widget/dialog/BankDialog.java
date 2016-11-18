@@ -3,7 +3,6 @@ package me.sheepyang.onlylive.widget.dialog;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Display;
@@ -14,13 +13,11 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import java.math.BigDecimal;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.sheepyang.onlylive.R;
-import me.sheepyang.onlylive.utils.MyLog;
+import me.sheepyang.onlylive.utils.MathUtil;
 import me.sheepyang.onlylive.widget.MarqueeTextView;
 
 /**
@@ -47,10 +44,10 @@ public class BankDialog extends Dialog {
     @BindView(R.id.tvMoney)
     TextView tvMoney;
     private Context mContext;
-    private long mCash;
-    private long mDeposit;
+    private String mCash;
+    private String mDeposit;
     private int mType;
-    private long mMoney;
+    private String mMoney;
     private OnClickListener mListener;
 
     public BankDialog(Context context) {
@@ -83,17 +80,16 @@ public class BankDialog extends Dialog {
         seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                BigDecimal percent = new BigDecimal((float) progress / seekBar.getMax());// 百分比
-                BigDecimal bdCash = null;
+                String percent = MathUtil.divide(progress + "", seekBar.getMax() + "");// 百分比
+                String cash = null;
                 if (mType == TYPE_SAVE_MONEY) {
-                    bdCash = new BigDecimal((double) mCash + "");
+                    cash = mCash;
                 } else if (mType == TYPE_GET_MONEY) {
-                    bdCash = new BigDecimal((double) mDeposit + "");
+                    cash = mDeposit;
                 }
-                if (bdCash != null) {
-                    BigDecimal result = bdCash.multiply(percent);
-                    mMoney = result.longValue();
-                    tvMoney.setText(mMoney + "");
+                if (cash != null) {
+                    mMoney = MathUtil.multiply(cash, percent);
+                    tvMoney.setText(mMoney);
                 }
             }
 
@@ -176,11 +172,11 @@ public class BankDialog extends Dialog {
         }
     }
 
-    public void setCash(long cash) {
+    public void setCash(String cash) {
         mCash = cash;
     }
 
-    public void setDeposit(long deposit) {
+    public void setDeposit(String deposit) {
         mDeposit = deposit;
     }
 
@@ -189,6 +185,6 @@ public class BankDialog extends Dialog {
     }
 
     public interface OnClickListener {
-        void click(Dialog dialog, int tpye, long money);
+        void click(Dialog dialog, int tpye, String money);
     }
 }

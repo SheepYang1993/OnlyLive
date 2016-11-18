@@ -4,10 +4,10 @@ package me.sheepyang.onlylive.app;
 import android.app.Application;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.tencent.bugly.crashreport.CrashReport;
+
 import me.sheepyang.onlylive.entity.dao.DaoMaster;
 import me.sheepyang.onlylive.entity.dao.DaoSession;
-import me.sheepyang.onlylive.utils.DataUtil;
-import me.sheepyang.onlylive.utils.SPUtil;
 
 /**
  * Created by SheepYang on 2016/10/13 00:30.
@@ -23,6 +23,13 @@ public class GameApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        // 初始化Bugly
+        // 第三个参数为SDK调试模式开关，调试模式的行为特性如下：
+        // ● 输出详细的Bugly SDK的Log；
+        // ● 每一条Crash都会被立即上报；
+        // ● 自定义日志将会在Logcat中输出。
+        // 建议在测试阶段建议设置成true，发布时设置为false。
+        CrashReport.initCrashReport(getApplicationContext(), Constants.BUGLY_ID, true);
         mInstances = this;
         // 初始化数据库
         setDatabase();

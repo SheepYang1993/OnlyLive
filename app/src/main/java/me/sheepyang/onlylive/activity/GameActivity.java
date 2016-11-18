@@ -9,8 +9,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.List;
 
 import butterknife.BindView;
@@ -21,6 +19,7 @@ import me.sheepyang.onlylive.app.Constants;
 import me.sheepyang.onlylive.entity.Event;
 import me.sheepyang.onlylive.entity.EventGoods;
 import me.sheepyang.onlylive.entity.Player;
+import me.sheepyang.onlylive.utils.MathUtil;
 import me.sheepyang.onlylive.utils.MyLog;
 import me.sheepyang.onlylive.utils.RandomUtil;
 import me.sheepyang.onlylive.utils.StrUtil;
@@ -153,20 +152,20 @@ public class GameActivity extends BaseActivity {
             mBankDialog = new BankDialog(mContext);
             mBankDialog.setOnClickListener(new BankDialog.OnClickListener() {
                 @Override
-                public void click(Dialog dialog, int tpye, long money) {
+                public void click(Dialog dialog, int tpye, String money) {
                     MyLog.i("tpye:" + tpye + "money:" + money);
-                    long cash = mPlayer.getCash();
-                    long deposit = mPlayer.getDeposit();
+                    String cash = mPlayer.getCash();
+                    String deposit = mPlayer.getDeposit();
                     switch (tpye) {
                         case TYPE_SAVE_MONEY:
                             MyLog.i("" + TYPE_SAVE_MONEY);
-                            mPlayer.setCash(cash - money);
-                            mPlayer.setDeposit(deposit + money);
+                            mPlayer.setCash(MathUtil.subtract(cash, money));
+                            mPlayer.setDeposit(MathUtil.add(deposit, money));
                             break;
                         case TYPE_GET_MONEY:
                             MyLog.i("" + TYPE_GET_MONEY);
-                            mPlayer.setCash(cash + money);
-                            mPlayer.setDeposit(deposit - money);
+                            mPlayer.setCash(MathUtil.add(cash, money));
+                            mPlayer.setDeposit(MathUtil.subtract(deposit, money));
                             break;
                         default:
                             break;
@@ -321,25 +320,25 @@ public class GameActivity extends BaseActivity {
      * 租房
      */
     private void rentalHouse() {
-        int houseNum = 0;
-        int houseMoney = 0;
-        if (mPlayer.getHouseTotal() <= Constants.INIT_GAME_HOUSE_TOTAL) {
-            houseNum = 120;
-            houseMoney = 800000;
-        } else if (mPlayer.getHouseTotal() <= 120) {
-            houseNum = 160;
-            houseMoney = 1200000;
-        } else if (mPlayer.getHouseTotal() <= 160) {
-            houseNum = 200;
-            houseMoney = 1800000;
+        String houseNum;
+        String houseMoney;
+        if (MathUtil.le(mPlayer.getHouseTotal(), Constants.INIT_GAME_HOUSE_TOTAL)) {
+            houseNum = "120";
+            houseMoney = "800000";
+        } else if (MathUtil.le(mPlayer.getHouseTotal(), "120")) {
+            houseNum = "160";
+            houseMoney = "1200000";
+        } else if (MathUtil.le(mPlayer.getHouseTotal(), "160")) {
+            houseNum = "200";
+            houseMoney = "1800000";
         } else {
-            houseNum = 240;
-            houseMoney = 3600000;
+            houseNum = "240";
+            houseMoney = "3600000";
         }
-        if (mPlayer.getHouseTotal() < 240) {
-            long cash = mPlayer.getCash();
-            if (cash >= houseMoney) {
-                mPlayer.setCash(cash - houseMoney);
+        if (MathUtil.lt(mPlayer.getHouseTotal(), "240")) {
+            String cash = mPlayer.getCash();
+            if (MathUtil.ge(cash, houseMoney)) {
+                mPlayer.setCash(MathUtil.subtract(cash, houseMoney));
                 mPlayer.setHouseTotal(houseNum);
                 PlayerUtil.setPlayer(mPlayer);
                 refreshPlayerData();
@@ -363,15 +362,15 @@ public class GameActivity extends BaseActivity {
      * 归还债务
      */
     private void toRepayDebt() {
-        if (mPlayer.getDebt() > 0) {
-            long debt = mPlayer.getDebt();
-            long cash = mPlayer.getCash();
-            if (cash < debt) {
+        if (MathUtil.gt(mPlayer.getDebt(), "0")) {
+            String debt = mPlayer.getDebt();
+            String cash = mPlayer.getCash();
+            if (MathUtil.lt(cash, debt)) {
                 showToast("开什么玩笑，你的钱够吗？\n              来找抽是吧？");
                 return;
             }
-            mPlayer.setCash(cash - debt);
-            mPlayer.setDebt(0);
+            mPlayer.setCash(MathUtil.subtract(cash, debt));
+            mPlayer.setDebt("0");
             PlayerUtil.setPlayer(mPlayer);
             refreshPlayerData();
             mHintDialog.setTitle("债务");
@@ -387,17 +386,17 @@ public class GameActivity extends BaseActivity {
      * 去治疗
      */
     private void toTreatment() {
-        long newMoney = mPlayer.getCash() - getTreatmentMoney();
-        if (newMoney < 0) {
+        String newMoney = MathUtil.subtract(mPlayer.getCash(), getTreatmentMoney());
+        if (MathUtil.lt(newMoney, "0")) {
             showToast("没钱治什么病！赶快走！");
             return;
         }
-        if (mPlayer.getHealth() == 100) {
+        if (MathUtil.eq(mPlayer.getHealth(), "100")) {
             showToast("             没病找抽是吧？\n你现在很健康，不需要治疗！");
             return;
         }
         mPlayer.setCash(newMoney);
-        mPlayer.setHealth(100);
+        mPlayer.setHealth("100");
         PlayerUtil.setPlayer(mPlayer);
         refreshPlayerData();
         mHintDialog.setTitle("医院");
@@ -511,9 +510,9 @@ public class GameActivity extends BaseActivity {
                 mPlayer.setIsFirst(false);
             }
             if (checkWeek()) {
-                BigDecimal bdDept = new BigDecimal(mPlayer.getDebt());
-                BigDecimal bdResult = bdDept.multiply(new BigDecimal(RandomUtil.getRandomNum(15, 11)).divide(new BigDecimal(10), 3, BigDecimal.ROUND_HALF_UP));
-                mPlayer.setDebt(bdResult.longValue());// 设置当前负债，算法是 当前负债 *（1.1~1.5）倍，后期再优化利息的算法
+                String percent = MathUtil.divide(RandomUtil.getRandomNum(15, 11) + "", "10", 2);
+                String debt = MathUtil.multiply(mPlayer.getDebt(), percent);
+                mPlayer.setDebt(debt);// 设置当前负债，算法是 当前负债 *（1.1~1.5）倍，后期再优化利息的算法
                 mPlayer.setCity(city);// 设置当前所在城市
                 PlayerUtil.setPlayer(mPlayer);
                 refreshPlayerData();
@@ -565,18 +564,15 @@ public class GameActivity extends BaseActivity {
      * @return
      */
     private boolean checkWeek() {
-        BigDecimal bdCash = new BigDecimal(mPlayer.getCash());
-        BigDecimal bdDebt = new BigDecimal(mPlayer.getDebt());
-        BigDecimal bdDeposit = new BigDecimal(mPlayer.getDeposit());
-        BigDecimal bdResult = bdCash.add(bdDeposit).subtract(bdDebt);// 现金 + 存款 - 负债
-        MyLog.i("当前为第" + mPlayer.getWeek() + "周。\n总资产为：" + bdResult.toString());
-        if (mPlayer.getWeek() >= mPlayer.getWeekTotal()) {
-            mFinishDialog.setMessage("当前为第" + mPlayer.getWeek() + "周。\n总资产为：" + bdResult.toString() + "\n游戏结束！");
+        String totalMoney = MathUtil.subtract(MathUtil.add(mPlayer.getCash(), mPlayer.getDeposit()), mPlayer.getDebt());// 现金 + 存款 - 负债
+        MyLog.i("当前为第" + mPlayer.getWeek() + "周。\n总资产为：" + totalMoney);
+        if (MathUtil.ge(mPlayer.getWeek(), mPlayer.getWeekTotal())) {
+            mFinishDialog.setMessage("当前为第" + mPlayer.getWeek() + "周。\n总资产为：" + totalMoney + "\n游戏结束！");
             dismissAllDialog();
             mFinishDialog.show(getSupportFragmentManager(), "FinishDialog");
             return false;
         } else {
-            mPlayer.setWeek(mPlayer.getWeek() + 1);
+            mPlayer.setWeek(MathUtil.add(mPlayer.getWeek(), "1"));
             PlayerUtil.setPlayer(mPlayer);
             refreshPlayerData();
             return true;
@@ -590,20 +586,20 @@ public class GameActivity extends BaseActivity {
         dismissAllDialog();
         int houseNum;
         int houseMoney;
-        if (mPlayer.getHouseTotal() <= Constants.INIT_GAME_HOUSE_TOTAL) {
+        if (MathUtil.le(mPlayer.getHouseTotal(), Constants.INIT_GAME_HOUSE_TOTAL)) {
             houseNum = 120;
             houseMoney = 800000;
-        } else if (mPlayer.getHouseTotal() <= 120) {
+        } else if (MathUtil.le(mPlayer.getHouseTotal(), "120")) {
             houseNum = 160;
             houseMoney = 1200000;
-        } else if (mPlayer.getHouseTotal() <= 160) {
+        } else if (MathUtil.le(mPlayer.getHouseTotal(), "160")) {
             houseNum = 200;
             houseMoney = 1800000;
         } else {
             houseNum = 240;
             houseMoney = 3600000;
         }
-        if (mPlayer.getHouseTotal() < 240) {
+        if (MathUtil.lt(mPlayer.getHouseTotal(), "240")) {
             mRentalDialog.setMessage("您当前房屋容量为" + mPlayer.getHouseTotal() + "。\n我们有一套容量为" + houseNum + "的新房要出租，价格是" + houseMoney + "元，您要租下这套房子吗？");
         } else {
             mRentalDialog.setMessage("我们这边已经没有房屋出租了哦！您当前已经是最大容量的豪宅了！");
@@ -623,7 +619,7 @@ public class GameActivity extends BaseActivity {
 
     private void showRepayDebtDialog() {
         dismissAllDialog();
-        if (mPlayer.getDebt() <= 0) {
+        if (MathUtil.le(mPlayer.getDebt(), "0")) {
             mRepayDebtDialog.setMessage("兄弟，咱们已经两清了！有空一起去喝喝小酒，把把小妞，吹吹小曲啊！哈哈~");
             mRepayDebtDialog.show(getSupportFragmentManager(), "RepayDebtDialog");
         } else {
@@ -637,7 +633,7 @@ public class GameActivity extends BaseActivity {
      */
     private void showHospitalDialog() {
         dismissAllDialog();
-        if (mPlayer.getHealth() == 100) {
+        if (MathUtil.eq(mPlayer.getHealth(), "100")) {
             mHospitalDialog.setMessage("你现在壮的跟头牛似得，不需要治疗！");
         } else {
             mHospitalDialog.setMessage("你当前的健康值" + mPlayer.getHealth() + "，治愈需要花费" + getTreatmentMoney() + "元，需要治疗么？");
@@ -707,17 +703,12 @@ public class GameActivity extends BaseActivity {
      *
      * @return
      */
-    public int getTreatmentMoney() {
-        if (mPlayer.getHealth() > 0 && mPlayer.getHealth() < 100) {
-            int treatmentMoney = 2000;
-            DecimalFormat df = new DecimalFormat("0.00");
-            String s = df.format(1 - (float) mPlayer.getHealth() / 100);
-            Double percent = Double.valueOf(s);
-            BigDecimal b1 = new BigDecimal(percent.toString());
-            BigDecimal b2 = new BigDecimal(treatmentMoney);
-            Double result = new Double(b1.multiply(b2).doubleValue());
-            return (int) Math.round(result);
+    public String getTreatmentMoney() {
+        if (MathUtil.gt(mPlayer.getHealth(), "0") && MathUtil.lt(mPlayer.getHealth(), "100")) {
+            String treatmentMoney = "2000";
+            String percent = MathUtil.divide(MathUtil.subtract("1", mPlayer.getHealth()), "100", 2);// 需治疗的生命占总生命 百分比
+            return MathUtil.multiply(percent, treatmentMoney);
         }
-        return 0;
+        return "0";
     }
 }

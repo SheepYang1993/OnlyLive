@@ -4,10 +4,7 @@ import java.util.List;
 
 import me.sheepyang.onlylive.app.GameApplication;
 import me.sheepyang.onlylive.entity.Goods;
-import me.sheepyang.onlylive.entity.Number;
 import me.sheepyang.onlylive.entity.dao.GoodsDao;
-
-import static android.R.attr.max;
 
 /**
  * Created by SheepYang on 2016/10/20 21:50.
@@ -20,7 +17,7 @@ public class GoodsUtil {
         mGoodsDao = GameApplication.getInstances().getDaoSession().getGoodsDao();
     }
 
-    public static long create(String name, int max, int min) {
+    public static long create(String name, String max, String min) {
         Goods goods = new Goods();
         goods.setName(name);
         long rowId = NumberUtil.create(max, min);

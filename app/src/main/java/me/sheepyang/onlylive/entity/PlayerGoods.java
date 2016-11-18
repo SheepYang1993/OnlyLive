@@ -3,14 +3,6 @@ package me.sheepyang.onlylive.entity;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
-import org.greenrobot.greendao.annotation.ToOne;
-import org.greenrobot.greendao.DaoException;
-
-import me.sheepyang.onlylive.entity.dao.DaoSession;
-import me.sheepyang.onlylive.entity.dao.PlayerGoodsDao;
-import me.sheepyang.onlylive.entity.dao.NumberDao;
-
-import org.greenrobot.greendao.annotation.NotNull;
 
 /**
  * Created by SheepYang on 2016/10/16 22:32.
@@ -20,25 +12,25 @@ public class PlayerGoods {
     @Id(autoincrement = true)
     private Long id;
     private String name;
-    private long price;// 市场价格
-    private long number;// 数量
-    private long paid;// 进价
-    public long getPaid() {
+    private String price;// 市场价格
+    private String number;// 数量
+    private String paid;// 进价
+    public String getPaid() {
         return this.paid;
     }
-    public void setPaid(long paid) {
+    public void setPaid(String paid) {
         this.paid = paid;
     }
-    public long getNumber() {
+    public String getNumber() {
         return this.number;
     }
-    public void setNumber(long number) {
+    public void setNumber(String number) {
         this.number = number;
     }
-    public long getPrice() {
+    public String getPrice() {
         return this.price;
     }
-    public void setPrice(long price) {
+    public void setPrice(String price) {
         this.price = price;
     }
     public String getName() {
@@ -53,8 +45,9 @@ public class PlayerGoods {
     public void setId(Long id) {
         this.id = id;
     }
-    @Generated(hash = 1400910085)
-    public PlayerGoods(Long id, String name, long price, long number, long paid) {
+    @Generated(hash = 1170174290)
+    public PlayerGoods(Long id, String name, String price, String number,
+            String paid) {
         this.id = id;
         this.name = name;
         this.price = price;
