@@ -123,7 +123,6 @@ public class BankDialog extends Dialog {
                 tvSaveMoney.setTextColor(mContext.getResources().getColor(R.color.text_white));
                 tvGetMoney.setTextColor(mContext.getResources().getColor(R.color.text_black));
                 tvHint.setText("取出：");
-                tvHint.setText("存入：");
                 tvMoney.setText(mDeposit + "");
                 seekbar.setProgress(seekbar.getMax());
                 break;

@@ -110,7 +110,7 @@ public class MessageDialog extends BaseDialogFragment {
         return mOkClickListener;
     }
 
-    public void setOkClickListener(String text, OnOkClickListener okClickListener) {
+    public void setOnOkClickListener(String text, OnOkClickListener okClickListener) {
         mOkClickListener = okClickListener;
         mOkText = text;
     }
@@ -127,7 +127,7 @@ public class MessageDialog extends BaseDialogFragment {
         return mCancelClickListener;
     }
 
-    public void setCancelClickListener(String text, OnCancelClickListener cancelClickListener) {
+    public void setOnCancelClickListener(String text, OnCancelClickListener cancelClickListener) {
         mCancelClickListener = cancelClickListener;
         mCancelText = text;
     }

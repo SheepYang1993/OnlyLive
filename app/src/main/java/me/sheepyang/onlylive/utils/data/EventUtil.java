@@ -1,5 +1,7 @@
 package me.sheepyang.onlylive.utils.data;
 
+import android.text.TextUtils;
+
 import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.util.List;
@@ -20,35 +22,45 @@ public class EventUtil {
         mEventDao = GameApplication.getInstances().getDaoSession().getEventDao();
     }
 
+
+    public static long create(String title, String msg) {
+        return create(false, title, msg);
+    }
+
     public static long create(boolean isGoodEvent, String title, String msg) {
-        Event event = new Event();
-        event.setIsGoodEvent(isGoodEvent);
-        event.setTitle(title);
-        event.setMessage(msg);
-        return mEventDao.insertOrReplace(event);
+        return create(isGoodEvent, false, title, msg, null, null);
     }
 
     public static long create(boolean isGoodEvent, String title, String msg, String maxMoney, String minMoney) {
+        return create(isGoodEvent, false, title, msg, maxMoney, minMoney);
+    }
+
+    /**
+     * @param isGoodEvent 是否好事件，例如增加物品，增加现金存款，减少债务，增加健康，房屋容量等等
+     * @param isSelect    该事件是否需要进行判断选择
+     * @param title       标题
+     * @param msg         详情
+     * @return
+     */
+    public static long create(boolean isGoodEvent, boolean isSelect, String title, String msg, String maxMoney, String minMoney) {
         Event event = new Event();
+        event.setIsSelect(isSelect);
         event.setIsGoodEvent(isGoodEvent);
         event.setTitle(title);
         event.setMessage(msg);
-        long rowId = NumberUtil.create(maxMoney, minMoney);
-        event.setMoney(NumberUtil.getNumber(rowId));
+        if (!TextUtils.isEmpty(maxMoney) && !TextUtils.isEmpty(minMoney)) {
+            long rowId = NumberUtil.create(maxMoney, minMoney);
+            event.setMoney(NumberUtil.getNumber(rowId));
+        }
         return mEventDao.insertOrReplace(event);
     }
 
     /**
-     * 获得随机事件
+     * 根据title获取事件
      *
+     * @param title
      * @return
      */
-    public static Event getRandomEvent() {
-        long total = mEventDao.loadAll().size();
-        int rowId = RandomUtil.getRandomNum((int) total, 1);
-        return mEventDao.loadByRowId(rowId);
-    }
-
     public static Event getEvent(String title) {
         QueryBuilder<Event> qb = mEventDao.queryBuilder();
         qb.where(EventDao.Properties.Title.eq(title));
@@ -57,6 +69,29 @@ public class EventUtil {
             return list.get(0);
         } else {
             return null;
+        }
+    }
+
+    /**
+     * 获得随机事件
+     *
+     * @return
+     */
+    public static Event getRandomEvent(Boolean isGoodEvent) {
+        if (isGoodEvent != null) {// 获取所有好事件中的随机一个
+            QueryBuilder<Event> qb = mEventDao.queryBuilder();
+            qb.where(EventDao.Properties.IsGoodEvent.eq(isGoodEvent));
+            List<Event> list = qb.list();
+            if (list != null && list.size() > 0) {
+                int position = RandomUtil.getRandomNum(list.size(), 0);
+                return list.get(position);
+            } else {
+                return null;
+            }
+        } else {// 获取所有事件中的随机一个
+            long total = mEventDao.loadAll().size();
+            int rowId = RandomUtil.getRandomNum((int) total, 1);
+            return mEventDao.loadByRowId(rowId);
         }
     }
 

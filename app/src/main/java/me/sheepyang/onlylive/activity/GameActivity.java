@@ -211,13 +211,13 @@ public class GameActivity extends BaseActivity {
         if (mRentalDialog == null) {
             mRentalDialog = new MessageDialog();
             mRentalDialog.setTitle("房屋中介");
-            mRentalDialog.setOkClickListener("租房", new MessageDialog.OnOkClickListener() {
+            mRentalDialog.setOnOkClickListener("租房", new MessageDialog.OnOkClickListener() {
                 @Override
                 public void onClick(View view) {
                     rentalHouse();
                 }
             });
-            mRentalDialog.setCancelClickListener("取消", new MessageDialog.OnCancelClickListener() {
+            mRentalDialog.setOnCancelClickListener("取消", new MessageDialog.OnCancelClickListener() {
                 @Override
                 public void onClick(View view) {
 
@@ -228,13 +228,13 @@ public class GameActivity extends BaseActivity {
             mFinishDialog = new MessageDialog();
             mFinishDialog.setCancelable(false);
             mFinishDialog.setTitle("游戏结束！");
-            mFinishDialog.setOkClickListener("重来", new MessageDialog.OnOkClickListener() {
+            mFinishDialog.setOnOkClickListener("重来", new MessageDialog.OnOkClickListener() {
                 @Override
                 public void onClick(View view) {
                     restartGame();
                 }
             });
-            mFinishDialog.setCancelClickListener("退出", new MessageDialog.OnCancelClickListener() {
+            mFinishDialog.setOnCancelClickListener("退出", new MessageDialog.OnCancelClickListener() {
                 @Override
                 public void onClick(View view) {
                     quitGame();
@@ -244,13 +244,13 @@ public class GameActivity extends BaseActivity {
         if (mRepayDebtDialog == null) {
             mRepayDebtDialog = new MessageDialog();
             mRepayDebtDialog.setTitle("债务");
-            mRepayDebtDialog.setOkClickListener("还债", new MessageDialog.OnOkClickListener() {
+            mRepayDebtDialog.setOnOkClickListener("还债", new MessageDialog.OnOkClickListener() {
                 @Override
                 public void onClick(View view) {
                     toRepayDebt();
                 }
             });
-            mRepayDebtDialog.setCancelClickListener("取消", new MessageDialog.OnCancelClickListener() {
+            mRepayDebtDialog.setOnCancelClickListener("取消", new MessageDialog.OnCancelClickListener() {
                 @Override
                 public void onClick(View view) {
 
@@ -260,13 +260,13 @@ public class GameActivity extends BaseActivity {
         if (mHospitalDialog == null) {
             mHospitalDialog = new MessageDialog();
             mHospitalDialog.setTitle("医院");
-            mHospitalDialog.setOkClickListener("治疗", new MessageDialog.OnOkClickListener() {
+            mHospitalDialog.setOnOkClickListener("治疗", new MessageDialog.OnOkClickListener() {
                 @Override
                 public void onClick(View view) {
                     toTreatment();
                 }
             });
-            mHospitalDialog.setCancelClickListener("取消", new MessageDialog.OnCancelClickListener() {
+            mHospitalDialog.setOnCancelClickListener("取消", new MessageDialog.OnCancelClickListener() {
                 @Override
                 public void onClick(View view) {
 
@@ -277,13 +277,13 @@ public class GameActivity extends BaseActivity {
             mRestartDialog = new MessageDialog();
             mRestartDialog.setTitle("重新开始");
             mRestartDialog.setMessage("现在给你一次再来一次的机会，这将会清除所有数据，确定重来？");
-            mRestartDialog.setOkClickListener("确定", new MessageDialog.OnOkClickListener() {
+            mRestartDialog.setOnOkClickListener("确定", new MessageDialog.OnOkClickListener() {
                 @Override
                 public void onClick(View view) {
                     restartGame();
                 }
             });
-            mRestartDialog.setCancelClickListener("取消", new MessageDialog.OnCancelClickListener() {
+            mRestartDialog.setOnCancelClickListener("取消", new MessageDialog.OnCancelClickListener() {
                 @Override
                 public void onClick(View view) {
 
@@ -294,13 +294,13 @@ public class GameActivity extends BaseActivity {
             mQuitDialog = new MessageDialog();
             mQuitDialog.setTitle("退出游戏");
             mQuitDialog.setMessage("确认退出游戏？（数据将被保存）");
-            mQuitDialog.setOkClickListener("确定", new MessageDialog.OnOkClickListener() {
+            mQuitDialog.setOnOkClickListener("确定", new MessageDialog.OnOkClickListener() {
                 @Override
                 public void onClick(View view) {
                     quitGame();
                 }
             });
-            mQuitDialog.setCancelClickListener("取消", new MessageDialog.OnCancelClickListener() {
+            mQuitDialog.setOnCancelClickListener("取消", new MessageDialog.OnCancelClickListener() {
                 @Override
                 public void onClick(View view) {
 
@@ -309,7 +309,7 @@ public class GameActivity extends BaseActivity {
         }
         if (mHintDialog == null) {
             mHintDialog = new MessageDialog();
-            mHintDialog.setOkClickListener("确定", new MessageDialog.OnOkClickListener() {
+            mHintDialog.setOnOkClickListener("确定", new MessageDialog.OnOkClickListener() {
                 @Override
                 public void onClick(View view) {
 
@@ -318,7 +318,7 @@ public class GameActivity extends BaseActivity {
         }
         if (mEventDialog == null) {
             mEventDialog = new MessageDialog();
-            mEventDialog.setOkClickListener("确定", new MessageDialog.OnOkClickListener() {
+            mEventDialog.setOnOkClickListener("确定", new MessageDialog.OnOkClickListener() {
                 @Override
                 public void onClick(View view) {
                     dismissAllDialog();
@@ -333,7 +333,7 @@ public class GameActivity extends BaseActivity {
         }
         if (mNewsDialog == null) {
             mNewsDialog = new MessageDialog();
-            mNewsDialog.setOkClickListener("确定", new MessageDialog.OnOkClickListener() {
+            mNewsDialog.setOnOkClickListener("确定", new MessageDialog.OnOkClickListener() {
                 @Override
                 public void onClick(View view) {
                     dismissAllDialog();
@@ -464,40 +464,31 @@ public class GameActivity extends BaseActivity {
                 mQuitDialog.show(getSupportFragmentManager(), "QuitDialog");
                 break;
             case R.id.btn1:// 选择城市
-                mCity = btn1.getText().toString();
-                selectCity(mCity);
+                selectCity(btn1.getText().toString());
                 break;
             case R.id.btn2:
-                mCity = btn2.getText().toString();
-                selectCity(mCity);
+                selectCity(btn2.getText().toString());
                 break;
             case R.id.btn3:
-                mCity = btn3.getText().toString();
-                selectCity(mCity);
+                selectCity(btn3.getText().toString());
                 break;
             case R.id.btn4:
-                mCity = btn4.getText().toString();
-                selectCity(mCity);
+                selectCity(btn4.getText().toString());
                 break;
             case R.id.btn5:
-                mCity = btn5.getText().toString();
-                selectCity(mCity);
+                selectCity(btn5.getText().toString());
                 break;
             case R.id.btn6:
-                mCity = btn6.getText().toString();
-                selectCity(mCity);
+                selectCity(btn6.getText().toString());
                 break;
             case R.id.btn7:
-                mCity = btn7.getText().toString();
-                selectCity(mCity);
+                selectCity(btn7.getText().toString());
                 break;
             case R.id.btn8:
-                mCity = btn8.getText().toString();
-                selectCity(mCity);
+                selectCity(btn8.getText().toString());
                 break;
             case R.id.btn9:
-                mCity = btn9.getText().toString();
-                selectCity(mCity);
+                selectCity(btn9.getText().toString());
                 break;
             case R.id.rb_1:// 银行
                 if (!checkIsStart()) {
@@ -535,12 +526,15 @@ public class GameActivity extends BaseActivity {
     }
 
     private void selectCity(String city) {
+        mCity = city;
         if (city.equals(mPlayer.getCity())) {
             showToast("你现在就在" + city + "，换个地方逛逛吧");
             return;
         } else {
+            boolean isFirst = true;
             if (mPlayer.getIsFirst()) {
-                mPlayer.setIsFirst(false);
+                isFirst = false;
+                mPlayer.setIsFirst(isFirst);
             }
             if (checkWeek()) {
                 String percent = MathUtil.divide(RandomUtil.getRandomNum(15, 11) + "", "10", 2);
@@ -549,7 +543,7 @@ public class GameActivity extends BaseActivity {
                 mPlayer.setCity(city);// 设置当前所在城市
                 PlayerUtil.setPlayer(mPlayer);
                 refreshPlayerData();
-                showSurpriseDialog();
+                showSurpriseDialog(isFirst);
             }
         }
     }
@@ -676,26 +670,49 @@ public class GameActivity extends BaseActivity {
 
     /**
      * 显示意外事件对话框
+     *
+     * @param isFirst 是否新开始游戏，是的话则触发好事件
      */
-    private void showSurpriseDialog() {
+    private void showSurpriseDialog(boolean isFirst) {
         dismissAllDialog();
         showPDialog();
-        Event event = EventUtil.getRandomEvent();
-        String msg = event.getMessage();
-        List<EventGoods> eventGoodsList = event.getEventGoodsList();
-        if (eventGoodsList != null && eventGoodsList.size() > 0) {
-            for (int i = 0; i < eventGoodsList.size(); i++) {
-                EventGoods eventGoods = eventGoodsList.get(i);
-                msg = StrUtil.replaceGoodsChar(i, msg, eventGoods);// 替换掉字符串中的占位符
+        Event event;
+        if (isFirst) {
+            event = EventUtil.getRandomEvent(true);
+        } else {
+            event = EventUtil.getRandomEvent(null);
+        }
+        if (event != null) {
+            String msg = event.getMessage();
+            List<EventGoods> eventGoodsList = event.getEventGoodsList();
+            if (eventGoodsList != null && eventGoodsList.size() > 0) {
+                for (int i = 0; i < eventGoodsList.size(); i++) {
+                    EventGoods eventGoods = eventGoodsList.get(i);
+                    msg = StrUtil.replaceGoodsChar(i, msg, eventGoods);// 替换掉字符串中的占位符
+                }
             }
+            if (event.getMoney() != null) {
+                msg = StrUtil.replaceMoneyChar(msg, event.getMoney());// 替换掉字符串中的占位符
+            }
+            if (event.getIsSelect()) {// 该事件需要进行选择
+                mEventDialog.setOnOkClickListener(event.getSelectYes(), new MessageDialog.OnOkClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
+                mEventDialog.setOnCancelClickListener(event.getSelectNo(), new MessageDialog.OnCancelClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
+            }
+            mEventDialog.setTitle(event.getTitle());
+            mEventDialog.setMessage(msg);
+            dismissPDialog();
+            mEventDialog.show(getSupportFragmentManager(), "EventDialog");
         }
-        if (event.getMoney() != null) {
-            msg = StrUtil.replaceMoneyChar(msg, event.getMoney());// 替换掉字符串中的占位符
-        }
-        mEventDialog.setTitle(event.getTitle());
-        mEventDialog.setMessage(msg);
-        dismissPDialog();
-        mEventDialog.show(getSupportFragmentManager(), "EventDialog");
     }
 
     /**

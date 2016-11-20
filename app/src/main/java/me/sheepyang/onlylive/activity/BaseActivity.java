@@ -19,7 +19,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         mContext = this;
         mPDialog = new ProgressDialog(mContext);
-        // 统计应用启动数据
+        // 友盟推送 统计应用启动数据
         PushAgent.getInstance(mContext).onAppStart();
     }
 
