@@ -112,7 +112,7 @@ public class ShopDialog extends BaseDialogFragment {
     }
 
     private void initData() {
-        tvCity.setText("当前城市：" + mCity);
+        tvCity.setText("当前地区：" + mCity);
         tvCash.setText("现金：" + mPlayer.getCash());
         tvDeposit.setText("存款：" + mPlayer.getDeposit());
         viewpager.setCurrentItem(0);
@@ -360,7 +360,7 @@ public class ShopDialog extends BaseDialogFragment {
         switch (type) {
             case TYPE_BUY:
                 tvTitleHint.setText("（商店）");
-                rlBuy.setBackgroundResource(R.drawable.bg_white_shape);
+                rlBuy.setBackgroundResource(R.drawable.bg_white2_shape);
                 rlSell.setBackgroundResource(R.drawable.bg_black_shape);
                 tvBuy.setTextColor(getResources().getColor(R.color.text_black));
                 tvSell.setTextColor(getResources().getColor(R.color.text_white));
@@ -368,7 +368,7 @@ public class ShopDialog extends BaseDialogFragment {
             case TYPE_SELL:
                 tvTitleHint.setText("（背包）");
                 rlBuy.setBackgroundResource(R.drawable.bg_black_shape);
-                rlSell.setBackgroundResource(R.drawable.bg_white_shape);
+                rlSell.setBackgroundResource(R.drawable.bg_white2_shape);
                 tvBuy.setTextColor(getResources().getColor(R.color.text_white));
                 tvSell.setTextColor(getResources().getColor(R.color.text_black));
                 break;

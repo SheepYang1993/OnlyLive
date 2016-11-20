@@ -20,7 +20,7 @@
             android:ellipsize="marquee"
             android:gravity="center_horizontal"
             android:marqueeRepeatLimit="marquee_forever"
-            android:singleLine="true"
+            android:maxLines="1"
             android:text=""
             android:textColor="@color/text_black"
             android:textSize="28sp" />
@@ -51,8 +51,9 @@
                 android:id="@+id/btn_cancel"
                 android:layout_width="50dp"
                 android:layout_height="40dp"
-                android:layout_marginRight="10dp"
-                android:layout_toLeftOf="@+id/btn_ok"
+                android:layout_marginEnd="10dp"
+                android:layout_toStartOf="@+id/btn_ok"
+                android:background="@drawable/btn_gray_selector"
                 android:text="取消"
                 android:textSize="12sp"
                 android:visibility="gone" />
@@ -61,8 +62,9 @@
                 android:id="@+id/btn_ok"
                 android:layout_width="50dp"
                 android:layout_height="40dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginLeft="10dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/btn_gray_selector"
                 android:text="确定"
                 android:textSize="12sp"
                 android:visibility="gone" />

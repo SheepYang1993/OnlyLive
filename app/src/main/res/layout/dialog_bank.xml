@@ -37,7 +37,7 @@
                 android:layout_height="50dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/bg_white_shape">
+                android:background="@drawable/bg_white2_shape">
 
                 <TextView
                     android:id="@+id/tvSaveMoney"
@@ -72,7 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="30dp"
-            android:background="#a6a6a6"
+            android:background="@color/theme1_blue_light1"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:padding="10dp">
@@ -110,16 +110,18 @@
                 android:id="@+id/btn_cancel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
                 android:layout_weight="1"
+                android:background="@drawable/btn_gray_selector"
                 android:text="取消" />
 
             <Button
                 android:id="@+id/btn_ok"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_weight="1"
+                android:background="@drawable/btn_gray_selector"
                 android:text="确定" />
         </LinearLayout>
     </LinearLayout>

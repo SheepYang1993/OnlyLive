@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.umeng.message.PushAgent;
+
 import me.sheepyang.onlylive.utils.MyToast;
 
 public class BaseActivity extends AppCompatActivity implements View.OnClickListener {
@@ -17,6 +19,8 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         mContext = this;
         mPDialog = new ProgressDialog(mContext);
+        // 统计应用启动数据
+        PushAgent.getInstance(mContext).onAppStart();
     }
 
     @Override

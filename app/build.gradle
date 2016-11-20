@@ -38,7 +38,7 @@ greendao {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -48,14 +48,15 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.2.1'
     compile 'org.greenrobot:greendao:3.0.1'
     compile 'org.greenrobot:greendao-generator:3.0.0'
-    compile 'com.tencent.bugly:crashreport:2.3.1' //其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.1.5
-    compile 'com.tencent.bugly:nativecrashreport:3.0' //其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.2.0
-
+    compile 'com.tencent.bugly:crashreport:2.3.1'
+    //其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.1.5
+    compile 'com.tencent.bugly:nativecrashreport:3.0'
+    //其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.2.0
     // bmob相关
     compile 'cn.bmob.android:http-legacy:1.0'
     // bmob-sdk：Bmob的android sdk包，包含了Bmob的数据存储、文件等服务
     compile 'cn.bmob.android:bmob-sdk:3.5.0'
     // bmob-push：Bmob的推送包
     compile 'cn.bmob.android:bmob-push:1.0.0'
-
+    compile project(':PushSDK')
 }

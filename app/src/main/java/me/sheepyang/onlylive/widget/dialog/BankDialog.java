@@ -80,7 +80,7 @@ public class BankDialog extends Dialog {
         seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                String percent = MathUtil.divide(progress + "", seekBar.getMax() + "");// 百分比
+                String percent = MathUtil.divide(progress + "", seekBar.getMax() + "", 2);// 百分比
                 String cash = null;
                 if (mType == TYPE_SAVE_MONEY) {
                     cash = mCash;
@@ -109,7 +109,7 @@ public class BankDialog extends Dialog {
         mType = type;
         switch (type) {
             case TYPE_SAVE_MONEY:// 存钱
-                rlSaveMoney.setBackgroundResource(R.drawable.bg_white_shape);
+                rlSaveMoney.setBackgroundResource(R.drawable.bg_white2_shape);
                 rlGetMoney.setBackgroundResource(R.drawable.bg_black_shape);
                 tvSaveMoney.setTextColor(mContext.getResources().getColor(R.color.text_black));
                 tvGetMoney.setTextColor(mContext.getResources().getColor(R.color.text_white));
@@ -119,7 +119,7 @@ public class BankDialog extends Dialog {
                 break;
             case TYPE_GET_MONEY:// 取钱
                 rlSaveMoney.setBackgroundResource(R.drawable.bg_black_shape);
-                rlGetMoney.setBackgroundResource(R.drawable.bg_white_shape);
+                rlGetMoney.setBackgroundResource(R.drawable.bg_white2_shape);
                 tvSaveMoney.setTextColor(mContext.getResources().getColor(R.color.text_white));
                 tvGetMoney.setTextColor(mContext.getResources().getColor(R.color.text_black));
                 tvHint.setText("取出：");

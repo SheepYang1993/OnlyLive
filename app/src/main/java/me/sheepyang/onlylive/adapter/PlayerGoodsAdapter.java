@@ -66,7 +66,7 @@ public class PlayerGoodsAdapter extends BaseAdapter {
         } else {
             vh.tvPrice.setText(playerGoods.getPrice() + "");
         }
-        vh.tvNumber.setText(playerGoods.getNumber() + "");
+        vh.tvNumber.setText("数量：" + playerGoods.getNumber() + "");
         vh.tvPaid.setText(playerGoods.getPaid() + "");
         return convertView;
     }

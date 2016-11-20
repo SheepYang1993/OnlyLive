@@ -99,9 +99,42 @@ public class GameActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         ButterKnife.bind(this);
+        initListener();
         initDialog();
         initData();
         checkIsStart();
+    }
+
+    private void initListener() {
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                rb1.setTextColor(getResources().getColor(R.color.word_black));
+                rb2.setTextColor(getResources().getColor(R.color.word_black));
+                rb3.setTextColor(getResources().getColor(R.color.word_black));
+                rb4.setTextColor(getResources().getColor(R.color.word_black));
+                rb5.setTextColor(getResources().getColor(R.color.word_black));
+                switch (checkedId) {
+                    case R.id.rb_1:
+                        rb1.setTextColor(getResources().getColor(R.color.white));
+                        break;
+                    case R.id.rb_2:
+                        rb2.setTextColor(getResources().getColor(R.color.white));
+                        break;
+                    case R.id.rb_3:
+                        rb3.setTextColor(getResources().getColor(R.color.white));
+                        break;
+                    case R.id.rb_4:
+                        rb4.setTextColor(getResources().getColor(R.color.white));
+                        break;
+                    case R.id.rb_5:
+                        rb5.setTextColor(getResources().getColor(R.color.white));
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
     }
 
     private void initData() {
@@ -690,8 +723,8 @@ public class GameActivity extends BaseActivity {
     private boolean checkIsStart() {
         dismissAllDialog();
         if (mPlayer.getIsFirst() == true) {
-            mHintDialog.setTitle("选择城市");
-            mHintDialog.setMessage("选择一个城市开始吧");
+            mHintDialog.setTitle("选择地区");
+            mHintDialog.setMessage("选择一个地区开始吧");
             mHintDialog.show(getSupportFragmentManager(), "hint");
             return false;
         }

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black"
+    android:background="@color/theme2_white"
     android:orientation="vertical"
     tools:context="me.sheepyang.onlylive.activity.MainActivity">
 
@@ -13,15 +13,19 @@
 
         <Button
             android:id="@+id/btn_restart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/btn_gray_selector"
             android:text="重来" />
 
         <Button
             android:id="@+id/btn_quit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="10dp"
+            android:background="@drawable/btn_gray_selector"
             android:text="退出" />
     </RelativeLayout>
 
@@ -43,7 +47,9 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:text="厦门"
+                android:background="@drawable/btn_green_selector"
+                android:text="六灌路"
+                android:textColor="@color/word_black"
                 android:textSize="24sp" />
 
             <Button
@@ -52,7 +58,9 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:text="泉州"
+                android:background="@drawable/btn_green_selector"
+                android:text="金鱼巷"
+                android:textColor="@color/word_black"
                 android:textSize="24sp" />
 
             <Button
@@ -61,7 +69,9 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:text="漳州"
+                android:background="@drawable/btn_green_selector"
+                android:text="关岳庙"
+                android:textColor="@color/word_black"
                 android:textSize="24sp" />
         </LinearLayout>
 
@@ -77,7 +87,9 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:text="福州"
+                android:background="@drawable/btn_green_selector"
+                android:text="西街"
+                android:textColor="@color/word_black"
                 android:textSize="24sp" />
 
             <Button
@@ -86,7 +98,9 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:text="广州"
+                android:background="@drawable/btn_green_selector"
+                android:text="开元寺"
+                android:textColor="@color/word_black"
                 android:textSize="24sp" />
 
             <Button
@@ -95,7 +109,9 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:text="惠州"
+                android:background="@drawable/btn_green_selector"
+                android:text="中山路"
+                android:textColor="@color/word_black"
                 android:textSize="24sp" />
         </LinearLayout>
 
@@ -111,7 +127,9 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:text="深圳"
+                android:background="@drawable/btn_green_selector"
+                android:text="涂门街"
+                android:textColor="@color/word_black"
                 android:textSize="24sp" />
 
             <Button
@@ -120,7 +138,9 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:text="温州"
+                android:background="@drawable/btn_green_selector"
+                android:text="天后宫"
+                android:textColor="@color/word_black"
                 android:textSize="24sp" />
 
             <Button
@@ -129,15 +149,19 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:text="潮汕"
+                android:background="@drawable/btn_green_selector"
+                android:text="胭脂巷"
+                android:textColor="@color/word_black"
                 android:textSize="24sp" />
         </LinearLayout>
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/white" />
+        android:layout_height="2dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/theme2_green" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -151,7 +175,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="5dp"
             android:text="现金"
-            android:textColor="@android:color/white"
+            android:textColor="@color/word_black"
             android:textSize="24sp" />
 
         <TextView
@@ -169,7 +193,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:text="健康"
-            android:textColor="@android:color/white"
+            android:textColor="@color/word_black"
             android:textSize="24sp" />
 
         <TextView
@@ -196,7 +220,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="5dp"
             android:text="负债"
-            android:textColor="@android:color/white"
+            android:textColor="@color/word_black"
             android:textSize="24sp" />
 
         <TextView
@@ -214,7 +238,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:text="房子"
-            android:textColor="@android:color/white"
+            android:textColor="@color/word_black"
             android:textSize="24sp" />
 
         <TextView
@@ -225,7 +249,7 @@
             android:layout_weight="1"
             android:singleLine="true"
             android:text="——/——"
-            android:textColor="@android:color/white"
+            android:textColor="@color/word_black"
             android:textSize="20sp" />
     </LinearLayout>
 
@@ -241,7 +265,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="5dp"
             android:text="存款"
-            android:textColor="@android:color/white"
+            android:textColor="@color/word_black"
             android:textSize="24sp" />
 
         <TextView
@@ -259,7 +283,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:text="周数"
-            android:textColor="@android:color/white"
+            android:textColor="@color/word_black"
             android:textSize="24sp" />
 
         <TextView
@@ -270,14 +294,14 @@
             android:layout_weight="1"
             android:singleLine="true"
             android:text="——/——"
-            android:textColor="@android:color/white"
+            android:textColor="@color/word_black"
             android:textSize="20sp" />
     </LinearLayout>
 
     <RadioGroup
         android:id="@+id/radioGroup"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
         android:orientation="horizontal">
@@ -285,61 +309,71 @@
         <RadioButton
             android:id="@+id/rb_1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
             android:layout_weight="1"
-            android:background="@drawable/cb_black_red_selector"
+            android:background="@drawable/btn_red_selector"
             android:button="@android:color/transparent"
             android:gravity="center"
             android:text="银行"
-            android:textColor="@android:color/white"
+            android:textColor="@color/word_black"
             android:textSize="24sp" />
 
         <RadioButton
             android:id="@+id/rb_2"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
             android:layout_weight="1"
-            android:background="@drawable/cb_black_red_selector"
+            android:background="@drawable/btn_red_selector"
             android:button="@android:color/transparent"
             android:gravity="center"
             android:text="医院"
-            android:textColor="@android:color/white"
+            android:textColor="@color/word_black"
             android:textSize="24sp" />
 
         <RadioButton
             android:id="@+id/rb_3"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
             android:layout_weight="1"
-            android:background="@drawable/cb_black_red_selector"
+            android:background="@drawable/btn_red_selector"
             android:button="@android:color/transparent"
             android:gravity="center"
             android:text="还债"
-            android:textColor="@android:color/white"
+            android:textColor="@color/word_black"
             android:textSize="24sp" />
 
         <RadioButton
             android:id="@+id/rb_4"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
             android:layout_weight="1"
-            android:background="@drawable/cb_black_red_selector"
+            android:background="@drawable/btn_red_selector"
             android:button="@android:color/transparent"
             android:gravity="center"
             android:text="买卖"
-            android:textColor="@android:color/white"
+            android:textColor="@color/word_black"
             android:textSize="24sp" />
 
         <RadioButton
             android:id="@+id/rb_5"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
             android:layout_weight="1"
-            android:background="@drawable/cb_black_red_selector"
+            android:background="@drawable/btn_red_selector"
             android:button="@android:color/transparent"
             android:gravity="center"
             android:text="租房"
-            android:textColor="@android:color/white"
+            android:textColor="@color/word_black"
             android:textSize="24sp" />
     </RadioGroup>
 

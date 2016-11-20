@@ -5,6 +5,8 @@ import android.app.Application;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.tencent.bugly.crashreport.CrashReport;
+import com.umeng.message.IUmengRegisterCallback;
+import com.umeng.message.PushAgent;
 
 import cn.bmob.push.BmobPush;
 import cn.bmob.v3.Bmob;
@@ -12,6 +14,7 @@ import cn.bmob.v3.BmobInstallation;
 import cn.bmob.v3.update.BmobUpdateAgent;
 import me.sheepyang.onlylive.entity.dao.DaoMaster;
 import me.sheepyang.onlylive.entity.dao.DaoSession;
+import me.sheepyang.onlylive.utils.MyLog;
 
 /**
  * Created by SheepYang on 2016/10/13 00:30.
@@ -36,13 +39,34 @@ public class GameApplication extends Application {
         CrashReport.initCrashReport(getApplicationContext(), Constants.BUGLY_ID, true);
         // 初始化Bmob
         Bmob.initialize(this, Constants.BMOB_APP_ID);
-        // 使用推送服务时的初始化操作
-        BmobInstallation.getCurrentInstallation().save();
-        // 启动推送服务
-        BmobPush.startWork(this);
+        initUMeng();
         mInstances = this;
         // 初始化数据库
         setDatabase();
+    }
+
+    private void initUMeng() {
+        final PushAgent mPushAgent = PushAgent.getInstance(this);
+//        mPushAgent.setDebugMode(false);// 正式打包设置为false
+        new Thread() {
+            @Override
+            public void run() {
+                //注册推送服务，每次调用register方法都会回调该接口
+                mPushAgent.register(new IUmengRegisterCallback() {
+
+                    @Override
+                    public void onSuccess(String deviceToken) {
+                        //注册成功会返回device token
+                        MyLog.i("友盟推送注册成功！device token：" + deviceToken);
+                    }
+
+                    @Override
+                    public void onFailure(String s, String s1) {
+                        MyLog.i("友盟推送注册失败！" + s + ", " + s1);
+                    }
+                });
+            }
+        }.start();
     }
 
     public static GameApplication getInstances() {

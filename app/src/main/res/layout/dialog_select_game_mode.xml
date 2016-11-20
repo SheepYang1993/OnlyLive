@@ -32,10 +32,11 @@
         android:layout_marginRight="30dp"
         android:layout_marginTop="30dp"
         android:layout_weight="1"
-        android:background="@drawable/btn_white_green_selector"
+        android:background="@drawable/btn_black_red_selector"
         android:paddingBottom="25dp"
         android:paddingTop="25dp"
         android:text="继续游戏"
+        android:textColor="@android:color/white"
         android:textSize="40sp" />
 
 </LinearLayout>

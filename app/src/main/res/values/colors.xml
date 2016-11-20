@@ -3,10 +3,44 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
     <color name="black">#ff000000</color>
     <color name="white">#ffffffff</color>
+
+    <!--灰色背景灰底色-->
+    <color name="bg_gary">#f0f0f0</color>
+    <!--灰色背景白底色-->
+    <color name="bg_white">#fafafa</color>
+    <!--字黑色-->
+    <color name="word_black">#323232</color>
+    <!--字淡黑色-->
+    <color name="word_black_dark">#646464</color>
+    <!--字灰色-->
+    <color name="word_gary">#909090</color>
+
     <color name="text_green">#02ff02</color>
     <color name="text_red">#f40202</color>
     <color name="text_black">#ff000000</color>
     <color name="text_white">#ffffffff</color>
+
+
+    <color name="theme1_blue_light1">#c6ede8</color>
+    <color name="theme1_blue_light2">#94e0fe</color>
+    <color name="theme1_blue_dark1">#aed7ed</color>
+    <color name="theme1_blue_dark2">#5da8ba</color>
+    <color name="theme1_red">#ff435f</color>
+
+    <color name="theme2_gray">#c4d9c6</color>
+    <color name="theme2_blue">#4d9ea1</color>
+    <color name="theme2_green">#8acf9a</color>
+    <color name="theme2_white">#ebffef</color>
+    <color name="theme2_white_transparent">#b5ebffef</color>
+    <color name="theme2_yellow">#bcdc5d</color>
+
+    <color name="theme3_green1">#02d999</color>
+    <color name="theme3_green2">#50f7b1</color>
+    <color name="theme3_green3">#96fcbd</color>
+    <color name="theme3_green4">#befcae</color>
+    <color name="theme3_green5">#ebffc7</color>
+
 </resources>

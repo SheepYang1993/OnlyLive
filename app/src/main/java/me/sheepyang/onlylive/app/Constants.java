@@ -1,5 +1,7 @@
 package me.sheepyang.onlylive.app;
 
+import me.sheepyang.onlylive.R;
+
 /**
  * Created by SheepYang on 2016/10/13 00:47.
  */
@@ -10,6 +12,7 @@ public class Constants {
     public static final String BMOB_APP_ID = "871db967cf7c20d22831e2631f1f10d9";
     //Bugly ID
     public static final String BUGLY_ID = "900059113";
+
 
     // 重新开始一盘游戏的数值
     public static final String INIT_GAME_CASH = "99999999999999";// 现金

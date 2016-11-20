@@ -52,7 +52,7 @@
             android:gravity="center_horizontal"
             android:marqueeRepeatLimit="marquee_forever"
             android:singleLine="true"
-            android:text="当前城市：厦门"
+            android:text="当前地区："
             android:textColor="@color/text_black"
             android:textSize="20sp" />
 
@@ -67,7 +67,7 @@
                 android:layout_height="50dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/bg_white_shape">
+                android:background="@drawable/bg_white2_shape">
 
                 <TextView
                     android:id="@+id/tvBuy"
@@ -245,6 +245,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
+                android:background="@drawable/btn_gray_selector"
                 android:text="取消" />
 
             <Button
@@ -253,6 +254,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
+                android:background="@drawable/btn_gray_selector"
                 android:text="确定" />
         </LinearLayout>
     </LinearLayout>

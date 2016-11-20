@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/bg_red_shape" android:state_pressed="true"></item>
-    <item android:drawable="@drawable/bg_black_shape"></item>
+    <item android:drawable="@drawable/bg_red2_shape" android:state_pressed="true"></item>
+    <item android:drawable="@drawable/bg_green2_shape"></item>
 </selector>

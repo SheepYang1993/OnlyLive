@@ -3,7 +3,6 @@ package me.sheepyang.onlylive.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -18,7 +17,6 @@ import me.sheepyang.onlylive.utils.SPUtil;
 import me.sheepyang.onlylive.utils.data.PlayerUtil;
 import me.sheepyang.onlylive.widget.dialog.SelectGameModeDialog;
 
-import static com.tencent.bugly.crashreport.inner.InnerAPI.context;
 import static me.sheepyang.onlylive.widget.dialog.SelectGameModeDialog.MODE_NEW_GAME;
 import static me.sheepyang.onlylive.widget.dialog.SelectGameModeDialog.MODE_RESUME;
 
@@ -40,7 +38,7 @@ public class MainActivity extends BaseActivity {
         }
         initView();
         initListener();
-        BmobUpdateAgent.silentUpdate(this);// 静默更新
+        BmobUpdateAgent.update(mContext);
     }
 
     private void initListener() {
@@ -69,15 +67,15 @@ public class MainActivity extends BaseActivity {
                 if (updateStatus == UpdateStatus.Yes) {//版本有更新
 
                 } else if (updateStatus == UpdateStatus.No) {
-                    showToast("版本无更新");
+                    showToast("当前是最新版本");
                 } else if (updateStatus == UpdateStatus.EmptyField) {//此提示只是提醒开发者关注那些必填项，测试成功后，无需对用户提示
-                    showToast("请检查你AppVersion表的必填项，1、target_size（文件大小）是否填写；2、path或者android_url两者必填其中一项。");
+//                    showToast("请检查你AppVersion表的必填项，1、target_size（文件大小）是否填写；2、path或者android_url两者必填其中一项。");
                 } else if (updateStatus == UpdateStatus.IGNORED) {
-                    showToast("该版本已被忽略更新");
+//                    showToast("该版本已被忽略更新");
                 } else if (updateStatus == UpdateStatus.ErrorSizeFormat) {
-                    showToast("请检查target_size填写的格式，请使用file.length()方法获取apk大小。");
+//                    showToast("请检查target_size填写的格式，请使用file.length()方法获取apk大小。");
                 } else if (updateStatus == UpdateStatus.TimeOut) {
-                    showToast("查询出错或查询超时");
+//                    showToast("查询出错或查询超时");
                 }
             }
         });
@@ -110,14 +108,19 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.ll_play, R.id.btn_update})
+    @OnClick({R.id.btn_play, R.id.btn_update, R.id.btn_rank, R.id.btn_setting, R.id.btn_share})
     public void onClick(View view) {
         super.onClick(view);
         switch (view.getId()) {
-            case R.id.ll_play:// 开始游戏
+            case R.id.btn_play:// 开始游戏
                 mDialog.show();
                 break;
-            case R.id.btn_update:
+            case R.id.btn_rank:
+            case R.id.btn_setting:
+            case R.id.btn_share:
+                showToast("          暂未开放\n期待下一个版本吧~");
+                break;
+            case R.id.btn_update:// 检测版本
                 BmobUpdateAgent.forceUpdate(mContext);
                 break;
             default:
