@@ -678,9 +678,9 @@ public class GameActivity extends BaseActivity {
         showPDialog();
         Event event;
         if (isFirst) {
-            event = EventUtil.getRandomEvent(true);
+            event = EventUtil.getRandomEvent(true);// 获取好事件中随机的一个
         } else {
-            event = EventUtil.getRandomEvent(null);
+            event = EventUtil.getRandomEvent(null);// 获取所有事件中随机的一个
         }
         if (event != null) {
             String msg = event.getMessage();
