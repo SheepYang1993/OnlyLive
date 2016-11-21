@@ -6,6 +6,7 @@ import java.util.List;
 
 import me.sheepyang.onlylive.app.GameApplication;
 import me.sheepyang.onlylive.entity.Event;
+import me.sheepyang.onlylive.entity.Number;
 import me.sheepyang.onlylive.entity.dao.EventDao;
 
 /**
@@ -26,6 +27,18 @@ public class EventUtil {
         Event event = new Event();
         event.setTitle(title);
         event.setMessage(msg);
+        return mEventDao.insertOrReplace(event);
+    }
+
+    /**
+     * @return
+     */
+    public static long create(String title, String msg, Number money) {
+        Event event = new Event();
+        event.setTitle(title);
+        event.setMessage(msg);
+        event.setMoney(money);
+
         return mEventDao.insertOrReplace(event);
     }
 

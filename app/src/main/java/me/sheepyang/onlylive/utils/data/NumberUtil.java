@@ -15,14 +15,27 @@ public class NumberUtil {
         mNumberDao = GameApplication.getInstances().getDaoSession().getNumberDao();
     }
 
-    public static long create(String max, String min) {
+    public static long createNumber(String maxNumber, String minNumer) {
         Number number = new Number();
-        number.setMaxNumber(max);
-        number.setMinNumber(min);
+        number.setMaxNumber(maxNumber);
+        number.setMinNumber(minNumer);
+        return mNumberDao.insertOrReplace(number);
+    }
+
+    public static long createPercent(String strNum, String maxPercent, String minPercent) {
+        Number number = new Number();
+        number.setNumber(strNum);
+        number.setMaxPercent(maxPercent);
+        number.setMinPercent(minPercent);
         return mNumberDao.insertOrReplace(number);
     }
 
     public static Number getNumber(long rowId) {
+        return mNumberDao.loadByRowId(rowId);
+    }
+
+    public static Number getNumber(String number, String maxPercent, String minPercent) {
+        long rowId = NumberUtil.createPercent(number, maxPercent, minPercent);
         return mNumberDao.loadByRowId(rowId);
     }
 }

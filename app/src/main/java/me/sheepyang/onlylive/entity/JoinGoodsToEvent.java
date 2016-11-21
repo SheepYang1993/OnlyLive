@@ -8,16 +8,16 @@ import org.greenrobot.greendao.annotation.Generated;
  * Created by SheepYang on 2016/10/16 22:07.
  */
 @Entity
-public class JoinEventGoodsToEvent {
+public class JoinGoodsToEvent {
     @Id(autoincrement = true)
     private Long id;
     private Long eventId;
-    private Long eventGoodsId;
-    public Long getEventGoodsId() {
-        return this.eventGoodsId;
+    private Long goodsId;
+    public Long getGoodsId() {
+        return this.goodsId;
     }
-    public void setEventGoodsId(Long eventGoodsId) {
-        this.eventGoodsId = eventGoodsId;
+    public void setGoodsId(Long goodsId) {
+        this.goodsId = goodsId;
     }
     public Long getEventId() {
         return this.eventId;
@@ -31,13 +31,13 @@ public class JoinEventGoodsToEvent {
     public void setId(Long id) {
         this.id = id;
     }
-    @Generated(hash = 139880334)
-    public JoinEventGoodsToEvent(Long id, Long eventId, Long eventGoodsId) {
+    @Generated(hash = 563448743)
+    public JoinGoodsToEvent(Long id, Long eventId, Long goodsId) {
         this.id = id;
         this.eventId = eventId;
-        this.eventGoodsId = eventGoodsId;
+        this.goodsId = goodsId;
     }
-    @Generated(hash = 348812276)
-    public JoinEventGoodsToEvent() {
+    @Generated(hash = 1596794281)
+    public JoinGoodsToEvent() {
     }
 }

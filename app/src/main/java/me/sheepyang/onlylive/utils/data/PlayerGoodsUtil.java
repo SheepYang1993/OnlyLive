@@ -5,7 +5,7 @@ import org.greenrobot.greendao.query.QueryBuilder;
 import java.util.List;
 
 import me.sheepyang.onlylive.app.GameApplication;
-import me.sheepyang.onlylive.entity.EventGoods;
+import me.sheepyang.onlylive.entity.Goods;
 import me.sheepyang.onlylive.entity.JoinPlayerGoodsToPlayer;
 import me.sheepyang.onlylive.entity.PlayerGoods;
 import me.sheepyang.onlylive.entity.ShopGoods;
@@ -77,7 +77,7 @@ public class PlayerGoodsUtil {
         }
     }
 
-    public static void addPlayGoods(EventGoods eventGoods, String goodsNum) {
+    public static void addPlayGoods(Goods goods, String goodsNum) {
 //        QueryBuilder<PlayerGoods> qb = mPlayerGoodsDao.queryBuilder();
 //        qb.where(PlayerGoodsDao.Properties.Name.eq(eventGoods.getName()));
 //        List<PlayerGoods> list = qb.list();

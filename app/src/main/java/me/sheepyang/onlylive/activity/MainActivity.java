@@ -36,7 +36,7 @@ public class MainActivity extends BaseActivity {
         // 初始化游戏数据
         isInit = SPUtil.getBoolean(mContext, "isInit", false);
         if (!isInit) {
-            DataUtil.initGameData();
+            DataUtil.initGame();
             SPUtil.putBoolean(mContext, "isInit", true);
         }
         initView();

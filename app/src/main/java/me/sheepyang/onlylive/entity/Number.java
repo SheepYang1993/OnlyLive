@@ -12,8 +12,8 @@ public class Number {
     @Id(autoincrement = true)
     private Long id;
     private String number;
-    private double maxPercent;
-    private double minPercent;
+    private String maxPercent;
+    private String minPercent;
     private String maxNumber;
     private String minNumber;
     public String getMinNumber() {
@@ -28,16 +28,16 @@ public class Number {
     public void setMaxNumber(String maxNumber) {
         this.maxNumber = maxNumber;
     }
-    public double getMinPercent() {
+    public String getMinPercent() {
         return this.minPercent;
     }
-    public void setMinPercent(double minPercent) {
+    public void setMinPercent(String minPercent) {
         this.minPercent = minPercent;
     }
-    public double getMaxPercent() {
+    public String getMaxPercent() {
         return this.maxPercent;
     }
-    public void setMaxPercent(double maxPercent) {
+    public void setMaxPercent(String maxPercent) {
         this.maxPercent = maxPercent;
     }
     public String getNumber() {
@@ -52,8 +52,8 @@ public class Number {
     public void setId(Long id) {
         this.id = id;
     }
-    @Generated(hash = 765808613)
-    public Number(Long id, String number, double maxPercent, double minPercent,
+    @Generated(hash = 1074412105)
+    public Number(Long id, String number, String maxPercent, String minPercent,
             String maxNumber, String minNumber) {
         this.id = id;
         this.number = number;
