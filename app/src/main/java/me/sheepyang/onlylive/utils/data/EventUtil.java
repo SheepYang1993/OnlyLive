@@ -22,29 +22,18 @@ public class EventUtil {
         mEventDao = GameApplication.getInstances().getDaoSession().getEventDao();
     }
 
-
-    public static long create(String title, String msg) {
-        return create(false, title, msg);
-    }
-
     public static long create(boolean isGoodEvent, String title, String msg) {
-        return create(isGoodEvent, false, title, msg, null, null);
-    }
-
-    public static long create(boolean isGoodEvent, String title, String msg, String maxMoney, String minMoney) {
-        return create(isGoodEvent, false, title, msg, maxMoney, minMoney);
+        return create(isGoodEvent, title, msg, null, null);
     }
 
     /**
      * @param isGoodEvent 是否好事件，例如增加物品，增加现金存款，减少债务，增加健康，房屋容量等等
-     * @param isSelect    该事件是否需要进行判断选择
      * @param title       标题
      * @param msg         详情
      * @return
      */
-    public static long create(boolean isGoodEvent, boolean isSelect, String title, String msg, String maxMoney, String minMoney) {
+    public static long create(boolean isGoodEvent, String title, String msg, String maxMoney, String minMoney) {
         Event event = new Event();
-        event.setIsSelect(isSelect);
         event.setIsGoodEvent(isGoodEvent);
         event.setTitle(title);
         event.setMessage(msg);
@@ -52,6 +41,19 @@ public class EventUtil {
             long rowId = NumberUtil.create(maxMoney, minMoney);
             event.setMoney(NumberUtil.getNumber(rowId));
         }
+        return mEventDao.insertOrReplace(event);
+    }
+
+    public static long createSelect(String title, String msg, String msgYes, String msgNo, String selectYes, String seletcNo) {
+        Event event = new Event();
+        event.setIsSelect(true);
+        event.setIsGoodEvent(false);
+        event.setTitle(title);
+        event.setMessage(msg);
+        event.setResultYes(msgYes);
+        event.setResultNo(msgNo);
+        event.setSelectYes(selectYes);
+        event.setSelectNo(seletcNo);
         return mEventDao.insertOrReplace(event);
     }
 

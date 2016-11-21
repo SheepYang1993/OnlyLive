@@ -71,7 +71,6 @@ public class MainActivity extends BaseActivity {
 
                 } else if (updateStatus == UpdateStatus.No) {
                     if (isClickUpdate) {
-                        isClickUpdate = false;
                         showToast("当前是最新版本");
                     }
                 } else if (updateStatus == UpdateStatus.EmptyField) {//此提示只是提醒开发者关注那些必填项，测试成功后，无需对用户提示
@@ -83,6 +82,7 @@ public class MainActivity extends BaseActivity {
                 } else if (updateStatus == UpdateStatus.TimeOut) {
 //                    showToast("查询出错或查询超时");
                 }
+                isClickUpdate = false;
             }
         });
         mDialog.setOnSelectListener(new SelectGameModeDialog.OnSelectListener() {
@@ -133,8 +133,10 @@ public class MainActivity extends BaseActivity {
                 showToast("          暂未开放\n期待下一个版本吧~");
                 break;
             case R.id.btn_update:// 检测版本
-                isClickUpdate = true;
-                BmobUpdateAgent.forceUpdate(mContext);
+                if (!isClickUpdate) {
+                    isClickUpdate = true;
+                    BmobUpdateAgent.forceUpdate(mContext);
+                }
                 break;
             default:
                 break;

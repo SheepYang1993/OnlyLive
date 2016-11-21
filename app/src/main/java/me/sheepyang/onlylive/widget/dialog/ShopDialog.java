@@ -94,6 +94,7 @@ public class ShopDialog extends BaseDialogFragment {
     private String mPlayerGoodsNum;
     private OnShopListener mListener;
     private String mSeekbarMax;
+    private List<ShopGoods> mShopGoodsList;
 
     @Nullable
     @Override
@@ -211,15 +212,26 @@ public class ShopDialog extends BaseDialogFragment {
         mShopGoodsFragment = new ShopGoodsFragment();
         mPlayerGoodsFragment = new PlayerGoodsFragment();
 
-        List<Goods> goodsList = GoodsUtil.getRandomList(20);
-        List<ShopGoods> shopGoodsList = ShopGoodsUtil.getShopGoodsList(goodsList);
-        mShopGoodsFragment.setShopGoodsList(shopGoodsList);
-        mPlayerGoodsFragment.setShopGoodsList(shopGoodsList);
+        if (mShopGoodsList == null || mShopGoodsList.size() <= 0) {
+            List<Goods> goodsList = GoodsUtil.getRandomList(20);
+            mShopGoodsList = ShopGoodsUtil.getShopGoodsList(goodsList);
+        }
+
+        mShopGoodsFragment.setShopGoodsList(mShopGoodsList);
+        mPlayerGoodsFragment.setShopGoodsList(mShopGoodsList);
 
         list.add(mShopGoodsFragment);
         list.add(mPlayerGoodsFragment);
         mAdapter = new GoodsFragmentAdapter(getChildFragmentManager(), list);// 注意，这边是ChildFragmentManager而不是FragmentManager
         viewpager.setAdapter(mAdapter);
+    }
+
+    public List<ShopGoods> getShopGoodsList() {
+        return mShopGoodsList;
+    }
+
+    public void setShopGoodsList(List<ShopGoods> shopGoodsList) {
+        mShopGoodsList = shopGoodsList;
     }
 
     @Override

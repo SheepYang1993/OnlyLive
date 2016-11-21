@@ -24,7 +24,9 @@ import me.sheepyang.onlylive.utils.MyLog;
 import me.sheepyang.onlylive.utils.RandomUtil;
 import me.sheepyang.onlylive.utils.StrUtil;
 import me.sheepyang.onlylive.utils.data.EventUtil;
+import me.sheepyang.onlylive.utils.data.GoodsUtil;
 import me.sheepyang.onlylive.utils.data.PlayerUtil;
+import me.sheepyang.onlylive.utils.data.ShopGoodsUtil;
 import me.sheepyang.onlylive.widget.dialog.BankDialog;
 import me.sheepyang.onlylive.widget.dialog.MessageDialog;
 import me.sheepyang.onlylive.widget.dialog.ShopDialog;
@@ -543,6 +545,7 @@ public class GameActivity extends BaseActivity {
                 mPlayer.setCity(city);// 设置当前所在城市
                 PlayerUtil.setPlayer(mPlayer);
                 refreshPlayerData();
+                mShopDialog.setShopGoodsList(ShopGoodsUtil.getShopGoodsList(GoodsUtil.getRandomList(20)));// 设置商店物品，仅有切换过城市，商店物品价格才会变化
                 showSurpriseDialog(isFirst);
             }
         }

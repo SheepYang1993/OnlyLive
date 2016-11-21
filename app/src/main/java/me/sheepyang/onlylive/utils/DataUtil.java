@@ -24,6 +24,29 @@ public class DataUtil {
      */
     private static void initEventData() {
         EventUtil.deleteAll();
+        // 好事件
+        initGoodEvent();
+        // 需要选择的事件
+//        initSelectEvent();
+    }
+
+    private static void initSelectEvent() {
+        String msg1 = "警方怀疑你身上藏有毒品，是否让他检查？";
+        String msg1Yes = "警方怀疑你身上藏有毒品，是否让他检查？";
+        String msg1No = "警方怀疑你身上藏有毒品，是否让他检查？";
+        EventUtil.createSelect("抗拒从严，坦白从宽", msg1, msg1Yes, msg1No, "检查", "拒绝");
+    }
+
+    private static void initGoodEvent() {
+        // 仅有物品的事件
+        initEvent1();
+        // 有物品有金钱的事件
+        initEvent2();
+        // 仅有金钱的事件
+        initEvent3();
+    }
+
+    private static void initEvent1() {
         String msg1 = "老乡送你 " + Constants.REPLACE_GOODS_NUMBER_0 + Constants.REPLACE_GOODS_UNIT_0 + "化妆品。\n\n" + Constants.REPLACE_GOODS_NAME_0 + " x" + Constants.REPLACE_GOODS_NUMBER_0;
         EventUtil.create(true, "老乡见老乡，两眼泪汪汪", msg1);
 
@@ -36,14 +59,18 @@ public class DataUtil {
         String msg4 = "朋友送你 " + Constants.REPLACE_GOODS_NUMBER_0 + Constants.REPLACE_GOODS_UNIT_0 + "陈年白酒。\n\n" + Constants.REPLACE_GOODS_NAME_0 + " x" + Constants.REPLACE_GOODS_NUMBER_0;
         EventUtil.create(true, "出门靠朋友", msg4);
 
-        String msg5 = "突然有人大喊一声“城管来了”，只见好多人飞速消失。然后你捡到" + Constants.REPLACE_MONEY + "块和" + Constants.REPLACE_GOODS_NUMBER_0 + Constants.REPLACE_GOODS_UNIT_0 + Constants.REPLACE_GOODS_NAME_0;
-        EventUtil.create(true, "城管来了", msg5, "200", "200");
+        String msg5 = "朋友送你" + Constants.REPLACE_GOODS_NUMBER_0 + Constants.REPLACE_GOODS_UNIT_0 + Constants.REPLACE_GOODS_NAME_0;
+        EventUtil.create(true, "转基因试验", msg5);
+    }
 
-        String msg6 = "我哩个擦滴~洗衣服的时候兜里竟发现" + Constants.REPLACE_MONEY + "块钱";
-        EventUtil.create(true, "要多做家务", msg6, "200", "200");
+    private static void initEvent2() {
+        String msg1 = "突然有人大喊一声“城管来了”，只见好多人飞速消失。然后你捡到" + Constants.REPLACE_MONEY + "块和" + Constants.REPLACE_GOODS_NUMBER_0 + Constants.REPLACE_GOODS_UNIT_0 + Constants.REPLACE_GOODS_NAME_0;
+        EventUtil.create(true, "城管来了", msg1, "200", "200");
+    }
 
-        String msg7 = "朋友送你" + Constants.REPLACE_GOODS_NUMBER_0 + Constants.REPLACE_GOODS_UNIT_0 + Constants.REPLACE_GOODS_NAME_0;
-        EventUtil.create(true, "转基因试验", msg7);
+    private static void initEvent3() {
+        String msg1 = "我哩个擦滴~洗衣服的时候兜里竟发现" + Constants.REPLACE_MONEY + "块钱";
+        EventUtil.create(true, "要多做家务", msg1, "200", "200");
     }
 
     /**
