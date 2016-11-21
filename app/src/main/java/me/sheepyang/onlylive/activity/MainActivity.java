@@ -26,6 +26,7 @@ public class MainActivity extends BaseActivity {
 
     private SelectGameModeDialog mDialog;
     private boolean isInit;
+    private boolean isClickUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +70,10 @@ public class MainActivity extends BaseActivity {
                 if (updateStatus == UpdateStatus.Yes) {//版本有更新
 
                 } else if (updateStatus == UpdateStatus.No) {
-                    showToast("当前是最新版本");
+                    if (isClickUpdate) {
+                        isClickUpdate = false;
+                        showToast("当前是最新版本");
+                    }
                 } else if (updateStatus == UpdateStatus.EmptyField) {//此提示只是提醒开发者关注那些必填项，测试成功后，无需对用户提示
 //                    showToast("请检查你AppVersion表的必填项，1、target_size（文件大小）是否填写；2、path或者android_url两者必填其中一项。");
                 } else if (updateStatus == UpdateStatus.IGNORED) {
@@ -129,6 +133,7 @@ public class MainActivity extends BaseActivity {
                 showToast("          暂未开放\n期待下一个版本吧~");
                 break;
             case R.id.btn_update:// 检测版本
+                isClickUpdate = true;
                 BmobUpdateAgent.forceUpdate(mContext);
                 break;
             default:
