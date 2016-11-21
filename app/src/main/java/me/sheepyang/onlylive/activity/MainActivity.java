@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.umeng.socialize.UMShareAPI;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.bmob.v3.listener.BmobDialogButtonListener;
@@ -106,6 +108,12 @@ public class MainActivity extends BaseActivity {
         if (mDialog == null) {
             mDialog = new SelectGameModeDialog(this);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 
     @OnClick({R.id.btn_play, R.id.btn_update, R.id.btn_rank, R.id.btn_setting, R.id.btn_share})
