@@ -9,21 +9,15 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.sheepyang.onlylive.R;
 import me.sheepyang.onlylive.app.Constants;
-import me.sheepyang.onlylive.entity.Event;
-import me.sheepyang.onlylive.entity.EventGoods;
 import me.sheepyang.onlylive.entity.Player;
 import me.sheepyang.onlylive.utils.MathUtil;
 import me.sheepyang.onlylive.utils.MyLog;
 import me.sheepyang.onlylive.utils.RandomUtil;
-import me.sheepyang.onlylive.utils.StrUtil;
-import me.sheepyang.onlylive.utils.data.EventUtil;
 import me.sheepyang.onlylive.utils.data.GoodsUtil;
 import me.sheepyang.onlylive.utils.data.PlayerUtil;
 import me.sheepyang.onlylive.utils.data.ShopGoodsUtil;
@@ -678,44 +672,44 @@ public class GameActivity extends BaseActivity {
      */
     private void showSurpriseDialog(boolean isFirst) {
         dismissAllDialog();
-        showPDialog();
-        Event event;
-        if (isFirst) {
-            event = EventUtil.getRandomEvent(true);// 获取好事件中随机的一个
-        } else {
-            event = EventUtil.getRandomEvent(null);// 获取所有事件中随机的一个
-        }
-        if (event != null) {
-            String msg = event.getMessage();
-            List<EventGoods> eventGoodsList = event.getEventGoodsList();
-            if (eventGoodsList != null && eventGoodsList.size() > 0) {
-                for (int i = 0; i < eventGoodsList.size(); i++) {
-                    EventGoods eventGoods = eventGoodsList.get(i);
-                    msg = StrUtil.replaceGoodsChar(i, msg, eventGoods);// 替换掉字符串中的占位符
-                }
-            }
-            if (event.getMoney() != null) {
-                msg = StrUtil.replaceMoneyChar(msg, event.getMoney());// 替换掉字符串中的占位符
-            }
-            if (event.getIsSelect()) {// 该事件需要进行选择
-                mEventDialog.setOnOkClickListener(event.getSelectYes(), new MessageDialog.OnOkClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                    }
-                });
-                mEventDialog.setOnCancelClickListener(event.getSelectNo(), new MessageDialog.OnCancelClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                    }
-                });
-            }
-            mEventDialog.setTitle(event.getTitle());
-            mEventDialog.setMessage(msg);
-            dismissPDialog();
-            mEventDialog.show(getSupportFragmentManager(), "EventDialog");
-        }
+//        showPDialog();
+//        Event event;
+//        if (isFirst) {
+//            event = EventUtil.getRandomEvent(true);// 获取好事件中随机的一个
+//        } else {
+//            event = EventUtil.getRandomEvent(null);// 获取所有事件中随机的一个
+//        }
+//        if (event != null) {
+//            String msg = event.getMessage();
+//            List<EventGoods> eventGoodsList = event.getEventGoodsList();
+//            if (eventGoodsList != null && eventGoodsList.size() > 0) {
+//                for (int i = 0; i < eventGoodsList.size(); i++) {
+//                    EventGoods eventGoods = eventGoodsList.get(i);
+//                    msg = StrUtil.replaceGoodsChar(i, msg, eventGoods);// 替换掉字符串中的占位符
+//                }
+//            }
+//            if (event.getMoney() != null) {
+//                msg = StrUtil.replaceMoneyChar(msg, event.getMoney());// 替换掉字符串中的占位符
+//            }
+//            if (event.getIsSelect()) {// 该事件需要进行选择
+//                mEventDialog.setOnOkClickListener(event.getSelectYes(), new MessageDialog.OnOkClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//
+//                    }
+//                });
+//                mEventDialog.setOnCancelClickListener(event.getSelectNo(), new MessageDialog.OnCancelClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//
+//                    }
+//                });
+//            }
+        mEventDialog.setTitle("突发事件标题");
+        mEventDialog.setMessage("突发事件内容");
+//        dismissPDialog();
+        mEventDialog.show(getSupportFragmentManager(), "EventDialog");
+//        }
     }
 
     /**
