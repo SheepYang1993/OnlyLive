@@ -20,11 +20,12 @@ public class EventUtil {
     }
 
     /**
-     *
      * @return
      */
-    public static long create() {
+    public static long create(String title, String msg) {
         Event event = new Event();
+        event.setTitle(title);
+        event.setMessage(msg);
         return mEventDao.insertOrReplace(event);
     }
 
