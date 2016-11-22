@@ -26,6 +26,7 @@ import me.sheepyang.onlylive.utils.MyLog;
 import me.sheepyang.onlylive.utils.RandomUtil;
 import me.sheepyang.onlylive.utils.data.EventUtil;
 import me.sheepyang.onlylive.utils.data.GoodsUtil;
+import me.sheepyang.onlylive.utils.data.PlayerGoodsUtil;
 import me.sheepyang.onlylive.utils.data.PlayerUtil;
 import me.sheepyang.onlylive.utils.data.ShopGoodsUtil;
 import me.sheepyang.onlylive.widget.dialog.BankDialog;
@@ -726,7 +727,9 @@ public class GameActivity extends BaseActivity {
                             msg += "<font color='#ff435f'>获得：</font><br/>";
                         }
                         // 随机获得1到5件物品
-                        msg += "<font color='#646464'>" + goodsList.get(i).getName() + " x" + RandomUtil.getRandomNum(5, 1) + goodsList.get(i).getUnit() + "</font><br/>";
+                        String goodsNum = RandomUtil.getRandomNum(5, 1) + "";
+                        msg += "<font color='#646464'>" + goodsList.get(i).getName() + " x" + goodsNum + goodsList.get(i).getUnit() + "</font><br/>";
+                        PlayerGoodsUtil.addEventGoodsToPlayer(goodsList.get(i), goodsNum);
                     }
                 }
 

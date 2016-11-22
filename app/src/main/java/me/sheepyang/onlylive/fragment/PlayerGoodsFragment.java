@@ -42,8 +42,8 @@ public class PlayerGoodsFragment extends BaseFragment {
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_shop_goods, null);
             ButterKnife.bind(this, rootView);
-            setPlayerGoodsPrice();// 设置物品的市价
             initData();
+            setPlayerGoodsPrice();// 设置物品的市价
         }
         ViewGroup parent = (ViewGroup) rootView.getParent();
         if (parent != null) {
