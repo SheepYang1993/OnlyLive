@@ -14,6 +14,7 @@ import cn.bmob.v3.update.BmobUpdateAgent;
 import cn.bmob.v3.update.UpdateResponse;
 import cn.bmob.v3.update.UpdateStatus;
 import me.sheepyang.onlylive.R;
+import me.sheepyang.onlylive.utils.AppManager;
 import me.sheepyang.onlylive.utils.DataUtil;
 import me.sheepyang.onlylive.utils.SPUtil;
 import me.sheepyang.onlylive.utils.data.PlayerUtil;
@@ -27,6 +28,7 @@ public class MainActivity extends BaseActivity {
     private SelectGameModeDialog mDialog;
     private boolean isInit;
     private boolean isClickUpdate;
+    private long mCurrentTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,6 +142,17 @@ public class MainActivity extends BaseActivity {
                 break;
             default:
                 break;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() - mCurrentTime < 2000) {
+            mCurrentTime = 0;
+            AppManager.getAppManager().AppExit(mContext);
+        } else {
+            mCurrentTime = System.currentTimeMillis();
+            showToast("再次点击退出APP");
         }
     }
 }

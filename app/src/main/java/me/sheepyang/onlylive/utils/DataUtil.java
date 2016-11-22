@@ -94,6 +94,21 @@ public class DataUtil {
                 .setDeposit(NumberUtil.getNumber("-8000", "2", "0.5"))
                 .setIsGood(true)
                 .create();
+
+        new EventUtil.Builder()
+                .setTitle("类型七：所有类型都有的事件")
+                .setMessage("内容，所有类型都有的事件")
+                .setCash(NumberUtil.getNumber("-6000", "2", "0.5"))
+                .setDebt(NumberUtil.getNumber("7000", "2", "0.5"))
+                .setDeposit(NumberUtil.getNumber("-8000", "2", "0.5"))
+                .setHealth(NumberUtil.getNumber("-20", "1", "0.5"))
+                .addGoods(GoodsUtil.getGoods("北京户口"))
+                .addGoods(GoodsUtil.getGoods("走私海洛因"))
+                .addGoods(GoodsUtil.getGoods("高考答案"))
+                .addGoods(GoodsUtil.getGoods("劣质化妆品"))
+                .addGoods(GoodsUtil.getGoods("假冒茅台"))
+                .setIsGood(true)
+                .create();
     }
 
     private static void initSelectEvent() {

@@ -95,7 +95,6 @@ public class GameActivity extends BaseActivity {
     private ShopDialog mShopDialog;// 交易对话框
 
     private Player mPlayer;
-    private String mCity = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -330,7 +329,11 @@ public class GameActivity extends BaseActivity {
             mEventDialog.setDismissListener(new MessageDialog.OnDismissListener() {
                 @Override
                 public void onDismiss(DialogInterface dialog) {
-                    showNewsDialog();
+                    if (MathUtil.le(mPlayer.getHealth(), "0")) {// 生命值小于等于0，游戏结束
+                        showFinishDialog();
+                    } else {
+                        showNewsDialog();
+                    }
                 }
             });
         }
@@ -345,11 +348,26 @@ public class GameActivity extends BaseActivity {
             mNewsDialog.setDismissListener(new MessageDialog.OnDismissListener() {
                 @Override
                 public void onDismiss(DialogInterface dialog) {
-                    radioGroup.check(R.id.rb_4);
-                    showShopDialog(mPlayer.getCity());
+                    if (MathUtil.le(mPlayer.getHealth(), "0")) {// 生命值小于等于0，游戏结束
+                        showFinishDialog();
+                    } else {
+                        radioGroup.check(R.id.rb_4);
+                        showShopDialog(mPlayer.getCity());
+                    }
                 }
             });
         }
+    }
+
+    /**
+     * 显示游戏结束对话框
+     */
+    private void showFinishDialog() {
+        String totalMoney = MathUtil.subtract(MathUtil.add(mPlayer.getCash(), mPlayer.getDeposit()), mPlayer.getDebt());// 现金 + 存款 - 负债
+        MyLog.i("当前为第" + mPlayer.getWeek() + "周。\n总资产为：" + totalMoney);
+        mFinishDialog.setMessage("当前为第" + mPlayer.getWeek() + "周。\n总资产为：" + totalMoney + "\n游戏结束！");
+        dismissAllDialog();
+        mFinishDialog.show(getSupportFragmentManager(), "FinishDialog");
     }
 
     /**
@@ -529,7 +547,6 @@ public class GameActivity extends BaseActivity {
     }
 
     private void selectCity(String city) {
-        mCity = city;
         if (city.equals(mPlayer.getCity())) {
             showToast("你现在就在" + city + "，换个地方逛逛吧");
             return;
@@ -590,12 +607,8 @@ public class GameActivity extends BaseActivity {
      * @return
      */
     private boolean checkWeek() {
-        String totalMoney = MathUtil.subtract(MathUtil.add(mPlayer.getCash(), mPlayer.getDeposit()), mPlayer.getDebt());// 现金 + 存款 - 负债
-        MyLog.i("当前为第" + mPlayer.getWeek() + "周。\n总资产为：" + totalMoney);
         if (MathUtil.ge(mPlayer.getWeek(), mPlayer.getWeekTotal())) {
-            mFinishDialog.setMessage("当前为第" + mPlayer.getWeek() + "周。\n总资产为：" + totalMoney + "\n游戏结束！");
-            dismissAllDialog();
-            mFinishDialog.show(getSupportFragmentManager(), "FinishDialog");
+            showFinishDialog();
             return false;
         } else {
             mPlayer.setWeek(MathUtil.add(mPlayer.getWeek(), "1"));
@@ -762,7 +775,25 @@ public class GameActivity extends BaseActivity {
                     }
                     mPlayer.setDeposit(resultDeposit);
                 }
+
+                // 添加健康
+                if (event.getHealth() != null && !TextUtils.isEmpty(event.getHealth().getNumber()) && !TextUtils.isEmpty(event.getHealth().getMaxPercent()) && !TextUtils.isEmpty(event.getHealth().getMinPercent())) {
+                    String healthTemp = event.getHealth().getNumber();
+                    String resultHealth = MathUtil.add(mPlayer.getHealth(), healthTemp);
+                    if (MathUtil.lt(event.getHealth().getNumber(), "0")) {// 减少健康
+                        if (MathUtil.le(resultHealth, "0")) {// 扣去剩下的所有健康
+                            msg += "<br/><font color='#646464'>健康 <font color='#ff435f'>-</font>" + mPlayer.getHealth() + "</font>";
+                            resultHealth = "0";
+                        } else {
+                            msg += "<br/><font color='#646464'>健康 <font color='#ff435f'>-</font>" + MathUtil.abs(event.getHealth().getNumber()) + "</font>";
+                        }
+                    } else if (MathUtil.gt(event.getHealth().getNumber(), "0")) {// 增加健康
+                        msg += "<br/><font color='#646464'>健康 <font color='#5da8ba'>+</font>" + MathUtil.abs(event.getHealth().getNumber()) + "</font>";
+                    }
+                    mPlayer.setHealth(resultHealth);
+                }
             }
+
             mEventDialog.setTitle(title);
             mEventDialog.setMessage(Html.fromHtml(msg));
             PlayerUtil.setPlayer(mPlayer);

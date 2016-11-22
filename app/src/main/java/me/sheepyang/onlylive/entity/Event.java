@@ -1,19 +1,18 @@
 package me.sheepyang.onlylive.entity;
 
-import org.greenrobot.greendao.DaoException;
 import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.JoinEntity;
 import org.greenrobot.greendao.annotation.ToMany;
 import org.greenrobot.greendao.annotation.ToOne;
 
 import java.util.List;
-
+import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.DaoException;
 import me.sheepyang.onlylive.entity.dao.DaoSession;
 import me.sheepyang.onlylive.entity.dao.EventDao;
-import me.sheepyang.onlylive.entity.dao.GoodsDao;
 import me.sheepyang.onlylive.entity.dao.NumberDao;
+import me.sheepyang.onlylive.entity.dao.GoodsDao;
 
 /**
  * 突发事件
@@ -31,12 +30,12 @@ public class Event {
     private String btnCancel;
     private boolean isGood;// 是否是好的事件
     private boolean isNeedSelect;// 是否需要选择
+    @ToOne(joinProperty = "healthId")
+    private Number health;// 健康
+    private Long healthId;
     @ToOne(joinProperty = "eventGoodsNumId")// 丢失或获得物品的数量
     private Number eventGoodsNum;
     private Long eventGoodsNumId;
-    @ToOne(joinProperty = "healthId")
-    private Number health;
-    private Long healthId;
     @ToOne(joinProperty = "cashId")
     private Number cash;// 现金
     private Long cashId;
@@ -200,35 +199,6 @@ public class Event {
     @Generated(hash = 1078622503)
     private transient Long cash__resolvedKey;
     /** called by internal mechanisms, do not call yourself. */
-    @Generated(hash = 279909944)
-    public void setHealth(Number health) {
-        synchronized (this) {
-            this.health = health;
-            healthId = health == null ? null : health.getId();
-            health__resolvedKey = healthId;
-        }
-    }
-    /** To-one relationship, resolved on first access. */
-    @Generated(hash = 1041294309)
-    public Number getHealth() {
-        Long __key = this.healthId;
-        if (health__resolvedKey == null || !health__resolvedKey.equals(__key)) {
-            final DaoSession daoSession = this.daoSession;
-            if (daoSession == null) {
-                throw new DaoException("Entity is detached from DAO context");
-            }
-            NumberDao targetDao = daoSession.getNumberDao();
-            Number healthNew = targetDao.load(__key);
-            synchronized (this) {
-                health = healthNew;
-                health__resolvedKey = __key;
-            }
-        }
-        return health;
-    }
-    @Generated(hash = 218444979)
-    private transient Long health__resolvedKey;
-    /** called by internal mechanisms, do not call yourself. */
     @Generated(hash = 1847801568)
     public void setEventGoodsNum(Number eventGoodsNum) {
         synchronized (this) {
@@ -259,6 +229,35 @@ public class Event {
     @Generated(hash = 1227731470)
     private transient Long eventGoodsNum__resolvedKey;
     /** called by internal mechanisms, do not call yourself. */
+    @Generated(hash = 279909944)
+    public void setHealth(Number health) {
+        synchronized (this) {
+            this.health = health;
+            healthId = health == null ? null : health.getId();
+            health__resolvedKey = healthId;
+        }
+    }
+    /** To-one relationship, resolved on first access. */
+    @Generated(hash = 1041294309)
+    public Number getHealth() {
+        Long __key = this.healthId;
+        if (health__resolvedKey == null || !health__resolvedKey.equals(__key)) {
+            final DaoSession daoSession = this.daoSession;
+            if (daoSession == null) {
+                throw new DaoException("Entity is detached from DAO context");
+            }
+            NumberDao targetDao = daoSession.getNumberDao();
+            Number healthNew = targetDao.load(__key);
+            synchronized (this) {
+                health = healthNew;
+                health__resolvedKey = __key;
+            }
+        }
+        return health;
+    }
+    @Generated(hash = 218444979)
+    private transient Long health__resolvedKey;
+    /** called by internal mechanisms, do not call yourself. */
     @Generated(hash = 1459865304)
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;
@@ -288,17 +287,17 @@ public class Event {
     public void setCashId(Long cashId) {
         this.cashId = cashId;
     }
-    public Long getHealthId() {
-        return this.healthId;
-    }
-    public void setHealthId(Long healthId) {
-        this.healthId = healthId;
-    }
     public Long getEventGoodsNumId() {
         return this.eventGoodsNumId;
     }
     public void setEventGoodsNumId(Long eventGoodsNumId) {
         this.eventGoodsNumId = eventGoodsNumId;
+    }
+    public Long getHealthId() {
+        return this.healthId;
+    }
+    public void setHealthId(Long healthId) {
+        this.healthId = healthId;
     }
     public boolean getIsNeedSelect() {
         return this.isNeedSelect;
@@ -354,10 +353,10 @@ public class Event {
     public void setId(Long id) {
         this.id = id;
     }
-    @Generated(hash = 1593488936)
+    @Generated(hash = 40970855)
     public Event(Long id, String title, String message, String resultGood,
             String resultBad, String btnOk, String btnCancel, boolean isGood,
-            boolean isNeedSelect, Long eventGoodsNumId, Long healthId, Long cashId,
+            boolean isNeedSelect, Long healthId, Long eventGoodsNumId, Long cashId,
             Long debtId, Long depositId) {
         this.id = id;
         this.title = title;
@@ -368,8 +367,8 @@ public class Event {
         this.btnCancel = btnCancel;
         this.isGood = isGood;
         this.isNeedSelect = isNeedSelect;
-        this.eventGoodsNumId = eventGoodsNumId;
         this.healthId = healthId;
+        this.eventGoodsNumId = eventGoodsNumId;
         this.cashId = cashId;
         this.debtId = debtId;
         this.depositId = depositId;

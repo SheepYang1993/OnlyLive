@@ -45,6 +45,11 @@ public class EventUtil {
             return this;
         }
 
+        public Builder setHealth(Number health) {
+            P.mHealth = health;
+            return this;
+        }
+
         public Builder setCash(Number cash) {
             P.mCash = cash;
             return this;
@@ -86,6 +91,9 @@ public class EventUtil {
             if (P.mDeposit != null) {
                 event.setDeposit(P.mDeposit);
             }
+            if (P.mHealth != null) {
+                event.setHealth(P.mHealth);
+            }
             mEventDao.insertOrReplace(event);
             if (P.mGoodsList != null && P.mGoodsList.size() > 0) {
                 for (int i = 0; i < P.mGoodsList.size(); i++) {
@@ -99,6 +107,7 @@ public class EventUtil {
             String mTitle;
             String mMessage;
             Boolean mIsGood;
+            Number mHealth;
             Number mCash;
             Number mDebt;
             Number mDeposit;
