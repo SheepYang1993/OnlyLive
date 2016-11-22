@@ -13,7 +13,6 @@ public class DataUtil {
     public static void initGame() {
         initGoods();
         initEvent();
-        initJoinGoodsToEvent();
         initNews();
     }
 
@@ -45,25 +44,60 @@ public class DataUtil {
     }
 
     private static void initGoodEvent() {
-        // 仅有物品的事件
-        EventUtil.create("标题一：仅有物品的事件", "内容，仅有物品的事件");
-        // 仅有金钱的事件
-        EventUtil.create("标题二：仅有金钱的事件", "内容，仅有金钱的事件", NumberUtil.getNumber("200", "4", "0.2"));
-        // 有物品有金钱的事件
-        EventUtil.create("标题三：有物品有金钱的事件", "内容，有物品有金钱的事件", NumberUtil.getNumber("500", "2", "0.5"));
+        new EventUtil.Builder()
+                .setTitle("类型一：仅有物品的事件")
+                .setMessage("内容，仅有物品的事件")
+                .addGoods(GoodsUtil.getGoods("北京户口"))
+                .addGoods(GoodsUtil.getGoods("走私海洛因"))
+                .addGoods(GoodsUtil.getGoods("高考答案"))
+                .addGoods(GoodsUtil.getGoods("劣质化妆品"))
+                .addGoods(GoodsUtil.getGoods("假冒茅台"))
+                .setIsGood(true)
+                .create();
+
+        new EventUtil.Builder()
+                .setTitle("类型二：仅有现金的事件")
+                .setMessage("内容，仅有现金的事件")
+                .setCash(NumberUtil.getNumber("-2000", "4", "0.1"))
+                .setIsGood(true)
+                .create();
+
+        new EventUtil.Builder()
+                .setTitle("类型三：仅有负债的事件")
+                .setMessage("内容，仅有负债的事件")
+                .setDebt(NumberUtil.getNumber("3000", "5", "1"))
+                .setIsGood(true)
+                .create();
+
+        new EventUtil.Builder()
+                .setTitle("类型四：仅有存款的事件")
+                .setMessage("内容，仅有存款的事件")
+                .setDeposit(NumberUtil.getNumber("-4000", "4", "0.2"))
+                .setIsGood(true)
+                .create();
+
+        new EventUtil.Builder()
+                .setTitle("类型五：有物品有现金的事件")
+                .setMessage("内容，有物品有现金的事件")
+                .setCash(NumberUtil.getNumber("5000", "2", "0.5"))
+                .addGoods(GoodsUtil.getGoods("水货手机"))
+                .addGoods(GoodsUtil.getGoods("假冒茅台"))
+                .addGoods(GoodsUtil.getGoods("黑心棉"))
+                .setIsGood(true)
+                .create();
+
+        new EventUtil.Builder()
+                .setTitle("类型六：有现金有负债有存款的事件")
+                .setMessage("内容，有现金有负债有存款的事件")
+                .setCash(NumberUtil.getNumber("-6000", "2", "0.5"))
+                .setDebt(NumberUtil.getNumber("7000", "2", "0.5"))
+                .setDeposit(NumberUtil.getNumber("-8000", "2", "0.5"))
+                .setIsGood(true)
+                .create();
     }
 
     private static void initSelectEvent() {
 
-    }
-
-    private static void initJoinGoodsToEvent() {
-        GoodsUtil.joinGoodsToEvent(GoodsUtil.getGoods("北京户口"), EventUtil.getEvent("标题一：仅有物品的事件"));
-        GoodsUtil.joinGoodsToEvent(GoodsUtil.getGoods("走私海洛因"), EventUtil.getEvent("标题一：仅有物品的事件"));
-        GoodsUtil.joinGoodsToEvent(GoodsUtil.getGoods("高考答案"), EventUtil.getEvent("标题一：仅有物品的事件"));
-        GoodsUtil.joinGoodsToEvent(GoodsUtil.getGoods("劣质化妆品"), EventUtil.getEvent("标题一：仅有物品的事件"));
-        GoodsUtil.joinGoodsToEvent(GoodsUtil.getGoods("水货手机"), EventUtil.getEvent("标题三：有物品有金钱的事件"));
-        GoodsUtil.joinGoodsToEvent(GoodsUtil.getGoods("黑心棉"), EventUtil.getEvent("标题三：有物品有金钱的事件"));
     }
 
     /**

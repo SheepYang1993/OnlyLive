@@ -1,20 +1,19 @@
 package me.sheepyang.onlylive.entity;
 
+import org.greenrobot.greendao.DaoException;
 import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.JoinEntity;
 import org.greenrobot.greendao.annotation.ToMany;
+import org.greenrobot.greendao.annotation.ToOne;
 
 import java.util.List;
 
-import org.greenrobot.greendao.DaoException;
-import org.greenrobot.greendao.annotation.ToOne;
-
 import me.sheepyang.onlylive.entity.dao.DaoSession;
 import me.sheepyang.onlylive.entity.dao.EventDao;
-import me.sheepyang.onlylive.entity.dao.NumberDao;
 import me.sheepyang.onlylive.entity.dao.GoodsDao;
+import me.sheepyang.onlylive.entity.dao.NumberDao;
 
 /**
  * 突发事件
@@ -38,9 +37,15 @@ public class Event {
     @ToOne(joinProperty = "healthId")
     private Number health;
     private Long healthId;
-    @ToOne(joinProperty = "moneyId")
-    private Number money;
-    private Long moneyId;
+    @ToOne(joinProperty = "cashId")
+    private Number cash;// 现金
+    private Long cashId;
+    @ToOne(joinProperty = "debtId")
+    private Number debt;// 负债
+    private Long debtId;
+    @ToOne(joinProperty = "depositId")
+    private Number deposit;// 存款
+    private Long depositId;
     @ToMany
     @JoinEntity(
             entity = JoinGoodsToEvent.class,
@@ -108,34 +113,92 @@ public class Event {
         return goodsList;
     }
     /** called by internal mechanisms, do not call yourself. */
-    @Generated(hash = 577161037)
-    public void setMoney(Number money) {
+    @Generated(hash = 240682093)
+    public void setDeposit(Number deposit) {
         synchronized (this) {
-            this.money = money;
-            moneyId = money == null ? null : money.getId();
-            money__resolvedKey = moneyId;
+            this.deposit = deposit;
+            depositId = deposit == null ? null : deposit.getId();
+            deposit__resolvedKey = depositId;
         }
     }
     /** To-one relationship, resolved on first access. */
-    @Generated(hash = 1495351971)
-    public Number getMoney() {
-        Long __key = this.moneyId;
-        if (money__resolvedKey == null || !money__resolvedKey.equals(__key)) {
+    @Generated(hash = 1048306341)
+    public Number getDeposit() {
+        Long __key = this.depositId;
+        if (deposit__resolvedKey == null || !deposit__resolvedKey.equals(__key)) {
             final DaoSession daoSession = this.daoSession;
             if (daoSession == null) {
                 throw new DaoException("Entity is detached from DAO context");
             }
             NumberDao targetDao = daoSession.getNumberDao();
-            Number moneyNew = targetDao.load(__key);
+            Number depositNew = targetDao.load(__key);
             synchronized (this) {
-                money = moneyNew;
-                money__resolvedKey = __key;
+                deposit = depositNew;
+                deposit__resolvedKey = __key;
             }
         }
-        return money;
+        return deposit;
     }
-    @Generated(hash = 599291695)
-    private transient Long money__resolvedKey;
+    @Generated(hash = 656989509)
+    private transient Long deposit__resolvedKey;
+    /** called by internal mechanisms, do not call yourself. */
+    @Generated(hash = 1132130735)
+    public void setDebt(Number debt) {
+        synchronized (this) {
+            this.debt = debt;
+            debtId = debt == null ? null : debt.getId();
+            debt__resolvedKey = debtId;
+        }
+    }
+    /** To-one relationship, resolved on first access. */
+    @Generated(hash = 1317578921)
+    public Number getDebt() {
+        Long __key = this.debtId;
+        if (debt__resolvedKey == null || !debt__resolvedKey.equals(__key)) {
+            final DaoSession daoSession = this.daoSession;
+            if (daoSession == null) {
+                throw new DaoException("Entity is detached from DAO context");
+            }
+            NumberDao targetDao = daoSession.getNumberDao();
+            Number debtNew = targetDao.load(__key);
+            synchronized (this) {
+                debt = debtNew;
+                debt__resolvedKey = __key;
+            }
+        }
+        return debt;
+    }
+    @Generated(hash = 1989546530)
+    private transient Long debt__resolvedKey;
+    /** called by internal mechanisms, do not call yourself. */
+    @Generated(hash = 1200774955)
+    public void setCash(Number cash) {
+        synchronized (this) {
+            this.cash = cash;
+            cashId = cash == null ? null : cash.getId();
+            cash__resolvedKey = cashId;
+        }
+    }
+    /** To-one relationship, resolved on first access. */
+    @Generated(hash = 1293224310)
+    public Number getCash() {
+        Long __key = this.cashId;
+        if (cash__resolvedKey == null || !cash__resolvedKey.equals(__key)) {
+            final DaoSession daoSession = this.daoSession;
+            if (daoSession == null) {
+                throw new DaoException("Entity is detached from DAO context");
+            }
+            NumberDao targetDao = daoSession.getNumberDao();
+            Number cashNew = targetDao.load(__key);
+            synchronized (this) {
+                cash = cashNew;
+                cash__resolvedKey = __key;
+            }
+        }
+        return cash;
+    }
+    @Generated(hash = 1078622503)
+    private transient Long cash__resolvedKey;
     /** called by internal mechanisms, do not call yourself. */
     @Generated(hash = 279909944)
     public void setHealth(Number health) {
@@ -207,11 +270,23 @@ public class Event {
     /** Used to resolve relations */
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
-    public Long getMoneyId() {
-        return this.moneyId;
+    public Long getDepositId() {
+        return this.depositId;
     }
-    public void setMoneyId(Long moneyId) {
-        this.moneyId = moneyId;
+    public void setDepositId(Long depositId) {
+        this.depositId = depositId;
+    }
+    public Long getDebtId() {
+        return this.debtId;
+    }
+    public void setDebtId(Long debtId) {
+        this.debtId = debtId;
+    }
+    public Long getCashId() {
+        return this.cashId;
+    }
+    public void setCashId(Long cashId) {
+        this.cashId = cashId;
     }
     public Long getHealthId() {
         return this.healthId;
@@ -279,10 +354,11 @@ public class Event {
     public void setId(Long id) {
         this.id = id;
     }
-    @Generated(hash = 304604348)
+    @Generated(hash = 1593488936)
     public Event(Long id, String title, String message, String resultGood,
             String resultBad, String btnOk, String btnCancel, boolean isGood,
-            boolean isNeedSelect, Long eventGoodsNumId, Long healthId, Long moneyId) {
+            boolean isNeedSelect, Long eventGoodsNumId, Long healthId, Long cashId,
+            Long debtId, Long depositId) {
         this.id = id;
         this.title = title;
         this.message = message;
@@ -294,7 +370,9 @@ public class Event {
         this.isNeedSelect = isNeedSelect;
         this.eventGoodsNumId = eventGoodsNumId;
         this.healthId = healthId;
-        this.moneyId = moneyId;
+        this.cashId = cashId;
+        this.debtId = debtId;
+        this.depositId = depositId;
     }
     @Generated(hash = 344677835)
     public Event() {

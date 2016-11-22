@@ -3,21 +3,28 @@ package me.sheepyang.onlylive.activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.sheepyang.onlylive.R;
 import me.sheepyang.onlylive.app.Constants;
+import me.sheepyang.onlylive.entity.Event;
+import me.sheepyang.onlylive.entity.Goods;
 import me.sheepyang.onlylive.entity.Player;
 import me.sheepyang.onlylive.utils.MathUtil;
 import me.sheepyang.onlylive.utils.MyLog;
 import me.sheepyang.onlylive.utils.RandomUtil;
+import me.sheepyang.onlylive.utils.data.EventUtil;
 import me.sheepyang.onlylive.utils.data.GoodsUtil;
 import me.sheepyang.onlylive.utils.data.PlayerUtil;
 import me.sheepyang.onlylive.utils.data.ShopGoodsUtil;
@@ -527,11 +534,6 @@ public class GameActivity extends BaseActivity {
             showToast("你现在就在" + city + "，换个地方逛逛吧");
             return;
         } else {
-            boolean isFirst = true;
-            if (mPlayer.getIsFirst()) {
-                isFirst = false;
-                mPlayer.setIsFirst(isFirst);
-            }
             if (checkWeek()) {
                 String percent = MathUtil.divide(RandomUtil.getRandomNum(15, 11) + "", "10", 2);
                 String debt = MathUtil.multiply(mPlayer.getDebt(), percent);
@@ -540,43 +542,43 @@ public class GameActivity extends BaseActivity {
                 PlayerUtil.setPlayer(mPlayer);
                 refreshPlayerData();
                 mShopDialog.setShopGoodsList(ShopGoodsUtil.getShopGoodsList(GoodsUtil.getRandomList(20)));// 设置商店物品，仅有切换过城市，商店物品价格才会变化
-                showSurpriseDialog(isFirst);
+                showSurpriseDialog(mPlayer.getIsFirst());
             }
         }
     }
 
     private void dismissAllDialog() {
-        if (mFinishDialog.isVisible()) {
+        if (mFinishDialog != null && mFinishDialog.isVisible()) {
             mFinishDialog.dismiss();
         }
-        if (mRestartDialog.isVisible()) {
+        if (mRestartDialog != null && mRestartDialog.isVisible()) {
             mRestartDialog.dismiss();
         }
-        if (mQuitDialog.isVisible()) {
+        if (mQuitDialog != null && mQuitDialog.isVisible()) {
             mQuitDialog.dismiss();
         }
-        if (mHintDialog.isVisible()) {
+        if (mHintDialog != null && mHintDialog.isVisible()) {
             mHintDialog.dismiss();
         }
-        if (mNewsDialog.isVisible()) {
+        if (mNewsDialog != null && mNewsDialog.isVisible()) {
             mNewsDialog.dismiss();
         }
-        if (mEventDialog.isVisible()) {
+        if (mEventDialog != null && mEventDialog.isVisible()) {
             mEventDialog.dismiss();
         }
-        if (mRepayDebtDialog.isVisible()) {
+        if (mRepayDebtDialog != null && mRepayDebtDialog.isVisible()) {
             mRepayDebtDialog.dismiss();
         }
-        if (mHospitalDialog.isVisible()) {
+        if (mHospitalDialog != null && mHospitalDialog.isVisible()) {
             mHospitalDialog.dismiss();
         }
-        if (mRentalDialog.isVisible()) {
+        if (mRentalDialog != null && mRentalDialog.isVisible()) {
             mRentalDialog.dismiss();
         }
-        if (mBankDialog.isShowing()) {
+        if (mBankDialog != null && mBankDialog.isShowing()) {
             mBankDialog.dismiss();
         }
-        if (mShopDialog.isVisible()) {
+        if (mShopDialog != null && mShopDialog.isVisible()) {
             mShopDialog.dismiss();
         }
     }
@@ -672,44 +674,101 @@ public class GameActivity extends BaseActivity {
      */
     private void showSurpriseDialog(boolean isFirst) {
         dismissAllDialog();
-//        showPDialog();
-//        Event event;
-//        if (isFirst) {
-//            event = EventUtil.getRandomEvent(true);// 获取好事件中随机的一个
-//        } else {
-//            event = EventUtil.getRandomEvent(null);// 获取所有事件中随机的一个
-//        }
-//        if (event != null) {
-//            String msg = event.getMessage();
-//            List<EventGoods> eventGoodsList = event.getEventGoodsList();
-//            if (eventGoodsList != null && eventGoodsList.size() > 0) {
-//                for (int i = 0; i < eventGoodsList.size(); i++) {
-//                    EventGoods eventGoods = eventGoodsList.get(i);
-//                    msg = StrUtil.replaceGoodsChar(i, msg, eventGoods);// 替换掉字符串中的占位符
-//                }
-//            }
-//            if (event.getMoney() != null) {
-//                msg = StrUtil.replaceMoneyChar(msg, event.getMoney());// 替换掉字符串中的占位符
-//            }
-//            if (event.getIsSelect()) {// 该事件需要进行选择
-//                mEventDialog.setOnOkClickListener(event.getSelectYes(), new MessageDialog.OnOkClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//
-//                    }
-//                });
-//                mEventDialog.setOnCancelClickListener(event.getSelectNo(), new MessageDialog.OnCancelClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//
-//                    }
-//                });
-//            }
-        mEventDialog.setTitle("突发事件标题");
-        mEventDialog.setMessage("突发事件内容");
-//        dismissPDialog();
-        mEventDialog.show(getSupportFragmentManager(), "EventDialog");
-//        }
+        String title = "";
+        String msg = "";
+        Event event;
+        if (isFirst) {
+            mPlayer.setIsFirst(false);
+            event = EventUtil.getRandomGoodEvent(true);// 获取好事件中随机的一个
+        } else {
+            event = EventUtil.getRandomEvent();// 获取所有事件中随机的一个
+        }
+        if (!TextUtils.isEmpty(event.getTitle())) {
+            title = event.getTitle();
+        }
+        if (!TextUtils.isEmpty(event.getMessage())) {
+            msg = event.getMessage();
+        }
+        if (event != null) {// 需要选择判断的事件
+            if (event.getIsNeedSelect()) {
+                mEventDialog.setOnOkClickListener(event.getBtnOk(), new MessageDialog.OnOkClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
+                mEventDialog.setOnCancelClickListener(event.getBtnCancel(), new MessageDialog.OnCancelClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
+            } else {// 不需要选择判断的事件
+                msg += "<br/><br/>";
+                // 添加物品
+                List<Goods> goodsList = event.getGoodsList();
+                if (goodsList != null && goodsList.size() > 0) {
+                    for (int i = 0; i < goodsList.size(); i++) {
+                        if (i == 0) {
+                            msg += "<font color='#ff435f'>获得：</font><br/>";
+                        }
+                        // 随机获得1到5件物品
+                        msg += "<font color='#646464'>" + goodsList.get(i).getName() + " x" + RandomUtil.getRandomNum(5, 1) + goodsList.get(i).getUnit() + "</font><br/>";
+                    }
+                }
+
+                // 添加现金
+                if (event.getCash() != null && !TextUtils.isEmpty(event.getCash().getNumber()) && !TextUtils.isEmpty(event.getCash().getMaxPercent()) && !TextUtils.isEmpty(event.getCash().getMinPercent())) {
+                    String cashTemp = event.getCash().getNumber();
+                    String resultCash = MathUtil.add(mPlayer.getCash(), cashTemp);
+                    if (MathUtil.lt(event.getCash().getNumber(), "0")) {
+                        msg += "<br/><font color='#646464'>现金 <font color='#ff435f'>-</font>" + MathUtil.abs(event.getCash().getNumber()) + "</font>";
+                    } else if (MathUtil.gt(event.getCash().getNumber(), "0")) {
+                        msg += "<br/><font color='#646464'>现金 <font color='#5da8ba'>+</font>" + MathUtil.abs(event.getCash().getNumber()) + "</font>";
+                    }
+                    mPlayer.setCash(resultCash);
+                }
+
+                // 添加负债
+                if (event.getDebt() != null && !TextUtils.isEmpty(event.getDebt().getNumber()) && !TextUtils.isEmpty(event.getDebt().getMaxPercent()) && !TextUtils.isEmpty(event.getDebt().getMinPercent())) {
+                    String debtTemp = event.getDebt().getNumber();
+                    String resultDebt = MathUtil.add(mPlayer.getDebt(), debtTemp);
+                    if (MathUtil.lt(event.getDebt().getNumber(), "0")) {// 减少负债
+                        if (MathUtil.le(resultDebt, "0")) {// 扣去剩下的所有负债
+                            msg += "<br/><font color='#646464'>负债 <font color='#ff435f'>-</font>" + mPlayer.getDebt() + "</font>";
+                            resultDebt = "0";
+                        } else {
+                            msg += "<br/><font color='#646464'>负债 <font color='#ff435f'>-</font>" + MathUtil.abs(event.getDebt().getNumber()) + "</font>";
+                        }
+                    } else if (MathUtil.gt(event.getDebt().getNumber(), "0")) {// 增加负债
+                        msg += "<br/><font color='#646464'>负债 <font color='#5da8ba'>+</font>" + MathUtil.abs(event.getDebt().getNumber()) + "</font>";
+                    }
+                    mPlayer.setDebt(resultDebt);
+                }
+
+                // 添加存款
+                if (event.getDeposit() != null && !TextUtils.isEmpty(event.getDeposit().getNumber()) && !TextUtils.isEmpty(event.getDeposit().getMaxPercent()) && !TextUtils.isEmpty(event.getDeposit().getMinPercent())) {
+                    String depositTemp = event.getDeposit().getNumber();
+                    String resultDeposit = MathUtil.add(mPlayer.getDeposit(), depositTemp);
+                    if (MathUtil.lt(event.getDeposit().getNumber(), "0")) {// 减少存款
+                        if (MathUtil.le(resultDeposit, "0")) {// 扣去剩下的所有存款
+                            msg += "<br/><font color='#646464'>存款 <font color='#ff435f'>-</font>" + mPlayer.getDeposit() + "</font>";
+                            resultDeposit = "0";
+                        } else {
+                            msg += "<br/><font color='#646464'>存款 <font color='#ff435f'>-</font>" + MathUtil.abs(event.getDeposit().getNumber()) + "</font>";
+                        }
+                    } else if (MathUtil.gt(event.getDeposit().getNumber(), "0")) {// 增加存款
+                        msg += "<br/><font color='#646464'>存款 <font color='#5da8ba'>+</font>" + MathUtil.abs(event.getDeposit().getNumber()) + "</font>";
+                    }
+                    mPlayer.setDeposit(resultDeposit);
+                }
+            }
+            mEventDialog.setTitle(title);
+            mEventDialog.setMessage(Html.fromHtml(msg));
+            PlayerUtil.setPlayer(mPlayer);
+            refreshPlayerData();
+            mEventDialog.show(getSupportFragmentManager(), "EventDialog");
+        }
     }
 
     /**

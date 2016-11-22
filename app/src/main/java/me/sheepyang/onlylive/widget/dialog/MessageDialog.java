@@ -1,18 +1,15 @@
 package me.sheepyang.onlylive.widget.dialog;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Spanned;
 import android.text.TextUtils;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -47,6 +44,7 @@ public class MessageDialog extends BaseDialogFragment {
     private OnDismissListener mDismissListener;
     private String mOkText;
     private String mCancelText;
+    private Spanned mMessageSpan;
 
     @Nullable
     @Override
@@ -71,23 +69,36 @@ public class MessageDialog extends BaseDialogFragment {
             tvTitle.setVisibility(View.GONE);
         }
         // 设置内容
-        if (!TextUtils.isEmpty(mMessage)) {
-            tvMessage.setText(mMessage);
+        if (!TextUtils.isEmpty(mMessage) || mMessageSpan != null) {
+            if (!TextUtils.isEmpty(mMessage)) {
+                tvMessage.setText(mMessage);
+            }
+            if (mMessageSpan != null) {
+                tvMessage.setText(mMessageSpan);
+            }
             tvMessage.setVisibility(View.VISIBLE);
         } else {
             tvMessage.setText("");
             tvMessage.setVisibility(View.GONE);
         }
-        if (!TextUtils.isEmpty(mOkText)) {
-            btnOk.setText(mOkText);
+        if (mOkClickListener != null) {
+            if (!TextUtils.isEmpty(mOkText)) {
+                btnOk.setText(mOkText);
+            }
             btnOk.setVisibility(View.VISIBLE);
             rlButton.setVisibility(View.VISIBLE);
         }
-        if (!TextUtils.isEmpty(mCancelText)) {
-            btnCancel.setText(mCancelText);
+        if (mCancelClickListener != null) {
+            if (!TextUtils.isEmpty(mCancelText)) {
+                btnCancel.setText(mCancelText);
+            }
             btnCancel.setVisibility(View.VISIBLE);
             rlButton.setVisibility(View.VISIBLE);
         }
+    }
+
+    public void setMessage(Spanned spanned) {
+        mMessageSpan = spanned;
     }
 
     public void setMessage(String msg) {

@@ -7,6 +7,15 @@ import java.math.BigDecimal;
  */
 
 public class MathUtil {
+
+    public static String abs(String a) {
+        return new BigDecimal(a)
+                .abs()
+                .setScale(0, BigDecimal.ROUND_HALF_UP)
+                .toBigInteger()
+                .toString();
+    }
+
     /**
      * 加法 四舍五入
      *

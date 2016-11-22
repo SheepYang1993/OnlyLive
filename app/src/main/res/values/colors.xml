@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#c6ede8</color>
+    <color name="colorPrimaryDark">#94e0fe</color>
+    <color name="colorAccent">#c6ede8</color>
 
     <color name="black">#ff000000</color>
     <color name="white">#ffffffff</color>
@@ -18,8 +18,6 @@
     <!--字灰色-->
     <color name="word_gary">#909090</color>
 
-    <color name="text_green">#02ff02</color>
-    <color name="text_red">#f40202</color>
     <color name="text_black">#ff000000</color>
     <color name="text_white">#ffffffff</color>
 

@@ -185,7 +185,7 @@
             android:layout_weight="2"
             android:singleLine="true"
             android:text="——"
-            android:textColor="@color/text_green"
+            android:textColor="@color/theme1_blue_dark2"
             android:textSize="20sp" />
 
         <TextView
@@ -204,7 +204,7 @@
             android:layout_weight="1"
             android:singleLine="true"
             android:text="——"
-            android:textColor="@color/text_green"
+            android:textColor="@color/theme1_blue_dark2"
             android:textSize="20sp" />
     </LinearLayout>
 
@@ -230,7 +230,7 @@
             android:layout_weight="2"
             android:singleLine="true"
             android:text="——"
-            android:textColor="@color/text_red"
+            android:textColor="@color/theme1_red"
             android:textSize="20sp" />
 
         <TextView
@@ -275,7 +275,7 @@
             android:layout_weight="2"
             android:singleLine="true"
             android:text="——"
-            android:textColor="@color/text_green"
+            android:textColor="@color/theme1_blue_dark2"
             android:textSize="20sp" />
 
         <TextView
