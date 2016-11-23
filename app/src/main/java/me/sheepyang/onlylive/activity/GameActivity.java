@@ -718,18 +718,30 @@ public class GameActivity extends BaseActivity {
                     }
                 });
             } else {// 不需要选择判断的事件
-                msg += "<br/><br/>";
+                msg += "<br/>";
+
                 // 添加物品
                 List<Goods> goodsList = event.getGoodsList();
+                String goodsTotalNum = "0";
                 if (goodsList != null && goodsList.size() > 0) {
+                    String[] goodsNum = new String[goodsList.size()];
+                    for (int i = 0; i < goodsList.size(); i++) {
+                        // 随机获得1到5件物品
+                        goodsNum[i] = RandomUtil.getRandomNum(5, 1) + "";
+                        goodsTotalNum = MathUtil.add(goodsTotalNum, goodsNum[i]);
+                    }
                     for (int i = 0; i < goodsList.size(); i++) {
                         if (i == 0) {
-                            msg += "<font color='#ff435f'>获得：</font><br/>";
+                            msg += "<br/><font color='#ff435f'>获得：</font><br/>";
                         }
-                        // 随机获得1到5件物品
-                        String goodsNum = RandomUtil.getRandomNum(5, 1) + "";
-                        msg += "<font color='#646464'>" + goodsList.get(i).getName() + " x" + goodsNum + goodsList.get(i).getUnit() + "</font><br/>";
-                        PlayerGoodsUtil.addEventGoodsToPlayer(goodsList.get(i), goodsNum);
+                        msg += "<font color='#646464'>" + goodsList.get(i).getName() + " x" + goodsNum[i] + goodsList.get(i).getUnit() + "</font><br/>";
+
+                        if (MathUtil.le(goodsTotalNum, MathUtil.subtract(mPlayer.getHouseTotal(), mPlayer.getHouse()))) {// 房间有足够空间放下赠品
+                            PlayerGoodsUtil.addEventGoodsToPlayer(goodsList.get(i), goodsNum[i]);
+                        }
+                    }
+                    if (MathUtil.gt(goodsTotalNum, MathUtil.subtract(mPlayer.getHouseTotal(), mPlayer.getHouse()))) {// 房间放不下赠品
+                        msg += "<br/><font color='#ff435f'>但是你的房间已经放不下了，只能把这些东西丢在路边了</font><br/>";
                     }
                 }
 
