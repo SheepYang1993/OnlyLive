@@ -40,6 +40,61 @@ public class EventUtil {
             return this;
         }
 
+        public Builder setOkText(String okText) {
+            P.mOkText = okText;
+            return this;
+        }
+
+        public Builder setCancelText(String cancelText) {
+            P.mCancelText = cancelText;
+            return this;
+        }
+
+        public Builder setResultOKGoodTitle(String resultOKGoodTitle) {
+            P.mResultOKGoodTitle = resultOKGoodTitle;
+            return this;
+        }
+
+        public Builder setResultOKGoodMsg(String resultOKGoodMsg) {
+            P.mResultOKGoodMsg = resultOKGoodMsg;
+            return this;
+        }
+
+        public Builder setResultOKBadTitle(String resultOKBadTitle) {
+            P.mResultOKBadTitle = resultOKBadTitle;
+            return this;
+        }
+
+        public Builder setResultOKBadMsg(String resultOKBadMsg) {
+            P.mResultOKBadMsg = resultOKBadMsg;
+            return this;
+        }
+
+        public Builder setResultCancelGoodTitle(String resultCancelGoodTitle) {
+            P.mResultCancelGoodTitle = resultCancelGoodTitle;
+            return this;
+        }
+
+        public Builder setResultCancelGoodMsg(String resultCancelGoodMsg) {
+            P.mResultCancelGoodMsg = resultCancelGoodMsg;
+            return this;
+        }
+
+        public Builder setResultCancelBadTitle(String resultCancelBadTitle) {
+            P.mResultCancelBadTitle = resultCancelBadTitle;
+            return this;
+        }
+
+        public Builder setResultCancelBadMsg(String resultCancelBadMsg) {
+            P.mResultCancelBadMsg = resultCancelBadMsg;
+            return this;
+        }
+
+        public Builder setIsNeedSelect(boolean isNeedSelect) {
+            P.mIsNeedSelect = isNeedSelect;
+            return this;
+        }
+
         public Builder setIsGood(Boolean isGood) {
             P.mIsGood = isGood;
             return this;
@@ -79,8 +134,21 @@ public class EventUtil {
             Event event = new Event();
             event.setTitle(P.mTitle);
             event.setMessage(P.mMessage);
+            event.setBtnOk(P.mOkText);
+            event.setBtnCancel(P.mCancelText);
+            event.setResultOKGoodTitle(P.mResultOKGoodTitle);
+            event.setResultOKGoodMsg(P.mResultOKGoodMsg);
+            event.setResultOKBadTitle(P.mResultOKBadTitle);
+            event.setResultOKBadMsg(P.mResultOKBadMsg);
+            event.setResultCancelGoodTitle(P.mResultCancelGoodTitle);
+            event.setResultCancelGoodMsg(P.mResultCancelGoodMsg);
+            event.setResultCancelBadTitle(P.mResultCancelBadTitle);
+            event.setResultCancelBadMsg(P.mResultCancelBadMsg);
             if (P.mIsGood != null) {
                 event.setIsGood(P.mIsGood);
+            }
+            if (P.mIsNeedSelect != null) {
+                event.setIsNeedSelect(P.mIsNeedSelect);
             }
             if (P.mCash != null) {
                 event.setCash(P.mCash);
@@ -97,7 +165,7 @@ public class EventUtil {
             mEventDao.insertOrReplace(event);
             if (P.mGoodsList != null && P.mGoodsList.size() > 0) {
                 for (int i = 0; i < P.mGoodsList.size(); i++) {
-                    GoodsUtil.joinGoodsToEvent(P.mGoodsList.get(i), event);
+                    JoinGoodsToEventUtil.join(P.mGoodsList.get(i), event);
                 }
             }
             return event;
@@ -106,46 +174,24 @@ public class EventUtil {
         private class EventParams {
             String mTitle;
             String mMessage;
+            String mOkText;
+            String mCancelText;
+            String mResultOKGoodTitle;
+            String mResultOKBadTitle;
+            String mResultOKGoodMsg;
+            String mResultOKBadMsg;
+            String mResultCancelGoodTitle;
+            String mResultCancelBadTitle;
+            String mResultCancelGoodMsg;
+            String mResultCancelBadMsg;
             Boolean mIsGood;
+            Boolean mIsNeedSelect;
             Number mHealth;
             Number mCash;
             Number mDebt;
             Number mDeposit;
             List<Goods> mGoodsList;
         }
-    }
-
-    public static long create(Boolean isGood, String title, String msg, Number cash, Number debt, Number deposit) {
-        Event event = new Event();
-        event.setTitle(title);
-        event.setMessage(msg);
-        if (isGood != null) {
-            event.setIsGood(isGood);
-        }
-        if (cash != null) {
-            event.setCash(cash);
-        }
-        if (debt != null) {
-            event.setDebt(debt);
-        }
-        if (deposit != null) {
-            event.setDeposit(deposit);
-        }
-        return mEventDao.insertOrReplace(event);
-    }
-
-    /**
-     * @return
-     */
-    public static long createGood(String title, String msg) {
-        return create(true, title, msg, null, null, null);
-    }
-
-    /**
-     * @return
-     */
-    public static long createGood(String title, String msg, Number cash, Number debt, Number deposit) {
-        return create(true, title, msg, cash, debt, deposit);
     }
 
     /**

@@ -52,7 +52,6 @@ public class MessageDialog extends BaseDialogFragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.dialog_message, null);
         ButterKnife.bind(this, view);
-        getDialog().setCanceledOnTouchOutside(true);//点击边际可消失
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));// 设置背景透明
 
         initView();

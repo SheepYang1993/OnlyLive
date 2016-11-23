@@ -15,7 +15,7 @@ import me.sheepyang.onlylive.utils.MyLog;
 @RunWith(AndroidJUnit4.class)
 public class EventUtilTest {
     @Test
-    public void getRandomEventTest() {
+    public void getRandomEventTe() {
         Event event = EventUtil.getRandomEvent();
         if (event != null) {
             MyLog.i(Thread.currentThread().getStackTrace()[1].getMethodName() + " -> " + "event title:" + event.getTitle());

@@ -14,7 +14,11 @@ public class RandomUtil {
         return new Random().nextInt(max - min + 1) + min;
     }
 
-    public static int getRandomNum(Number number) {
-        return new Random().nextInt(Integer.valueOf(MathUtil.add((MathUtil.add(MathUtil.subtract(number.getMaxNumber(), number.getMinNumber()), "1")), number.getMinNumber())));
+    public static String getRandomNum(Number number) {
+        int intMaxPercent = Integer.valueOf(MathUtil.multiply(number.getMaxPercent(), "100"));
+        int intMinPercent = Integer.valueOf(MathUtil.multiply(number.getMinPercent(), "100"));
+        int tempRandom = new Random().nextInt(intMaxPercent - intMinPercent + 1) + intMinPercent;
+        String percent = MathUtil.divide(tempRandom + "", "100", 2);
+        return MathUtil.multiply(number.getNumber(), percent);
     }
 }

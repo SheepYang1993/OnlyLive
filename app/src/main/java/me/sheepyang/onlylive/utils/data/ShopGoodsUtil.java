@@ -22,8 +22,8 @@ public class ShopGoodsUtil {
     public static long create(Goods goods) {
         ShopGoods shopGoods = new ShopGoods();
         shopGoods.setName(goods.getName());
-        int price = RandomUtil.getRandomNum(goods.getPrice());
-        shopGoods.setPrice(price + "");
+        String price = RandomUtil.getRandomNum(goods.getPrice());
+        shopGoods.setPrice(price);
         return mShopGoodsDao.insertOrReplace(shopGoods);
     }
 

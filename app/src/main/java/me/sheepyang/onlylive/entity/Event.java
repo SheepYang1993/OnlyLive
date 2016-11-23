@@ -1,18 +1,19 @@
 package me.sheepyang.onlylive.entity;
 
+import org.greenrobot.greendao.DaoException;
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.JoinEntity;
 import org.greenrobot.greendao.annotation.ToMany;
 import org.greenrobot.greendao.annotation.ToOne;
 
 import java.util.List;
-import org.greenrobot.greendao.annotation.Generated;
-import org.greenrobot.greendao.DaoException;
+
 import me.sheepyang.onlylive.entity.dao.DaoSession;
 import me.sheepyang.onlylive.entity.dao.EventDao;
-import me.sheepyang.onlylive.entity.dao.NumberDao;
 import me.sheepyang.onlylive.entity.dao.GoodsDao;
+import me.sheepyang.onlylive.entity.dao.NumberDao;
 
 /**
  * 突发事件
@@ -24,8 +25,14 @@ public class Event {
     private Long id;
     private String title;// 标题
     private String message;// 信息
-    private String resultGood;
-    private String resultBad;
+    private String resultOKGoodTitle;
+    private String resultOKBadTitle;
+    private String resultCancelGoodTitle;
+    private String resultCancelBadTitle;
+    private String resultOKGoodMsg;
+    private String resultOKBadMsg;
+    private String resultCancelGoodMsg;
+    private String resultCancelBadMsg;
     private String btnOk;
     private String btnCancel;
     private boolean isGood;// 是否是好的事件
@@ -323,17 +330,53 @@ public class Event {
     public void setBtnOk(String btnOk) {
         this.btnOk = btnOk;
     }
-    public String getResultBad() {
-        return this.resultBad;
+    public String getResultCancelBadMsg() {
+        return this.resultCancelBadMsg;
     }
-    public void setResultBad(String resultBad) {
-        this.resultBad = resultBad;
+    public void setResultCancelBadMsg(String resultCancelBadMsg) {
+        this.resultCancelBadMsg = resultCancelBadMsg;
     }
-    public String getResultGood() {
-        return this.resultGood;
+    public String getResultCancelGoodMsg() {
+        return this.resultCancelGoodMsg;
     }
-    public void setResultGood(String resultGood) {
-        this.resultGood = resultGood;
+    public void setResultCancelGoodMsg(String resultCancelGoodMsg) {
+        this.resultCancelGoodMsg = resultCancelGoodMsg;
+    }
+    public String getResultOKBadMsg() {
+        return this.resultOKBadMsg;
+    }
+    public void setResultOKBadMsg(String resultOKBadMsg) {
+        this.resultOKBadMsg = resultOKBadMsg;
+    }
+    public String getResultOKGoodMsg() {
+        return this.resultOKGoodMsg;
+    }
+    public void setResultOKGoodMsg(String resultOKGoodMsg) {
+        this.resultOKGoodMsg = resultOKGoodMsg;
+    }
+    public String getResultCancelBadTitle() {
+        return this.resultCancelBadTitle;
+    }
+    public void setResultCancelBadTitle(String resultCancelBadTitle) {
+        this.resultCancelBadTitle = resultCancelBadTitle;
+    }
+    public String getResultCancelGoodTitle() {
+        return this.resultCancelGoodTitle;
+    }
+    public void setResultCancelGoodTitle(String resultCancelGoodTitle) {
+        this.resultCancelGoodTitle = resultCancelGoodTitle;
+    }
+    public String getResultOKBadTitle() {
+        return this.resultOKBadTitle;
+    }
+    public void setResultOKBadTitle(String resultOKBadTitle) {
+        this.resultOKBadTitle = resultOKBadTitle;
+    }
+    public String getResultOKGoodTitle() {
+        return this.resultOKGoodTitle;
+    }
+    public void setResultOKGoodTitle(String resultOKGoodTitle) {
+        this.resultOKGoodTitle = resultOKGoodTitle;
     }
     public String getMessage() {
         return this.message;
@@ -353,16 +396,25 @@ public class Event {
     public void setId(Long id) {
         this.id = id;
     }
-    @Generated(hash = 40970855)
-    public Event(Long id, String title, String message, String resultGood,
-            String resultBad, String btnOk, String btnCancel, boolean isGood,
-            boolean isNeedSelect, Long healthId, Long eventGoodsNumId, Long cashId,
-            Long debtId, Long depositId) {
+    @Generated(hash = 848514504)
+    public Event(Long id, String title, String message, String resultOKGoodTitle,
+            String resultOKBadTitle, String resultCancelGoodTitle,
+            String resultCancelBadTitle, String resultOKGoodMsg,
+            String resultOKBadMsg, String resultCancelGoodMsg,
+            String resultCancelBadMsg, String btnOk, String btnCancel,
+            boolean isGood, boolean isNeedSelect, Long healthId,
+            Long eventGoodsNumId, Long cashId, Long debtId, Long depositId) {
         this.id = id;
         this.title = title;
         this.message = message;
-        this.resultGood = resultGood;
-        this.resultBad = resultBad;
+        this.resultOKGoodTitle = resultOKGoodTitle;
+        this.resultOKBadTitle = resultOKBadTitle;
+        this.resultCancelGoodTitle = resultCancelGoodTitle;
+        this.resultCancelBadTitle = resultCancelBadTitle;
+        this.resultOKGoodMsg = resultOKGoodMsg;
+        this.resultOKBadMsg = resultOKBadMsg;
+        this.resultCancelGoodMsg = resultCancelGoodMsg;
+        this.resultCancelBadMsg = resultCancelBadMsg;
         this.btnOk = btnOk;
         this.btnCancel = btnCancel;
         this.isGood = isGood;

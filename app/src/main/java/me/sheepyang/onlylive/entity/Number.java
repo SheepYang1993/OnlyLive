@@ -14,20 +14,6 @@ public class Number {
     private String number;
     private String maxPercent;
     private String minPercent;
-    private String maxNumber;
-    private String minNumber;
-    public String getMinNumber() {
-        return this.minNumber;
-    }
-    public void setMinNumber(String minNumber) {
-        this.minNumber = minNumber;
-    }
-    public String getMaxNumber() {
-        return this.maxNumber;
-    }
-    public void setMaxNumber(String maxNumber) {
-        this.maxNumber = maxNumber;
-    }
     public String getMinPercent() {
         return this.minPercent;
     }
@@ -52,15 +38,12 @@ public class Number {
     public void setId(Long id) {
         this.id = id;
     }
-    @Generated(hash = 1074412105)
-    public Number(Long id, String number, String maxPercent, String minPercent,
-            String maxNumber, String minNumber) {
+    @Generated(hash = 921527406)
+    public Number(Long id, String number, String maxPercent, String minPercent) {
         this.id = id;
         this.number = number;
         this.maxPercent = maxPercent;
         this.minPercent = minPercent;
-        this.maxNumber = maxNumber;
-        this.minNumber = minNumber;
     }
     @Generated(hash = 1191593292)
     public Number() {

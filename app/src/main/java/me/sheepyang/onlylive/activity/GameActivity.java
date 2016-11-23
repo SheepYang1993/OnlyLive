@@ -3,6 +3,7 @@ package me.sheepyang.onlylive.activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
@@ -89,13 +90,15 @@ public class GameActivity extends BaseActivity {
     private MessageDialog mHintDialog;
     private MessageDialog mNewsDialog;
     private MessageDialog mEventDialog;// 突发事件对话框
+    private MessageDialog mSelectEventDialog;// 需要选择的突发事件对话框
+    private MessageDialog mSelectResultDialog;// 选择后结果展示的对话框
     private MessageDialog mRepayDebtDialog;// 还债对话框
     private MessageDialog mHospitalDialog;// 医院治疗对话框
     private MessageDialog mRentalDialog;// 租房对话框
     private BankDialog mBankDialog;// 银行对话框
     private ShopDialog mShopDialog;// 交易对话框
-
     private Player mPlayer;
+    private boolean isShowNews = false;// 设置是否显示新闻事件
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,11 +115,12 @@ public class GameActivity extends BaseActivity {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                rb1.setTextColor(getResources().getColor(R.color.word_black));
-                rb2.setTextColor(getResources().getColor(R.color.word_black));
-                rb3.setTextColor(getResources().getColor(R.color.word_black));
-                rb4.setTextColor(getResources().getColor(R.color.word_black));
-                rb5.setTextColor(getResources().getColor(R.color.word_black));
+                int color = getResources().getColor(R.color.word_black);
+                rb1.setTextColor(color);
+                rb2.setTextColor(color);
+                rb3.setTextColor(color);
+                rb4.setTextColor(color);
+                rb5.setTextColor(color);
                 switch (checkedId) {
                     case R.id.rb_1:
                         rb1.setTextColor(getResources().getColor(R.color.white));
@@ -333,7 +337,40 @@ public class GameActivity extends BaseActivity {
                     if (MathUtil.le(mPlayer.getHealth(), "0")) {// 生命值小于等于0，游戏结束
                         showFinishDialog();
                     } else {
-                        showNewsDialog();
+                        if (isShowNews) {
+                            showNewsDialog();
+                        } else {
+                            radioGroup.check(R.id.rb_4);
+                            showShopDialog(mPlayer.getCity());
+                        }
+                    }
+                }
+            });
+        }
+        if (mSelectEventDialog == null) {
+            mSelectEventDialog = new MessageDialog();
+            mSelectEventDialog.setCancelable(false);
+        }
+        if (mSelectResultDialog == null) {
+            mSelectResultDialog = new MessageDialog();
+            mSelectResultDialog.setOnOkClickListener("确定", new MessageDialog.OnOkClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dismissAllDialog();
+                }
+            });
+            mSelectResultDialog.setDismissListener(new MessageDialog.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    if (MathUtil.le(mPlayer.getHealth(), "0")) {// 生命值小于等于0，游戏结束
+                        showFinishDialog();
+                    } else {
+                        if (isShowNews) {
+                            showNewsDialog();
+                        } else {
+                            radioGroup.check(R.id.rb_4);
+                            showShopDialog(mPlayer.getCity());
+                        }
                     }
                 }
             });
@@ -550,7 +587,6 @@ public class GameActivity extends BaseActivity {
     private void selectCity(String city) {
         if (city.equals(mPlayer.getCity())) {
             showToast("你现在就在" + city + "，换个地方逛逛吧");
-            return;
         } else {
             if (checkWeek()) {
                 String percent = MathUtil.divide(RandomUtil.getRandomNum(15, 11) + "", "10", 2);
@@ -559,7 +595,7 @@ public class GameActivity extends BaseActivity {
                 mPlayer.setCity(city);// 设置当前所在城市
                 PlayerUtil.setPlayer(mPlayer);
                 refreshPlayerData();
-                mShopDialog.setShopGoodsList(ShopGoodsUtil.getShopGoodsList(GoodsUtil.getRandomList(20)));// 设置商店物品，仅有切换过城市，商店物品价格才会变化
+                mShopDialog.setShopGoodsList(ShopGoodsUtil.getShopGoodsList(GoodsUtil.getRandomList(5)));// 设置商店物品，仅有切换过城市，商店物品价格才会变化
                 showSurpriseDialog(mPlayer.getIsFirst());
             }
         }
@@ -605,7 +641,7 @@ public class GameActivity extends BaseActivity {
      * 在每次购买物品之后
      * 检查当前游戏周数，判断游戏是否结束
      *
-     * @return
+     * @return 游戏是否结束，false结束，true未结束
      */
     private boolean checkWeek() {
         if (MathUtil.ge(mPlayer.getWeek(), mPlayer.getWeekTotal())) {
@@ -688,8 +724,6 @@ public class GameActivity extends BaseActivity {
      */
     private void showSurpriseDialog(boolean isFirst) {
         dismissAllDialog();
-        String title = "";
-        String msg = "";
         Event event;
         if (isFirst) {
             mPlayer.setIsFirst(false);
@@ -697,124 +731,204 @@ public class GameActivity extends BaseActivity {
         } else {
             event = EventUtil.getRandomEvent();// 获取所有事件中随机的一个
         }
+        if (event != null) {
+            if (event.getIsNeedSelect()) {// 需要选择判断的事件
+                showSelectEventDialog(event);
+            } else {// 不需要选择判断的事件
+                showUnselectEventDialog(event);
+            }
+        }
+    }
+
+    private void showSelectEventDialog(final Event event) {
+        String title = "";
+        String msg = "";
         if (!TextUtils.isEmpty(event.getTitle())) {
             title = event.getTitle();
         }
         if (!TextUtils.isEmpty(event.getMessage())) {
             msg = event.getMessage();
         }
-        if (event != null) {// 需要选择判断的事件
-            if (event.getIsNeedSelect()) {
-                mEventDialog.setOnOkClickListener(event.getBtnOk(), new MessageDialog.OnOkClickListener() {
-                    @Override
-                    public void onClick(View view) {
+        mSelectEventDialog.setOnOkClickListener(event.getBtnOk(), new MessageDialog.OnOkClickListener() {
+            @Override
+            public void onClick(View view) {
+                showSelectResultDialog(true, event);
 
-                    }
-                });
-                mEventDialog.setOnCancelClickListener(event.getBtnCancel(), new MessageDialog.OnCancelClickListener() {
-                    @Override
-                    public void onClick(View view) {
+            }
+        });
+        mSelectEventDialog.setOnCancelClickListener(event.getBtnCancel(), new MessageDialog.OnCancelClickListener() {
+            @Override
+            public void onClick(View view) {
+                showSelectResultDialog(false, event);
+            }
+        });
+        mSelectEventDialog.setTitle(title);
+        mSelectEventDialog.setMessage(Html.fromHtml(msg));
+        mSelectEventDialog.show(getSupportFragmentManager(), "mSelectEventDialog");
+    }
 
-                    }
-                });
-            } else {// 不需要选择判断的事件
-                msg += "<br/>";
+    private void showSelectResultDialog(boolean isOk, Event event) {
+        boolean isGood = RandomUtil.getRandomNum(1, 0) == 0;// 选择结果 0 -> 好
+        String title = "";
+        String msg = "";
+        if (isGood) {// 好事件
+            if (isOk) {// 点击了确定
+                if (!TextUtils.isEmpty(event.getResultOKGoodTitle())) {
+                    title = event.getResultOKGoodTitle();
+                }
+                if (!TextUtils.isEmpty(event.getResultOKGoodMsg())) {
+                    msg = event.getResultOKGoodMsg();
+                }
+            } else {// 点击了取消
+                if (!TextUtils.isEmpty(event.getResultCancelGoodTitle())) {
+                    title = event.getResultCancelGoodTitle();
+                }
+                if (!TextUtils.isEmpty(event.getResultCancelGoodMsg())) {
+                    msg = event.getResultCancelGoodMsg();
+                }
+                msg = addEventMessage(true, event, msg);
+            }
+        } else {// 坏事件
+            if (isOk) {// 点击了确定
+                if (!TextUtils.isEmpty(event.getResultOKBadTitle())) {
+                    title = event.getResultOKBadTitle();
+                }
+                if (!TextUtils.isEmpty(event.getResultOKBadMsg())) {
+                    msg = event.getResultOKBadMsg();
+                }
+            } else {// 点击了取消
+                if (!TextUtils.isEmpty(event.getResultCancelBadTitle())) {
+                    title = event.getResultCancelBadTitle();
+                }
+                if (!TextUtils.isEmpty(event.getResultCancelBadMsg())) {
+                    msg = event.getResultCancelBadMsg();
+                }
+            }
+            msg = addEventMessage(false, event, msg);
+        }
+        mSelectResultDialog.setTitle(title);
+        mSelectResultDialog.setMessage(Html.fromHtml(msg));
+        mSelectResultDialog.show(getSupportFragmentManager(), "mSelectResultDialog");
+    }
 
-                // 添加物品
-                List<Goods> goodsList = event.getGoodsList();
-                String goodsTotalNum = "0";
-                if (goodsList != null && goodsList.size() > 0) {
-                    String[] goodsNum = new String[goodsList.size()];
-                    for (int i = 0; i < goodsList.size(); i++) {
-                        // 随机获得1到5件物品
-                        goodsNum[i] = RandomUtil.getRandomNum(5, 1) + "";
-                        goodsTotalNum = MathUtil.add(goodsTotalNum, goodsNum[i]);
-                    }
-                    for (int i = 0; i < goodsList.size(); i++) {
-                        if (i == 0) {
-                            msg += "<br/><font color='#ff435f'>获得：</font><br/>";
-                        }
-                        msg += "<font color='#646464'>" + goodsList.get(i).getName() + " x" + goodsNum[i] + goodsList.get(i).getUnit() + "</font><br/>";
+    @NonNull
+    private void showUnselectEventDialog(Event event) {
+        String title = "";
+        String msg = "";
+        if (!TextUtils.isEmpty(event.getTitle())) {
+            title = event.getTitle();
+        }
+        if (!TextUtils.isEmpty(event.getMessage())) {
+            msg = event.getMessage();
+        }
+        msg = addEventMessage(null, event, msg);
 
-                        if (MathUtil.le(goodsTotalNum, MathUtil.subtract(mPlayer.getHouseTotal(), mPlayer.getHouse()))) {// 房间有足够空间放下赠品
-                            PlayerGoodsUtil.addEventGoodsToPlayer(goodsList.get(i), goodsNum[i]);
-                        }
+        mEventDialog.setTitle(title);
+        mEventDialog.setMessage(Html.fromHtml(msg));
+        PlayerUtil.setPlayer(mPlayer);
+        refreshPlayerData();
+        mEventDialog.show(getSupportFragmentManager(), "EventDialog");
+    }
+
+    @NonNull
+    private String addEventMessage(Boolean isGood, Event event, String msg) {
+        msg += "<br/>";
+        if (isGood != null) {
+            if (isGood) {
+                msg += "<br/>好结果<br/>";
+            } else {
+                msg += "<br/>坏结果<br/>";
+            }
+        } else {
+            // 添加物品
+            List<Goods> goodsList = event.getGoodsList();
+            String goodsTotalNum = "0";
+            if (goodsList != null && goodsList.size() > 0) {
+                String[] goodsNum = new String[goodsList.size()];
+                for (int i = 0; i < goodsList.size(); i++) {
+                    // 随机获得1到5件物品
+                    goodsNum[i] = RandomUtil.getRandomNum(5, 1) + "";
+                    goodsTotalNum = MathUtil.add(goodsTotalNum, goodsNum[i]);
+                }
+                for (int i = 0; i < goodsList.size(); i++) {
+                    if (i == 0) {
+                        msg += "<br/><font color='#ff435f'>获得：</font><br/>";
                     }
-                    if (MathUtil.gt(goodsTotalNum, MathUtil.subtract(mPlayer.getHouseTotal(), mPlayer.getHouse()))) {// 房间放不下赠品
-                        msg += "<br/><font color='#ff435f'>但是你的房间已经放不下了，只能把这些东西丢在路边了</font><br/>";
+                    msg += "<font color='#646464'>" + goodsList.get(i).getName() + " x" + goodsNum[i] + goodsList.get(i).getUnit() + "</font><br/>";
+
+                    if (MathUtil.le(goodsTotalNum, MathUtil.subtract(mPlayer.getHouseTotal(), mPlayer.getHouse()))) {// 房间有足够空间放下赠品
+                        PlayerGoodsUtil.addEventGoodsToPlayer(goodsList.get(i), goodsNum[i]);
                     }
                 }
-
-                // 添加现金
-                if (event.getCash() != null && !TextUtils.isEmpty(event.getCash().getNumber()) && !TextUtils.isEmpty(event.getCash().getMaxPercent()) && !TextUtils.isEmpty(event.getCash().getMinPercent())) {
-                    String cashTemp = event.getCash().getNumber();
-                    String resultCash = MathUtil.add(mPlayer.getCash(), cashTemp);
-                    if (MathUtil.lt(event.getCash().getNumber(), "0")) {
-                        msg += "<br/><font color='#646464'>现金 <font color='#ff435f'>-</font>" + MathUtil.abs(event.getCash().getNumber()) + "</font>";
-                    } else if (MathUtil.gt(event.getCash().getNumber(), "0")) {
-                        msg += "<br/><font color='#646464'>现金 <font color='#5da8ba'>+</font>" + MathUtil.abs(event.getCash().getNumber()) + "</font>";
-                    }
-                    mPlayer.setCash(resultCash);
-                }
-
-                // 添加负债
-                if (event.getDebt() != null && !TextUtils.isEmpty(event.getDebt().getNumber()) && !TextUtils.isEmpty(event.getDebt().getMaxPercent()) && !TextUtils.isEmpty(event.getDebt().getMinPercent())) {
-                    String debtTemp = event.getDebt().getNumber();
-                    String resultDebt = MathUtil.add(mPlayer.getDebt(), debtTemp);
-                    if (MathUtil.lt(event.getDebt().getNumber(), "0")) {// 减少负债
-                        if (MathUtil.le(resultDebt, "0")) {// 扣去剩下的所有负债
-                            msg += "<br/><font color='#646464'>负债 <font color='#ff435f'>-</font>" + mPlayer.getDebt() + "</font>";
-                            resultDebt = "0";
-                        } else {
-                            msg += "<br/><font color='#646464'>负债 <font color='#ff435f'>-</font>" + MathUtil.abs(event.getDebt().getNumber()) + "</font>";
-                        }
-                    } else if (MathUtil.gt(event.getDebt().getNumber(), "0")) {// 增加负债
-                        msg += "<br/><font color='#646464'>负债 <font color='#5da8ba'>+</font>" + MathUtil.abs(event.getDebt().getNumber()) + "</font>";
-                    }
-                    mPlayer.setDebt(resultDebt);
-                }
-
-                // 添加存款
-                if (event.getDeposit() != null && !TextUtils.isEmpty(event.getDeposit().getNumber()) && !TextUtils.isEmpty(event.getDeposit().getMaxPercent()) && !TextUtils.isEmpty(event.getDeposit().getMinPercent())) {
-                    String depositTemp = event.getDeposit().getNumber();
-                    String resultDeposit = MathUtil.add(mPlayer.getDeposit(), depositTemp);
-                    if (MathUtil.lt(event.getDeposit().getNumber(), "0")) {// 减少存款
-                        if (MathUtil.le(resultDeposit, "0")) {// 扣去剩下的所有存款
-                            msg += "<br/><font color='#646464'>存款 <font color='#ff435f'>-</font>" + mPlayer.getDeposit() + "</font>";
-                            resultDeposit = "0";
-                        } else {
-                            msg += "<br/><font color='#646464'>存款 <font color='#ff435f'>-</font>" + MathUtil.abs(event.getDeposit().getNumber()) + "</font>";
-                        }
-                    } else if (MathUtil.gt(event.getDeposit().getNumber(), "0")) {// 增加存款
-                        msg += "<br/><font color='#646464'>存款 <font color='#5da8ba'>+</font>" + MathUtil.abs(event.getDeposit().getNumber()) + "</font>";
-                    }
-                    mPlayer.setDeposit(resultDeposit);
-                }
-
-                // 添加健康
-                if (event.getHealth() != null && !TextUtils.isEmpty(event.getHealth().getNumber()) && !TextUtils.isEmpty(event.getHealth().getMaxPercent()) && !TextUtils.isEmpty(event.getHealth().getMinPercent())) {
-                    String healthTemp = event.getHealth().getNumber();
-                    String resultHealth = MathUtil.add(mPlayer.getHealth(), healthTemp);
-                    if (MathUtil.lt(event.getHealth().getNumber(), "0")) {// 减少健康
-                        if (MathUtil.le(resultHealth, "0")) {// 扣去剩下的所有健康
-                            msg += "<br/><font color='#646464'>健康 <font color='#ff435f'>-</font>" + mPlayer.getHealth() + "</font>";
-                            resultHealth = "0";
-                        } else {
-                            msg += "<br/><font color='#646464'>健康 <font color='#ff435f'>-</font>" + MathUtil.abs(event.getHealth().getNumber()) + "</font>";
-                        }
-                    } else if (MathUtil.gt(event.getHealth().getNumber(), "0")) {// 增加健康
-                        msg += "<br/><font color='#646464'>健康 <font color='#5da8ba'>+</font>" + MathUtil.abs(event.getHealth().getNumber()) + "</font>";
-                    }
-                    mPlayer.setHealth(resultHealth);
+                if (MathUtil.gt(goodsTotalNum, MathUtil.subtract(mPlayer.getHouseTotal(), mPlayer.getHouse()))) {// 房间放不下赠品
+                    msg += "<br/><font color='#ff435f'>但是你的房间已经放不下了，只能把这些东西丢在路边了</font><br/>";
                 }
             }
 
-            mEventDialog.setTitle(title);
-            mEventDialog.setMessage(Html.fromHtml(msg));
-            PlayerUtil.setPlayer(mPlayer);
-            refreshPlayerData();
-            mEventDialog.show(getSupportFragmentManager(), "EventDialog");
+            // 添加现金
+            if (event.getCash() != null && !TextUtils.isEmpty(event.getCash().getNumber()) && !TextUtils.isEmpty(event.getCash().getMaxPercent()) && !TextUtils.isEmpty(event.getCash().getMinPercent())) {
+                String cashTemp = event.getCash().getNumber();
+                String resultCash = MathUtil.add(mPlayer.getCash(), cashTemp);
+                if (MathUtil.lt(event.getCash().getNumber(), "0")) {
+                    msg += "<br/><font color='#646464'>现金 <font color='#ff435f'>-</font>" + MathUtil.abs(event.getCash().getNumber()) + "</font>";
+                } else if (MathUtil.gt(event.getCash().getNumber(), "0")) {
+                    msg += "<br/><font color='#646464'>现金 <font color='#5da8ba'>+</font>" + MathUtil.abs(event.getCash().getNumber()) + "</font>";
+                }
+                mPlayer.setCash(resultCash);
+            }
+
+            // 添加负债
+            if (event.getDebt() != null && !TextUtils.isEmpty(event.getDebt().getNumber()) && !TextUtils.isEmpty(event.getDebt().getMaxPercent()) && !TextUtils.isEmpty(event.getDebt().getMinPercent())) {
+                String debtTemp = event.getDebt().getNumber();
+                String resultDebt = MathUtil.add(mPlayer.getDebt(), debtTemp);
+                if (MathUtil.lt(event.getDebt().getNumber(), "0")) {// 减少负债
+                    if (MathUtil.le(resultDebt, "0")) {// 扣去剩下的所有负债
+                        msg += "<br/><font color='#646464'>负债 <font color='#ff435f'>-</font>" + mPlayer.getDebt() + "</font>";
+                        resultDebt = "0";
+                    } else {
+                        msg += "<br/><font color='#646464'>负债 <font color='#ff435f'>-</font>" + MathUtil.abs(event.getDebt().getNumber()) + "</font>";
+                    }
+                } else if (MathUtil.gt(event.getDebt().getNumber(), "0")) {// 增加负债
+                    msg += "<br/><font color='#646464'>负债 <font color='#5da8ba'>+</font>" + MathUtil.abs(event.getDebt().getNumber()) + "</font>";
+                }
+                mPlayer.setDebt(resultDebt);
+            }
+
+            // 添加存款
+            if (event.getDeposit() != null && !TextUtils.isEmpty(event.getDeposit().getNumber()) && !TextUtils.isEmpty(event.getDeposit().getMaxPercent()) && !TextUtils.isEmpty(event.getDeposit().getMinPercent())) {
+                String depositTemp = event.getDeposit().getNumber();
+                String resultDeposit = MathUtil.add(mPlayer.getDeposit(), depositTemp);
+                if (MathUtil.lt(event.getDeposit().getNumber(), "0")) {// 减少存款
+                    if (MathUtil.le(resultDeposit, "0")) {// 扣去剩下的所有存款
+                        msg += "<br/><font color='#646464'>存款 <font color='#ff435f'>-</font>" + mPlayer.getDeposit() + "</font>";
+                        resultDeposit = "0";
+                    } else {
+                        msg += "<br/><font color='#646464'>存款 <font color='#ff435f'>-</font>" + MathUtil.abs(event.getDeposit().getNumber()) + "</font>";
+                    }
+                } else if (MathUtil.gt(event.getDeposit().getNumber(), "0")) {// 增加存款
+                    msg += "<br/><font color='#646464'>存款 <font color='#5da8ba'>+</font>" + MathUtil.abs(event.getDeposit().getNumber()) + "</font>";
+                }
+                mPlayer.setDeposit(resultDeposit);
+            }
+
+            // 添加健康
+            if (event.getHealth() != null && !TextUtils.isEmpty(event.getHealth().getNumber()) && !TextUtils.isEmpty(event.getHealth().getMaxPercent()) && !TextUtils.isEmpty(event.getHealth().getMinPercent())) {
+                String healthTemp = event.getHealth().getNumber();
+                String resultHealth = MathUtil.add(mPlayer.getHealth(), healthTemp);
+                if (MathUtil.lt(event.getHealth().getNumber(), "0")) {// 减少健康
+                    if (MathUtil.le(resultHealth, "0")) {// 扣去剩下的所有健康
+                        msg += "<br/><font color='#646464'>健康 <font color='#ff435f'>-</font>" + mPlayer.getHealth() + "</font>";
+                        resultHealth = "0";
+                    } else {
+                        msg += "<br/><font color='#646464'>健康 <font color='#ff435f'>-</font>" + MathUtil.abs(event.getHealth().getNumber()) + "</font>";
+                    }
+                } else if (MathUtil.gt(event.getHealth().getNumber(), "0")) {// 增加健康
+                    msg += "<br/><font color='#646464'>健康 <font color='#5da8ba'>+</font>" + MathUtil.abs(event.getHealth().getNumber()) + "</font>";
+                }
+                mPlayer.setHealth(resultHealth);
+            }
         }
+        return msg;
     }
 
     /**
@@ -841,7 +955,7 @@ public class GameActivity extends BaseActivity {
      */
     private boolean checkIsStart() {
         dismissAllDialog();
-        if (mPlayer.getIsFirst() == true) {
+        if (mPlayer.getIsFirst()) {
             mHintDialog.setTitle("选择地区");
             mHintDialog.setMessage("选择一个地区开始吧");
             mHintDialog.show(getSupportFragmentManager(), "hint");
@@ -850,10 +964,16 @@ public class GameActivity extends BaseActivity {
         return true;
     }
 
+    public boolean isShowNews() {
+        return isShowNews;
+    }
+
+    public void setShowNews(boolean showNews) {
+        isShowNews = showNews;
+    }
+
     /**
-     * 获得当前治疗的费用
-     *
-     * @return
+     * @return 当前治疗的费用
      */
     public String getTreatmentMoney() {
         if (MathUtil.gt(mPlayer.getHealth(), "0") && MathUtil.lt(mPlayer.getHealth(), "100")) {
