@@ -111,8 +111,8 @@ public class BankDialog extends Dialog {
             case TYPE_SAVE_MONEY:// 存钱
                 rlSaveMoney.setBackgroundResource(R.drawable.bg_white2_shape);
                 rlGetMoney.setBackgroundResource(R.drawable.bg_black_shape);
-                tvSaveMoney.setTextColor(mContext.getResources().getColor(R.color.text_black));
-                tvGetMoney.setTextColor(mContext.getResources().getColor(R.color.text_white));
+                tvSaveMoney.setTextColor(mContext.getResources().getColor(R.color.word_black));
+                tvGetMoney.setTextColor(mContext.getResources().getColor(R.color.word_white));
                 tvHint.setText("存入：");
                 tvMoney.setText(mCash + "");
                 seekbar.setProgress(seekbar.getMax());
@@ -120,8 +120,8 @@ public class BankDialog extends Dialog {
             case TYPE_GET_MONEY:// 取钱
                 rlSaveMoney.setBackgroundResource(R.drawable.bg_black_shape);
                 rlGetMoney.setBackgroundResource(R.drawable.bg_white2_shape);
-                tvSaveMoney.setTextColor(mContext.getResources().getColor(R.color.text_white));
-                tvGetMoney.setTextColor(mContext.getResources().getColor(R.color.text_black));
+                tvSaveMoney.setTextColor(mContext.getResources().getColor(R.color.word_white));
+                tvGetMoney.setTextColor(mContext.getResources().getColor(R.color.word_black));
                 tvHint.setText("取出：");
                 tvMoney.setText(mDeposit + "");
                 seekbar.setProgress(seekbar.getMax());

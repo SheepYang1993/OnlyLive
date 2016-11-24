@@ -389,15 +389,15 @@ public class ShopDialog extends BaseDialogFragment {
                 tvTitleHint.setText("（商店）");
                 rlBuy.setBackgroundResource(R.drawable.bg_white2_shape);
                 rlSell.setBackgroundResource(R.drawable.bg_black_shape);
-                tvBuy.setTextColor(getResources().getColor(R.color.text_black));
-                tvSell.setTextColor(getResources().getColor(R.color.text_white));
+                tvBuy.setTextColor(getResources().getColor(R.color.word_black));
+                tvSell.setTextColor(getResources().getColor(R.color.word_white));
                 break;
             case TYPE_SELL:
                 tvTitleHint.setText("（背包）");
                 rlBuy.setBackgroundResource(R.drawable.bg_black_shape);
                 rlSell.setBackgroundResource(R.drawable.bg_white2_shape);
-                tvBuy.setTextColor(getResources().getColor(R.color.text_white));
-                tvSell.setTextColor(getResources().getColor(R.color.text_black));
+                tvBuy.setTextColor(getResources().getColor(R.color.word_white));
+                tvSell.setTextColor(getResources().getColor(R.color.word_black));
                 break;
             default:
                 break;

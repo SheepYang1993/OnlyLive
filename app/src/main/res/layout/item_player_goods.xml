@@ -19,7 +19,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:text="马铃薯"
-            android:textColor="@color/text_black"
+            android:textColor="@color/word_black"
             android:textSize="20sp" />
 
         <TextView
@@ -28,7 +28,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:text="数量：99"
-            android:textColor="@color/text_black"
+            android:textColor="@color/word_black"
             android:textSize="16sp" />
     </LinearLayout>
 
@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="进价："
-                android:textColor="@color/text_black"
+                android:textColor="@color/word_black"
                 android:textSize="16sp" />
 
             <TextView
@@ -62,7 +62,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:text="111"
-                android:textColor="@color/text_black"
+                android:textColor="@color/word_black"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -78,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="市价："
-                android:textColor="@color/text_black"
+                android:textColor="@color/word_black"
                 android:textSize="16sp" />
 
             <TextView
@@ -86,7 +86,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:text="111"
-                android:textColor="@color/text_black"
+                android:textColor="@color/word_black"
                 android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>

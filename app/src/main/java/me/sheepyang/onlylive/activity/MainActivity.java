@@ -7,6 +7,9 @@ import android.widget.ImageView;
 
 import com.umeng.socialize.UMShareAPI;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -16,6 +19,7 @@ import cn.bmob.v3.update.BmobUpdateAgent;
 import cn.bmob.v3.update.UpdateResponse;
 import cn.bmob.v3.update.UpdateStatus;
 import me.sheepyang.onlylive.R;
+import me.sheepyang.onlylive.domain.SettingData;
 import me.sheepyang.onlylive.utils.AppManager;
 import me.sheepyang.onlylive.utils.DataUtil;
 import me.sheepyang.onlylive.utils.MyLog;
@@ -157,7 +161,29 @@ public class MainActivity extends BaseActivity {
                         mLogoLongClickTimes = 0;
                         MyLog.i("开启隐藏设置");
                         showToast("开启隐藏设置");
-                        startActivity(new Intent(mContext, HideSettingActivity.class));
+
+                        ArrayList<SettingData> dataList = new ArrayList<>();
+                        SettingData data = new SettingData();
+                        data.setText("查看事件列表");
+                        data.setDesc("描述一");
+                        dataList.add(data);
+
+                        data = new SettingData();
+                        data.setText("查看事件列表");
+                        data.setDesc("描述二");
+                        dataList.add(data);
+
+                        data = new SettingData();
+                        data.setText("查看事件列表");
+                        data.setDesc("描述三");
+                        data.setIntentClass(MainActivity.class.getName());
+                        dataList.add(data);
+
+                        Intent intent = new Intent(mContext, SettingActivity.class);
+                        intent.putExtra("title", "隐藏设置");
+                        intent.putExtra("isShowBack", true);
+                        intent.putParcelableArrayListExtra("Datas", dataList);
+                        startActivity(intent);
                     }
                 } else {
                     mLogoDoubleClickTime = System.currentTimeMillis();

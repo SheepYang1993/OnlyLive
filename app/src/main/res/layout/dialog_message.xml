@@ -27,7 +27,7 @@
                 android:marqueeRepeatLimit="marquee_forever"
                 android:maxLines="3"
                 android:text=""
-                android:textColor="@color/text_black"
+                android:textColor="@color/word_black"
                 android:textSize="28sp" />
         </RelativeLayout>
 
@@ -50,7 +50,7 @@
                     android:layout_marginTop="10dp"
                     android:gravity="start"
                     android:text=""
-                    android:textColor="@color/text_black"
+                    android:textColor="@color/word_black"
                     android:textSize="20sp" />
             </RelativeLayout>
         </ScrollView>

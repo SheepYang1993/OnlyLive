@@ -46,6 +46,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.2.1'
     compile 'com.jakewharton:butterknife:8.2.1'
+    compile 'com.lcodecorex:tkrefreshlayout:1.0.3'
+    compile 'com.android.support:recyclerview-v7:24.2.1'
     compile 'org.greenrobot:greendao:3.0.1'
     compile 'org.greenrobot:greendao-generator:3.0.0'
     compile 'com.tencent.bugly:crashreport:2.3.1'

@@ -23,7 +23,7 @@
             android:marqueeRepeatLimit="marquee_forever"
             android:singleLine="true"
             android:text="银行"
-            android:textColor="@color/text_black"
+            android:textColor="@color/word_black"
             android:textSize="28sp" />
 
         <LinearLayout
@@ -45,7 +45,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="存钱"
-                    android:textColor="@color/text_black"
+                    android:textColor="@color/word_black"
                     android:textSize="24sp" />
             </RelativeLayout>
 
@@ -63,7 +63,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="取钱"
-                    android:textColor="@color/text_white"
+                    android:textColor="@color/word_white"
                     android:textSize="24sp" />
             </RelativeLayout>
         </LinearLayout>

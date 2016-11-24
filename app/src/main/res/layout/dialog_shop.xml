@@ -28,7 +28,7 @@
                 android:marqueeRepeatLimit="marquee_forever"
                 android:singleLine="true"
                 android:text="交易"
-                android:textColor="@color/text_black"
+                android:textColor="@color/word_black"
                 android:textSize="28sp" />
 
             <TextView
@@ -39,7 +39,7 @@
                 android:layout_toRightOf="@id/tv_title"
                 android:singleLine="true"
                 android:text="(商店)"
-                android:textColor="@color/text_black"
+                android:textColor="@color/word_black"
                 android:textSize="20sp" />
         </RelativeLayout>
 
@@ -53,7 +53,7 @@
             android:marqueeRepeatLimit="marquee_forever"
             android:singleLine="true"
             android:text="当前地区："
-            android:textColor="@color/text_black"
+            android:textColor="@color/word_black"
             android:textSize="20sp" />
 
         <LinearLayout
@@ -75,7 +75,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="买入"
-                    android:textColor="@color/text_black"
+                    android:textColor="@color/word_black"
                     android:textSize="24sp" />
             </RelativeLayout>
 
@@ -93,7 +93,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="卖出"
-                    android:textColor="@color/text_white"
+                    android:textColor="@color/word_white"
                     android:textSize="24sp" />
             </RelativeLayout>
         </LinearLayout>
@@ -133,7 +133,7 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:text="花费：0"
-                    android:textColor="@color/text_black"
+                    android:textColor="@color/word_black"
                     android:textSize="16dp" />
 
                 <TextView
@@ -143,7 +143,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:text="房子："
-                    android:textColor="@color/text_black"
+                    android:textColor="@color/word_black"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -167,7 +167,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:text="物品："
-                    android:textColor="@color/text_black"
+                    android:textColor="@color/word_black"
                     android:textSize="16sp" />
 
                 <TextView
@@ -176,7 +176,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:text="数量："
-                    android:textColor="@color/text_black"
+                    android:textColor="@color/word_black"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -193,7 +193,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:text="现金："
-                    android:textColor="@color/text_black"
+                    android:textColor="@color/word_black"
                     android:textSize="16sp" />
 
                 <TextView
@@ -202,7 +202,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:text="单价："
-                    android:textColor="@color/text_black"
+                    android:textColor="@color/word_black"
                     android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>
@@ -220,7 +220,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="现金："
-                android:textColor="@color/text_black"
+                android:textColor="@color/word_black"
                 android:textSize="20sp" />
 
 
@@ -230,7 +230,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="存款："
-                android:textColor="@color/text_black"
+                android:textColor="@color/word_black"
                 android:textSize="20sp" />
         </LinearLayout>
 

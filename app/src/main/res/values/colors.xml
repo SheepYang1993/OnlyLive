@@ -17,9 +17,8 @@
     <color name="word_black_dark">#646464</color>
     <!--字灰色-->
     <color name="word_gary">#909090</color>
-
-    <color name="text_black">#ff000000</color>
-    <color name="text_white">#ffffffff</color>
+    <!--字白色-->
+    <color name="word_white">#ffffffff</color>
 
 
     <color name="theme1_blue_light1">#c6ede8</color>

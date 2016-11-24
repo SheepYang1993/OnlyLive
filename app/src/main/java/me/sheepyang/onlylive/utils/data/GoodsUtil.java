@@ -47,7 +47,7 @@ public class GoodsUtil {
         }
 
         public Goods create() {
-            Goods goods = null;
+            Goods goods = new Goods();
             goods.setName(P.mName);
             goods.setUnit(P.mUnit);
             if (P.mPrice != null) {
@@ -61,14 +61,6 @@ public class GoodsUtil {
             String mUnit;
             Number mPrice;
         }
-    }
-
-    public static long create(String name, String unit, String price, String maxPercent, String minPercent) {
-        Goods goods = new Goods();
-        goods.setName(name);
-        goods.setUnit(unit);
-        goods.setPrice(NumberUtil.create(price, maxPercent, minPercent));
-        return mGoodsDao.insertOrReplace(goods);
     }
 
     public static void deleteAll() {
