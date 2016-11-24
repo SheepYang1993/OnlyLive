@@ -77,7 +77,7 @@ public class PlayerGoodsUtil {
         }
     }
 
-    public static void addEventGoodsToPlayer(Goods goods, String goodsNum) {
+    public static void addPlayGoods(Goods goods, String goodsNum) {
         QueryBuilder<PlayerGoods> qb = mPlayerGoodsDao.queryBuilder();
         qb.where(PlayerGoodsDao.Properties.Name.eq(goods.getName()));
         List<PlayerGoods> list = qb.list();
@@ -133,6 +133,22 @@ public class PlayerGoodsUtil {
                 list.get(0).setPrice(shopGoods.getPrice());
             }
         }
+    }
+
+
+    public static PlayerGoods getPlayerGoods(String playGoodsName) {
+        PlayerGoods playerGoods = null;
+        QueryBuilder<PlayerGoods> qb = mPlayerGoodsDao.queryBuilder();
+        qb.where(PlayerGoodsDao.Properties.Name.eq(playGoodsName));
+        List<PlayerGoods> list = qb.list();
+        if (list != null && list.size() > 0) {
+            playerGoods = list.get(0);
+        }
+        return playerGoods;
+    }
+
+    public static void delete(String playGoodsName) {
+        mPlayerGoodsDao.delete(getPlayerGoods(playGoodsName));
     }
 
     public static void delete(PlayerGoods playerGoods) {

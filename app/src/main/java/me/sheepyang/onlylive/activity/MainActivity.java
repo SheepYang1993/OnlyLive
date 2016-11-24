@@ -3,9 +3,11 @@ package me.sheepyang.onlylive.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.umeng.socialize.UMShareAPI;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.bmob.v3.listener.BmobDialogButtonListener;
@@ -16,6 +18,7 @@ import cn.bmob.v3.update.UpdateStatus;
 import me.sheepyang.onlylive.R;
 import me.sheepyang.onlylive.utils.AppManager;
 import me.sheepyang.onlylive.utils.DataUtil;
+import me.sheepyang.onlylive.utils.MyLog;
 import me.sheepyang.onlylive.utils.SPUtil;
 import me.sheepyang.onlylive.utils.data.PlayerUtil;
 import me.sheepyang.onlylive.widget.dialog.SelectGameModeDialog;
@@ -25,14 +28,25 @@ import static me.sheepyang.onlylive.widget.dialog.SelectGameModeDialog.MODE_RESU
 
 public class MainActivity extends BaseActivity {
 
+    @BindView(R.id.iv_logo)
+    ImageView ivLogo;
     private SelectGameModeDialog mDialog;
     private boolean isInit;
     private boolean isClickUpdate;
     private long mCurrentTime;
+    private long mLogoDoubleClickTime;
+    private int mLogoLongClickTimes = 0;// Logo长按次数
+    private Runnable runable = new Runnable() {
+        @Override
+        public void run() {
+            mLogoLongClickTimes = 0;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         // 初始化游戏数据
@@ -47,6 +61,16 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initListener() {
+        ivLogo.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                mLogoLongClickTimes++;
+                MyLog.i("长按了" + mLogoLongClickTimes + "次");
+                ivLogo.removeCallbacks(runable);
+                ivLogo.postDelayed(runable, 3000);
+                return true;
+            }
+        });
         //设置对对话框按钮的点击事件的监听
         BmobUpdateAgent.setDialogListener(new BmobDialogButtonListener() {
 
@@ -122,10 +146,23 @@ public class MainActivity extends BaseActivity {
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 
-    @OnClick({R.id.btn_play, R.id.btn_update, R.id.btn_rank, R.id.btn_setting, R.id.btn_share})
+    @OnClick({R.id.iv_logo, R.id.btn_play, R.id.btn_update, R.id.btn_rank, R.id.btn_setting, R.id.btn_share})
     public void onClick(View view) {
         super.onClick(view);
         switch (view.getId()) {
+            case R.id.iv_logo:// 三次长按，一次双击 开启隐藏设置
+                if (System.currentTimeMillis() - mLogoDoubleClickTime < 2000) {
+                    mLogoDoubleClickTime = 0;
+                    if (mLogoLongClickTimes == 3) {
+                        mLogoLongClickTimes = 0;
+                        MyLog.i("开启隐藏设置");
+                        showToast("开启隐藏设置");
+                        startActivity(new Intent(mContext, HideSettingActivity.class));
+                    }
+                } else {
+                    mLogoDoubleClickTime = System.currentTimeMillis();
+                }
+                break;
             case R.id.btn_play:// 开始游戏
                 mDialog.show();
                 break;

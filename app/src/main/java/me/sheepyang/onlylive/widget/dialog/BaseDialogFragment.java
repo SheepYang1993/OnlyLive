@@ -20,7 +20,9 @@ public class BaseDialogFragment extends DialogFragment {
 
     @Override
     public void show(FragmentManager manager, String tag) {
-        manager.executePendingTransactions();
+        if (manager != null) {
+            manager.executePendingTransactions();
+        }
         if (!this.isAdded()) {
             super.show(manager, tag);
         }
@@ -28,7 +30,9 @@ public class BaseDialogFragment extends DialogFragment {
 
     @Override
     public int show(FragmentTransaction transaction, String tag) {
-        getChildFragmentManager().executePendingTransactions();
+        if (getChildFragmentManager() != null) {
+            getChildFragmentManager().executePendingTransactions();
+        }
         if (!this.isAdded()) {
             return super.show(transaction, tag);
         } else {

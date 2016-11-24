@@ -19,6 +19,14 @@ public class NumberUtil {
         return mNumberDao.loadByRowId(rowId);
     }
 
+    /**
+     * minPercent <= minPercent
+     *
+     * @param strNum
+     * @param maxPercent
+     * @param minPercent
+     * @return
+     */
     public static Number create(String strNum, String maxPercent, String minPercent) {
         Number number = new Number();
         number.setNumber(strNum);

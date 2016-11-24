@@ -21,15 +21,59 @@ public class DataUtil {
      */
     private static void initGoods() {
         GoodsUtil.deleteAll();
-        GoodsUtil.create("假冒茅台", "瓶", "1200", "2", "1");
-        GoodsUtil.create("黑心棉", "件", "999", "2", "1");
-        GoodsUtil.create("北京户口", "本", "120000", "2", "1");
-        GoodsUtil.create("名校学历", "本", "80000", "2", "1");
-        GoodsUtil.create("走私海洛因", "包", "10000", "2", "1");
-        GoodsUtil.create("高考答案", "份", "700000", "2", "1");
-        GoodsUtil.create("走私汽车", "辆", "100000", "2", "1");
-        GoodsUtil.create("水货手机", "部", "15000", "2", "1");
-        GoodsUtil.create("劣质化妆品", "盒", "1500", "2", "1");
+        new GoodsUtil.Builder()
+                .setName("假冒茅台")
+                .setUnit("瓶")
+                .setPrice(NumberUtil.create("1200", "2", "1"))
+                .create();
+
+        new GoodsUtil.Builder()
+                .setName("黑心棉")
+                .setUnit("件")
+                .setPrice(NumberUtil.create("999", "2", "1"))
+                .create();
+
+        new GoodsUtil.Builder()
+                .setName("北京户口")
+                .setUnit("本")
+                .setPrice(NumberUtil.create("120000", "2", "1"))
+                .create();
+
+        new GoodsUtil.Builder()
+                .setName("名校学历")
+                .setUnit("本")
+                .setPrice(NumberUtil.create("80000", "2", "1"))
+                .create();
+
+        new GoodsUtil.Builder()
+                .setName("走私海洛因")
+                .setUnit("包")
+                .setPrice(NumberUtil.create("10000", "2", "1"))
+                .create();
+
+        new GoodsUtil.Builder()
+                .setName("高考答案")
+                .setUnit("份")
+                .setPrice(NumberUtil.create("700000", "2", "1"))
+                .create();
+
+        new GoodsUtil.Builder()
+                .setName("走私汽车")
+                .setUnit("辆")
+                .setPrice(NumberUtil.create("100000", "2", "1"))
+                .create();
+
+        new GoodsUtil.Builder()
+                .setName("水货手机")
+                .setUnit("部")
+                .setPrice(NumberUtil.create("15000", "2", "1"))
+                .create();
+
+        new GoodsUtil.Builder()
+                .setName("劣质化妆品")
+                .setUnit("盒")
+                .setPrice(NumberUtil.create("1500", "2", "1"))
+                .create();
     }
 
     /**
@@ -109,6 +153,16 @@ public class DataUtil {
                 .addGoods(GoodsUtil.getGoods("劣质化妆品"))
                 .addGoods(GoodsUtil.getGoods("假冒茅台"))
                 .create();
+
+        new EventUtil.Builder()
+                .setIsGood(true)
+                .setTitle("类型八：现金负债存款事件")
+                .setMessage("内容，现金负债存款事件")
+                .setCash(NumberUtil.create("2000", "4", "-4"))
+                .setDebt(NumberUtil.create("3000", "4", "-4"))
+                .setDeposit(NumberUtil.create("4000", "4", "-4"))
+                .create();
+
     }
 
     private static void initSelectEvent() {
@@ -126,15 +180,16 @@ public class DataUtil {
                 .setResultCancelBadTitle("你假装没看到，结果是坏的")
                 .setResultCancelGoodMsg("这个老太婆是骗子，你举报成功，奖励５０")
                 .setResultCancelBadMsg("跑得太快，跌入下水道")
-                .setCash(NumberUtil.create("6000", "2", "-2"))
-                .setDebt(NumberUtil.create("7000", "2", "-2"))
-                .setDeposit(NumberUtil.create("8000", "2", "-2"))
-                .setHealth(NumberUtil.create("20", "1", "-1"))
+                .setCash(NumberUtil.create("6000", "2", "0.2"))
+                .setDebt(NumberUtil.create("7000", "2", "0.2"))
+                .setDeposit(NumberUtil.create("8000", "2", "0.2"))
+                .setHealth(NumberUtil.create("20", "1", "0.2"))
                 .addGoods(GoodsUtil.getGoods("北京户口"))
                 .addGoods(GoodsUtil.getGoods("走私海洛因"))
                 .addGoods(GoodsUtil.getGoods("高考答案"))
-                .addGoods(GoodsUtil.getGoods("劣质化妆品"))
-                .addGoods(GoodsUtil.getGoods("假冒茅台"))
+                .addBadGoods(GoodsUtil.getGoods("劣质化妆品"))
+                .addBadGoods(GoodsUtil.getGoods("假冒茅台"))
+                .addBadGoods(GoodsUtil.getGoods("黑心棉"))
                 .create();
     }
 

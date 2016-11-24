@@ -9,6 +9,7 @@
     tools:context="me.sheepyang.onlylive.activity.MainActivity">
 
     <ImageView
+        android:id="@+id/iv_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="90dp"

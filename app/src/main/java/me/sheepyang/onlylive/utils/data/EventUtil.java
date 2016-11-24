@@ -120,12 +120,34 @@ public class EventUtil {
             return this;
         }
 
+        /**
+         * 添加事件中赠送的物品
+         *
+         * @param goods
+         * @return
+         */
         public Builder addGoods(Goods goods) {
-            if (P.mGoodsList == null) {
-                P.mGoodsList = new ArrayList<>();
+            if (P.mGoodGoodsList == null) {
+                P.mGoodGoodsList = new ArrayList<>();
             }
             if (goods != null) {
-                P.mGoodsList.add(goods);
+                P.mGoodGoodsList.add(goods);
+            }
+            return this;
+        }
+
+        /**
+         * 添加事件中会丢失的物品
+         *
+         * @param goods
+         * @return
+         */
+        public Builder addBadGoods(Goods goods) {
+            if (P.mBadGoodsList == null) {
+                P.mBadGoodsList = new ArrayList<>();
+            }
+            if (goods != null) {
+                P.mBadGoodsList.add(goods);
             }
             return this;
         }
@@ -163,9 +185,14 @@ public class EventUtil {
                 event.setHealth(P.mHealth);
             }
             mEventDao.insertOrReplace(event);
-            if (P.mGoodsList != null && P.mGoodsList.size() > 0) {
-                for (int i = 0; i < P.mGoodsList.size(); i++) {
-                    JoinGoodsToEventUtil.join(P.mGoodsList.get(i), event);
+            if (P.mGoodGoodsList != null && P.mGoodGoodsList.size() > 0) {
+                for (int i = 0; i < P.mGoodGoodsList.size(); i++) {
+                    JoinGoodGoodsToEventUtil.join(P.mGoodGoodsList.get(i), event);
+                }
+            }
+            if (P.mBadGoodsList != null && P.mBadGoodsList.size() > 0) {
+                for (int i = 0; i < P.mBadGoodsList.size(); i++) {
+                    JoinBadGoodsToEventUtil.join(P.mBadGoodsList.get(i), event);
                 }
             }
             return event;
@@ -190,7 +217,8 @@ public class EventUtil {
             Number mCash;
             Number mDebt;
             Number mDeposit;
-            List<Goods> mGoodsList;
+            List<Goods> mGoodGoodsList;
+            List<Goods> mBadGoodsList;
         }
     }
 
@@ -210,26 +238,26 @@ public class EventUtil {
      * @return
      */
     public static Event getEvent(String title) {
+        Event event = null;
         QueryBuilder<Event> qb = mEventDao.queryBuilder();
         qb.where(EventDao.Properties.Title.eq(title));
         List<Event> list = qb.list();
         if (list != null && list.size() > 0) {
-            return list.get(0);
-        } else {
-            return null;
+            event = list.get(0);
         }
+        return event;
     }
 
     public static Event getRandomGoodEvent(boolean isGood) {
+        Event event = null;
         QueryBuilder<Event> qb = mEventDao.queryBuilder();
         qb.where(EventDao.Properties.IsGood.eq(isGood));
         List<Event> list = qb.list();
         if (list != null && list.size() > 0) {
             int position = RandomUtil.getRandomNum(list.size() - 1, 0);
-            return list.get(position);
-        } else {
-            return null;
+            event = list.get(position);
         }
+        return event;
     }
 
     public static Event getRandomEvent() {

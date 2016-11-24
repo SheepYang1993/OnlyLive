@@ -32,13 +32,12 @@
 
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="58319044f29d98122a000da2" >
-        </meta-data>
+            android:value="58319044f29d98122a000da2" />
 
         <activity
             android:name=".activity.MainActivity"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.NoTitleFullscreen">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -46,11 +45,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="cn.bmob.v3.update.UpdateDialogActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity
             android:name=".activity.GameActivity"
-            android:theme="@style/AppTheme.NoTitleFullscreen" />
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.HideSettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="cn.bmob.v3.update.UpdateDialogActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <!--友盟 start-->
         <!--微信-->
@@ -64,7 +67,8 @@
         <activity
             android:name="com.umeng.qq.tencent.AuthActivity"
             android:launchMode="singleTask"
-            android:noHistory="true">
+            android:noHistory="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -83,6 +87,7 @@
         <activity
             android:name="com.umeng.socialize.editorpage.ShareActivity"
             android:excludeFromRecents="true"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.UMDefault" />
         <!--友盟 end-->
     </application>

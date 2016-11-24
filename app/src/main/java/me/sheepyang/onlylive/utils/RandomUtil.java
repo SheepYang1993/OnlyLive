@@ -14,6 +14,12 @@ public class RandomUtil {
         return new Random().nextInt(max - min + 1) + min;
     }
 
+    /**
+     * 获取随机数
+     *
+     * @param number
+     * @return
+     */
     public static String getRandomNum(Number number) {
         int intMaxPercent = Integer.valueOf(MathUtil.multiply(number.getMaxPercent(), "100"));
         int intMinPercent = Integer.valueOf(MathUtil.multiply(number.getMinPercent(), "100"));

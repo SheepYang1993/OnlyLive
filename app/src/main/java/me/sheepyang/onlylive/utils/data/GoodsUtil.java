@@ -8,6 +8,7 @@ import java.util.List;
 
 import me.sheepyang.onlylive.app.GameApplication;
 import me.sheepyang.onlylive.entity.Goods;
+import me.sheepyang.onlylive.entity.Number;
 import me.sheepyang.onlylive.entity.dao.GoodsDao;
 import me.sheepyang.onlylive.utils.MyLog;
 import me.sheepyang.onlylive.utils.RandomUtil;
@@ -23,11 +24,50 @@ public class GoodsUtil {
         mGoodsDao = GameApplication.getInstances().getDaoSession().getGoodsDao();
     }
 
-    public static long create(String name, String unit, String number, String maxPercent, String minPercent) {
+    public static class Builder {
+        private final GoodsParams P;
+
+        public Builder() {
+            P = new GoodsParams();
+        }
+
+        public Builder setName(String name) {
+            P.mName = name;
+            return this;
+        }
+
+        public Builder setUnit(String unit) {
+            P.mUnit = unit;
+            return this;
+        }
+
+        public Builder setPrice(Number price) {
+            P.mPrice = price;
+            return this;
+        }
+
+        public Goods create() {
+            Goods goods = null;
+            goods.setName(P.mName);
+            goods.setUnit(P.mUnit);
+            if (P.mPrice != null) {
+                goods.setPrice(P.mPrice);
+            }
+            return goods;
+        }
+
+        private class GoodsParams {
+            String mName;
+            String mUnit;
+            Number mPrice;
+        }
+    }
+
+    public static long create(String name, String unit, String price, String maxPercent, String minPercent) {
         Goods goods = new Goods();
         goods.setName(name);
         goods.setUnit(unit);
-        goods.setPrice(NumberUtil.create(number, maxPercent, minPercent));
+        goods.setPrice(NumberUtil.create(price, maxPercent, minPercent));
         return mGoodsDao.insertOrReplace(goods);
     }
 
@@ -53,14 +93,14 @@ public class GoodsUtil {
     }
 
     public static Goods getGoods(String name) {
+        Goods goods = null;
         QueryBuilder<Goods> qb = mGoodsDao.queryBuilder();
         qb.where(GoodsDao.Properties.Name.eq(name));
         List<Goods> list = qb.list();
         if (list != null && list.size() > 0) {
-            return list.get(0);
-        } else {
-            return null;
+            goods = list.get(0);
         }
+        return goods;
     }
 
     public static Goods getGoods(int rowId) {

@@ -21,14 +21,14 @@ public class PlayerUtil {
     }
 
     public static Player getPlayer() {
+        Player player = null;
         QueryBuilder<Player> qb = mPlayerDao.queryBuilder();
         qb.where(PlayerDao.Properties.Id.eq(1));
         List<Player> list = qb.list();
         if (list != null && list.size() > 0) {
-            return list.get(0);
-        } else {
-            return null;
+            player =  list.get(0);
         }
+        return player;
     }
 
     public static void setPlayer(Player player) {
