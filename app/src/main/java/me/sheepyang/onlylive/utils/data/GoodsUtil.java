@@ -24,6 +24,10 @@ public class GoodsUtil {
         mGoodsDao = GameApplication.getInstances().getDaoSession().getGoodsDao();
     }
 
+    public static void delete(Goods goods) {
+        mGoodsDao.delete(goods);
+    }
+
     public static class Builder {
         private final GoodsParams P;
 
@@ -69,17 +73,20 @@ public class GoodsUtil {
     }
 
     public static List<Goods> getRandomList(int size) {
-        int count = (int) mGoodsDao.count();
+        List<Goods> allGoodsList = loadAll();
         List<Goods> goodsList = new ArrayList<>();
-        HashSet<Integer> rowIdSet = new HashSet<>();
-        while (rowIdSet.size() < (size > count ? count : size)) {
-            rowIdSet.add(RandomUtil.getRandomNum(count, 1));
-        }
-        for (Integer rowId : rowIdSet) {
-            MyLog.i("rowId:" + rowId);
-            Goods goods = getGoods(rowId);
-            if (goods != null) {
-                goodsList.add(goods);
+        if (allGoodsList != null && allGoodsList.size() > 0) {
+            int count = allGoodsList.size();
+            HashSet<Integer> rowIdSet = new HashSet<>();
+            while (rowIdSet.size() < (size > count ? count : size)) {
+                rowIdSet.add(RandomUtil.getRandomNum(count - 1, 0));
+            }
+            for (Integer rowId : rowIdSet) {
+                MyLog.i("rowId:" + rowId);
+                Goods goods = allGoodsList.get(rowId);
+                if (goods != null) {
+                    goodsList.add(goods);
+                }
             }
         }
         return goodsList;
