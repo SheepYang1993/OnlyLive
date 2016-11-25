@@ -17,6 +17,7 @@ public class CacheUtil {
     public static final String INIT_GAME_HOUSE_TOTAL = "initGameHouseTotal";
     public static final String INIT_GAME_WEEK = "initGameWeek";
     public static final String INIT_GAME_WEEK_TOTAL = "initGameWeekTotal";
+    public static final String INIT_GAME_SHOP_GOODS_NUMBER = "initGameShopGoodsNumber";
 
 
     /**
@@ -147,5 +148,19 @@ public class CacheUtil {
 
     public static void setInitGameWeekTotal(Context context, String weekTotal) {
         SPUtil.putString(context, INIT_GAME_WEEK_TOTAL, weekTotal);
+    }
+
+    /**
+     * 获取商店物品数
+     *
+     * @param context
+     * @return
+     */
+    public static int getInitGameShopGoodsNumber(Context context) {
+        return SPUtil.getInt(context, INIT_GAME_SHOP_GOODS_NUMBER);
+    }
+
+    public static void setInitGameShopGoodsNumber(Context context, int shopGoodsNumber) {
+        SPUtil.putInt(context, INIT_GAME_SHOP_GOODS_NUMBER, shopGoodsNumber);
     }
 }

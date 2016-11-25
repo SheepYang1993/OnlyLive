@@ -26,6 +26,7 @@ public class DataUtil {
      * @param context
      */
     private static void initGameCache(Context context) {
+        CacheUtil.setInitGameShopGoodsNumber(context, Constants.INIT_GAME_SHOP_GOODS_NUMBER);
         CacheUtil.setInitGameCash(context, Constants.INIT_GAME_CASH);
         CacheUtil.setInitGameDebt(context, Constants.INIT_GAME_DEBT);
         CacheUtil.setInitGameDeposit(context, Constants.INIT_GAME_DEPOSIT);

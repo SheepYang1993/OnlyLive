@@ -20,4 +20,5 @@ public class Constants {
     public static final String INIT_GAME_WEEK = "0";// 周数
     public static final String INIT_GAME_HOUSE_TOTAL = "80";// 总房子数量
     public static final String INIT_GAME_WEEK_TOTAL = "52";// 游戏总周数
+    public static final int INIT_GAME_SHOP_GOODS_NUMBER = 5;// 商店销售物品数量
 }

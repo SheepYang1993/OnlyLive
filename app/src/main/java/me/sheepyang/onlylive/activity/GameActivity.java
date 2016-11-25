@@ -603,7 +603,7 @@ public class GameActivity extends BaseActivity {
                 mPlayer.setDebt(debt);// 设置当前负债，算法是 当前负债 *（1.3~1.5）倍，后期再优化利息的算法
                 mPlayer.setCity(city);// 设置当前所在城市
                 refreshPlayerData();
-                mShopDialog.setShopGoodsList(ShopGoodsUtil.getShopGoodsList(GoodsUtil.getRandomList(5)));// 设置商店物品，仅有切换过城市，商店物品价格才会变化
+                mShopDialog.setShopGoodsList(ShopGoodsUtil.getShopGoodsList(GoodsUtil.getRandomList(CacheUtil.getInitGameShopGoodsNumber(mContext))));// 设置商店物品，仅有切换过城市，商店物品价格才会变化
                 showSurpriseDialog();
             }
         }

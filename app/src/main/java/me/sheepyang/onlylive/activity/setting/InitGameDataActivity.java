@@ -80,6 +80,11 @@ public class InitGameDataActivity extends BaseActivity {
         data.setText("游戏总周数");
         data.setDesc("初始游戏总周数：" + CacheUtil.getInitGameWeekTotal(mContext));
         mDatas.add(data);
+
+        data = new SettingData();
+        data.setText("商店出售物品数");
+        data.setDesc("物品数量：" + CacheUtil.getInitGameShopGoodsNumber(mContext));
+        mDatas.add(data);
     }
 
     private void initView() {
