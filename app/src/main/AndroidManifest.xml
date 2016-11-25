@@ -48,7 +48,16 @@
             android:name=".activity.GameActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.SettingActivity"
+            android:name=".activity.setting.InitGameDataActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.setting.GoodsListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.setting.EventListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.setting.SettingActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="cn.bmob.v3.update.UpdateDialogActivity"

@@ -1,12 +1,8 @@
 package me.sheepyang.onlylive.domain;
 
-import android.os.Bundle;
+import android.content.Intent;
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import java.io.Serializable;
-
-import static android.R.attr.name;
 
 /**
  * Created by SheepYang on 2016/11/24 20:34.
@@ -16,13 +12,13 @@ public class SettingData implements Parcelable {
     private String text;
     private String desc;
     private String intentClass;
-    private Bundle arguments;
+    private Intent arguments;
 
-    public Bundle getArguments() {
+    public Intent getArguments() {
         return arguments;
     }
 
-    public void setArguments(Bundle arguments) {
+    public void setArguments(Intent arguments) {
         this.arguments = arguments;
     }
 
@@ -61,20 +57,6 @@ public class SettingData implements Parcelable {
         readFromParcel(in);
     }
 
-    @SuppressWarnings("unchecked")
-    private void readFromParcel(Parcel in) {
-
-        /** stirng 读出 */
-        text = in.readString();
-        /** stirng 读出 */
-        desc = in.readString();
-        /** stirng 读出 */
-        intentClass = in.readString();
-        /** 对象 读出 */
-        arguments = in.readParcelable(Bundle.class.getClassLoader());
-
-    }
-
     public static final Parcelable.Creator<SettingData> CREATOR = new Parcelable.Creator<SettingData>() {
         public SettingData createFromParcel(Parcel in) {
             return new SettingData(in);
@@ -88,6 +70,20 @@ public class SettingData implements Parcelable {
     @Override
     public int describeContents() {
         return 0;
+    }
+
+    @SuppressWarnings("unchecked")
+    private void readFromParcel(Parcel in) {
+
+        /** stirng 读出 */
+        text = in.readString();
+        /** stirng 读出 */
+        desc = in.readString();
+        /** stirng 读出 */
+        intentClass = in.readString();
+        /** 对象 读出 */
+        arguments = in.readParcelable(Intent.class.getClassLoader());
+
     }
 
     @Override

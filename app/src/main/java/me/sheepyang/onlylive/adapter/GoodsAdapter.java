@@ -2,11 +2,9 @@ package me.sheepyang.onlylive.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -14,20 +12,21 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.sheepyang.onlylive.R;
-import me.sheepyang.onlylive.domain.SettingData;
+import me.sheepyang.onlylive.entity.Goods;
+import me.sheepyang.onlylive.utils.MathUtil;
 
 /**
  * Created by SheepYang on 2016/11/24 21:11.
  */
 
-public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.ViewHolder> {
+public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.ViewHolder> {
     private LayoutInflater mInflater;
     private Context mContext;
-    private List<SettingData> mDatas;
+    private List<Goods> mDatas;
     private OnItemClickListener mOnItemClickListener;
     private OnItemLongClickListener mOnItemLongClickListener;
 
-    public SettingAdapter(Context context, List<SettingData> datas) {
+    public GoodsAdapter(Context context, List<Goods> datas) {
         mInflater = LayoutInflater.from(context);
         mContext = context;
         mDatas = datas;
@@ -35,22 +34,18 @@ public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.ViewHold
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = mInflater.inflate(R.layout.item_setting, viewGroup, false);
+        View view = mInflater.inflate(R.layout.item_goods, viewGroup, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        SettingData data = mDatas.get(position);
-        holder.tvText.setText(data.getText());
-        holder.tvDesc.setText(data.getDesc());
-        if (!TextUtils.isEmpty(data.getIntentClass())) {
-            holder.ivArrow.setVisibility(View.VISIBLE);
-        } else {
-            holder.ivArrow.setVisibility(View.INVISIBLE);
-        }
-
+        Goods goods = mDatas.get(position);
+        holder.tvName.setText(goods.getName());
+        holder.tvUnit.setText(goods.getUnit());
+        holder.tvPrice.setText(goods.getPrice().getNumber());
+        holder.tvPricePercent.setText(MathUtil.multiply(goods.getPrice().getMinPercent(), "100") + "%  ~  " + MathUtil.multiply(goods.getPrice().getMaxPercent(), "100") + "%");
         //判断是否设置了监听器
         if (mOnItemClickListener != null) {
             //为ItemView设置监听器
@@ -75,6 +70,11 @@ public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.ViewHold
         }
     }
 
+    public void update(List<Goods> datas) {
+        mDatas = datas;
+        notifyDataSetChanged();
+    }
+
     public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
         this.mOnItemClickListener = mOnItemClickListener;
     }
@@ -89,12 +89,14 @@ public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.tv_text)
-        TextView tvText;
-        @BindView(R.id.tv_desc)
-        TextView tvDesc;
-        @BindView(R.id.iv_arrow)
-        ImageView ivArrow;
+        @BindView(R.id.tv_name)
+        TextView tvName;
+        @BindView(R.id.tv_unit)
+        TextView tvUnit;
+        @BindView(R.id.tv_price)
+        TextView tvPrice;
+        @BindView(R.id.tv_price_percent)
+        TextView tvPricePercent;
 
         public ViewHolder(View view) {
             super(view);

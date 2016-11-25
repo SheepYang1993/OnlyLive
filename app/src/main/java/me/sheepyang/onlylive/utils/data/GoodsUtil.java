@@ -53,6 +53,7 @@ public class GoodsUtil {
             if (P.mPrice != null) {
                 goods.setPrice(P.mPrice);
             }
+            mGoodsDao.insertOrReplace(goods);
             return goods;
         }
 

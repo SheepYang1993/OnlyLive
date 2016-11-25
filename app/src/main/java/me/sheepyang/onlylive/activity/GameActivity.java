@@ -18,11 +18,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.sheepyang.onlylive.R;
-import me.sheepyang.onlylive.app.Constants;
 import me.sheepyang.onlylive.entity.Event;
 import me.sheepyang.onlylive.entity.Goods;
 import me.sheepyang.onlylive.entity.Player;
 import me.sheepyang.onlylive.entity.PlayerGoods;
+import me.sheepyang.onlylive.utils.CacheUtil;
 import me.sheepyang.onlylive.utils.MathUtil;
 import me.sheepyang.onlylive.utils.MyLog;
 import me.sheepyang.onlylive.utils.RandomUtil;
@@ -421,7 +421,7 @@ public class GameActivity extends BaseActivity {
     private void rentalHouse() {
         String houseNum;
         String houseMoney;
-        if (MathUtil.le(mPlayer.getHouseTotal(), Constants.INIT_GAME_HOUSE_TOTAL)) {
+        if (MathUtil.le(mPlayer.getHouseTotal(), CacheUtil.getInitGameHouseTotal(mContext))) {
             houseNum = "120";
             houseMoney = "800000";
         } else if (MathUtil.le(mPlayer.getHouseTotal(), "120")) {
@@ -451,7 +451,7 @@ public class GameActivity extends BaseActivity {
     private void restartGame() {
         PlayerUtil.deletePlayer();
         dismissAllDialog();
-        PlayerUtil.initPlayerData();
+        PlayerUtil.initPlayerData(mContext);
         refreshPlayerData();
         checkIsStart();
     }
@@ -669,7 +669,7 @@ public class GameActivity extends BaseActivity {
         dismissAllDialog();
         int houseNum;
         int houseMoney;
-        if (MathUtil.le(mPlayer.getHouseTotal(), Constants.INIT_GAME_HOUSE_TOTAL)) {
+        if (MathUtil.le(mPlayer.getHouseTotal(), CacheUtil.getInitGameHouseTotal(mContext))) {
             houseNum = 120;
             houseMoney = 800000;
         } else if (MathUtil.le(mPlayer.getHouseTotal(), "120")) {

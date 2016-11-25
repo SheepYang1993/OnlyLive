@@ -1,21 +1,21 @@
-package me.sheepyang.onlylive.activity;
+package me.sheepyang.onlylive.activity.setting;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.MenuItem;
 import android.view.View;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.sheepyang.onlylive.R;
+import me.sheepyang.onlylive.activity.BaseActivity;
 import me.sheepyang.onlylive.adapter.SettingAdapter;
 import me.sheepyang.onlylive.domain.SettingData;
+import me.sheepyang.onlylive.utils.MyLog;
 import me.sheepyang.onlylive.widget.recyclerview.NoAlphaItemAnimator;
 
 /**
@@ -28,7 +28,6 @@ public class SettingActivity extends BaseActivity {
     RecyclerView recyclerView;
     private SettingAdapter mAdapter;
     private String mTitle;// 标题
-    private boolean mIsShowBack;// 是否显示返回键
     private ArrayList<SettingData> mDatas;// 菜单列表数据源
     private Intent mIntent;
 
@@ -39,9 +38,8 @@ public class SettingActivity extends BaseActivity {
         ButterKnife.bind(this);
         mIntent = getIntent();
         mTitle = mIntent.getStringExtra("title");
-        mIsShowBack = mIntent.getBooleanExtra("isShowBack", false);
-        mDatas = mIntent.getParcelableArrayListExtra("Datas");
-        initActionBar();
+        mDatas = mIntent.getParcelableArrayListExtra("data");
+        initActionBar(mTitle);
         initView();
         initListener();
     }
@@ -50,13 +48,15 @@ public class SettingActivity extends BaseActivity {
         mAdapter.setOnItemClickListener(new SettingAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                showToast("选项：" + mDatas.get(position).getText() + ", 描述：" + mDatas.get(position).getDesc());
-                if (!TextUtils.isEmpty(mDatas.get(position).getIntentClass())) {
+                SettingData data = mDatas.get(position);
+                MyLog.i("选项：" + data.getText() + ", 描述：" + data.getDesc());
+                if (!TextUtils.isEmpty(data.getIntentClass())) {
                     try {
-                        Class intentClass = Class.forName(mDatas.get(position).getIntentClass());
+                        MyLog.i("IntentClass:" + data.getIntentClass());
+                        Class intentClass = Class.forName(data.getIntentClass());
                         Intent intent = new Intent(mContext, intentClass);
-                        if (mDatas.get(position).getArguments() != null) {
-                            intent.putExtras(mDatas.get(position).getArguments());
+                        if (data.getArguments() != null) {
+                            intent.putExtras(data.getArguments());
                         }
                         startActivity(intent);
                     } catch (ClassNotFoundException e) {
@@ -74,38 +74,16 @@ public class SettingActivity extends BaseActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         // 解决notifyItem闪烁的问题
         recyclerView.setItemAnimator(new NoAlphaItemAnimator());
-        if (mDatas != null && mDatas.size() > 0) {
-            //设置适配器
-            mAdapter = new SettingAdapter(this, mDatas);
-            recyclerView.setAdapter(mAdapter);
-        }
+        //设置适配器
+        mAdapter = new SettingAdapter(this, mDatas);
+        recyclerView.setAdapter(mAdapter);
     }
 
-    private void initActionBar() {
-        if (TextUtils.isEmpty(mTitle)) {
-            mTitle = "设置";
+    private void initActionBar(String title) {
+        if (TextUtils.isEmpty(title)) {
+            title = "设置";
         }
-        getSupportActionBar().setTitle(mTitle);
-        if (mIsShowBack) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:// 点击返回图标事件
-                onBackPressed();
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(View view, int position);
-    }
-
-    public interface OnItemLongClickListener {
-        void onItemLongClick(View view, int position);
+        getSupportActionBar().setTitle(title);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 }

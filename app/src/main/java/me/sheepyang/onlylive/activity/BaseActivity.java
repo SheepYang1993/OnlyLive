@@ -5,6 +5,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.umeng.message.PushAgent;
@@ -49,9 +51,30 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    public void setBackBarTitle(String title) {
+        setBarTitle(title);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    public void setBarTitle(String title) {
+        if (!TextUtils.isEmpty(title)) {
+            getSupportActionBar().setTitle(title);
+        }
+    }
+
     public void dismissPDialog() {
         if (!isFinishing() && mPDialog != null && mPDialog.isShowing()) {
             mPDialog.dismiss();
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:// 点击返回图标事件
+                onBackPressed();
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }

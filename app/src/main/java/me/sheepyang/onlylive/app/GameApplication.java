@@ -8,10 +8,7 @@ import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
 
-import cn.bmob.push.BmobPush;
 import cn.bmob.v3.Bmob;
-import cn.bmob.v3.BmobInstallation;
-import cn.bmob.v3.update.BmobUpdateAgent;
 import me.sheepyang.onlylive.entity.dao.DaoMaster;
 import me.sheepyang.onlylive.entity.dao.DaoSession;
 import me.sheepyang.onlylive.utils.MyLog;

@@ -1,5 +1,8 @@
 package me.sheepyang.onlylive.utils;
 
+import android.content.Context;
+
+import me.sheepyang.onlylive.app.Constants;
 import me.sheepyang.onlylive.utils.data.EventUtil;
 import me.sheepyang.onlylive.utils.data.GoodsUtil;
 import me.sheepyang.onlylive.utils.data.NumberUtil;
@@ -10,10 +13,28 @@ import me.sheepyang.onlylive.utils.data.NumberUtil;
  */
 public class DataUtil {
 
-    public static void initGame() {
+    public static void initGame(Context context) {
+        initGameCache(context);
         initGoods();
         initEvent();
         initNews();
+    }
+
+    /**
+     * 初始化游戏起始数据
+     *
+     * @param context
+     */
+    private static void initGameCache(Context context) {
+        CacheUtil.setInitGameCash(context, Constants.INIT_GAME_CASH);
+        CacheUtil.setInitGameDebt(context, Constants.INIT_GAME_DEBT);
+        CacheUtil.setInitGameDeposit(context, Constants.INIT_GAME_DEPOSIT);
+        CacheUtil.setInitGameHealth(context, Constants.INIT_GAME_HEALTH);
+        CacheUtil.setInitGameHouse(context, Constants.INIT_GAME_HOUSE);
+        CacheUtil.setInitGameWeek(context, Constants.INIT_GAME_WEEK);
+        CacheUtil.setInitGameHouseTotal(context, Constants.INIT_GAME_HOUSE_TOTAL);
+        CacheUtil.setInitGameWeekTotal(context, Constants.INIT_GAME_WEEK_TOTAL);
+        CacheUtil.setInit(context, true);
     }
 
     /**
@@ -24,37 +45,37 @@ public class DataUtil {
         new GoodsUtil.Builder()
                 .setName("假冒茅台")
                 .setUnit("瓶")
-                .setPrice(NumberUtil.create("1200", "2", "1"))
+                .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
                 .create();
 
         new GoodsUtil.Builder()
                 .setName("黑心棉")
                 .setUnit("件")
-                .setPrice(NumberUtil.create("999", "2", "1"))
+                .setPrice(NumberUtil.create("999", "2.5", "0.3"))
                 .create();
 
         new GoodsUtil.Builder()
                 .setName("北京户口")
                 .setUnit("本")
-                .setPrice(NumberUtil.create("120000", "2", "1"))
+                .setPrice(NumberUtil.create("120000", "2.2", "1"))
                 .create();
 
         new GoodsUtil.Builder()
                 .setName("名校学历")
                 .setUnit("本")
-                .setPrice(NumberUtil.create("80000", "2", "1"))
+                .setPrice(NumberUtil.create("80000", "2", "0.9"))
                 .create();
 
         new GoodsUtil.Builder()
                 .setName("走私海洛因")
                 .setUnit("包")
-                .setPrice(NumberUtil.create("10000", "2", "1"))
+                .setPrice(NumberUtil.create("10000", "3", "0.1"))
                 .create();
 
         new GoodsUtil.Builder()
                 .setName("高考答案")
                 .setUnit("份")
-                .setPrice(NumberUtil.create("700000", "2", "1"))
+                .setPrice(NumberUtil.create("700000", "4", "0.8"))
                 .create();
 
         new GoodsUtil.Builder()
@@ -66,13 +87,13 @@ public class DataUtil {
         new GoodsUtil.Builder()
                 .setName("水货手机")
                 .setUnit("部")
-                .setPrice(NumberUtil.create("15000", "2", "1"))
+                .setPrice(NumberUtil.create("15000", "1.5", "0.3"))
                 .create();
 
         new GoodsUtil.Builder()
                 .setName("劣质化妆品")
                 .setUnit("盒")
-                .setPrice(NumberUtil.create("1500", "2", "1"))
+                .setPrice(NumberUtil.create("1500", "2", "0.5"))
                 .create();
     }
 

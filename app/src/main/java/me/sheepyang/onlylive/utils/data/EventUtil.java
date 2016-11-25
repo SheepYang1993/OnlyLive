@@ -265,6 +265,10 @@ public class EventUtil {
         return getEvent(rowId);
     }
 
+    public static List<Event> loadAll() {
+        return mEventDao.loadAll();
+    }
+
     public static void deleteAll() {
         mEventDao.deleteAll();
     }

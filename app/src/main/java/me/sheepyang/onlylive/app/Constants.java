@@ -11,7 +11,7 @@ public class Constants {
     //Bugly ID
     public static final String BUGLY_ID = "900059113";
 
-    // 重新开始一盘游戏的数值
+    // 默认的重新开始一盘游戏的数值
     public static final String INIT_GAME_CASH = "10000";// 现金
     public static final String INIT_GAME_DEBT = "9000";// 负债
     public static final String INIT_GAME_DEPOSIT = "50";// 存款

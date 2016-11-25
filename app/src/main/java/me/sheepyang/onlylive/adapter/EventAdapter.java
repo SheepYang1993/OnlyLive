@@ -2,11 +2,9 @@ package me.sheepyang.onlylive.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -14,20 +12,20 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.sheepyang.onlylive.R;
-import me.sheepyang.onlylive.domain.SettingData;
+import me.sheepyang.onlylive.entity.Event;
 
 /**
  * Created by SheepYang on 2016/11/24 21:11.
  */
 
-public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.ViewHolder> {
+public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> {
     private LayoutInflater mInflater;
     private Context mContext;
-    private List<SettingData> mDatas;
+    private List<Event> mDatas;
     private OnItemClickListener mOnItemClickListener;
     private OnItemLongClickListener mOnItemLongClickListener;
 
-    public SettingAdapter(Context context, List<SettingData> datas) {
+    public EventAdapter(Context context, List<Event> datas) {
         mInflater = LayoutInflater.from(context);
         mContext = context;
         mDatas = datas;
@@ -35,22 +33,16 @@ public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.ViewHold
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = mInflater.inflate(R.layout.item_setting, viewGroup, false);
+        View view = mInflater.inflate(R.layout.item_event, viewGroup, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        SettingData data = mDatas.get(position);
-        holder.tvText.setText(data.getText());
-        holder.tvDesc.setText(data.getDesc());
-        if (!TextUtils.isEmpty(data.getIntentClass())) {
-            holder.ivArrow.setVisibility(View.VISIBLE);
-        } else {
-            holder.ivArrow.setVisibility(View.INVISIBLE);
-        }
-
+        Event event = mDatas.get(position);
+        holder.tvTitle.setText(event.getTitle());
+        holder.tvDesc.setText(event.getMessage());
         //判断是否设置了监听器
         if (mOnItemClickListener != null) {
             //为ItemView设置监听器
@@ -88,13 +80,16 @@ public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.ViewHold
         return mDatas == null ? 0 : mDatas.size();
     }
 
+    public void update(List<Event> datas) {
+        mDatas = datas;
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.tv_text)
-        TextView tvText;
+        @BindView(R.id.tv_title)
+        TextView tvTitle;
         @BindView(R.id.tv_desc)
         TextView tvDesc;
-        @BindView(R.id.iv_arrow)
-        ImageView ivArrow;
 
         public ViewHolder(View view) {
             super(view);

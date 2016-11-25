@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import com.umeng.socialize.UMShareAPI;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,11 +18,15 @@ import cn.bmob.v3.update.BmobUpdateAgent;
 import cn.bmob.v3.update.UpdateResponse;
 import cn.bmob.v3.update.UpdateStatus;
 import me.sheepyang.onlylive.R;
+import me.sheepyang.onlylive.activity.setting.EventListActivity;
+import me.sheepyang.onlylive.activity.setting.GoodsListActivity;
+import me.sheepyang.onlylive.activity.setting.InitGameDataActivity;
+import me.sheepyang.onlylive.activity.setting.SettingActivity;
 import me.sheepyang.onlylive.domain.SettingData;
 import me.sheepyang.onlylive.utils.AppManager;
+import me.sheepyang.onlylive.utils.CacheUtil;
 import me.sheepyang.onlylive.utils.DataUtil;
 import me.sheepyang.onlylive.utils.MyLog;
-import me.sheepyang.onlylive.utils.SPUtil;
 import me.sheepyang.onlylive.utils.data.PlayerUtil;
 import me.sheepyang.onlylive.widget.dialog.SelectGameModeDialog;
 
@@ -32,10 +35,13 @@ import static me.sheepyang.onlylive.widget.dialog.SelectGameModeDialog.MODE_RESU
 
 public class MainActivity extends BaseActivity {
 
+    private static final int SETTING = 1000;
+    private static final int SETTING_GAME_CONFIG = SETTING + 1;
+    private static final int SETTING_EVENT_LIST = SETTING + 2;
+    private static final int SETTING_GOODS_LIST = SETTING + 3;
     @BindView(R.id.iv_logo)
     ImageView ivLogo;
     private SelectGameModeDialog mDialog;
-    private boolean isInit;
     private boolean isClickUpdate;
     private long mCurrentTime;
     private long mLogoDoubleClickTime;
@@ -54,10 +60,8 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         // 初始化游戏数据
-        isInit = SPUtil.getBoolean(mContext, "isInit", false);
-        if (!isInit) {
-            DataUtil.initGame();
-            SPUtil.putBoolean(mContext, "isInit", true);
+        if (!CacheUtil.isInit(mContext)) {
+            DataUtil.initGame(mContext);
         }
         initView();
         initListener();
@@ -121,7 +125,7 @@ public class MainActivity extends BaseActivity {
                 switch (mode) {
                     case MODE_NEW_GAME:// 新的游戏
                         PlayerUtil.deletePlayer();
-                        PlayerUtil.initPlayerData();
+                        PlayerUtil.initPlayerData(mContext);
                         startActivity(new Intent(MainActivity.this, GameActivity.class));
                         break;
                     case MODE_RESUME:// 继续上一盘游戏
@@ -162,27 +166,15 @@ public class MainActivity extends BaseActivity {
                         MyLog.i("开启隐藏设置");
                         showToast("开启隐藏设置");
 
-                        ArrayList<SettingData> dataList = new ArrayList<>();
-                        SettingData data = new SettingData();
-                        data.setText("查看事件列表");
-                        data.setDesc("描述一");
-                        dataList.add(data);
-
-                        data = new SettingData();
-                        data.setText("查看事件列表");
-                        data.setDesc("描述二");
-                        dataList.add(data);
-
-                        data = new SettingData();
-                        data.setText("查看事件列表");
-                        data.setDesc("描述三");
-                        data.setIntentClass(MainActivity.class.getName());
-                        dataList.add(data);
-
                         Intent intent = new Intent(mContext, SettingActivity.class);
                         intent.putExtra("title", "隐藏设置");
-                        intent.putExtra("isShowBack", true);
-                        intent.putParcelableArrayListExtra("Datas", dataList);
+
+                        ArrayList<SettingData> dataList = new ArrayList<>();
+                        dataList.add(initSettingData(SETTING_GAME_CONFIG));
+                        dataList.add(initSettingData(SETTING_EVENT_LIST));
+                        dataList.add(initSettingData(SETTING_GOODS_LIST));
+                        intent.putParcelableArrayListExtra("data", dataList);
+
                         startActivity(intent);
                     }
                 } else {
@@ -206,6 +198,33 @@ public class MainActivity extends BaseActivity {
             default:
                 break;
         }
+    }
+
+    private SettingData initSettingData(int type) {
+        SettingData data = null;
+        switch (type) {
+            case SETTING_GAME_CONFIG:// 初始游戏数据
+                data = new SettingData();
+                data.setText("初始游戏数据");
+                data.setDesc("可以查看修改游戏初始化数值");
+                data.setIntentClass(InitGameDataActivity.class.getName());
+                break;
+            case SETTING_EVENT_LIST:// 事件列表
+                data = new SettingData();
+                data.setText("事件列表");
+                data.setDesc("游戏中出现的所有突发事件");
+                data.setIntentClass(EventListActivity.class.getName());
+                break;
+            case SETTING_GOODS_LIST:// 物品列表
+                data = new SettingData();
+                data.setText("物品列表");
+                data.setDesc("商店中能够购买到的所有物品");
+                data.setIntentClass(GoodsListActivity.class.getName());
+                break;
+            default:
+                break;
+        }
+        return data;
     }
 
     @Override

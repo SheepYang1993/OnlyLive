@@ -1,13 +1,15 @@
 package me.sheepyang.onlylive.utils.data;
 
+import android.content.Context;
+
 import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.util.List;
 
-import me.sheepyang.onlylive.app.Constants;
 import me.sheepyang.onlylive.app.GameApplication;
 import me.sheepyang.onlylive.entity.Player;
 import me.sheepyang.onlylive.entity.dao.PlayerDao;
+import me.sheepyang.onlylive.utils.CacheUtil;
 
 /**
  * Created by SheepYang on 2016/10/22 17:50.
@@ -26,7 +28,7 @@ public class PlayerUtil {
         qb.where(PlayerDao.Properties.Id.eq(1));
         List<Player> list = qb.list();
         if (list != null && list.size() > 0) {
-            player =  list.get(0);
+            player = list.get(0);
         }
         return player;
     }
@@ -42,7 +44,7 @@ public class PlayerUtil {
     /**
      * 初始化玩家數據
      */
-    public static void initPlayerData() {
+    public static void initPlayerData(Context context) {
         Player player = getPlayer();
         if (player == null) {
             player = new Player();
@@ -50,14 +52,14 @@ public class PlayerUtil {
         }
         player.setIsFirst(true);
         player.setCity("");
-        player.setCash(Constants.INIT_GAME_CASH);// 现金
-        player.setDebt(Constants.INIT_GAME_DEBT);// 负债
-        player.setDeposit(Constants.INIT_GAME_DEPOSIT);// 存款
-        player.setHealth(Constants.INIT_GAME_HEALTH);// 健康
-        player.setHouse(Constants.INIT_GAME_HOUSE);// 房子
-        player.setWeek(Constants.INIT_GAME_WEEK);// 周数
-        player.setHouseTotal(Constants.INIT_GAME_HOUSE_TOTAL);// 总房子
-        player.setWeekTotal(Constants.INIT_GAME_WEEK_TOTAL);// 总周数
+        player.setCash(CacheUtil.getInitGameCash(context));// 现金
+        player.setDebt(CacheUtil.getInitGameDebt(context));// 负债
+        player.setDeposit(CacheUtil.getInitGameDeposit(context));// 存款
+        player.setHealth(CacheUtil.getInitGameHealth(context));// 健康
+        player.setHouse(CacheUtil.getInitGameHouse(context));// 房子
+        player.setWeek(CacheUtil.getInitGameWeek(context));// 周数
+        player.setHouseTotal(CacheUtil.getInitGameHouseTotal(context));// 总房子
+        player.setWeekTotal(CacheUtil.getInitGameWeekTotal(context));// 总周数
         mPlayerDao.insertOrReplace(player);
         PlayerGoodsUtil.deleteAll();// 清除玩家背包数据
     }
