@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.View;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -18,6 +19,7 @@ import me.sheepyang.onlylive.activity.BaseActivity;
 import me.sheepyang.onlylive.adapter.GoodsAdapter;
 import me.sheepyang.onlylive.entity.Goods;
 import me.sheepyang.onlylive.utils.data.GoodsUtil;
+import me.sheepyang.onlylive.utils.data.PlayerUtil;
 import me.sheepyang.onlylive.widget.dialog.AddGoodsDialog;
 import me.sheepyang.onlylive.widget.dialog.MessageDialog;
 import me.sheepyang.onlylive.widget.recyclerview.NoAlphaItemAnimator;
@@ -39,6 +41,7 @@ public class GoodsListActivity extends BaseActivity {
     private Intent mIntent;
     private MessageDialog mDeleteDialog;
     private AddGoodsDialog mAddGoodsDialog;
+    private AddGoodsDialog mModifyGoodsDialog;
     private Goods mGoods;
 
     @Override
@@ -54,6 +57,22 @@ public class GoodsListActivity extends BaseActivity {
     }
 
     private void initListener() {
+        mAddGoodsDialog.setOnSaveListener(new AddGoodsDialog.SaveListener() {
+            @Override
+            public void onSuccess() {
+                showToast("添加成功，游戏记录被清除");
+                initData();
+                PlayerUtil.initPlayerData(mContext);
+            }
+        });
+        mModifyGoodsDialog.setOnSaveListener(new AddGoodsDialog.SaveListener() {
+            @Override
+            public void onSuccess() {
+                showToast("修改成功，游戏记录被清除");
+                initData();
+                PlayerUtil.initPlayerData(mContext);
+            }
+        });
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,6 +83,8 @@ public class GoodsListActivity extends BaseActivity {
             @Override
             public void onItemClick(View view, int position) {
                 showToast("长按删除  " + mDatas.get(position).getName());
+                mModifyGoodsDialog.setGoods(mDatas.get(position));
+                mModifyGoodsDialog.show(getSupportFragmentManager(), "ModifyGoodsDialog");
             }
         });
         mAdapter.setOnItemLongClickListener(new GoodsAdapter.OnItemLongClickListener() {
@@ -98,13 +119,17 @@ public class GoodsListActivity extends BaseActivity {
     }
 
     private void initData() {
+        if (mDatas != null) {
+            mDatas.clear();
+        }
         mDatas = GoodsUtil.loadAll();
-        mDatas.addAll(GoodsUtil.loadAll());
-        mDatas.addAll(GoodsUtil.loadAll());
         mAdapter.update(mDatas);
     }
 
     private void initView() {
+        mModifyGoodsDialog = new AddGoodsDialog();
+        mModifyGoodsDialog.setTitle("修改物品");
+        mModifyGoodsDialog.setHint("修改物品会清空游戏数据，请谨慎修改");
         mAddGoodsDialog = new AddGoodsDialog();
         mDeleteDialog = new MessageDialog();
         mDeleteDialog.setTitle("删除物品");

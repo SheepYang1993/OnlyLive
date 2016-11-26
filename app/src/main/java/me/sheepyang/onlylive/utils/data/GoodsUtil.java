@@ -13,6 +13,8 @@ import me.sheepyang.onlylive.entity.dao.GoodsDao;
 import me.sheepyang.onlylive.utils.MyLog;
 import me.sheepyang.onlylive.utils.RandomUtil;
 
+import static android.R.attr.name;
+
 /**
  * Created by SheepYang on 2016/10/20 21:50.
  */
@@ -28,11 +30,20 @@ public class GoodsUtil {
         mGoodsDao.delete(goods);
     }
 
+    public static void create(Goods goods) {
+        mGoodsDao.insertOrReplace(goods);
+    }
+
     public static class Builder {
         private final GoodsParams P;
 
         public Builder() {
             P = new GoodsParams();
+        }
+
+        public Builder setId(Long id) {
+            P.mId = id;
+            return this;
         }
 
         public Builder setName(String name) {
@@ -52,6 +63,9 @@ public class GoodsUtil {
 
         public Goods create() {
             Goods goods = new Goods();
+            if (P.mId != null) {
+                goods.setId(P.mId);
+            }
             goods.setName(P.mName);
             goods.setUnit(P.mUnit);
             if (P.mPrice != null) {
@@ -62,6 +76,7 @@ public class GoodsUtil {
         }
 
         private class GoodsParams {
+            Long mId;
             String mName;
             String mUnit;
             Number mPrice;

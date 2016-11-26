@@ -5,4 +5,9 @@
 
     <dimen name="modify_play_data_dialog_text_width">120dp</dimen>
     <dimen name="modify_play_data_dialog_text_hint_width">180dp</dimen>
+
+    <dimen name="add_goods_dialog_text_width1">120dp</dimen>
+    <dimen name="add_goods_dialog_text_hint_width1">180dp</dimen>
+    <dimen name="add_goods_dialog_text_width2">120dp</dimen>
+    <dimen name="add_goods_dialog_text_hint_width2">130dp</dimen>
 </resources>

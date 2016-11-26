@@ -35,4 +35,16 @@ public class NumberUtil {
         long rowId = mNumberDao.insertOrReplace(number);
         return getNumber(rowId);
     }
+
+    public static Number create(Long id, String strNum, String maxPercent, String minPercent) {
+        Number number = new Number();
+        if (id != null) {
+            number.setId(id);
+        }
+        number.setNumber(strNum);
+        number.setMaxPercent(maxPercent);
+        number.setMinPercent(minPercent);
+        long rowId = mNumberDao.insertOrReplace(number);
+        return getNumber(rowId);
+    }
 }

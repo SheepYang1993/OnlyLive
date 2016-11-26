@@ -10,6 +10,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@drawable/bg_gray_shape"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:orientation="vertical"
         android:padding="20dp">
 
@@ -36,29 +38,193 @@
             android:layout_height="0dp"
             android:layout_weight="1">
 
-
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_message"
+                    android:id="@+id/tv_hint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:gravity="start"
-                    android:text=""
-                    android:textColor="@color/word_black"
-                    android:textSize="20sp" />
-            </RelativeLayout>
+                    android:layout_marginTop="15dp"
+                    android:text="添加物品会清空游戏数据，请谨慎添加"
+                    android:textColor="@color/word_black_dark" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/add_goods_dialog_text_width1"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="名称："
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/edt_name"
+                        android:layout_width="@dimen/add_goods_dialog_text_hint_width1"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="15dp"
+                        android:hint="请输入物品名称"
+                        android:maxLength="7"
+                        android:maxLines="1"
+                        android:textColor="@color/word_black_dark"
+                        android:textColorHint="@color/word_gary"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/add_goods_dialog_text_width1"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="单位："
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/edt_unit"
+                        android:layout_width="@dimen/add_goods_dialog_text_hint_width1"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="15dp"
+                        android:hint="请输入物品单位"
+                        android:maxLength="2"
+                        android:maxLines="1"
+                        android:textColor="@color/word_black_dark"
+                        android:textColorHint="@color/word_gary"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/add_goods_dialog_text_width1"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="价格："
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/edt_price"
+                        android:layout_width="@dimen/add_goods_dialog_text_hint_width1"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="15dp"
+                        android:digits="0123456789"
+                        android:hint="请输入整数"
+                        android:inputType="numberDecimal"
+                        android:maxLength="13"
+                        android:maxLines="1"
+                        android:textColor="@color/word_black_dark"
+                        android:textColorHint="@color/word_gary"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/add_goods_dialog_text_width2"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="价格浮动上限："
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/edt_max_percent"
+                        android:layout_width="@dimen/add_goods_dialog_text_hint_width2"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:digits="0123456789"
+                        android:hint="请输入整数"
+                        android:inputType="numberDecimal"
+                        android:maxLength="13"
+                        android:maxLines="1"
+                        android:textColor="@color/word_black_dark"
+                        android:textColorHint="@color/word_gary"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp"
+                        android:text="%"
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/add_goods_dialog_text_width2"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="价格浮动下限："
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/edt_min_percent"
+                        android:layout_width="@dimen/add_goods_dialog_text_hint_width2"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:digits="0123456789"
+                        android:hint="请输入整数"
+                        android:inputType="numberDecimal"
+                        android:maxLength="13"
+                        android:maxLines="1"
+                        android:textColor="@color/word_black_dark"
+                        android:textColorHint="@color/word_gary"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp"
+                        android:text="%"
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+            </LinearLayout>
         </ScrollView>
 
         <RelativeLayout
             android:id="@+id/rl_button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
 
             <Button
                 android:id="@+id/btn_cancel"
@@ -68,8 +234,7 @@
                 android:layout_toStartOf="@+id/btn_ok"
                 android:background="@drawable/btn_gray_selector"
                 android:text="取消"
-                android:textSize="12sp"
-                android:visibility="gone" />
+                android:textSize="12sp" />
 
             <Button
                 android:id="@+id/btn_ok"
@@ -79,8 +244,7 @@
                 android:layout_marginStart="10dp"
                 android:background="@drawable/btn_gray_selector"
                 android:text="确定"
-                android:textSize="12sp"
-                android:visibility="gone" />
+                android:textSize="12sp" />
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

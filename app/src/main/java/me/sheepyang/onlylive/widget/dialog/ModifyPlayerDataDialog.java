@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +53,7 @@ public class ModifyPlayerDataDialog extends BaseDialogFragment implements View.O
         return view;
     }
 
-    private void initView() {
+    private void initData() {
         edtCash.setText(CacheUtil.getInitGameCash(getActivity()));
         edtDebt.setText(CacheUtil.getInitGameDebt(getActivity()));
         edtDeposit.setText(CacheUtil.getInitGameDeposit(getActivity()));
@@ -82,7 +83,7 @@ public class ModifyPlayerDataDialog extends BaseDialogFragment implements View.O
     @Override
     public void onResume() {
         super.onResume();
-        initView();
+        initData();
     }
 
     private void save() {
@@ -162,13 +163,18 @@ public class ModifyPlayerDataDialog extends BaseDialogFragment implements View.O
         CacheUtil.setInitGameWeek(getActivity(), MathUtil.getNumber(week, 0));
         CacheUtil.setInitGameWeekTotal(getActivity(), MathUtil.getNumber(weekTotal, 0));
         CacheUtil.setInitGameShopGoodsNumber(getActivity(), Integer.valueOf(MathUtil.getNumber(shopGoodsNumber, 0)));
+
+        dismiss();
         if (mSaveListener != null) {
             mSaveListener.onSuccess();
         }
-        dismiss();
     }
 
     private boolean checkNumber(String numberName, String number) {
+        if (TextUtils.isEmpty(number)) {
+            MyToast.showMessage(getActivity(), numberName + "不能为空");
+            return false;
+        }
         if (!MathUtil.checkNumber(number)) {
             MyToast.showMessage(getActivity(), numberName + "  格式不正确，请输入整数");
             return false;
