@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/bg_gray_shape"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <me.sheepyang.onlylive.widget.MarqueeTextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:ellipsize="marquee"
+                android:gravity="start"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:maxLines="3"
+                android:text="修改初始数据"
+                android:textColor="@color/word_black"
+                android:textSize="28sp" />
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="15dp"
+                    android:text="修改数据会清空游戏数据，请谨慎修改"
+                    android:textColor="@color/word_black_dark" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/modify_play_data_dialog_text_width"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="现金："
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/edt_cash"
+                        android:layout_width="@dimen/modify_play_data_dialog_text_hint_width"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="15dp"
+                        android:digits="0123456789"
+                        android:hint="请输入整数"
+                        android:inputType="numberDecimal"
+                        android:maxLength="13"
+                        android:maxLines="1"
+                        android:textColor="@color/word_black_dark"
+                        android:textColorHint="@color/word_gary"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/modify_play_data_dialog_text_width"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="负债："
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/edt_debt"
+                        android:layout_width="@dimen/modify_play_data_dialog_text_hint_width"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="15dp"
+                        android:digits="0123456789"
+                        android:hint="请输入整数"
+                        android:inputType="numberDecimal"
+                        android:maxLength="13"
+                        android:maxLines="1"
+                        android:textColor="@color/word_black_dark"
+                        android:textColorHint="@color/word_gary"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/modify_play_data_dialog_text_width"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="存款："
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/edt_deposit"
+                        android:layout_width="@dimen/modify_play_data_dialog_text_hint_width"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="15dp"
+                        android:digits="0123456789"
+                        android:hint="请输入整数"
+                        android:inputType="numberDecimal"
+                        android:maxLength="13"
+                        android:maxLines="1"
+                        android:textColor="@color/word_black_dark"
+                        android:textColorHint="@color/word_gary"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/modify_play_data_dialog_text_width"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="健康："
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/edt_health"
+                        android:layout_width="@dimen/modify_play_data_dialog_text_hint_width"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="15dp"
+                        android:digits="0123456789"
+                        android:hint="请输入整数"
+                        android:inputType="numberDecimal"
+                        android:maxLength="13"
+                        android:maxLines="1"
+                        android:textColor="@color/word_black_dark"
+                        android:textColorHint="@color/word_gary"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/modify_play_data_dialog_text_width"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="使用空间："
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/edt_house"
+                        android:layout_width="@dimen/modify_play_data_dialog_text_hint_width"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="15dp"
+                        android:digits="0123456789"
+                        android:hint="请输入整数"
+                        android:inputType="numberDecimal"
+                        android:maxLength="13"
+                        android:maxLines="1"
+                        android:textColor="@color/word_black_dark"
+                        android:textColorHint="@color/word_gary"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/modify_play_data_dialog_text_width"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="总房子数量："
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/edt_house_total"
+                        android:layout_width="@dimen/modify_play_data_dialog_text_hint_width"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="15dp"
+                        android:digits="0123456789"
+                        android:hint="请输入整数"
+                        android:inputType="numberDecimal"
+                        android:maxLength="13"
+                        android:maxLines="1"
+                        android:textColor="@color/word_black_dark"
+                        android:textColorHint="@color/word_gary"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/modify_play_data_dialog_text_width"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="当前周数："
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/edt_week"
+                        android:layout_width="@dimen/modify_play_data_dialog_text_hint_width"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="15dp"
+                        android:digits="0123456789"
+                        android:hint="请输入整数"
+                        android:inputType="numberDecimal"
+                        android:maxLength="13"
+                        android:maxLines="1"
+                        android:textColor="@color/word_black_dark"
+                        android:textColorHint="@color/word_gary"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/modify_play_data_dialog_text_width"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="游戏总周数："
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/edt_week_total"
+                        android:layout_width="@dimen/modify_play_data_dialog_text_hint_width"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="15dp"
+                        android:digits="0123456789"
+                        android:hint="请输入整数"
+                        android:inputType="numberDecimal"
+                        android:maxLength="13"
+                        android:maxLines="1"
+                        android:textColor="@color/word_black_dark"
+                        android:textColorHint="@color/word_gary"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/modify_play_data_dialog_text_width"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="出售商品数："
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/edt_shop_goods_number"
+                        android:layout_width="@dimen/modify_play_data_dialog_text_hint_width"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="15dp"
+                        android:digits="0123456789"
+                        android:hint="请输入整数"
+                        android:inputType="numberDecimal"
+                        android:maxLength="13"
+                        android:maxLines="1"
+                        android:textColor="@color/word_black_dark"
+                        android:textColorHint="@color/word_gary"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <RelativeLayout
+            android:id="@+id/rl_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <Button
+                android:id="@+id/btn_cancel"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="10dp"
+                android:layout_toStartOf="@+id/btn_ok"
+                android:background="@drawable/btn_gray_selector"
+                android:text="取消"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/btn_ok"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/btn_gray_selector"
+                android:text="确定"
+                android:textSize="12sp" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

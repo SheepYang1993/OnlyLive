@@ -13,7 +13,7 @@ public class Constants {
 
     // 默认的重新开始一盘游戏的数值
     public static final String INIT_GAME_CASH = "10000";// 现金
-    public static final String INIT_GAME_DEBT = "9000";// 负债
+    public static final String INIT_GAME_DEBT = "3000";// 负债
     public static final String INIT_GAME_DEPOSIT = "50";// 存款
     public static final String INIT_GAME_HEALTH = "80";// 健康
     public static final String INIT_GAME_HOUSE = "0";// 房子数量

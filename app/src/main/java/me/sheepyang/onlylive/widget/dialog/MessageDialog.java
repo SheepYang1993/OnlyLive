@@ -53,7 +53,6 @@ public class MessageDialog extends BaseDialogFragment {
         View view = inflater.inflate(R.layout.dialog_message, null);
         ButterKnife.bind(this, view);
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));// 设置背景透明
-
         initView();
         return view;
     }

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -86,6 +87,11 @@ public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.ViewHold
     @Override
     public int getItemCount() {
         return mDatas == null ? 0 : mDatas.size();
+    }
+
+    public void updata(List<SettingData> datas) {
+        mDatas = datas;
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

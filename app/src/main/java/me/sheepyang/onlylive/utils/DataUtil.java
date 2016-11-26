@@ -125,21 +125,21 @@ public class DataUtil {
                 .setIsGood(true)
                 .setTitle("类型二：仅有现金的事件")
                 .setMessage("内容，仅有现金的事件")
-                .setCash(NumberUtil.create("-2000", "4", "0.1"))
+                .setCash(NumberUtil.create("-1000", "4", "0.1"))
                 .create();
 
         new EventUtil.Builder()
                 .setIsGood(true)
                 .setTitle("类型三：仅有负债的事件")
                 .setMessage("内容，仅有负债的事件")
-                .setDebt(NumberUtil.create("3000", "5", "1"))
+                .setDebt(NumberUtil.create("1500", "5", "1"))
                 .create();
 
         new EventUtil.Builder()
                 .setIsGood(true)
                 .setTitle("类型四：仅有存款的事件")
                 .setMessage("内容，仅有存款的事件")
-                .setDeposit(NumberUtil.create("-4000", "4", "0.2"))
+                .setDeposit(NumberUtil.create("-2000", "4", "0.2"))
                 .create();
 
         new EventUtil.Builder()
@@ -156,19 +156,19 @@ public class DataUtil {
                 .setIsGood(true)
                 .setTitle("类型六：有现金有负债有存款的事件")
                 .setMessage("内容，有现金有负债有存款的事件")
-                .setCash(NumberUtil.create("-6000", "2", "0.5"))
-                .setDebt(NumberUtil.create("7000", "2", "0.5"))
-                .setDeposit(NumberUtil.create("-8000", "2", "0.5"))
+                .setCash(NumberUtil.create("-3000", "2", "0.5"))
+                .setDebt(NumberUtil.create("3500", "2", "0.5"))
+                .setDeposit(NumberUtil.create("-4000", "2", "0.5"))
                 .create();
 
         new EventUtil.Builder()
                 .setIsGood(true)
                 .setTitle("类型七：所有类型都有的事件")
                 .setMessage("内容，所有类型都有的事件")
-                .setCash(NumberUtil.create("-6000", "2", "0.5"))
-                .setDebt(NumberUtil.create("7000", "2", "0.5"))
-                .setDeposit(NumberUtil.create("-8000", "2", "0.5"))
-                .setHealth(NumberUtil.create("-20", "1", "0.5"))
+                .setCash(NumberUtil.create("-3000", "2", "0.5"))
+                .setDebt(NumberUtil.create("3500", "2", "0.5"))
+                .setDeposit(NumberUtil.create("-4000", "2", "0.5"))
+                .setHealth(NumberUtil.create("-40", "1", "0.5"))
                 .addGoods(GoodsUtil.getGoods("北京户口"))
                 .addGoods(GoodsUtil.getGoods("走私海洛因"))
                 .addGoods(GoodsUtil.getGoods("高考答案"))
@@ -181,8 +181,8 @@ public class DataUtil {
                 .setTitle("类型八：现金负债存款事件")
                 .setMessage("内容，现金负债存款事件")
                 .setCash(NumberUtil.create("2000", "4", "-4"))
-                .setDebt(NumberUtil.create("3000", "4", "-4"))
-                .setDeposit(NumberUtil.create("4000", "4", "-4"))
+                .setDebt(NumberUtil.create("1500", "4", "-4"))
+                .setDeposit(NumberUtil.create("-2000", "4", "-4"))
                 .create();
 
     }
@@ -203,8 +203,8 @@ public class DataUtil {
                 .setResultCancelGoodMsg("这个老太婆是骗子，你举报成功，奖励５０")
                 .setResultCancelBadMsg("跑得太快，跌入下水道")
                 .setCash(NumberUtil.create("6000", "2", "0.2"))
-                .setDebt(NumberUtil.create("7000", "2", "0.2"))
-                .setDeposit(NumberUtil.create("8000", "2", "0.2"))
+                .setDebt(NumberUtil.create("2000", "2", "0.2"))
+                .setDeposit(NumberUtil.create("4000", "2", "0.2"))
                 .setHealth(NumberUtil.create("20", "1", "0.2"))
                 .addGoods(GoodsUtil.getGoods("北京户口"))
                 .addGoods(GoodsUtil.getGoods("走私海洛因"))

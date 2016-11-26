@@ -3,6 +3,7 @@ package me.sheepyang.onlylive.activity;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -21,6 +22,13 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //以下代码用于去除阴影
+        if (Build.VERSION.SDK_INT >= 21) {
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setElevation(0);
+            }
+
+        }
         mContext = this;
         mPDialog = new ProgressDialog(mContext);
         // 添加Activity到堆栈

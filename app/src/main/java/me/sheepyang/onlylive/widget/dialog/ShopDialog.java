@@ -178,12 +178,10 @@ public class ShopDialog extends BaseDialogFragment {
 
                 if (MathUtil.le(mPlayerGoods.getPrice(), "0")) {
                     tvGoodsPrice.setText("市价：有价无市");
-                    setSeekBarToMax(playerGoods);
                 } else {
                     tvGoodsPrice.setText("市价：" + mPlayerGoods.getPrice() + "");
-                    setSeekBarToMax(playerGoods);
                 }
-
+                setSeekBarToMax(playerGoods);
                 tvGoodsCash.setText("进价：" + mPlayerGoods.getPaid() + "");
             }
         });
@@ -290,8 +288,8 @@ public class ShopDialog extends BaseDialogFragment {
                 MyToast.showMessage(getActivity(), "该物品有价无市，换个地方看看");
             } else {
                 MyLog.i("卖出 -> 物品：" + mPlayerGoods.getName() + "， 数量：" + mPlayerGoodsNum + "， 市价：" + mPlayerGoods.getPrice() + "， 进价：" + mPlayerGoods.getPaid());
-                String sales = MathUtil.multiply(mPlayerGoodsNum, mPlayerGoods.getPaid());
-                MyLog.i("卖出 -> 销售额：" + sales);
+                String sales = MathUtil.multiply(mPlayerGoodsNum, mPlayerGoods.getPrice());
+                MyLog.i("卖出 -> 销售额：" + sales + ", mPlayerGoodsNum:" + mPlayerGoodsNum + ", getPrice:" + mPlayerGoods.getPrice());
                 mPlayer.setCash(MathUtil.add(mPlayer.getCash(), sales));
                 mPlayer.setHouse(MathUtil.subtract(mPlayer.getHouse(), mPlayerGoodsNum));
                 PlayerUtil.setPlayer(mPlayer);
@@ -412,11 +410,14 @@ public class ShopDialog extends BaseDialogFragment {
         if (playerGoods != null) {
             mSeekbarMax = playerGoods.getNumber();
             mPlayerGoodsNum = mSeekbarMax;
+            MyLog.i("mPlayerGoodsNum:" + mPlayerGoodsNum);
             tvCost.setText("销售额：" + MathUtil.multiply(mSeekbarMax, mPlayerGoods.getPaid()));// 数量 * 进价
             if (MathUtil.le(mPlayerGoods.getPrice(), "0")) {// 有价无市
                 tvHouse.setText("利润：有价无市");// 市价 - 进价
+                tvGoodsNum.setText("数量：0");
                 seekbar.setProgress(0);
             } else {
+                tvGoodsNum.setText("数量：" + mPlayerGoodsNum);
                 tvHouse.setText("利润：" + MathUtil.multiply(mSeekbarMax, MathUtil.subtract(mPlayerGoods.getPrice(), mPlayerGoods.getPaid())));// 市价 - 进价
                 seekbar.setProgress(seekbar.getMax());
             }
@@ -439,6 +440,7 @@ public class ShopDialog extends BaseDialogFragment {
                 }
             }
             mShopGoodsNum = mSeekbarMax;
+            tvGoodsNum.setText("数量：" + mShopGoodsNum);
             tvHouse.setText("房子：" + (MathUtil.add(mPlayer.getHouse(), mSeekbarMax)) + "/" + mPlayer.getHouseTotal());
             tvCost.setText("花费：" + MathUtil.multiply(mSeekbarMax, mShopGoods.getPrice()));
             seekbar.setProgress(seekbar.getMax());

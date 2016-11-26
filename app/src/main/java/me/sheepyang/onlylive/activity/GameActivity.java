@@ -213,6 +213,7 @@ public class GameActivity extends BaseActivity {
                         default:
                             break;
                     }
+                    PlayerUtil.setPlayer(mPlayer);
                     refreshPlayerData();
                 }
             });
@@ -439,6 +440,7 @@ public class GameActivity extends BaseActivity {
             if (MathUtil.ge(cash, houseMoney)) {
                 mPlayer.setCash(MathUtil.subtract(cash, houseMoney));
                 mPlayer.setHouseTotal(houseNum);
+                PlayerUtil.setPlayer(mPlayer);
                 refreshPlayerData();
             } else {
                 showToast("你带的现金不够！下次带好钱再过来吧！");
@@ -470,6 +472,7 @@ public class GameActivity extends BaseActivity {
             }
             mPlayer.setCash(MathUtil.subtract(cash, debt));
             mPlayer.setDebt("0");
+            PlayerUtil.setPlayer(mPlayer);
             refreshPlayerData();
             mHintDialog.setTitle("债务");
             mHintDialog.setMessage("欠款" + debt + "元已还清，总算松了口气");
@@ -495,6 +498,7 @@ public class GameActivity extends BaseActivity {
         }
         mPlayer.setCash(newMoney);
         mPlayer.setHealth("100");
+        PlayerUtil.setPlayer(mPlayer);
         refreshPlayerData();
         mHintDialog.setTitle("医院");
         mHintDialog.setMessage("你喝下了神仙姐姐的药水，体力全满，一口气可以上5层楼!");
@@ -505,7 +509,6 @@ public class GameActivity extends BaseActivity {
      * 刷新 个人数据 同时刷新 展示界面
      */
     private void refreshPlayerData() {
-        PlayerUtil.setPlayer(mPlayer);
         mPlayer = PlayerUtil.getPlayer();
         tvCash.setText(mPlayer.getCash() + "");
         tvDebt.setText(mPlayer.getDebt() + "");
@@ -602,6 +605,7 @@ public class GameActivity extends BaseActivity {
                 String debt = MathUtil.multiply(mPlayer.getDebt(), percent);
                 mPlayer.setDebt(debt);// 设置当前负债，算法是 当前负债 *（1.3~1.5）倍，后期再优化利息的算法
                 mPlayer.setCity(city);// 设置当前所在城市
+                PlayerUtil.setPlayer(mPlayer);
                 refreshPlayerData();
                 mShopDialog.setShopGoodsList(ShopGoodsUtil.getShopGoodsList(GoodsUtil.getRandomList(CacheUtil.getInitGameShopGoodsNumber(mContext))));// 设置商店物品，仅有切换过城市，商店物品价格才会变化
                 showSurpriseDialog();
@@ -657,6 +661,7 @@ public class GameActivity extends BaseActivity {
             return false;
         } else {
             mPlayer.setWeek(MathUtil.add(mPlayer.getWeek(), "1"));
+            PlayerUtil.setPlayer(mPlayer);
             refreshPlayerData();
             return true;
         }
@@ -813,6 +818,7 @@ public class GameActivity extends BaseActivity {
             }
             msg = addEventMessage(false, event, msg);
         }
+        PlayerUtil.setPlayer(mPlayer);
         refreshPlayerData();
         mSelectResultDialog.setTitle(title);
         mSelectResultDialog.setMessage(Html.fromHtml(msg));
@@ -831,6 +837,7 @@ public class GameActivity extends BaseActivity {
         }
         msg = addEventMessage(null, event, msg);
 
+        PlayerUtil.setPlayer(mPlayer);
         refreshPlayerData();
         mEventDialog.setTitle(title);
         mEventDialog.setMessage(Html.fromHtml(msg));
@@ -1080,6 +1087,7 @@ public class GameActivity extends BaseActivity {
 
                     if (MathUtil.le(goodsTotalNum, MathUtil.subtract(mPlayer.getHouseTotal(), mPlayer.getHouse()))) {// 房间有足够空间放下赠品
                         PlayerGoodsUtil.addPlayGoods(goodsList.get(i), goodsNum[i]);
+                        mPlayer.setHouse(MathUtil.add(mPlayer.getHouse(), goodsNum[i]));
                     }
                 }
                 if (MathUtil.gt(goodsTotalNum, MathUtil.subtract(mPlayer.getHouseTotal(), mPlayer.getHouse()))) {// 房间放不下赠品
@@ -1104,6 +1112,7 @@ public class GameActivity extends BaseActivity {
                     }
                 }
                 if (MathUtil.gt(goodsTotalNum, "0")) {
+                    mPlayer.setHouse(MathUtil.subtract(mPlayer.getHouse(), goodsTotalNum));
                     msg += "<br/><font color='#ff435f'>损失：</font><br/>";
                     for (int i = 0; i < goodsList.size(); i++) {
                         if (!TextUtils.isEmpty(goodsNum[i])) {

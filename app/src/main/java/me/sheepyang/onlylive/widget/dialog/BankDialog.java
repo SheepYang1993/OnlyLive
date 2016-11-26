@@ -103,12 +103,14 @@ public class BankDialog extends Dialog {
 
             }
         });
+        setSelectType(TYPE_SAVE_MONEY);
     }
 
     public void setSelectType(int type) {
         mType = type;
         switch (type) {
             case TYPE_SAVE_MONEY:// 存钱
+                mMoney = mCash;
                 rlSaveMoney.setBackgroundResource(R.drawable.bg_white2_shape);
                 rlGetMoney.setBackgroundResource(R.drawable.bg_black_shape);
                 tvSaveMoney.setTextColor(mContext.getResources().getColor(R.color.word_black));
@@ -118,6 +120,7 @@ public class BankDialog extends Dialog {
                 seekbar.setProgress(seekbar.getMax());
                 break;
             case TYPE_GET_MONEY:// 取钱
+                mMoney = mDeposit;
                 rlSaveMoney.setBackgroundResource(R.drawable.bg_black_shape);
                 rlGetMoney.setBackgroundResource(R.drawable.bg_white2_shape);
                 tvSaveMoney.setTextColor(mContext.getResources().getColor(R.color.word_white));

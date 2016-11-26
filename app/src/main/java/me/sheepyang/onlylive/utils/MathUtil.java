@@ -1,5 +1,7 @@
 package me.sheepyang.onlylive.utils;
 
+import android.text.TextUtils;
+
 import java.math.BigDecimal;
 
 /**
@@ -8,7 +10,16 @@ import java.math.BigDecimal;
 
 public class MathUtil {
 
+    public static String getNumber(String number, int scalse) {
+        return new BigDecimal(number)
+                .setScale(scalse, BigDecimal.ROUND_HALF_UP)
+                .toString();
+    }
+
     public static String abs(String a) {
+        if (TextUtils.isEmpty(a)) {
+            a = "0";
+        }
         return new BigDecimal(a)
                 .abs()
                 .setScale(0, BigDecimal.ROUND_HALF_UP)
@@ -24,6 +35,12 @@ public class MathUtil {
      * @return
      */
     public static String add(String a, String b) {
+        if (TextUtils.isEmpty(a)) {
+            a = "0";
+        }
+        if (TextUtils.isEmpty(b)) {
+            b = "0";
+        }
         return new BigDecimal(a)
                 .add(new BigDecimal(b))
                 .setScale(0, BigDecimal.ROUND_HALF_UP)
@@ -39,6 +56,12 @@ public class MathUtil {
      * @return
      */
     public static String subtract(String a, String b) {
+        if (TextUtils.isEmpty(a)) {
+            a = "0";
+        }
+        if (TextUtils.isEmpty(b)) {
+            b = "0";
+        }
         return new BigDecimal(a)
                 .subtract(new BigDecimal(b))
                 .setScale(0, BigDecimal.ROUND_HALF_UP)
@@ -54,6 +77,12 @@ public class MathUtil {
      * @return
      */
     public static String multiply(String a, String b) {
+        if (TextUtils.isEmpty(a)) {
+            a = "0";
+        }
+        if (TextUtils.isEmpty(b)) {
+            b = "0";
+        }
         return new BigDecimal(a)
                 .multiply(new BigDecimal(b))
                 .setScale(0, BigDecimal.ROUND_HALF_UP)
@@ -69,6 +98,12 @@ public class MathUtil {
      * @return
      */
     public static String divide(String a, String b) {
+        if (TextUtils.isEmpty(a)) {
+            a = "0";
+        }
+        if (TextUtils.isEmpty(b)) {
+            b = "0";
+        }
         return new BigDecimal(a)
                 .divide(new BigDecimal(b), BigDecimal.ROUND_HALF_UP)
                 .toBigInteger()
@@ -83,6 +118,12 @@ public class MathUtil {
      * @return
      */
     public static String divide(String a, String b, int scale) {
+        if (TextUtils.isEmpty(a)) {
+            a = "0";
+        }
+        if (TextUtils.isEmpty(b)) {
+            b = "0";
+        }
         return new BigDecimal(a)
                 .divide(new BigDecimal(b), scale, BigDecimal.ROUND_HALF_UP)
                 .toString();
@@ -96,6 +137,12 @@ public class MathUtil {
      * @return -1 a < b; 0 a = b; 1 a > b;
      */
     public static int compareTo(String a, String b) {
+        if (TextUtils.isEmpty(a)) {
+            a = "0";
+        }
+        if (TextUtils.isEmpty(b)) {
+            b = "0";
+        }
         return new BigDecimal(a).compareTo(new BigDecimal(b));
     }
 
@@ -107,6 +154,12 @@ public class MathUtil {
      * @return
      */
     public static boolean eq(String a, String b) {
+        if (TextUtils.isEmpty(a)) {
+            a = "0";
+        }
+        if (TextUtils.isEmpty(b)) {
+            b = "0";
+        }
         if (compareTo(a, b) == 0) {
             return true;
         } else {
@@ -122,6 +175,12 @@ public class MathUtil {
      * @return
      */
     public static boolean lt(String a, String b) {
+        if (TextUtils.isEmpty(a)) {
+            a = "0";
+        }
+        if (TextUtils.isEmpty(b)) {
+            b = "0";
+        }
         if (compareTo(a, b) == -1) {
             return true;
         } else {
@@ -137,6 +196,12 @@ public class MathUtil {
      * @return
      */
     public static boolean le(String a, String b) {
+        if (TextUtils.isEmpty(a)) {
+            a = "0";
+        }
+        if (TextUtils.isEmpty(b)) {
+            b = "0";
+        }
         if (compareTo(a, b) != 1) {
             return true;
         } else {
@@ -152,6 +217,12 @@ public class MathUtil {
      * @return
      */
     public static boolean gt(String a, String b) {
+        if (TextUtils.isEmpty(a)) {
+            a = "0";
+        }
+        if (TextUtils.isEmpty(b)) {
+            b = "0";
+        }
         if (compareTo(a, b) == 1) {
             return true;
         } else {
@@ -167,11 +238,29 @@ public class MathUtil {
      * @return
      */
     public static boolean ge(String a, String b) {
+        if (TextUtils.isEmpty(a)) {
+            a = "0";
+        }
+        if (TextUtils.isEmpty(b)) {
+            b = "0";
+        }
         if (compareTo(a, b) != -1) {
             return true;
         } else {
             return false;
         }
+    }
+
+    public static boolean checkNumber(String number) {
+        boolean isRight;
+        try {
+            new BigDecimal(number);
+            isRight = true;
+        } catch (NumberFormatException e) {
+            MyLog.i(e.getMessage());
+            isRight = false;
+        }
+        return isRight;
     }
 
     public static void main(String[] args) {

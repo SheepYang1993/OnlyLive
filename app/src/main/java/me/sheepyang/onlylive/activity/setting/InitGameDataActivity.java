@@ -2,8 +2,11 @@ package me.sheepyang.onlylive.activity.setting;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import java.util.ArrayList;
 
@@ -14,6 +17,8 @@ import me.sheepyang.onlylive.activity.BaseActivity;
 import me.sheepyang.onlylive.adapter.SettingAdapter;
 import me.sheepyang.onlylive.domain.SettingData;
 import me.sheepyang.onlylive.utils.CacheUtil;
+import me.sheepyang.onlylive.utils.data.PlayerUtil;
+import me.sheepyang.onlylive.widget.dialog.ModifyPlayerDataDialog;
 import me.sheepyang.onlylive.widget.recyclerview.NoAlphaItemAnimator;
 
 /**
@@ -24,22 +29,50 @@ public class InitGameDataActivity extends BaseActivity {
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.fab)
+    FloatingActionButton fab;
     private SettingAdapter mAdapter;
     private ArrayList<SettingData> mDatas;// 菜单列表数据源
     private Intent mIntent;
+    private ModifyPlayerDataDialog mModifyPlayerDataDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting);
+        setContentView(R.layout.activity_init_game_data);
         ButterKnife.bind(this);
-        mIntent = getIntent();
+        setSupportActionBar(toolbar);
         setBackBarTitle("初始参数设置");
+        mIntent = getIntent();
         initView();
+        initListener();
         initData();
     }
 
+    private void initListener() {
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mModifyPlayerDataDialog.show(getSupportFragmentManager(), "AddEventDialog");
+            }
+        });
+        mModifyPlayerDataDialog.setOnSaveListener(new ModifyPlayerDataDialog.SaveListener() {
+            @Override
+            public void onSuccess() {
+                showToast("修改成功，游戏记录被清除");
+                initData();
+                PlayerUtil.initPlayerData(mContext);
+            }
+        });
+    }
+
     private void initData() {
+        if (mDatas == null) {
+            mDatas = new ArrayList<>();
+        }
+        mDatas.clear();
         SettingData data;
         data = new SettingData();
         data.setText("现金");
@@ -85,9 +118,11 @@ public class InitGameDataActivity extends BaseActivity {
         data.setText("商店出售物品数");
         data.setDesc("物品数量：" + CacheUtil.getInitGameShopGoodsNumber(mContext));
         mDatas.add(data);
+        mAdapter.updata(mDatas);
     }
 
     private void initView() {
+        mModifyPlayerDataDialog = new ModifyPlayerDataDialog();
         //设置布局管理器
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);

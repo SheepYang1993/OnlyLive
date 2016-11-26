@@ -23,6 +23,10 @@ public class EventUtil {
         mEventDao = GameApplication.getInstances().getDaoSession().getEventDao();
     }
 
+    public static void delete(Event event) {
+        mEventDao.delete(event);
+    }
+
     public static class Builder {
         private final EventParams P;
 
@@ -261,8 +265,9 @@ public class EventUtil {
     }
 
     public static Event getRandomEvent() {
-        int rowId = RandomUtil.getRandomNum((int) mEventDao.count(), 1);
-        return getEvent(rowId);
+        List<Event> eventList = loadAll();
+        int rowId = RandomUtil.getRandomNum(eventList.size() - 1, 0);
+        return eventList.get(rowId);
     }
 
     public static List<Event> loadAll() {

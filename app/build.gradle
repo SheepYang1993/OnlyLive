@@ -43,6 +43,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support:design:24.2.1'
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.2.1'
     compile 'com.jakewharton:butterknife:8.2.1'
@@ -58,6 +59,7 @@ dependencies {
     compile 'cn.bmob.android:http-legacy:1.0'
     // bmob-sdk：Bmob的android sdk包，包含了Bmob的数据存储、文件等服务
     compile 'cn.bmob.android:bmob-sdk:3.5.0'
+    // 友盟推送
     compile project(':PushSDK')
     compile files('src/main/libs/SocialSDK_umengqq.jar')
     compile files('src/main/libs/SocialSDK_umengsina.jar')
