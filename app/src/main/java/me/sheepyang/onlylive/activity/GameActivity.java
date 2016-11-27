@@ -601,7 +601,7 @@ public class GameActivity extends BaseActivity {
             showToast("你现在就在" + city + "，换个地方逛逛吧");
         } else {
             if (checkWeek()) {
-                String percent = RandomUtil.getRandomNum(Integer.valueOf(CacheUtil.getInitGameDebtRateMax(mContext)), Integer.valueOf(CacheUtil.getInitGameDebtRateMin(mContext))) + "";
+                String percent = MathUtil.divide("" + RandomUtil.getRandomNum(Integer.valueOf(MathUtil.multiply("100", CacheUtil.getInitGameDebtRateMax(mContext))), Integer.valueOf(MathUtil.multiply("100", CacheUtil.getInitGameDebtRateMin(mContext)))), "10", 2);
                 String debt = MathUtil.multiply(mPlayer.getDebt(), percent);
                 mPlayer.setDebt(debt);// 设置当前负债，算法是 当前负债 *（min~max）倍，后期再优化利息的算法
                 mPlayer.setCity(city);// 设置当前所在城市
