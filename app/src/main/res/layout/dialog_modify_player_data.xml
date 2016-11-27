@@ -330,6 +330,113 @@
                         android:textSize="20sp" />
 
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/add_goods_dialog_text_width2"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="利息浮动上限："
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/edt_max_percent"
+                        android:layout_width="@dimen/add_goods_dialog_text_hint_width2"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:digits="0123456789"
+                        android:hint="请输入整数"
+                        android:inputType="numberDecimal"
+                        android:maxLength="13"
+                        android:singleLine="true"
+                        android:textColor="@color/word_black_dark"
+                        android:textColorHint="@color/word_gary"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp"
+                        android:text="%"
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/add_goods_dialog_text_width2"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="利息浮动下限："
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/edt_min_percent"
+                        android:layout_width="@dimen/add_goods_dialog_text_hint_width2"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:digits="0123456789"
+                        android:hint="请输入整数"
+                        android:inputType="numberDecimal"
+                        android:maxLength="13"
+                        android:singleLine="true"
+                        android:textColor="@color/word_black_dark"
+                        android:textColorHint="@color/word_gary"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp"
+                        android:text="%"
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/modify_play_data_dialog_text_width"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="物品获得数："
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/edt_goods_number"
+                        android:layout_width="@dimen/modify_play_data_dialog_text_hint_width"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="15dp"
+                        android:digits="0123456789"
+                        android:hint="请输入整数"
+                        android:inputType="numberDecimal"
+                        android:maxLength="13"
+                        android:singleLine="true"
+                        android:textColor="@color/word_black_dark"
+                        android:textColorHint="@color/word_gary"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
             </LinearLayout>
         </ScrollView>
 

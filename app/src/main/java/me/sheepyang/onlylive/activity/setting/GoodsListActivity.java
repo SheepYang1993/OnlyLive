@@ -35,8 +35,8 @@ public class GoodsListActivity extends BaseActivity {
     @BindView(R.id.fab)
     FloatingActionButton fab;
     private GoodsAdapter mAdapter;
-    private String mTitle;// 标题
     private List<Goods> mDatas;// 菜单列表数据源
+    private String mTitle;// 标题
     private Intent mIntent;
     private MessageDialog mDeleteDialog;
     private GoodsDialog mAddGoodsDialog;

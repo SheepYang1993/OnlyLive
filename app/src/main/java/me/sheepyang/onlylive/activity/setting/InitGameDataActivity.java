@@ -17,6 +17,7 @@ import me.sheepyang.onlylive.activity.BaseActivity;
 import me.sheepyang.onlylive.adapter.SettingAdapter;
 import me.sheepyang.onlylive.domain.SettingData;
 import me.sheepyang.onlylive.utils.CacheUtil;
+import me.sheepyang.onlylive.utils.MathUtil;
 import me.sheepyang.onlylive.utils.data.PlayerUtil;
 import me.sheepyang.onlylive.widget.dialog.ModifyPlayerDataDialog;
 import me.sheepyang.onlylive.widget.recyclerview.NoAlphaItemAnimator;
@@ -118,6 +119,22 @@ public class InitGameDataActivity extends BaseActivity {
         data.setText("商店出售物品数");
         data.setDesc("物品数量：" + CacheUtil.getInitGameShopGoodsNumber(mContext));
         mDatas.add(data);
+
+        data = new SettingData();
+        data.setText("负债利息最高倍率");
+        data.setDesc("利息最高倍率：" + MathUtil.multiply("100", CacheUtil.getInitGameDebtRateMax(mContext)) + "%");
+        mDatas.add(data);
+
+        data = new SettingData();
+        data.setText("负债利息最低倍率");
+        data.setDesc("利息最低倍率：" + MathUtil.multiply("100", CacheUtil.getInitGameDebtRateMin(mContext)) + "%");
+        mDatas.add(data);
+
+        data = new SettingData();
+        data.setText("物品最多获得个数");
+        data.setDesc("最多获得：" + CacheUtil.getInitGameGoodsNumber(mContext) + "个         ");
+        mDatas.add(data);
+
         mAdapter.updata(mDatas);
     }
 

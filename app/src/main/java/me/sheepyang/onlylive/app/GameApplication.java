@@ -3,6 +3,7 @@ package me.sheepyang.onlylive.app;
 
 import android.app.Application;
 import android.database.sqlite.SQLiteDatabase;
+import android.text.TextUtils;
 
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.message.IUmengRegisterCallback;
@@ -11,7 +12,10 @@ import com.umeng.message.PushAgent;
 import cn.bmob.v3.Bmob;
 import me.sheepyang.onlylive.entity.dao.DaoMaster;
 import me.sheepyang.onlylive.entity.dao.DaoSession;
+import me.sheepyang.onlylive.utils.CacheUtil;
 import me.sheepyang.onlylive.utils.MyLog;
+
+import static anetwork.channel.monitor.Monitor.init;
 
 /**
  * Created by SheepYang on 2016/10/13 00:30.
@@ -40,6 +44,19 @@ public class GameApplication extends Application {
         mInstances = this;
         // 初始化数据库
         setDatabase();
+        initData();
+    }
+
+    private void initData() {
+        if (TextUtils.isEmpty(CacheUtil.getInitGameDebtRateMax(this))) {
+            CacheUtil.setInitGameDebtRateMax(this, Constants.INIT_GAME_DEBT_RATE_MAX);
+        }
+        if (TextUtils.isEmpty(CacheUtil.getInitGameDebtRateMin(this))) {
+            CacheUtil.setInitGameDebtRateMin(this, Constants.INIT_GAME_DEBT_RATE_MIN);
+        }
+        if (CacheUtil.getInitGameGoodsNumber(this) <= 0) {
+            CacheUtil.setInitGameGoodsNumber(this, Constants.INIT_GAME_GOODS_NUMBER);
+        }
     }
 
     private void initUMeng() {

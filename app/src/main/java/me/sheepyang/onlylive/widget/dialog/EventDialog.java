@@ -3,32 +3,47 @@ package me.sheepyang.onlylive.widget.dialog;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.sheepyang.onlylive.R;
+import me.sheepyang.onlylive.adapter.GoodsAdapter;
 import me.sheepyang.onlylive.entity.Event;
+import me.sheepyang.onlylive.entity.Goods;
 import me.sheepyang.onlylive.entity.Number;
 import me.sheepyang.onlylive.utils.AppUtil;
 import me.sheepyang.onlylive.utils.MathUtil;
+import me.sheepyang.onlylive.utils.MyLog;
 import me.sheepyang.onlylive.utils.MyToast;
 import me.sheepyang.onlylive.utils.data.EventUtil;
+import me.sheepyang.onlylive.utils.data.GoodsUtil;
+import me.sheepyang.onlylive.utils.data.JoinBadGoodsToEventUtil;
+import me.sheepyang.onlylive.utils.data.JoinGoodGoodsToEventUtil;
 import me.sheepyang.onlylive.utils.data.NumberUtil;
 import me.sheepyang.onlylive.widget.MarqueeTextView;
+import me.sheepyang.onlylive.widget.recyclerview.NoAlphaItemAnimator;
 
 /**
  * Created by SheepYang on 2016/11/26 11:15.
@@ -118,12 +133,31 @@ public class EventDialog extends BaseDialogFragment implements View.OnClickListe
     MarqueeTextView tvTitle;
     @BindView(R.id.tv_hint)
     TextView tvHint;
-
-    private GoodsListDialog mGoodsListDialog;
+    @BindView(R.id.recycler_view_good_goods)
+    RecyclerView recyclerViewGoodGoods;
+    @BindView(R.id.recycler_view_bad_goods)
+    RecyclerView recyclerViewBadGoods;
+    @BindView(R.id.btn_add_good_goods)
+    Button btnAddGoodGoods;
+    @BindView(R.id.ll_bad_goods)
+    LinearLayout llBadGoods;
     private SaveListener mSaveListener;
+
     private String mHint;
     private String mTitle;
     private Event mEvent;
+
+    private GoodsAdapter mGoodAdapter;
+    private MessageDialog mGoodDeleteDialog;
+    private GoodsListDialog mGoodGoodsListDialog;
+    private List<Goods> mGoodDatas;
+    private Goods mGoodGoods;
+
+    private GoodsAdapter mBadAdapter;
+    private MessageDialog mBadDeleteDialog;
+    private GoodsListDialog mBadGoodsListDialog;
+    private List<Goods> mBadDatas;
+    private Goods mBadGoods;
 
     @Nullable
     @Override
@@ -138,17 +172,123 @@ public class EventDialog extends BaseDialogFragment implements View.OnClickListe
     }
 
     private void initView() {
-        mGoodsListDialog = new GoodsListDialog();
+        mGoodDeleteDialog = new MessageDialog();
+        mGoodDeleteDialog.setTitle("删除物品");
+        mBadDeleteDialog = new MessageDialog();
+        mBadDeleteDialog.setTitle("删除物品");
+        mGoodGoodsListDialog = new GoodsListDialog();
+        //设置布局管理器
+        LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getActivity());
+        linearLayoutManager1.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerViewGoodGoods.setLayoutManager(linearLayoutManager1);
+        // 解决notifyItem闪烁的问题
+        recyclerViewGoodGoods.setItemAnimator(new NoAlphaItemAnimator());
+        //设置适配器
+        mGoodAdapter = new GoodsAdapter(getActivity(), mGoodDatas);
+        recyclerViewGoodGoods.setAdapter(mGoodAdapter);
+
+        mBadGoodsListDialog = new GoodsListDialog();
+        //设置布局管理器
+        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getActivity());
+        linearLayoutManager2.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerViewBadGoods.setLayoutManager(linearLayoutManager2);
+        // 解决notifyItem闪烁的问题
+        recyclerViewBadGoods.setItemAnimator(new NoAlphaItemAnimator());
+        //设置适配器
+        mBadAdapter = new GoodsAdapter(getActivity(), mBadDatas);
+        recyclerViewBadGoods.setAdapter(mBadAdapter);
     }
 
     private void initListener() {
+        mGoodDeleteDialog.setOnOkClickListener("删除", new MessageDialog.OnOkClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteGoodGoods();
+            }
+        });
+        mGoodDeleteDialog.setOnCancelClickListener("取消", new MessageDialog.OnCancelClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        mBadDeleteDialog.setOnOkClickListener("删除", new MessageDialog.OnOkClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteBadGoods();
+            }
+        });
+        mBadDeleteDialog.setOnCancelClickListener("取消", new MessageDialog.OnCancelClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        mGoodAdapter.setOnItemClickListener(new GoodsAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                MyToast.showMessage(getActivity(), "长按删除");
+            }
+        });
+        mGoodAdapter.setOnItemLongClickListener(new GoodsAdapter.OnItemLongClickListener() {
+            @Override
+            public void onItemLongClick(View view, int position) {
+                mGoodGoods = mGoodDatas.get(position);
+                mGoodDeleteDialog.setMessage(Html.fromHtml("<br/>确定要删除 <font color='#ff435f'>" + mGoodGoods.getName() + "</font> 吗？<br/>"));
+                mGoodDeleteDialog.show(getChildFragmentManager(), "DeleteDialog");
+            }
+        });
+        mGoodGoodsListDialog.setOnSelectListener(new GoodsListDialog.OnSelectListener() {
+            @Override
+            public void onSelect(Goods goods, int position) {
+                if (goods != null) {
+                    if (mGoodDatas.contains(goods)) {
+                        MyToast.showMessage(getActivity(), goods.getName() + " 已经添加了");
+                    } else {
+                        mGoodDatas.add(goods);
+                        mGoodAdapter.update(mGoodDatas);
+                    }
+                }
+            }
+        });
+        mBadAdapter.setOnItemClickListener(new GoodsAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                MyToast.showMessage(getActivity(), "长按删除");
+            }
+        });
+        mBadAdapter.setOnItemLongClickListener(new GoodsAdapter.OnItemLongClickListener() {
+            @Override
+            public void onItemLongClick(View view, int position) {
+                mBadGoods = mBadDatas.get(position);
+                mBadDeleteDialog.setMessage(Html.fromHtml("<br/>确定要删除 <font color='#ff435f'>" + mBadGoods.getName() + "</font> 吗？<br/>"));
+                mBadDeleteDialog.show(getChildFragmentManager(), "DeleteDialog");
+            }
+        });
+        mBadGoodsListDialog.setOnSelectListener(new GoodsListDialog.OnSelectListener() {
+            @Override
+            public void onSelect(Goods goods, int position) {
+                if (goods != null) {
+                    if (mBadDatas.contains(goods)) {
+                        MyToast.showMessage(getActivity(), goods.getName() + " 已经添加了");
+                    } else {
+                        mBadDatas.add(goods);
+                        mBadAdapter.update(mBadDatas);
+                    }
+                }
+            }
+        });
         cbIsNeedSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (llSelect.getVisibility() == View.GONE) {
                     animateOpen(llSelect, AppUtil.dip2px(getActivity(), 400));
+                    btnAddGoodGoods.setText("添加好结果物品");
+                    llBadGoods.setVisibility(View.VISIBLE);
                 } else {
                     animateClose(llSelect);
+                    btnAddGoodGoods.setText("添加物品");
+                    llBadGoods.setVisibility(View.GONE);
                 }
             }
         });
@@ -194,6 +334,22 @@ public class EventDialog extends BaseDialogFragment implements View.OnClickListe
         });
     }
 
+    private void deleteGoodGoods() {
+        if (mGoodGoods != null) {
+            mGoodDatas.remove(mGoodGoods);
+            mGoodGoods = null;
+            mGoodAdapter.update(mGoodDatas);
+        }
+    }
+
+    private void deleteBadGoods() {
+        if (mBadGoods != null) {
+            mBadDatas.remove(mBadGoods);
+            mBadGoods = null;
+            mBadAdapter.update(mBadDatas);
+        }
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -201,6 +357,8 @@ public class EventDialog extends BaseDialogFragment implements View.OnClickListe
     }
 
     private void initData() {
+        mGoodDatas = new ArrayList<>();
+        mBadDatas = new ArrayList<>();
         if (!TextUtils.isEmpty(mTitle)) {
             tvTitle.setText(mTitle);
         }
@@ -234,6 +392,13 @@ public class EventDialog extends BaseDialogFragment implements View.OnClickListe
                 edtOkBadMsg.setText(mEvent.getResultOKBadMsg());
                 edtCancelBadTitle.setText(mEvent.getResultCancelBadTitle());
                 edtCancelBadMsg.setText(mEvent.getResultCancelBadMsg());
+
+                if (mEvent.getBadGoodsList() != null && mEvent.getBadGoodsList().size() > 0) {
+                    for (Goods goods :
+                            mEvent.getBadGoodsList()) {
+                        mBadDatas.add(goods);
+                    }
+                }
             } else {
                 edtOkText.setText("");
                 edtCancelText.setText("");
@@ -288,6 +453,13 @@ public class EventDialog extends BaseDialogFragment implements View.OnClickListe
 
             cbIsGood.setChecked(mEvent.getIsGood());
             cbIsNeedSelect.setChecked(mEvent.getIsNeedSelect());
+
+            if (mEvent.getGoodGoodsList() != null && mEvent.getGoodGoodsList().size() > 0) {
+                for (Goods goods :
+                        mEvent.getGoodGoodsList()) {
+                    mGoodDatas.add(goods);
+                }
+            }
         } else {
             edtTitle.setText("");
             edtMessage.setText("");
@@ -328,6 +500,8 @@ public class EventDialog extends BaseDialogFragment implements View.OnClickListe
             cbIsNeedDeposit.setChecked(false);
             cbIsNeedHealth.setChecked(false);
         }
+        mGoodAdapter.update(mGoodDatas);
+        mBadAdapter.update(mBadDatas);
     }
 
     public void setEvent(Event event) {
@@ -335,7 +509,7 @@ public class EventDialog extends BaseDialogFragment implements View.OnClickListe
     }
 
     @Override
-    @OnClick({R.id.btn_add_goods, R.id.btn_cancel, R.id.btn_ok, R.id.ll_is_need_select, R.id.ll_is_need_cash, R.id.ll_is_need_debt, R.id.ll_is_need_deposit, R.id.ll_is_need_health, R.id.ll_is_good})
+    @OnClick({R.id.btn_add_good_goods, R.id.btn_add_bad_goods, R.id.btn_cancel, R.id.btn_ok, R.id.ll_is_need_select, R.id.ll_is_need_cash, R.id.ll_is_need_debt, R.id.ll_is_need_deposit, R.id.ll_is_need_health, R.id.ll_is_good})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_ok:
@@ -344,8 +518,11 @@ public class EventDialog extends BaseDialogFragment implements View.OnClickListe
             case R.id.btn_cancel:
                 dismiss();
                 break;
-            case R.id.btn_add_goods:
-                mGoodsListDialog.show(getChildFragmentManager(), "GoodsListDialog");
+            case R.id.btn_add_good_goods:
+                mGoodGoodsListDialog.show(getChildFragmentManager(), "GoodGoodsListDialog");
+                break;
+            case R.id.btn_add_bad_goods:
+                mBadGoodsListDialog.show(getChildFragmentManager(), "BadGoodsListDialog");
                 break;
             case R.id.ll_is_need_select:
                 cbIsNeedSelect.setChecked(!cbIsNeedSelect.isChecked());
@@ -453,6 +630,14 @@ public class EventDialog extends BaseDialogFragment implements View.OnClickListe
                     .setResultOKBadMsg(okBadMsg)
                     .setResultCancelBadTitle(cancelText)
                     .setResultCancelBadMsg(cancelBadMsg);
+
+            JoinBadGoodsToEventUtil.deleteAllGoods(mEvent.getId());
+            if (mBadDatas != null && mBadDatas.size() > 0) {
+                for (Goods goods :
+                        mBadDatas) {
+                    builder = builder.addBadGoods(goods);
+                }
+            }
         }
 
         // 有现金
@@ -542,6 +727,15 @@ public class EventDialog extends BaseDialogFragment implements View.OnClickListe
         if (mEvent != null) {
             builder = builder.setId(mEvent.getId());
         }
+
+        JoinGoodGoodsToEventUtil.deleteAllGoods(mEvent.getId());
+        if (mGoodDatas != null && mGoodDatas.size() > 0) {
+            for (Goods goods :
+                    mGoodDatas) {
+                builder = builder.addGoods(goods);
+            }
+        }
+
         builder.create();
         dismiss();
         if (mSaveListener != null) {
@@ -628,6 +822,14 @@ public class EventDialog extends BaseDialogFragment implements View.OnClickListe
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        mEvent = null;
+        mBadDatas = null;
+        mGoodDatas = null;
     }
 
     public void setTitle(String title) {

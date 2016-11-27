@@ -601,9 +601,9 @@ public class GameActivity extends BaseActivity {
             showToast("你现在就在" + city + "，换个地方逛逛吧");
         } else {
             if (checkWeek()) {
-                String percent = MathUtil.divide(RandomUtil.getRandomNum(15, 13) + "", "10", 2);
+                String percent = RandomUtil.getRandomNum(Integer.valueOf(CacheUtil.getInitGameDebtRateMax(mContext)), Integer.valueOf(CacheUtil.getInitGameDebtRateMin(mContext))) + "";
                 String debt = MathUtil.multiply(mPlayer.getDebt(), percent);
-                mPlayer.setDebt(debt);// 设置当前负债，算法是 当前负债 *（1.3~1.5）倍，后期再优化利息的算法
+                mPlayer.setDebt(debt);// 设置当前负债，算法是 当前负债 *（min~max）倍，后期再优化利息的算法
                 mPlayer.setCity(city);// 设置当前所在城市
                 PlayerUtil.setPlayer(mPlayer);
                 refreshPlayerData();
@@ -1076,7 +1076,7 @@ public class GameActivity extends BaseActivity {
             if (goodsList != null && goodsList.size() > 0) {
                 for (int i = 0; i < goodsList.size(); i++) {
                     // 随机获得1到5件物品
-                    goodsNum[i] = RandomUtil.getRandomNum(5, 1) + "";
+                    goodsNum[i] = RandomUtil.getRandomNum(CacheUtil.getInitGameGoodsNumber(mContext), 1) + "";
                     goodsTotalNum = MathUtil.add(goodsTotalNum, goodsNum[i]);
                 }
                 for (int i = 0; i < goodsList.size(); i++) {

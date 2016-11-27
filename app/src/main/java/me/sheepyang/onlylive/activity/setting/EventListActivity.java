@@ -87,6 +87,14 @@ public class EventListActivity extends BaseActivity {
                 PlayerUtil.initPlayerData(mContext);
             }
         });
+        mModifyEventDialog.setOnSaveListener(new EventDialog.SaveListener() {
+            @Override
+            public void onSuccess() {
+                showToast("修改成功，游戏记录被清除");
+                initData();
+                PlayerUtil.initPlayerData(mContext);
+            }
+        });
         mDeleteDialog.setOnOkClickListener("删除", new MessageDialog.OnOkClickListener() {
             @Override
             public void onClick(View view) {

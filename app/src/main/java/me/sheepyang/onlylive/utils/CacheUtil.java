@@ -18,6 +18,9 @@ public class CacheUtil {
     public static final String INIT_GAME_WEEK = "initGameWeek";
     public static final String INIT_GAME_WEEK_TOTAL = "initGameWeekTotal";
     public static final String INIT_GAME_SHOP_GOODS_NUMBER = "initGameShopGoodsNumber";
+    public static final String INIT_GAME_DEBT_RATE_MAX = "initGameDebtRateMax";
+    public static final String INIT_GAME_DEBT_RATE_MIN = "initGameDebtRateMin";
+    public static final String INIT_GAME_GOODS_NUMBER = "initGameGoodsNumber";
 
 
     /**
@@ -162,5 +165,29 @@ public class CacheUtil {
 
     public static void setInitGameShopGoodsNumber(Context context, int shopGoodsNumber) {
         SPUtil.putInt(context, INIT_GAME_SHOP_GOODS_NUMBER, shopGoodsNumber);
+    }
+
+    public static String getInitGameDebtRateMax(Context context) {
+        return SPUtil.getString(context, INIT_GAME_DEBT_RATE_MAX);
+    }
+
+    public static void setInitGameDebtRateMax(Context context, String cash) {
+        SPUtil.putString(context, INIT_GAME_DEBT_RATE_MAX, cash);
+    }
+
+    public static String getInitGameDebtRateMin(Context context) {
+        return SPUtil.getString(context, INIT_GAME_DEBT_RATE_MIN);
+    }
+
+    public static void setInitGameDebtRateMin(Context context, String cash) {
+        SPUtil.putString(context, INIT_GAME_DEBT_RATE_MIN, cash);
+    }
+
+    public static int getInitGameGoodsNumber(Context context) {
+        return SPUtil.getInt(context, INIT_GAME_GOODS_NUMBER);
+    }
+
+    public static void setInitGameGoodsNumber(Context context, int shopGoodsNumber) {
+        SPUtil.putInt(context, INIT_GAME_GOODS_NUMBER, shopGoodsNumber);
     }
 }

@@ -288,20 +288,46 @@
                     android:visibility="gone" />
 
                 <Button
-                    android:id="@+id/btn_add_goods"
+                    android:id="@+id/btn_add_good_goods"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/btn_gray_selector"
+                    android:padding="5dp"
                     android:text="添加物品"
                     android:textSize="12sp" />
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_view_goods"
+                    android:id="@+id/recycler_view_good_goods"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:id="@+id/ll_bad_goods"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <Button
+                        android:id="@+id/btn_add_bad_goods"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/btn_gray_selector"
+                        android:padding="5dp"
+                        android:text="添加坏结果物品"
+                        android:textSize="12sp" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler_view_bad_goods"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
             </LinearLayout>
         </ScrollView>
 

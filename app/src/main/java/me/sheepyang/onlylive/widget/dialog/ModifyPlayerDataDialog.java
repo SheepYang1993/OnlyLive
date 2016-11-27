@@ -41,6 +41,12 @@ public class ModifyPlayerDataDialog extends BaseDialogFragment implements View.O
     EditText edtWeekTotal;
     @BindView(R.id.edt_shop_goods_number)
     EditText edtShopGoodsNumber;
+    @BindView(R.id.edt_max_percent)
+    EditText edtMaxPercent;
+    @BindView(R.id.edt_min_percent)
+    EditText edtMinPercent;
+    @BindView(R.id.edt_goods_number)
+    EditText edtGoodsNumber;
     private SaveListener mSaveListener;
 
     @Nullable
@@ -63,6 +69,9 @@ public class ModifyPlayerDataDialog extends BaseDialogFragment implements View.O
         edtWeek.setText(CacheUtil.getInitGameWeek(getActivity()));
         edtWeekTotal.setText(CacheUtil.getInitGameWeekTotal(getActivity()));
         edtShopGoodsNumber.setText(CacheUtil.getInitGameShopGoodsNumber(getActivity()) + "");
+        edtMaxPercent.setText(MathUtil.multiply("100", CacheUtil.getInitGameDebtRateMax(getActivity())));
+        edtMinPercent.setText(MathUtil.multiply("100", CacheUtil.getInitGameDebtRateMin(getActivity())));
+        edtGoodsNumber.setText(CacheUtil.getInitGameGoodsNumber(getActivity()) + "");
     }
 
     @Override
@@ -96,6 +105,9 @@ public class ModifyPlayerDataDialog extends BaseDialogFragment implements View.O
         String week = edtWeek.getText().toString();
         String weekTotal = edtWeekTotal.getText().toString();
         String shopGoodsNumber = edtShopGoodsNumber.getText().toString();
+        String goodsNumber = edtGoodsNumber.getText().toString();
+        String maxPercent = edtMaxPercent.getText().toString();
+        String minPercent = edtMinPercent.getText().toString();
 
         if (!checkNumber("现金", cash)) {
             return;
@@ -124,6 +136,15 @@ public class ModifyPlayerDataDialog extends BaseDialogFragment implements View.O
         if (!checkNumber("出售商品数", shopGoodsNumber)) {
             return;
         }
+        if (!checkNumber("物品最多获得", goodsNumber)) {
+            return;
+        }
+        if (!checkNumber("利息浮动上限", maxPercent)) {
+            return;
+        }
+        if (!checkNumber("利息浮动下限", minPercent)) {
+            return;
+        }
 
         if (MathUtil.gt(health, "100")) {
             MyToast.showMessage(getActivity(), "健康 不能大于 100");
@@ -150,9 +171,27 @@ public class ModifyPlayerDataDialog extends BaseDialogFragment implements View.O
             return;
         }
         if (MathUtil.gt(shopGoodsNumber, "20")) {
-            MyToast.showMessage(getActivity(), "出售商品数不能大于 20");
+            MyToast.showMessage(getActivity(), "出售商品数 不能大于 20");
             return;
         }
+        if (MathUtil.le(goodsNumber, "0")) {
+            MyToast.showMessage(getActivity(), "物品最多获得个数 必须大于 0");
+            return;
+        }
+        if (MathUtil.le(maxPercent, "0")) {
+            MyToast.showMessage(getActivity(), "价格浮动上限 必须大于 0");
+            return;
+        }
+        if (MathUtil.le(minPercent, "0")) {
+            MyToast.showMessage(getActivity(), "价格浮动下限 必须大于 0");
+            return;
+        }
+        if (MathUtil.le(maxPercent, minPercent)) {
+            MyToast.showMessage(getActivity(), "价格浮动上限 必须大于 价格浮动下限");
+            return;
+        }
+        maxPercent = MathUtil.divide(maxPercent, "100", 2);
+        minPercent = MathUtil.divide(minPercent, "100", 2);
 
         CacheUtil.setInitGameCash(getActivity(), MathUtil.getNumber(cash, 0));
         CacheUtil.setInitGameDebt(getActivity(), MathUtil.getNumber(debt, 0));
@@ -163,6 +202,10 @@ public class ModifyPlayerDataDialog extends BaseDialogFragment implements View.O
         CacheUtil.setInitGameWeek(getActivity(), MathUtil.getNumber(week, 0));
         CacheUtil.setInitGameWeekTotal(getActivity(), MathUtil.getNumber(weekTotal, 0));
         CacheUtil.setInitGameShopGoodsNumber(getActivity(), Integer.valueOf(MathUtil.getNumber(shopGoodsNumber, 0)));
+        CacheUtil.setInitGameGoodsNumber(getActivity(), Integer.valueOf(MathUtil.getNumber(goodsNumber, 0)));
+
+        CacheUtil.setInitGameDebtRateMax(getActivity(), MathUtil.getNumber(maxPercent, 2));
+        CacheUtil.setInitGameDebtRateMin(getActivity(), MathUtil.getNumber(minPercent, 2));
 
         dismiss();
         if (mSaveListener != null) {
