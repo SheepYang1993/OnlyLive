@@ -9,7 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.View;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -20,7 +19,7 @@ import me.sheepyang.onlylive.adapter.GoodsAdapter;
 import me.sheepyang.onlylive.entity.Goods;
 import me.sheepyang.onlylive.utils.data.GoodsUtil;
 import me.sheepyang.onlylive.utils.data.PlayerUtil;
-import me.sheepyang.onlylive.widget.dialog.AddGoodsDialog;
+import me.sheepyang.onlylive.widget.dialog.GoodsDialog;
 import me.sheepyang.onlylive.widget.dialog.MessageDialog;
 import me.sheepyang.onlylive.widget.recyclerview.NoAlphaItemAnimator;
 
@@ -40,8 +39,8 @@ public class GoodsListActivity extends BaseActivity {
     private List<Goods> mDatas;// 菜单列表数据源
     private Intent mIntent;
     private MessageDialog mDeleteDialog;
-    private AddGoodsDialog mAddGoodsDialog;
-    private AddGoodsDialog mModifyGoodsDialog;
+    private GoodsDialog mAddGoodsDialog;
+    private GoodsDialog mModifyGoodsDialog;
     private Goods mGoods;
 
     @Override
@@ -57,7 +56,7 @@ public class GoodsListActivity extends BaseActivity {
     }
 
     private void initListener() {
-        mAddGoodsDialog.setOnSaveListener(new AddGoodsDialog.SaveListener() {
+        mAddGoodsDialog.setOnSaveListener(new GoodsDialog.SaveListener() {
             @Override
             public void onSuccess() {
                 showToast("添加成功，游戏记录被清除");
@@ -65,7 +64,7 @@ public class GoodsListActivity extends BaseActivity {
                 PlayerUtil.initPlayerData(mContext);
             }
         });
-        mModifyGoodsDialog.setOnSaveListener(new AddGoodsDialog.SaveListener() {
+        mModifyGoodsDialog.setOnSaveListener(new GoodsDialog.SaveListener() {
             @Override
             public void onSuccess() {
                 showToast("修改成功，游戏记录被清除");
@@ -76,7 +75,7 @@ public class GoodsListActivity extends BaseActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAddGoodsDialog.show(getSupportFragmentManager(), "AddGoodsDialog");
+                mAddGoodsDialog.show(getSupportFragmentManager(), "GoodsDialog");
             }
         });
         mAdapter.setOnItemClickListener(new GoodsAdapter.OnItemClickListener() {
@@ -127,10 +126,10 @@ public class GoodsListActivity extends BaseActivity {
     }
 
     private void initView() {
-        mModifyGoodsDialog = new AddGoodsDialog();
+        mModifyGoodsDialog = new GoodsDialog();
         mModifyGoodsDialog.setTitle("修改物品");
-        mModifyGoodsDialog.setHint("修改物品会清空游戏数据，请谨慎修改");
-        mAddGoodsDialog = new AddGoodsDialog();
+        mModifyGoodsDialog.setHint("修改物品会清空游戏记录，请谨慎修改");
+        mAddGoodsDialog = new GoodsDialog();
         mDeleteDialog = new MessageDialog();
         mDeleteDialog.setTitle("删除物品");
         //设置布局管理器

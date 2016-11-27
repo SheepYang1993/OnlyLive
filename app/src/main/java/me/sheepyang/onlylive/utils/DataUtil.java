@@ -194,14 +194,17 @@ public class DataUtil {
                 .setMessage("路遇老奶奶摔倒，要不要扶起她？")
                 .setOkText("扶")
                 .setCancelText("不扶")
+
                 .setResultOKGoodTitle("你扶起了老奶奶，结果是好的")
                 .setResultOKBadTitle("你扶起了老奶奶，结果是坏的")
-                .setResultOKGoodMsg("老奶奶奖励你１００块")
-                .setResultOKBadMsg("老奶奶抓住你不放，说是你撞倒了她")
                 .setResultCancelGoodTitle("你假装没看到，结果是好的")
                 .setResultCancelBadTitle("你假装没看到，结果是坏的")
+
+                .setResultOKGoodMsg("老奶奶奖励你１００块")
                 .setResultCancelGoodMsg("这个老太婆是骗子，你举报成功，奖励５０")
+                .setResultOKBadMsg("老奶奶抓住你不放，说是你撞倒了她")
                 .setResultCancelBadMsg("跑得太快，跌入下水道")
+
                 .setCash(NumberUtil.create("6000", "2", "0.2"))
                 .setDebt(NumberUtil.create("2000", "2", "0.2"))
                 .setDeposit(NumberUtil.create("4000", "2", "0.2"))

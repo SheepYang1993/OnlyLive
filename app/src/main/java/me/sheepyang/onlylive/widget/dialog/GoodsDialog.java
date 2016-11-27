@@ -22,11 +22,13 @@ import me.sheepyang.onlylive.utils.data.GoodsUtil;
 import me.sheepyang.onlylive.utils.data.NumberUtil;
 import me.sheepyang.onlylive.widget.MarqueeTextView;
 
+import static android.R.attr.name;
+
 /**
  * Created by SheepYang on 2016/11/26 11:15.
  */
 
-public class AddGoodsDialog extends BaseDialogFragment implements View.OnClickListener {
+public class GoodsDialog extends BaseDialogFragment implements View.OnClickListener {
     @BindView(R.id.edt_name)
     EditText edtName;
     @BindView(R.id.edt_unit)
@@ -50,7 +52,7 @@ public class AddGoodsDialog extends BaseDialogFragment implements View.OnClickLi
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.dialog_add_goods, null);
+        View view = inflater.inflate(R.layout.dialog_goods, null);
         ButterKnife.bind(this, view);
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));// 设置背景透明
         return view;
@@ -104,6 +106,7 @@ public class AddGoodsDialog extends BaseDialogFragment implements View.OnClickLi
     }
 
     private void save() {
+        GoodsUtil.Builder builder = new GoodsUtil.Builder();
         String name = edtName.getText().toString();
         String unit = edtUnit.getText().toString();
         String price = edtPrice.getText().toString();
@@ -145,25 +148,20 @@ public class AddGoodsDialog extends BaseDialogFragment implements View.OnClickLi
             MyToast.showMessage(getActivity(), "价格浮动上限 必须大于 价格浮动下限");
             return;
         }
-
         maxPercent = MathUtil.divide(maxPercent, "100", 2);
         minPercent = MathUtil.divide(minPercent, "100", 2);
 
+        builder = builder
+                .setName(name)
+                .setUnit(unit);
         if (mGoods != null) {
-            new GoodsUtil.Builder()
-                    .setId(mGoods.getId())
-                    .setName(name)
-                    .setUnit(unit)
-                    .setPrice(NumberUtil.create(mGoods.getPriceId(), price, maxPercent, minPercent))
-                    .create();
+            builder = builder.setId(mGoods.getId())
+                    .setPrice(NumberUtil.create(mGoods.getPriceId(), price, maxPercent, minPercent));
         } else {
-            new GoodsUtil.Builder()
-                    .setName(name)
-                    .setUnit(unit)
-                    .setPrice(NumberUtil.create(price, maxPercent, minPercent))
-                    .create();
+            builder = builder
+                    .setPrice(NumberUtil.create(price, maxPercent, minPercent));
         }
-
+        builder.create();
         dismiss();
         if (mSaveListener != null) {
             mSaveListener.onSuccess();
@@ -182,16 +180,16 @@ public class AddGoodsDialog extends BaseDialogFragment implements View.OnClickLi
         return true;
     }
 
-    public void setOnSaveListener(SaveListener saveListener) {
-        mSaveListener = saveListener;
-    }
-
     public void setTitle(String title) {
         mTitle = title;
     }
 
     public void setHint(String hint) {
         mHint = hint;
+    }
+
+    public void setOnSaveListener(SaveListener saveListener) {
+        mSaveListener = saveListener;
     }
 
     public interface SaveListener {

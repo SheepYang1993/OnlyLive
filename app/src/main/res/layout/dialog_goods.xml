@@ -50,8 +50,8 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="15dp"
-                    android:text="添加物品会清空游戏数据，请谨慎添加"
-                    android:textColor="@color/word_black_dark" />
+                    android:text="添加物品会清空游戏记录，请谨慎添加"
+                    android:textColor="@color/theme1_red" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -75,7 +75,7 @@
                         android:layout_marginRight="15dp"
                         android:hint="请输入物品名称"
                         android:maxLength="7"
-                        android:maxLines="1"
+                        android:singleLine="true"
                         android:textColor="@color/word_black_dark"
                         android:textColorHint="@color/word_gary"
                         android:textSize="20sp" />
@@ -104,7 +104,7 @@
                         android:layout_marginRight="15dp"
                         android:hint="请输入物品单位"
                         android:maxLength="2"
-                        android:maxLines="1"
+                        android:singleLine="true"
                         android:textColor="@color/word_black_dark"
                         android:textColorHint="@color/word_gary"
                         android:textSize="20sp" />
@@ -135,7 +135,7 @@
                         android:hint="请输入整数"
                         android:inputType="numberDecimal"
                         android:maxLength="13"
-                        android:maxLines="1"
+                        android:singleLine="true"
                         android:textColor="@color/word_black_dark"
                         android:textColorHint="@color/word_gary"
                         android:textSize="20sp" />
@@ -165,7 +165,7 @@
                         android:hint="请输入整数"
                         android:inputType="numberDecimal"
                         android:maxLength="13"
-                        android:maxLines="1"
+                        android:singleLine="true"
                         android:textColor="@color/word_black_dark"
                         android:textColorHint="@color/word_gary"
                         android:textSize="20sp" />
@@ -203,7 +203,7 @@
                         android:hint="请输入整数"
                         android:inputType="numberDecimal"
                         android:maxLength="13"
-                        android:maxLines="1"
+                        android:singleLine="true"
                         android:textColor="@color/word_black_dark"
                         android:textColorHint="@color/word_gary"
                         android:textSize="20sp" />

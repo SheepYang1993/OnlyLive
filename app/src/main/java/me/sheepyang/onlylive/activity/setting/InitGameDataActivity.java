@@ -55,7 +55,7 @@ public class InitGameDataActivity extends BaseActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mModifyPlayerDataDialog.show(getSupportFragmentManager(), "AddEventDialog");
+                mModifyPlayerDataDialog.show(getSupportFragmentManager(), "EventDialog");
             }
         });
         mModifyPlayerDataDialog.setOnSaveListener(new ModifyPlayerDataDialog.SaveListener() {

@@ -150,7 +150,7 @@ public class GameActivity extends BaseActivity {
     private void initData() {
         mPlayer = PlayerUtil.getPlayer();
         if (mPlayer == null) {
-            showToast("暂无游戏数据，请开始新的游戏！");
+            showToast("暂无游戏记录，请开始新的游戏！");
             quitGame();
             return;
         }

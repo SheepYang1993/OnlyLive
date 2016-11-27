@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_deposit"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="@dimen/add_goods_dialog_text_width1"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="存款："
+            android:textColor="@color/word_black_dark"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edt_deposit"
+            android:layout_width="@dimen/add_goods_dialog_text_hint_width1"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="15dp"
+            android:digits="-0123456789"
+            android:hint="请输入整数"
+            android:inputType="numberDecimal"
+            android:maxLength="13"
+            android:singleLine="true"
+            android:textColor="@color/word_black_dark"
+            android:textColorHint="@color/word_gary"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="@dimen/add_goods_dialog_text_width2"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="存款浮动上限："
+            android:textColor="@color/word_black_dark"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edt_deposit_max_percent"
+            android:layout_width="@dimen/add_goods_dialog_text_hint_width2"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:digits="-0123456789"
+            android:hint="请输入整数"
+            android:inputType="numberDecimal"
+            android:maxLength="13"
+            android:singleLine="true"
+            android:textColor="@color/word_black_dark"
+            android:textColorHint="@color/word_gary"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:text="%"
+            android:textColor="@color/word_black_dark"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="@dimen/add_goods_dialog_text_width2"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="存款浮动下限："
+            android:textColor="@color/word_black_dark"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edt_deposit_min_percent"
+            android:layout_width="@dimen/add_goods_dialog_text_hint_width2"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:digits="-0123456789"
+            android:hint="请输入整数"
+            android:inputType="numberDecimal"
+            android:maxLength="13"
+            android:singleLine="true"
+            android:textColor="@color/word_black_dark"
+            android:textColorHint="@color/word_gary"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:text="%"
+            android:textColor="@color/word_black_dark"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

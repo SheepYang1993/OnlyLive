@@ -18,9 +18,9 @@ import me.sheepyang.onlylive.activity.BaseActivity;
 import me.sheepyang.onlylive.adapter.EventAdapter;
 import me.sheepyang.onlylive.entity.Event;
 import me.sheepyang.onlylive.utils.data.EventUtil;
-import me.sheepyang.onlylive.utils.data.GoodsUtil;
-import me.sheepyang.onlylive.widget.dialog.AddEventDialog;
-import me.sheepyang.onlylive.widget.dialog.AddGoodsDialog;
+import me.sheepyang.onlylive.utils.data.PlayerUtil;
+import me.sheepyang.onlylive.widget.dialog.EventDialog;
+import me.sheepyang.onlylive.widget.dialog.GoodsDialog;
 import me.sheepyang.onlylive.widget.dialog.MessageDialog;
 import me.sheepyang.onlylive.widget.recyclerview.NoAlphaItemAnimator;
 
@@ -41,7 +41,8 @@ public class EventListActivity extends BaseActivity {
     private Intent mIntent;
     private Event mEvent;
     private MessageDialog mDeleteDialog;
-    private AddEventDialog mAddEventDialog;
+    private EventDialog mAddEventDialog;
+    private EventDialog mModifyEventDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,13 +60,15 @@ public class EventListActivity extends BaseActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAddEventDialog.show(getSupportFragmentManager(), "AddEventDialog");
+                mAddEventDialog.show(getSupportFragmentManager(), "EventDialog");
             }
         });
         mAdapter.setOnItemClickListener(new EventAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                showToast("长按删除该事件，点击查看事件详情");
+                showToast("长按删除该事件");
+                mModifyEventDialog.setEvent(mDatas.get(position));
+                mModifyEventDialog.show(getSupportFragmentManager(), "ModifyEventDialog");
             }
         });
         mAdapter.setOnItemLongClickListener(new EventAdapter.OnItemLongClickListener() {
@@ -74,6 +77,14 @@ public class EventListActivity extends BaseActivity {
                 mEvent = mDatas.get(position);
                 mDeleteDialog.setMessage(Html.fromHtml("<br/>确定要删除 <font color='#ff435f'>" + mEvent.getTitle() + "</font> 吗？<br/>"));
                 mDeleteDialog.show(getSupportFragmentManager(), "DeleteDialog");
+            }
+        });
+        mAddEventDialog.setOnSaveListener(new EventDialog.SaveListener() {
+            @Override
+            public void onSuccess() {
+                showToast("添加成功，游戏记录被清除");
+                initData();
+                PlayerUtil.initPlayerData(mContext);
             }
         });
         mDeleteDialog.setOnOkClickListener("删除", new MessageDialog.OnOkClickListener() {
@@ -99,12 +110,18 @@ public class EventListActivity extends BaseActivity {
     }
 
     private void initData() {
+        if (mDatas != null) {
+            mDatas.clear();
+        }
         mDatas = EventUtil.loadAll();
         mAdapter.update(mDatas);
     }
 
     private void initView() {
-        mAddEventDialog = new AddEventDialog();
+        mModifyEventDialog = new EventDialog();
+        mModifyEventDialog.setTitle("修改事件");
+        mModifyEventDialog.setHint("修改事件会清空游戏记录，请谨慎修改");
+        mAddEventDialog = new EventDialog();
         mDeleteDialog = new MessageDialog();
         mDeleteDialog.setTitle("删除事件");
         //设置布局管理器

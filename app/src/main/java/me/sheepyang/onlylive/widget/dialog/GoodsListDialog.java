@@ -12,22 +12,17 @@ import butterknife.ButterKnife;
 import me.sheepyang.onlylive.R;
 
 /**
- * Created by SheepYang on 2016/11/26 11:15.
+ * Created by SheepYang on 2016/11/27 17:38.
  */
 
-public class AddEventDialog extends BaseDialogFragment {
+public class GoodsListDialog extends BaseDialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.dialog_add_event, null);
+        View view = inflater.inflate(R.layout.dialog_goods_list, null);
         ButterKnife.bind(this, view);
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));// 设置背景透明
-        initView();
         return view;
-    }
-
-    private void initView() {
-
     }
 }

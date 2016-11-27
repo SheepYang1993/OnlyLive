@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/bg_gray_shape"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <me.sheepyang.onlylive.widget.MarqueeTextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:ellipsize="marquee"
+                android:gravity="start"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:maxLines="3"
+                android:text="添加事件"
+                android:textColor="@color/word_black"
+                android:textSize="28sp" />
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="15dp"
+                    android:text="添加事件会清空游戏记录，请谨慎添加"
+                    android:textColor="@color/theme1_red" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:text="标题与内容为必填项"
+                    android:textColor="@color/theme1_red" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/event_dialog_text_width1"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="标题："
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edt_title"
+                        android:layout_width="@dimen/event_dialog_text_hint_width1"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="15dp"
+                        android:hint="请输入事件标题"
+                        android:maxLength="20"
+                        android:textColor="@color/word_black_dark"
+                        android:textColorHint="@color/word_gary"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/event_dialog_text_width1"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="内容："
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edt_message"
+                        android:layout_width="@dimen/event_dialog_text_hint_width1"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="15dp"
+                        android:hint="请输入事件内容"
+                        android:maxLength="100"
+                        android:textColor="@color/word_black_dark"
+                        android:textColorHint="@color/word_gary"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_is_good"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="end"
+                        android:text="首回合触发？"
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="20sp" />
+
+                    <CheckBox
+                        android:id="@+id/cb_is_good"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_is_need_select"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="end"
+                        android:text="是否需要进行选择？"
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="20sp" />
+
+                    <CheckBox
+                        android:id="@+id/cb_is_need_select"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical" />
+                </LinearLayout>
+
+                <include
+                    layout="@layout/layout_dialog_event_need_select"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:id="@+id/ll_is_need_cash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="end"
+                        android:text="有无现金？"
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="20sp" />
+
+                    <CheckBox
+                        android:id="@+id/cb_is_need_cash"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical" />
+                </LinearLayout>
+
+                <include
+                    layout="@layout/layout_dialog_event_need_cash"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:id="@+id/ll_is_need_debt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="end"
+                        android:text="有无负债？"
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="20sp" />
+
+                    <CheckBox
+                        android:id="@+id/cb_is_need_debt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical" />
+                </LinearLayout>
+
+                <include
+                    layout="@layout/layout_dialog_event_need_debt"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:id="@+id/ll_is_need_deposit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="end"
+                        android:text="有无存款？"
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="20sp" />
+
+                    <CheckBox
+                        android:id="@+id/cb_is_need_deposit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical" />
+                </LinearLayout>
+
+                <include
+                    layout="@layout/layout_dialog_event_need_deposit"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:id="@+id/ll_is_need_health"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="end"
+                        android:text="有无健康？"
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="20sp" />
+
+                    <CheckBox
+                        android:id="@+id/cb_is_need_health"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical" />
+                </LinearLayout>
+
+                <include
+                    layout="@layout/layout_dialog_event_need_health"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btn_add_goods"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/btn_gray_selector"
+                    android:text="添加物品"
+                    android:textSize="12sp" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view_goods"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </ScrollView>
+
+        <RelativeLayout
+            android:id="@+id/rl_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <Button
+                android:id="@+id/btn_cancel"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="10dp"
+                android:layout_toStartOf="@+id/btn_ok"
+                android:background="@drawable/btn_gray_selector"
+                android:text="取消"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/btn_ok"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/btn_gray_selector"
+                android:text="确定"
+                android:textSize="12sp" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

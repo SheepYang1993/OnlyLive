@@ -34,6 +34,11 @@ public class EventUtil {
             P = new EventParams();
         }
 
+        public Builder setId(Long id) {
+            P.mId = id;
+            return this;
+        }
+
         public Builder setTitle(String title) {
             P.mTitle = title;
             return this;
@@ -158,6 +163,9 @@ public class EventUtil {
 
         public Event create() {
             Event event = new Event();
+            if (P.mId != null) {
+                event.setId(P.mId);
+            }
             event.setTitle(P.mTitle);
             event.setMessage(P.mMessage);
             event.setBtnOk(P.mOkText);
@@ -203,6 +211,7 @@ public class EventUtil {
         }
 
         private class EventParams {
+            Long mId;
             String mTitle;
             String mMessage;
             String mOkText;

@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_select"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="@dimen/event_dialog_text_width1"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="确定按钮："
+            android:textColor="@color/word_black_dark"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edt_ok_text"
+            android:layout_width="@dimen/event_dialog_text_hint_width1"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="15dp"
+            android:hint="请输入文字"
+            android:maxLength="3"
+            android:singleLine="true"
+            android:textColor="@color/word_black_dark"
+            android:textColorHint="@color/word_gary"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="@dimen/event_dialog_text_width1"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="取消按钮："
+            android:textColor="@color/word_black_dark"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edt_cancel_text"
+            android:layout_width="@dimen/event_dialog_text_hint_width1"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="15dp"
+            android:hint="请输入文字"
+            android:maxLength="3"
+            android:singleLine="true"
+            android:textColor="@color/word_black_dark"
+            android:textColorHint="@color/word_gary"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="@dimen/event_dialog_text_width1"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="确定后标题1："
+            android:textColor="@color/word_black_dark"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edt_ok_good_title"
+            android:layout_width="@dimen/event_dialog_text_hint_width1"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="15dp"
+            android:hint="请输入好标题"
+            android:maxLength="20"
+            android:singleLine="true"
+            android:textColor="@color/word_black_dark"
+            android:textColorHint="@color/word_gary"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="@dimen/event_dialog_text_width1"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="确定后内容1："
+            android:textColor="@color/word_black_dark"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edt_ok_good_msg"
+            android:layout_width="@dimen/event_dialog_text_hint_width1"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="15dp"
+            android:hint="请输入好内容"
+            android:maxLength="100"
+            android:singleLine="true"
+            android:textColor="@color/word_black_dark"
+            android:textColorHint="@color/word_gary"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="@dimen/event_dialog_text_width1"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="取消后标题1："
+            android:textColor="@color/word_black_dark"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edt_cancel_good_title"
+            android:layout_width="@dimen/event_dialog_text_hint_width1"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="15dp"
+            android:hint="请输入好标题"
+            android:maxLength="20"
+            android:singleLine="true"
+            android:textColor="@color/word_black_dark"
+            android:textColorHint="@color/word_gary"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="@dimen/event_dialog_text_width1"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="取消后内容1："
+            android:textColor="@color/word_black_dark"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edt_cancel_good_msg"
+            android:layout_width="@dimen/event_dialog_text_hint_width1"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="15dp"
+            android:hint="请输入好内容"
+            android:maxLength="100"
+            android:singleLine="true"
+            android:textColor="@color/word_black_dark"
+            android:textColorHint="@color/word_gary"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="@dimen/event_dialog_text_width1"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="确定后标题2："
+            android:textColor="@color/word_black_dark"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edt_ok_bad_title"
+            android:layout_width="@dimen/event_dialog_text_hint_width1"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="15dp"
+            android:hint="请输入坏标题"
+            android:maxLength="20"
+            android:singleLine="true"
+            android:textColor="@color/word_black_dark"
+            android:textColorHint="@color/word_gary"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="@dimen/event_dialog_text_width1"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="确定后内容2："
+            android:textColor="@color/word_black_dark"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edt_ok_bad_msg"
+            android:layout_width="@dimen/event_dialog_text_hint_width1"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="15dp"
+            android:hint="请输入坏内容"
+            android:maxLength="100"
+            android:singleLine="true"
+            android:textColor="@color/word_black_dark"
+            android:textColorHint="@color/word_gary"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="@dimen/event_dialog_text_width1"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="取消后标题2："
+            android:textColor="@color/word_black_dark"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edt_cancel_bad_title"
+            android:layout_width="@dimen/event_dialog_text_hint_width1"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="15dp"
+            android:hint="请输入坏标题"
+            android:maxLength="20"
+            android:singleLine="true"
+            android:textColor="@color/word_black_dark"
+            android:textColorHint="@color/word_gary"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="@dimen/event_dialog_text_width1"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="取消后内容2："
+            android:textColor="@color/word_black_dark"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edt_cancel_bad_msg"
+            android:layout_width="@dimen/event_dialog_text_hint_width1"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="15dp"
+            android:hint="请输入坏内容"
+            android:maxLength="100"
+            android:singleLine="true"
+            android:textColor="@color/word_black_dark"
+            android:textColorHint="@color/word_gary"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+</LinearLayout>
