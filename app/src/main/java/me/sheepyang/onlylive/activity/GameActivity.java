@@ -933,14 +933,16 @@ public class GameActivity extends BaseActivity {
                     mPlayer.setHealth(MathUtil.add(mPlayer.getHealth(), tempHealth));
                 }
             } else {// 坏结果
-                String tempHealth = "-" + MathUtil.abs(RandomUtil.getRandomNum(event.getHealth()));
-                String resultHealth = MathUtil.add(mPlayer.getHealth(), tempHealth);
-                if (MathUtil.lt(resultHealth, "0")) {// 身上存款不够扣
-                    msg += "<br/><font color='#646464'>健康 <font color='#ff435f'>-</font>" + MathUtil.abs(mPlayer.getHealth()) + "</font>";
-                    mPlayer.setHealth("0");
-                } else {
-                    msg += "<br/><font color='#646464'>健康 <font color='#ff435f'>-</font>" + MathUtil.abs(tempHealth) + "</font>";
-                    mPlayer.setHealth(resultHealth);
+                if (event.getHealth() != null && !TextUtils.isEmpty(event.getHealth().getNumber()) && !TextUtils.isEmpty(event.getHealth().getMaxPercent()) && !TextUtils.isEmpty(event.getHealth().getMinPercent())) {
+                    String tempHealth = "-" + MathUtil.abs(RandomUtil.getRandomNum(event.getHealth()));
+                    String resultHealth = MathUtil.add(mPlayer.getHealth(), tempHealth);
+                    if (MathUtil.lt(resultHealth, "0")) {// 身上存款不够扣
+                        msg += "<br/><font color='#646464'>健康 <font color='#ff435f'>-</font>" + MathUtil.abs(mPlayer.getHealth()) + "</font>";
+                        mPlayer.setHealth("0");
+                    } else {
+                        msg += "<br/><font color='#646464'>健康 <font color='#ff435f'>-</font>" + MathUtil.abs(tempHealth) + "</font>";
+                        mPlayer.setHealth(resultHealth);
+                    }
                 }
             }
         }
@@ -985,14 +987,16 @@ public class GameActivity extends BaseActivity {
                     mPlayer.setDeposit(MathUtil.add(mPlayer.getDeposit(), tempDeposit));
                 }
             } else {// 坏结果
-                String tempDeposit = "-" + MathUtil.abs(RandomUtil.getRandomNum(event.getDeposit()));
-                String resultDeposit = MathUtil.add(mPlayer.getDeposit(), tempDeposit);
-                if (MathUtil.lt(resultDeposit, "0")) {// 身上存款不够扣
-                    msg += "<br/><font color='#646464'>存款 <font color='#ff435f'>-</font>" + MathUtil.abs(mPlayer.getDeposit()) + "</font>";
-                    mPlayer.setDeposit("0");
-                } else {
-                    msg += "<br/><font color='#646464'>存款 <font color='#ff435f'>-</font>" + MathUtil.abs(tempDeposit) + "</font>";
-                    mPlayer.setDeposit(resultDeposit);
+                if (event.getDeposit() != null && !TextUtils.isEmpty(event.getDeposit().getNumber()) && !TextUtils.isEmpty(event.getDeposit().getMaxPercent()) && !TextUtils.isEmpty(event.getDeposit().getMinPercent())) {
+                    String tempDeposit = "-" + MathUtil.abs(RandomUtil.getRandomNum(event.getDeposit()));
+                    String resultDeposit = MathUtil.add(mPlayer.getDeposit(), tempDeposit);
+                    if (MathUtil.lt(resultDeposit, "0")) {// 身上存款不够扣
+                        msg += "<br/><font color='#646464'>存款 <font color='#ff435f'>-</font>" + MathUtil.abs(mPlayer.getDeposit()) + "</font>";
+                        mPlayer.setDeposit("0");
+                    } else {
+                        msg += "<br/><font color='#646464'>存款 <font color='#ff435f'>-</font>" + MathUtil.abs(tempDeposit) + "</font>";
+                        mPlayer.setDeposit(resultDeposit);
+                    }
                 }
             }
         }
@@ -1032,14 +1036,16 @@ public class GameActivity extends BaseActivity {
                     mPlayer.setDebt(MathUtil.add(mPlayer.getDebt(), tempDebt));
                 }
             } else {// 坏结果
-                String tempDebt = "-" + MathUtil.abs(RandomUtil.getRandomNum(event.getDebt()));
-                String resultDebt = MathUtil.add(mPlayer.getDebt(), tempDebt);
-                if (MathUtil.lt(resultDebt, "0")) {// 身上负债不够扣
-                    msg += "<br/><font color='#646464'>负债 <font color='#ff435f'>-</font>" + MathUtil.abs(mPlayer.getDebt()) + "</font>";
-                    mPlayer.setDebt("0");
-                } else {
-                    msg += "<br/><font color='#646464'>负债 <font color='#ff435f'>-</font>" + MathUtil.abs(tempDebt) + "</font>";
-                    mPlayer.setDebt(resultDebt);
+                if (event.getDebt() != null && !TextUtils.isEmpty(event.getDebt().getNumber()) && !TextUtils.isEmpty(event.getDebt().getMaxPercent()) && !TextUtils.isEmpty(event.getDebt().getMinPercent())) {
+                    String tempDebt = "-" + MathUtil.abs(RandomUtil.getRandomNum(event.getDebt()));
+                    String resultDebt = MathUtil.add(mPlayer.getDebt(), tempDebt);
+                    if (MathUtil.lt(resultDebt, "0")) {// 身上负债不够扣
+                        msg += "<br/><font color='#646464'>负债 <font color='#ff435f'>-</font>" + MathUtil.abs(mPlayer.getDebt()) + "</font>";
+                        mPlayer.setDebt("0");
+                    } else {
+                        msg += "<br/><font color='#646464'>负债 <font color='#ff435f'>-</font>" + MathUtil.abs(tempDebt) + "</font>";
+                        mPlayer.setDebt(resultDebt);
+                    }
                 }
             }
         }
@@ -1079,14 +1085,16 @@ public class GameActivity extends BaseActivity {
                     mPlayer.setCash(MathUtil.add(mPlayer.getCash(), tempCash));
                 }
             } else {// 坏结果
-                String tempCash = "-" + MathUtil.abs(RandomUtil.getRandomNum(event.getCash()));
-                String resultCash = MathUtil.add(mPlayer.getCash(), tempCash);
-                if (MathUtil.lt(resultCash, "0")) {// 身上现金不够扣
-                    msg += "<br/><font color='#646464'>现金 <font color='#ff435f'>-</font>" + MathUtil.abs(mPlayer.getCash()) + "</font>";
-                    mPlayer.setCash("0");
-                } else {
-                    msg += "<br/><font color='#646464'>现金 <font color='#ff435f'>-</font>" + MathUtil.abs(tempCash) + "</font>";
-                    mPlayer.setCash(resultCash);
+                if (event.getCash() != null && !TextUtils.isEmpty(event.getCash().getNumber()) && !TextUtils.isEmpty(event.getCash().getMaxPercent()) && !TextUtils.isEmpty(event.getCash().getMinPercent())) {
+                    String tempCash = "-" + MathUtil.abs(RandomUtil.getRandomNum(event.getCash()));
+                    String resultCash = MathUtil.add(mPlayer.getCash(), tempCash);
+                    if (MathUtil.lt(resultCash, "0")) {// 身上现金不够扣
+                        msg += "<br/><font color='#646464'>现金 <font color='#ff435f'>-</font>" + MathUtil.abs(mPlayer.getCash()) + "</font>";
+                        mPlayer.setCash("0");
+                    } else {
+                        msg += "<br/><font color='#646464'>现金 <font color='#ff435f'>-</font>" + MathUtil.abs(tempCash) + "</font>";
+                        mPlayer.setCash(resultCash);
+                    }
                 }
             }
         }
