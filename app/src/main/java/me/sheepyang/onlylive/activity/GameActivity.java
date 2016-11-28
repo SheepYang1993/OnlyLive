@@ -22,7 +22,9 @@ import me.sheepyang.onlylive.entity.Event;
 import me.sheepyang.onlylive.entity.Goods;
 import me.sheepyang.onlylive.entity.Player;
 import me.sheepyang.onlylive.entity.PlayerGoods;
+import me.sheepyang.onlylive.entity.Rank;
 import me.sheepyang.onlylive.utils.CacheUtil;
+import me.sheepyang.onlylive.utils.DateUtil;
 import me.sheepyang.onlylive.utils.MathUtil;
 import me.sheepyang.onlylive.utils.MyLog;
 import me.sheepyang.onlylive.utils.RandomUtil;
@@ -30,6 +32,7 @@ import me.sheepyang.onlylive.utils.data.EventUtil;
 import me.sheepyang.onlylive.utils.data.GoodsUtil;
 import me.sheepyang.onlylive.utils.data.PlayerGoodsUtil;
 import me.sheepyang.onlylive.utils.data.PlayerUtil;
+import me.sheepyang.onlylive.utils.data.RankUtil;
 import me.sheepyang.onlylive.utils.data.ShopGoodsUtil;
 import me.sheepyang.onlylive.widget.dialog.BankDialog;
 import me.sheepyang.onlylive.widget.dialog.MessageDialog;
@@ -411,6 +414,36 @@ public class GameActivity extends BaseActivity {
             msg += "英年早逝，不过十八年后又是一条好汉\n";
         }
         msg += "当前为第" + mPlayer.getWeek() + "周。\n总资产为：" + totalMoney + "\n游戏结束！";
+
+        Rank rank = new Rank();
+        rank.setName("玩家一");
+        rank.setDate(DateUtil.getCurrentDate(DateUtil.dateFormatYMDHMS));
+        rank.setScore(totalMoney);
+
+        String desc;
+        if (MathUtil.lt(totalMoney, "-100000000000")) {
+            desc = "穷神下凡";
+        } else if (MathUtil.ge(totalMoney, "-100000000000") && MathUtil.lt(totalMoney, "-1000000000")) {
+            desc = "穷绝人间";
+        } else if (MathUtil.ge(totalMoney, "-1000000000") && MathUtil.lt(totalMoney, "-10000000")) {
+            desc = "阴沟里翻船";
+        } else if (MathUtil.ge(totalMoney, "-10000000") && MathUtil.lt(totalMoney, "-100000")) {
+            desc = "白干一生";
+        } else if (MathUtil.ge(totalMoney, "-100000") && MathUtil.lt(totalMoney, "0")) {
+            desc = "穷死";
+        } else if (MathUtil.ge(totalMoney, "0") && MathUtil.lt(totalMoney, "100000")) {
+            desc = "渣渣一枚";
+        } else if (MathUtil.ge(totalMoney, "100000") && MathUtil.lt(totalMoney, "10000000")) {
+            desc = "小尝甜头";
+        } else if (MathUtil.ge(totalMoney, "10000000") && MathUtil.lt(totalMoney, "1000000000")) {
+            desc = "富甲一方";
+        } else if (MathUtil.ge(totalMoney, "1000000000") && MathUtil.lt(totalMoney, "100000000000")) {
+            desc = "富可敌国";
+        } else {
+            desc = "财神下凡";
+        }
+        rank.setDesc(desc + "   周数：第" + mPlayer.getWeek() + "周");
+        RankUtil.addRank(rank);
         mFinishDialog.setMessage(msg);
         dismissAllDialog();
         mFinishDialog.show(getSupportFragmentManager(), "FinishDialog");
@@ -423,19 +456,19 @@ public class GameActivity extends BaseActivity {
         String houseNum;
         String houseMoney;
         if (MathUtil.le(mPlayer.getHouseTotal(), CacheUtil.getInitGameHouseTotal(mContext))) {
-            houseNum = "120";
-            houseMoney = "800000";
-        } else if (MathUtil.le(mPlayer.getHouseTotal(), "120")) {
-            houseNum = "160";
-            houseMoney = "1200000";
-        } else if (MathUtil.le(mPlayer.getHouseTotal(), "160")) {
-            houseNum = "200";
-            houseMoney = "1800000";
+            houseNum = CacheUtil.getInitGameHouseLevel1(mContext);
+            houseMoney = CacheUtil.getInitGameHouseLevel1Cost(mContext);
+        } else if (MathUtil.le(mPlayer.getHouseTotal(), CacheUtil.getInitGameHouseLevel1(mContext))) {
+            houseNum = CacheUtil.getInitGameHouseLevel2(mContext);
+            houseMoney = CacheUtil.getInitGameHouseLevel2Cost(mContext);
+        } else if (MathUtil.le(mPlayer.getHouseTotal(), CacheUtil.getInitGameHouseLevel2(mContext))) {
+            houseNum = CacheUtil.getInitGameHouseLevel3(mContext);
+            houseMoney = CacheUtil.getInitGameHouseLevel3Cost(mContext);
         } else {
-            houseNum = "240";
-            houseMoney = "3600000";
+            houseNum = CacheUtil.getInitGameHouseLevel4(mContext);
+            houseMoney = CacheUtil.getInitGameHouseLevel4Cost(mContext);
         }
-        if (MathUtil.lt(mPlayer.getHouseTotal(), "240")) {
+        if (MathUtil.lt(mPlayer.getHouseTotal(), CacheUtil.getInitGameHouseLevel4(mContext))) {
             String cash = mPlayer.getCash();
             if (MathUtil.ge(cash, houseMoney)) {
                 mPlayer.setCash(MathUtil.subtract(cash, houseMoney));
@@ -607,7 +640,7 @@ public class GameActivity extends BaseActivity {
                 mPlayer.setCity(city);// 设置当前所在城市
                 PlayerUtil.setPlayer(mPlayer);
                 refreshPlayerData();
-                mShopDialog.setShopGoodsList(ShopGoodsUtil.getShopGoodsList(GoodsUtil.getRandomList(CacheUtil.getInitGameShopGoodsNumber(mContext))));// 设置商店物品，仅有切换过城市，商店物品价格才会变化
+                mShopDialog.setShopGoodsList(ShopGoodsUtil.getShopGoodsList(GoodsUtil.getRandomList(Integer.valueOf(CacheUtil.getInitGameShopGoodsNumber(mContext)))));// 设置商店物品，仅有切换过城市，商店物品价格才会变化
                 showSurpriseDialog();
             }
         }
@@ -672,22 +705,22 @@ public class GameActivity extends BaseActivity {
      */
     private void showRentalDialog() {
         dismissAllDialog();
-        int houseNum;
-        int houseMoney;
+        String houseNum;
+        String houseMoney;
         if (MathUtil.le(mPlayer.getHouseTotal(), CacheUtil.getInitGameHouseTotal(mContext))) {
-            houseNum = 120;
-            houseMoney = 800000;
-        } else if (MathUtil.le(mPlayer.getHouseTotal(), "120")) {
-            houseNum = 160;
-            houseMoney = 1200000;
-        } else if (MathUtil.le(mPlayer.getHouseTotal(), "160")) {
-            houseNum = 200;
-            houseMoney = 1800000;
+            houseNum = CacheUtil.getInitGameHouseLevel1(mContext);
+            houseMoney = CacheUtil.getInitGameHouseLevel1Cost(mContext);
+        } else if (MathUtil.le(mPlayer.getHouseTotal(), CacheUtil.getInitGameHouseLevel2(mContext))) {
+            houseNum = CacheUtil.getInitGameHouseLevel2(mContext);
+            houseMoney = CacheUtil.getInitGameHouseLevel2Cost(mContext);
+        } else if (MathUtil.le(mPlayer.getHouseTotal(), CacheUtil.getInitGameHouseLevel3(mContext))) {
+            houseNum = CacheUtil.getInitGameHouseLevel3(mContext);
+            houseMoney = CacheUtil.getInitGameHouseLevel3Cost(mContext);
         } else {
-            houseNum = 240;
-            houseMoney = 3600000;
+            houseNum = CacheUtil.getInitGameHouseLevel4(mContext);
+            houseMoney = CacheUtil.getInitGameHouseLevel4Cost(mContext);
         }
-        if (MathUtil.lt(mPlayer.getHouseTotal(), "240")) {
+        if (MathUtil.lt(mPlayer.getHouseTotal(), CacheUtil.getInitGameHouseLevel4(mContext))) {
             mRentalDialog.setMessage("您当前房屋容量为" + mPlayer.getHouseTotal() + "。\n我们有一套容量为" + houseNum + "的新房要出租，价格是" + houseMoney + "元，您要租下这套房子吗？");
         } else {
             mRentalDialog.setMessage("我们这边已经没有房屋出租了哦！您当前已经是最大容量的豪宅了！");
@@ -1076,7 +1109,7 @@ public class GameActivity extends BaseActivity {
             if (goodsList != null && goodsList.size() > 0) {
                 for (int i = 0; i < goodsList.size(); i++) {
                     // 随机获得1到5件物品
-                    goodsNum[i] = RandomUtil.getRandomNum(CacheUtil.getInitGameGoodsNumber(mContext), 1) + "";
+                    goodsNum[i] = RandomUtil.getRandomNum(Integer.valueOf(CacheUtil.getInitGameGoodsNumber(mContext)), 1) + "";
                     goodsTotalNum = MathUtil.add(goodsTotalNum, goodsNum[i]);
                 }
                 for (int i = 0; i < goodsList.size(); i++) {
@@ -1171,8 +1204,8 @@ public class GameActivity extends BaseActivity {
      */
     public String getTreatmentMoney() {
         if (MathUtil.gt(mPlayer.getHealth(), "0") && MathUtil.lt(mPlayer.getHealth(), "100")) {
-            String treatmentMoney = "2000";
-            String percent = MathUtil.divide(MathUtil.subtract("1", mPlayer.getHealth()), "100", 2);// 需治疗的生命占总生命 百分比
+            String treatmentMoney = CacheUtil.getInitGameHealthCost(mContext);
+            String percent = MathUtil.divide(MathUtil.subtract("100", mPlayer.getHealth()), "100", 2);// 需治疗的生命占总生命 百分比
             return MathUtil.multiply(percent, treatmentMoney);
         }
         return "0";

@@ -23,11 +23,13 @@ import me.sheepyang.onlylive.activity.setting.GoodsListActivity;
 import me.sheepyang.onlylive.activity.setting.InitGameDataActivity;
 import me.sheepyang.onlylive.activity.setting.SettingActivity;
 import me.sheepyang.onlylive.domain.SettingData;
+import me.sheepyang.onlylive.entity.Rank;
 import me.sheepyang.onlylive.utils.AppManager;
 import me.sheepyang.onlylive.utils.CacheUtil;
 import me.sheepyang.onlylive.utils.DataUtil;
 import me.sheepyang.onlylive.utils.MyLog;
 import me.sheepyang.onlylive.utils.data.PlayerUtil;
+import me.sheepyang.onlylive.utils.data.RankUtil;
 import me.sheepyang.onlylive.widget.dialog.SelectGameModeDialog;
 
 import static me.sheepyang.onlylive.widget.dialog.SelectGameModeDialog.MODE_NEW_GAME;
@@ -165,17 +167,7 @@ public class MainActivity extends BaseActivity {
                         mLogoLongClickTimes = 0;
                         MyLog.i("开启隐藏设置");
                         showToast("开启隐藏设置");
-
-                        Intent intent = new Intent(mContext, SettingActivity.class);
-                        intent.putExtra("title", "隐藏设置");
-
-                        ArrayList<SettingData> dataList = new ArrayList<>();
-                        dataList.add(initSettingData(SETTING_GAME_CONFIG));
-                        dataList.add(initSettingData(SETTING_EVENT_LIST));
-                        dataList.add(initSettingData(SETTING_GOODS_LIST));
-                        intent.putParcelableArrayListExtra("data", dataList);
-
-                        startActivity(intent);
+                        openSetting();
                     }
                 } else {
                     mLogoDoubleClickTime = System.currentTimeMillis();
@@ -184,8 +176,12 @@ public class MainActivity extends BaseActivity {
             case R.id.btn_play:// 开始游戏
                 mDialog.show();
                 break;
-            case R.id.btn_rank:
             case R.id.btn_setting:
+                openSetting();
+                break;
+            case R.id.btn_rank:
+                startActivity(new Intent(mContext, RankActivity.class));
+                break;
             case R.id.btn_share:
                 showToast("          暂未开放\n期待下一个版本吧~");
                 break;
@@ -198,6 +194,19 @@ public class MainActivity extends BaseActivity {
             default:
                 break;
         }
+    }
+
+    private void openSetting() {
+        Intent intent = new Intent(mContext, SettingActivity.class);
+        intent.putExtra("title", "设置");
+
+        ArrayList<SettingData> dataList = new ArrayList<>();
+        dataList.add(initSettingData(SETTING_GAME_CONFIG));
+        dataList.add(initSettingData(SETTING_EVENT_LIST));
+        dataList.add(initSettingData(SETTING_GOODS_LIST));
+        intent.putParcelableArrayListExtra("data", dataList);
+
+        startActivity(intent);
     }
 
     private SettingData initSettingData(int type) {

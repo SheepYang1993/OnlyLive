@@ -35,10 +35,8 @@ import me.sheepyang.onlylive.entity.Goods;
 import me.sheepyang.onlylive.entity.Number;
 import me.sheepyang.onlylive.utils.AppUtil;
 import me.sheepyang.onlylive.utils.MathUtil;
-import me.sheepyang.onlylive.utils.MyLog;
 import me.sheepyang.onlylive.utils.MyToast;
 import me.sheepyang.onlylive.utils.data.EventUtil;
-import me.sheepyang.onlylive.utils.data.GoodsUtil;
 import me.sheepyang.onlylive.utils.data.JoinBadGoodsToEventUtil;
 import me.sheepyang.onlylive.utils.data.JoinGoodGoodsToEventUtil;
 import me.sheepyang.onlylive.utils.data.NumberUtil;
@@ -630,8 +628,9 @@ public class EventDialog extends BaseDialogFragment implements View.OnClickListe
                     .setResultOKBadMsg(okBadMsg)
                     .setResultCancelBadTitle(cancelText)
                     .setResultCancelBadMsg(cancelBadMsg);
-
-            JoinBadGoodsToEventUtil.deleteAllGoods(mEvent.getId());
+            if (mEvent != null) {
+                JoinBadGoodsToEventUtil.deleteAllGoods(mEvent.getId());
+            }
             if (mBadDatas != null && mBadDatas.size() > 0) {
                 for (Goods goods :
                         mBadDatas) {
@@ -726,9 +725,9 @@ public class EventDialog extends BaseDialogFragment implements View.OnClickListe
 
         if (mEvent != null) {
             builder = builder.setId(mEvent.getId());
+            JoinGoodGoodsToEventUtil.deleteAllGoods(mEvent.getId());
         }
 
-        JoinGoodGoodsToEventUtil.deleteAllGoods(mEvent.getId());
         if (mGoodDatas != null && mGoodDatas.size() > 0) {
             for (Goods goods :
                     mGoodDatas) {

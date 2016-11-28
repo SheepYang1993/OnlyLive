@@ -110,6 +110,19 @@ public class MathUtil {
                 .toString();
     }
 
+    public static String divideRoundHalfDown(String a, String b) {
+        if (TextUtils.isEmpty(a)) {
+            a = "0";
+        }
+        if (TextUtils.isEmpty(b)) {
+            b = "0";
+        }
+        return new BigDecimal(a)
+                .divide(new BigDecimal(b), BigDecimal.ROUND_HALF_DOWN)
+                .toBigInteger()
+                .toString();
+    }
+
     /**
      * 除法 四舍五入
      *

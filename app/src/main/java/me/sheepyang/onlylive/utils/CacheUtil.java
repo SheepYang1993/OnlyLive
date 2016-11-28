@@ -2,6 +2,11 @@ package me.sheepyang.onlylive.utils;
 
 import android.content.Context;
 
+import static me.sheepyang.onlylive.app.Constants.INIT_GAME_HOUSE_LEVEL1;
+import static me.sheepyang.onlylive.app.Constants.INIT_GAME_HOUSE_LEVEL2;
+import static me.sheepyang.onlylive.app.Constants.INIT_GAME_HOUSE_LEVEL3;
+import static me.sheepyang.onlylive.app.Constants.INIT_GAME_HOUSE_LEVEL4;
+
 /**
  * Created by SheepYang on 2016/11/25.
  */
@@ -9,18 +14,23 @@ import android.content.Context;
 public class CacheUtil {
 
     public static final String IS_INIT = "isInit";
-    public static final String INIT_GAME_CASH = "initGameCash";
-    public static final String INIT_GAME_DEBT = "initGameDebt";
-    public static final String INIT_GAME_DEPOSIT = "initGameDeposit";
-    public static final String INIT_GAME_HEALTH = "initGameHealth";
-    public static final String INIT_GAME_HOUSE = "initGameHouse";
-    public static final String INIT_GAME_HOUSE_TOTAL = "initGameHouseTotal";
-    public static final String INIT_GAME_WEEK = "initGameWeek";
-    public static final String INIT_GAME_WEEK_TOTAL = "initGameWeekTotal";
-    public static final String INIT_GAME_SHOP_GOODS_NUMBER = "initGameShopGoodsNumber";
-    public static final String INIT_GAME_DEBT_RATE_MAX = "initGameDebtRateMax";
-    public static final String INIT_GAME_DEBT_RATE_MIN = "initGameDebtRateMin";
-    public static final String INIT_GAME_GOODS_NUMBER = "initGameGoodsNumber";
+    public static final String INIT_GAME_CASH = "INIT_GAME_CASH";// 现金
+    public static final String INIT_GAME_DEBT = "INIT_GAME_DEBT";// 负债
+    public static final String INIT_GAME_DEPOSIT = "INIT_GAME_DEPOSIT";// 存款
+    public static final String INIT_GAME_HEALTH = "INIT_GAME_HEALTH";// 健康
+    public static final String INIT_GAME_HOUSE = "INIT_GAME_HOUSE";// 房子数量
+    public static final String INIT_GAME_WEEK = "INIT_GAME_WEEK";// 周数
+    public static final String INIT_GAME_HOUSE_TOTAL = "INIT_GAME_HOUSE_TOTAL";// 总房子数量
+    public static final String INIT_GAME_WEEK_TOTAL = "INIT_GAME_WEEK_TOTAL";// 游戏总周数
+    public static final String INIT_GAME_SHOP_GOODS_NUMBER = "INIT_GAME_SHOP_GOODS_NUMBER";// 商店销售物品数量
+    public static final String INIT_GAME_DEBT_RATE_MAX = "INIT_GAME_DEBT_RATE_MAX";// 负债利息最高倍率
+    public static final String INIT_GAME_DEBT_RATE_MIN = "INIT_GAME_DEBT_RATE_MIN";// 负债利息最低倍率
+    public static final String INIT_GAME_GOODS_NUMBER = "INIT_GAME_GOODS_NUMBER";// 随机最多获得物品个数
+    public static final String INIT_GAME_HEALTH_COST = "INIT_GAME_HEALTH_COST";// 恢复100健康花费
+    public static final String INIT_GAME_HOUSE_LEVEL1_COST = "INIT_GAME_HOUSE_LEVEL1_COST";// 升级房子费用1
+    public static final String INIT_GAME_HOUSE_LEVEL2_COST = "INIT_GAME_HOUSE_LEVEL2_COST";// 升级房子费用2
+    public static final String INIT_GAME_HOUSE_LEVEL3_COST = "INIT_GAME_HOUSE_LEVEL3_COST";// 升级房子费用3
+    public static final String INIT_GAME_HOUSE_LEVEL4_COST = "INIT_GAME_HOUSE_LEVEL4_COST";// 升级房子费用4
 
 
     /**
@@ -159,12 +169,12 @@ public class CacheUtil {
      * @param context
      * @return
      */
-    public static int getInitGameShopGoodsNumber(Context context) {
-        return SPUtil.getInt(context, INIT_GAME_SHOP_GOODS_NUMBER);
+    public static String getInitGameShopGoodsNumber(Context context) {
+        return SPUtil.getString(context, INIT_GAME_SHOP_GOODS_NUMBER);
     }
 
-    public static void setInitGameShopGoodsNumber(Context context, int shopGoodsNumber) {
-        SPUtil.putInt(context, INIT_GAME_SHOP_GOODS_NUMBER, shopGoodsNumber);
+    public static void setInitGameShopGoodsNumber(Context context, String shopGoodsNumber) {
+        SPUtil.putString(context, INIT_GAME_SHOP_GOODS_NUMBER, shopGoodsNumber);
     }
 
     public static String getInitGameDebtRateMax(Context context) {
@@ -183,11 +193,83 @@ public class CacheUtil {
         SPUtil.putString(context, INIT_GAME_DEBT_RATE_MIN, cash);
     }
 
-    public static int getInitGameGoodsNumber(Context context) {
-        return SPUtil.getInt(context, INIT_GAME_GOODS_NUMBER);
+    public static String getInitGameGoodsNumber(Context context) {
+        return SPUtil.getString(context, INIT_GAME_GOODS_NUMBER);
     }
 
-    public static void setInitGameGoodsNumber(Context context, int shopGoodsNumber) {
-        SPUtil.putInt(context, INIT_GAME_GOODS_NUMBER, shopGoodsNumber);
+    public static void setInitGameGoodsNumber(Context context, String goodsNumber) {
+        SPUtil.putString(context, INIT_GAME_GOODS_NUMBER, goodsNumber);
+    }
+
+    public static String getInitGameHealthCost(Context context) {
+        return SPUtil.getString(context, INIT_GAME_HEALTH_COST);
+    }
+
+    public static void setInitGameHealthCost(Context context, String goodsNumber) {
+        SPUtil.putString(context, INIT_GAME_HEALTH_COST, goodsNumber);
+    }
+
+    public static String getInitGameHouseLevel1Cost(Context context) {
+        return SPUtil.getString(context, INIT_GAME_HOUSE_LEVEL1_COST);
+    }
+
+    public static void setInitGameHouseLevel1Cost(Context context, String goodsNumber) {
+        SPUtil.putString(context, INIT_GAME_HOUSE_LEVEL1_COST, goodsNumber);
+    }
+
+    public static String getInitGameHouseLevel2Cost(Context context) {
+        return SPUtil.getString(context, INIT_GAME_HOUSE_LEVEL2_COST);
+    }
+
+    public static void setInitGameHouseLevel2Cost(Context context, String goodsNumber) {
+        SPUtil.putString(context, INIT_GAME_HOUSE_LEVEL2_COST, goodsNumber);
+    }
+
+    public static String getInitGameHouseLevel3Cost(Context context) {
+        return SPUtil.getString(context, INIT_GAME_HOUSE_LEVEL3_COST);
+    }
+
+    public static void setInitGameHouseLevel3Cost(Context context, String goodsNumber) {
+        SPUtil.putString(context, INIT_GAME_HOUSE_LEVEL3_COST, goodsNumber);
+    }
+
+    public static String getInitGameHouseLevel4Cost(Context context) {
+        return SPUtil.getString(context, INIT_GAME_HOUSE_LEVEL4_COST);
+    }
+
+    public static void setInitGameHouseLevel4Cost(Context context, String goodsNumber) {
+        SPUtil.putString(context, INIT_GAME_HOUSE_LEVEL4_COST, goodsNumber);
+    }
+
+    public static String getInitGameHouseLevel1(Context context) {
+        return SPUtil.getString(context, INIT_GAME_HOUSE_LEVEL1);
+    }
+
+    public static void setInitGameHouseLevel1(Context context, String goodsNumber) {
+        SPUtil.putString(context, INIT_GAME_HOUSE_LEVEL1, goodsNumber);
+    }
+
+    public static String getInitGameHouseLevel2(Context context) {
+        return SPUtil.getString(context, INIT_GAME_HOUSE_LEVEL2);
+    }
+
+    public static void setInitGameHouseLevel2(Context context, String goodsNumber) {
+        SPUtil.putString(context, INIT_GAME_HOUSE_LEVEL2, goodsNumber);
+    }
+
+    public static String getInitGameHouseLevel3(Context context) {
+        return SPUtil.getString(context, INIT_GAME_HOUSE_LEVEL3);
+    }
+
+    public static void setInitGameHouseLevel3(Context context, String goodsNumber) {
+        SPUtil.putString(context, INIT_GAME_HOUSE_LEVEL3, goodsNumber);
+    }
+
+    public static String getInitGameHouseLevel4(Context context) {
+        return SPUtil.getString(context, INIT_GAME_HOUSE_LEVEL4);
+    }
+
+    public static void setInitGameHouseLevel4(Context context, String goodsNumber) {
+        SPUtil.putString(context, INIT_GAME_HOUSE_LEVEL4, goodsNumber);
     }
 }

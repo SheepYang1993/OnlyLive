@@ -132,7 +132,52 @@ public class InitGameDataActivity extends BaseActivity {
 
         data = new SettingData();
         data.setText("物品最多获得个数");
-        data.setDesc("最多获得：" + CacheUtil.getInitGameGoodsNumber(mContext) + "个         ");
+        data.setDesc("最多获得：" + CacheUtil.getInitGameGoodsNumber(mContext) + "个");
+        mDatas.add(data);
+
+        data = new SettingData();
+        data.setText("恢复健康费用");
+        data.setDesc("恢复100点花费：" + CacheUtil.getInitGameHealthCost(mContext));
+        mDatas.add(data);
+
+        data = new SettingData();
+        data.setText("房子空间1数量");
+        data.setDesc("房子空间：" + CacheUtil.getInitGameHouseLevel1(mContext));
+        mDatas.add(data);
+
+        data = new SettingData();
+        data.setText("房子空间2数量");
+        data.setDesc("房子空间：" + CacheUtil.getInitGameHouseLevel2(mContext));
+        mDatas.add(data);
+
+        data = new SettingData();
+        data.setText("房子空间3数量");
+        data.setDesc("房子空间：" + CacheUtil.getInitGameHouseLevel3(mContext));
+        mDatas.add(data);
+
+        data = new SettingData();
+        data.setText("房子空间4数量");
+        data.setDesc("房子空间：" + CacheUtil.getInitGameHouseLevel4(mContext));
+        mDatas.add(data);
+
+        data = new SettingData();
+        data.setText("升级房子费用1");
+        data.setDesc(CacheUtil.getInitGameHouseTotal(mContext) + " -> " + CacheUtil.getInitGameHouseLevel1(mContext) + "：" + CacheUtil.getInitGameHouseLevel1Cost(mContext));
+        mDatas.add(data);
+
+        data = new SettingData();
+        data.setText("升级房子费用2");
+        data.setDesc(CacheUtil.getInitGameHouseLevel1(mContext) + " -> " + CacheUtil.getInitGameHouseLevel2(mContext) + "：" + CacheUtil.getInitGameHouseLevel2Cost(mContext));
+        mDatas.add(data);
+
+        data = new SettingData();
+        data.setText("升级房子费用3");
+        data.setDesc(CacheUtil.getInitGameHouseLevel2(mContext) + " -> " + CacheUtil.getInitGameHouseLevel3(mContext) + "：" + CacheUtil.getInitGameHouseLevel3Cost(mContext));
+        mDatas.add(data);
+
+        data = new SettingData();
+        data.setText("升级房子费用4");
+        data.setDesc(CacheUtil.getInitGameHouseLevel3(mContext) + " -> " + CacheUtil.getInitGameHouseLevel4(mContext) + "：" + CacheUtil.getInitGameHouseLevel4Cost(mContext));
         mDatas.add(data);
 
         mAdapter.updata(mDatas);

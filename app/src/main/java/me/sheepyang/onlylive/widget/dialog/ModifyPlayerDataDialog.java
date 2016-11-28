@@ -47,6 +47,24 @@ public class ModifyPlayerDataDialog extends BaseDialogFragment implements View.O
     EditText edtMinPercent;
     @BindView(R.id.edt_goods_number)
     EditText edtGoodsNumber;
+    @BindView(R.id.edt_health_cost)
+    EditText edtHealthCost;
+    @BindView(R.id.edt_house_level1)
+    EditText edtHouseLevel1;
+    @BindView(R.id.edt_house_level2)
+    EditText edtHouseLevel2;
+    @BindView(R.id.edt_house_level3)
+    EditText edtHouseLevel3;
+    @BindView(R.id.edt_house_level4)
+    EditText edtHouseLevel4;
+    @BindView(R.id.edt_house_level1_cost)
+    EditText edtHouseLevel1Cost;
+    @BindView(R.id.edt_house_level2_cost)
+    EditText edtHouseLevel2Cost;
+    @BindView(R.id.edt_house_level3_cost)
+    EditText edtHouseLevel3Cost;
+    @BindView(R.id.edt_house_level4_cost)
+    EditText edtHouseLevel4Cost;
     private SaveListener mSaveListener;
 
     @Nullable
@@ -68,10 +86,19 @@ public class ModifyPlayerDataDialog extends BaseDialogFragment implements View.O
         edtHouseTotal.setText(CacheUtil.getInitGameHouseTotal(getActivity()));
         edtWeek.setText(CacheUtil.getInitGameWeek(getActivity()));
         edtWeekTotal.setText(CacheUtil.getInitGameWeekTotal(getActivity()));
-        edtShopGoodsNumber.setText(CacheUtil.getInitGameShopGoodsNumber(getActivity()) + "");
+        edtShopGoodsNumber.setText(CacheUtil.getInitGameShopGoodsNumber(getActivity()));
         edtMaxPercent.setText(MathUtil.multiply("100", CacheUtil.getInitGameDebtRateMax(getActivity())));
         edtMinPercent.setText(MathUtil.multiply("100", CacheUtil.getInitGameDebtRateMin(getActivity())));
-        edtGoodsNumber.setText(CacheUtil.getInitGameGoodsNumber(getActivity()) + "");
+        edtGoodsNumber.setText(CacheUtil.getInitGameGoodsNumber(getActivity()));
+        edtHealthCost.setText(CacheUtil.getInitGameHealthCost(getActivity()));
+        edtHouseLevel1.setText(CacheUtil.getInitGameHouseLevel1(getActivity()));
+        edtHouseLevel2.setText(CacheUtil.getInitGameHouseLevel2(getActivity()));
+        edtHouseLevel3.setText(CacheUtil.getInitGameHouseLevel3(getActivity()));
+        edtHouseLevel4.setText(CacheUtil.getInitGameHouseLevel4(getActivity()));
+        edtHouseLevel1Cost.setText(CacheUtil.getInitGameHouseLevel1Cost(getActivity()));
+        edtHouseLevel2Cost.setText(CacheUtil.getInitGameHouseLevel2Cost(getActivity()));
+        edtHouseLevel3Cost.setText(CacheUtil.getInitGameHouseLevel3Cost(getActivity()));
+        edtHouseLevel4Cost.setText(CacheUtil.getInitGameHouseLevel4Cost(getActivity()));
     }
 
     @Override
@@ -108,6 +135,15 @@ public class ModifyPlayerDataDialog extends BaseDialogFragment implements View.O
         String goodsNumber = edtGoodsNumber.getText().toString();
         String maxPercent = edtMaxPercent.getText().toString();
         String minPercent = edtMinPercent.getText().toString();
+        String healthCost = edtHealthCost.getText().toString();
+        String houseLevel1 = edtHouseLevel1.getText().toString();
+        String houseLevel2 = edtHouseLevel2.getText().toString();
+        String houseLevel3 = edtHouseLevel3.getText().toString();
+        String houseLevel4 = edtHouseLevel4.getText().toString();
+        String houseLevel1Cost = edtHouseLevel1Cost.getText().toString();
+        String houseLevel2Cost = edtHouseLevel2Cost.getText().toString();
+        String houseLevel3Cost = edtHouseLevel3Cost.getText().toString();
+        String houseLevel4Cost = edtHouseLevel4Cost.getText().toString();
 
         if (!checkNumber("现金", cash)) {
             return;
@@ -136,13 +172,40 @@ public class ModifyPlayerDataDialog extends BaseDialogFragment implements View.O
         if (!checkNumber("出售商品数", shopGoodsNumber)) {
             return;
         }
-        if (!checkNumber("物品最多获得", goodsNumber)) {
+        if (!checkNumber("利息最高倍率", maxPercent)) {
             return;
         }
-        if (!checkNumber("利息浮动上限", maxPercent)) {
+        if (!checkNumber("利息最低倍率", minPercent)) {
             return;
         }
-        if (!checkNumber("利息浮动下限", minPercent)) {
+        if (!checkNumber("物品获得数", goodsNumber)) {
+            return;
+        }
+        if (!checkNumber("恢复健康费用", healthCost)) {
+            return;
+        }
+        if (!checkNumber("房子1数量", houseLevel1)) {
+            return;
+        }
+        if (!checkNumber("房子2数量", houseLevel2)) {
+            return;
+        }
+        if (!checkNumber("房子3数量", houseLevel3)) {
+            return;
+        }
+        if (!checkNumber("房子4数量", houseLevel4)) {
+            return;
+        }
+        if (!checkNumber("房子1花费", houseLevel1Cost)) {
+            return;
+        }
+        if (!checkNumber("房子2花费", houseLevel2Cost)) {
+            return;
+        }
+        if (!checkNumber("房子3花费", houseLevel3Cost)) {
+            return;
+        }
+        if (!checkNumber("房子4花费", houseLevel4Cost)) {
             return;
         }
 
@@ -179,19 +242,55 @@ public class ModifyPlayerDataDialog extends BaseDialogFragment implements View.O
             return;
         }
         if (MathUtil.le(maxPercent, "0")) {
-            MyToast.showMessage(getActivity(), "价格浮动上限 必须大于 0");
+            MyToast.showMessage(getActivity(), "利息最高倍率 必须大于 0");
             return;
         }
         if (MathUtil.le(minPercent, "0")) {
-            MyToast.showMessage(getActivity(), "价格浮动下限 必须大于 0");
+            MyToast.showMessage(getActivity(), "利息最低倍率 必须大于 0");
             return;
         }
         if (MathUtil.le(maxPercent, minPercent)) {
-            MyToast.showMessage(getActivity(), "价格浮动上限 必须大于 价格浮动下限");
+            MyToast.showMessage(getActivity(), "利息最高倍率 必须大于 利息最低倍率");
             return;
         }
         maxPercent = MathUtil.divide(maxPercent, "100", 2);
         minPercent = MathUtil.divide(minPercent, "100", 2);
+        if (MathUtil.le(healthCost, "0")) {
+            MyToast.showMessage(getActivity(), "恢复健康费用 必须大于 0");
+            return;
+        }
+        if (MathUtil.le(houseLevel1, houseTotal)) {
+            MyToast.showMessage(getActivity(), "房子1数量 必须大于 总房子数量");
+            return;
+        }
+        if (MathUtil.le(houseLevel2, houseLevel1)) {
+            MyToast.showMessage(getActivity(), "房子2数量 必须大于 房子1数量");
+            return;
+        }
+        if (MathUtil.le(houseLevel3, houseLevel2)) {
+            MyToast.showMessage(getActivity(), "房子3数量 必须大于 房子2数量");
+            return;
+        }
+        if (MathUtil.le(houseLevel4, houseLevel3)) {
+            MyToast.showMessage(getActivity(), "房子4数量 必须大于 房子3数量");
+            return;
+        }
+        if (MathUtil.le(houseLevel1Cost, "0")) {
+            MyToast.showMessage(getActivity(), "房子1花费 必须大于 0");
+            return;
+        }
+        if (MathUtil.le(houseLevel2Cost, "0")) {
+            MyToast.showMessage(getActivity(), "房子2花费 必须大于 0");
+            return;
+        }
+        if (MathUtil.le(houseLevel3Cost, "0")) {
+            MyToast.showMessage(getActivity(), "房子3花费 必须大于 0");
+            return;
+        }
+        if (MathUtil.le(houseLevel4Cost, "0")) {
+            MyToast.showMessage(getActivity(), "房子4花费 必须大于 0");
+            return;
+        }
 
         CacheUtil.setInitGameCash(getActivity(), MathUtil.getNumber(cash, 0));
         CacheUtil.setInitGameDebt(getActivity(), MathUtil.getNumber(debt, 0));
@@ -201,12 +300,19 @@ public class ModifyPlayerDataDialog extends BaseDialogFragment implements View.O
         CacheUtil.setInitGameHouseTotal(getActivity(), MathUtil.getNumber(houseTotal, 0));
         CacheUtil.setInitGameWeek(getActivity(), MathUtil.getNumber(week, 0));
         CacheUtil.setInitGameWeekTotal(getActivity(), MathUtil.getNumber(weekTotal, 0));
-        CacheUtil.setInitGameShopGoodsNumber(getActivity(), Integer.valueOf(MathUtil.getNumber(shopGoodsNumber, 0)));
-        CacheUtil.setInitGameGoodsNumber(getActivity(), Integer.valueOf(MathUtil.getNumber(goodsNumber, 0)));
-
+        CacheUtil.setInitGameShopGoodsNumber(getActivity(), MathUtil.getNumber(shopGoodsNumber, 0));
+        CacheUtil.setInitGameGoodsNumber(getActivity(), MathUtil.getNumber(goodsNumber, 0));
         CacheUtil.setInitGameDebtRateMax(getActivity(), MathUtil.getNumber(maxPercent, 2));
         CacheUtil.setInitGameDebtRateMin(getActivity(), MathUtil.getNumber(minPercent, 2));
-
+        CacheUtil.setInitGameHealthCost(getActivity(), MathUtil.getNumber(healthCost, 0));
+        CacheUtil.setInitGameHouseLevel1(getActivity(), MathUtil.getNumber(houseLevel1, 0));
+        CacheUtil.setInitGameHouseLevel2(getActivity(), MathUtil.getNumber(houseLevel2, 0));
+        CacheUtil.setInitGameHouseLevel3(getActivity(), MathUtil.getNumber(houseLevel3, 0));
+        CacheUtil.setInitGameHouseLevel4(getActivity(), MathUtil.getNumber(houseLevel4, 0));
+        CacheUtil.setInitGameHouseLevel1Cost(getActivity(), MathUtil.getNumber(houseLevel1Cost, 0));
+        CacheUtil.setInitGameHouseLevel2Cost(getActivity(), MathUtil.getNumber(houseLevel2Cost, 0));
+        CacheUtil.setInitGameHouseLevel3Cost(getActivity(), MathUtil.getNumber(houseLevel3Cost, 0));
+        CacheUtil.setInitGameHouseLevel4Cost(getActivity(), MathUtil.getNumber(houseLevel4Cost, 0));
         dismiss();
         if (mSaveListener != null) {
             mSaveListener.onSuccess();

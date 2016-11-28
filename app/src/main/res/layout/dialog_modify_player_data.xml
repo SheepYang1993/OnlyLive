@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="450dp"
         android:layout_margin="10dp"
         android:background="@drawable/bg_gray_shape"
         android:focusable="true"
@@ -64,7 +64,7 @@
                         android:gravity="right"
                         android:text="现金："
                         android:textColor="@color/word_black_dark"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/edt_cash"
@@ -79,7 +79,7 @@
                         android:singleLine="true"
                         android:textColor="@color/word_black_dark"
                         android:textColorHint="@color/word_gary"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -95,7 +95,7 @@
                         android:gravity="right"
                         android:text="负债："
                         android:textColor="@color/word_black_dark"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/edt_debt"
@@ -110,7 +110,7 @@
                         android:singleLine="true"
                         android:textColor="@color/word_black_dark"
                         android:textColorHint="@color/word_gary"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -126,7 +126,7 @@
                         android:gravity="right"
                         android:text="存款："
                         android:textColor="@color/word_black_dark"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/edt_deposit"
@@ -141,7 +141,7 @@
                         android:singleLine="true"
                         android:textColor="@color/word_black_dark"
                         android:textColorHint="@color/word_gary"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -157,7 +157,7 @@
                         android:gravity="right"
                         android:text="健康："
                         android:textColor="@color/word_black_dark"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/edt_health"
@@ -172,7 +172,7 @@
                         android:singleLine="true"
                         android:textColor="@color/word_black_dark"
                         android:textColorHint="@color/word_gary"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -188,7 +188,7 @@
                         android:gravity="right"
                         android:text="使用空间："
                         android:textColor="@color/word_black_dark"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/edt_house"
@@ -203,7 +203,7 @@
                         android:singleLine="true"
                         android:textColor="@color/word_black_dark"
                         android:textColorHint="@color/word_gary"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -219,7 +219,7 @@
                         android:gravity="right"
                         android:text="总房子数量："
                         android:textColor="@color/word_black_dark"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/edt_house_total"
@@ -234,7 +234,7 @@
                         android:singleLine="true"
                         android:textColor="@color/word_black_dark"
                         android:textColorHint="@color/word_gary"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -250,7 +250,7 @@
                         android:gravity="right"
                         android:text="当前周数："
                         android:textColor="@color/word_black_dark"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/edt_week"
@@ -265,7 +265,7 @@
                         android:singleLine="true"
                         android:textColor="@color/word_black_dark"
                         android:textColorHint="@color/word_gary"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -281,7 +281,7 @@
                         android:gravity="right"
                         android:text="游戏总周数："
                         android:textColor="@color/word_black_dark"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/edt_week_total"
@@ -296,7 +296,7 @@
                         android:singleLine="true"
                         android:textColor="@color/word_black_dark"
                         android:textColorHint="@color/word_gary"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -312,7 +312,7 @@
                         android:gravity="right"
                         android:text="出售商品数："
                         android:textColor="@color/word_black_dark"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/edt_shop_goods_number"
@@ -327,7 +327,7 @@
                         android:singleLine="true"
                         android:textColor="@color/word_black_dark"
                         android:textColorHint="@color/word_gary"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -341,9 +341,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="right"
-                        android:text="利息浮动上限："
+                        android:text="利息最高倍率："
                         android:textColor="@color/word_black_dark"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/edt_max_percent"
@@ -357,7 +357,7 @@
                         android:singleLine="true"
                         android:textColor="@color/word_black_dark"
                         android:textColorHint="@color/word_gary"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -365,7 +365,7 @@
                         android:layout_marginRight="15dp"
                         android:text="%"
                         android:textColor="@color/word_black_dark"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -379,9 +379,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="right"
-                        android:text="利息浮动下限："
+                        android:text="利息最低倍率："
                         android:textColor="@color/word_black_dark"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/edt_min_percent"
@@ -395,7 +395,7 @@
                         android:singleLine="true"
                         android:textColor="@color/word_black_dark"
                         android:textColorHint="@color/word_gary"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -403,7 +403,7 @@
                         android:layout_marginRight="15dp"
                         android:text="%"
                         android:textColor="@color/word_black_dark"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -419,7 +419,7 @@
                         android:gravity="right"
                         android:text="物品获得数："
                         android:textColor="@color/word_black_dark"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/edt_goods_number"
@@ -434,7 +434,286 @@
                         android:singleLine="true"
                         android:textColor="@color/word_black_dark"
                         android:textColorHint="@color/word_gary"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/modify_play_data_dialog_text_width"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="恢复健康费用："
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edt_health_cost"
+                        android:layout_width="@dimen/modify_play_data_dialog_text_hint_width"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="15dp"
+                        android:digits="0123456789"
+                        android:hint="请输入整数"
+                        android:inputType="numberDecimal"
+                        android:maxLength="13"
+                        android:singleLine="true"
+                        android:textColor="@color/word_black_dark"
+                        android:textColorHint="@color/word_gary"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/modify_play_data_dialog_text_width"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="房子1数量："
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edt_house_level1"
+                        android:layout_width="@dimen/modify_play_data_dialog_text_hint_width"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="15dp"
+                        android:digits="0123456789"
+                        android:hint="请输入整数"
+                        android:inputType="numberDecimal"
+                        android:maxLength="13"
+                        android:singleLine="true"
+                        android:textColor="@color/word_black_dark"
+                        android:textColorHint="@color/word_gary"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/modify_play_data_dialog_text_width"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="房子2数量："
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edt_house_level2"
+                        android:layout_width="@dimen/modify_play_data_dialog_text_hint_width"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="15dp"
+                        android:digits="0123456789"
+                        android:hint="请输入整数"
+                        android:inputType="numberDecimal"
+                        android:maxLength="13"
+                        android:singleLine="true"
+                        android:textColor="@color/word_black_dark"
+                        android:textColorHint="@color/word_gary"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/modify_play_data_dialog_text_width"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="房子3数量："
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edt_house_level3"
+                        android:layout_width="@dimen/modify_play_data_dialog_text_hint_width"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="15dp"
+                        android:digits="0123456789"
+                        android:hint="请输入整数"
+                        android:inputType="numberDecimal"
+                        android:maxLength="13"
+                        android:singleLine="true"
+                        android:textColor="@color/word_black_dark"
+                        android:textColorHint="@color/word_gary"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/modify_play_data_dialog_text_width"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="房子4数量："
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edt_house_level4"
+                        android:layout_width="@dimen/modify_play_data_dialog_text_hint_width"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="15dp"
+                        android:digits="0123456789"
+                        android:hint="请输入整数"
+                        android:inputType="numberDecimal"
+                        android:maxLength="13"
+                        android:singleLine="true"
+                        android:textColor="@color/word_black_dark"
+                        android:textColorHint="@color/word_gary"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/modify_play_data_dialog_text_width"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="房子1花费："
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edt_house_level1_cost"
+                        android:layout_width="@dimen/modify_play_data_dialog_text_hint_width"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="15dp"
+                        android:digits="0123456789"
+                        android:hint="请输入整数"
+                        android:inputType="numberDecimal"
+                        android:maxLength="13"
+                        android:singleLine="true"
+                        android:textColor="@color/word_black_dark"
+                        android:textColorHint="@color/word_gary"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/modify_play_data_dialog_text_width"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="房子2花费："
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edt_house_level2_cost"
+                        android:layout_width="@dimen/modify_play_data_dialog_text_hint_width"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="15dp"
+                        android:digits="0123456789"
+                        android:hint="请输入整数"
+                        android:inputType="numberDecimal"
+                        android:maxLength="13"
+                        android:singleLine="true"
+                        android:textColor="@color/word_black_dark"
+                        android:textColorHint="@color/word_gary"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/modify_play_data_dialog_text_width"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="房子3花费："
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edt_house_level3_cost"
+                        android:layout_width="@dimen/modify_play_data_dialog_text_hint_width"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="15dp"
+                        android:digits="0123456789"
+                        android:hint="请输入整数"
+                        android:inputType="numberDecimal"
+                        android:maxLength="13"
+                        android:singleLine="true"
+                        android:textColor="@color/word_black_dark"
+                        android:textColorHint="@color/word_gary"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="@dimen/modify_play_data_dialog_text_width"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="房子4花费："
+                        android:textColor="@color/word_black_dark"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/edt_house_level4_cost"
+                        android:layout_width="@dimen/modify_play_data_dialog_text_hint_width"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="15dp"
+                        android:digits="0123456789"
+                        android:hint="请输入整数"
+                        android:inputType="numberDecimal"
+                        android:maxLength="13"
+                        android:singleLine="true"
+                        android:textColor="@color/word_black_dark"
+                        android:textColorHint="@color/word_gary"
+                        android:textSize="16sp" />
 
                 </LinearLayout>
             </LinearLayout>

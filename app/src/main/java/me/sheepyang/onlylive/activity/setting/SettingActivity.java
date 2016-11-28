@@ -26,8 +26,8 @@ public class SettingActivity extends BaseActivity {
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
-    private SettingAdapter mAdapter;
     private String mTitle;// 标题
+    private SettingAdapter mAdapter;
     private ArrayList<SettingData> mDatas;// 菜单列表数据源
     private Intent mIntent;
 

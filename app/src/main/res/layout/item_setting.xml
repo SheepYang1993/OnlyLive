@@ -22,7 +22,7 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:maxWidth="160dp"
-            android:text="fadsfasdfadsfadsfadsfadsfasfsafs"
+            android:text=""
             android:textColor="@color/word_black"
             android:textSize="20sp" />
 
