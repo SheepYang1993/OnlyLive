@@ -1,5 +1,6 @@
 package me.sheepyang.onlylive.utils;
 
+import android.content.Context;
 import android.text.TextUtils;
 
 import java.math.BigDecimal;
@@ -76,6 +77,26 @@ public class MathUtil {
      * @param b
      * @return
      */
+    public static String multiply(String a, String b, int scalse) {
+        if (TextUtils.isEmpty(a)) {
+            a = "0";
+        }
+        if (TextUtils.isEmpty(b)) {
+            b = "0";
+        }
+        return new BigDecimal(a)
+                .multiply(new BigDecimal(b))
+                .setScale(scalse, BigDecimal.ROUND_HALF_UP)
+                .toString();
+    }
+
+    /**
+     * 乘法 四舍五入
+     *
+     * @param a
+     * @param b
+     * @return
+     */
     public static String multiply(String a, String b) {
         if (TextUtils.isEmpty(a)) {
             a = "0";
@@ -110,7 +131,7 @@ public class MathUtil {
                 .toString();
     }
 
-    public static String divideRoundHalfDown(String a, String b) {
+    public static String divideRoundDown(int scalse, String a, String b) {
         if (TextUtils.isEmpty(a)) {
             a = "0";
         }
@@ -118,7 +139,7 @@ public class MathUtil {
             b = "0";
         }
         return new BigDecimal(a)
-                .divide(new BigDecimal(b), BigDecimal.ROUND_HALF_DOWN)
+                .divide(new BigDecimal(b), scalse, BigDecimal.ROUND_DOWN)
                 .toBigInteger()
                 .toString();
     }
@@ -262,6 +283,14 @@ public class MathUtil {
         } else {
             return false;
         }
+    }
+
+    /**
+     * 获取计算利息后的money
+     */
+    public static String getInterest(Context context, String money) {
+        String percent = MathUtil.divide("" + RandomUtil.getRandomNum(Integer.valueOf(MathUtil.multiply("100", CacheUtil.getInitGameDebtRateMax(context))), Integer.valueOf(MathUtil.multiply("100", CacheUtil.getInitGameDebtRateMin(context)))), "100", 2);
+        return MathUtil.multiply(money, percent);
     }
 
     public static boolean checkNumber(String number) {

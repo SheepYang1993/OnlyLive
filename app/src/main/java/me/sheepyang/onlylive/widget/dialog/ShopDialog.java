@@ -426,7 +426,7 @@ public class ShopDialog extends BaseDialogFragment {
 
     public void setSeekBarToMax(ShopGoods shopGoods) {
         if (shopGoods != null) {
-            String totalGoodsNum = (MathUtil.divideRoundHalfDown(mPlayer.getCash(), shopGoods.getPrice()));// 现金最多能买商品个数
+            String totalGoodsNum = (MathUtil.divideRoundDown(0, mPlayer.getCash(), shopGoods.getPrice()));// 现金最多能买商品个数
             String houseNum = MathUtil.subtract(mPlayer.getHouseTotal(), mPlayer.getHouse());// 房子能装下的商品个数
             MyLog.i("seekbar -> 剩余空间:" + houseNum + ", 能够购买:" + totalGoodsNum);
             MyLog.i("seekbar -> 玩家现金:" + mPlayer.getCash() + ", 物品价格:" + shopGoods.getPrice());

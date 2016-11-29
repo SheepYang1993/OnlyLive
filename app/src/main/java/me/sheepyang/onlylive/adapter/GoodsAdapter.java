@@ -42,6 +42,13 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         Goods goods = mDatas.get(position);
+        if (MathUtil.lt(MathUtil.multiply(goods.getPrice().getMaxPercent(), goods.getPrice().getMinPercent(), 2), "1")) {
+            holder.tvName.setTextColor(mContext.getResources().getColor(R.color.theme1_red));
+        } else if (MathUtil.gt(MathUtil.multiply(goods.getPrice().getMaxPercent(), goods.getPrice().getMinPercent(), 2), "1")) {
+            holder.tvName.setTextColor(mContext.getResources().getColor(R.color.theme1_blue_dark2));
+        } else {
+            holder.tvName.setTextColor(mContext.getResources().getColor(R.color.word_black));
+        }
         holder.tvName.setText(goods.getName());
         holder.tvUnit.setText(goods.getUnit());
         holder.tvPrice.setText(goods.getPrice().getNumber());

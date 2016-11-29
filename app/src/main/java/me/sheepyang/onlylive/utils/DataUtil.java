@@ -57,57 +57,226 @@ public class DataUtil {
     private static void initGoods() {
         GoodsUtil.deleteAll();
         new GoodsUtil.Builder()
-                .setName("假冒茅台")
-                .setUnit("瓶")
+                .setName("桔红糕")
+                .setUnit("块")
+                .setPrice(NumberUtil.create("20", "4", "0.2"))// 0.8
+                .create();
+        new GoodsUtil.Builder()
+                .setName("秉正石花膏")
+                .setUnit("碗")
+                .setPrice(NumberUtil.create("50", "2", "0.4"))// 0.8
+                .create();
+        new GoodsUtil.Builder()
+                .setName("面线糊")
+                .setUnit("碗")
+                .setPrice(NumberUtil.create("100", "1.5", "0.5"))// 0.75
+                .create();
+        new GoodsUtil.Builder()
+                .setName("泉州牛排")
+                .setUnit("块")
+                .setPrice(NumberUtil.create("250", "1.6", "0.72"))// 1.152
+                .create();
+        new GoodsUtil.Builder()
+                .setName("匹克校服")
+                .setUnit("件")
+                .setPrice(NumberUtil.create("500", "1.2", "0.4"))// 0.48
+                .create();
+        new GoodsUtil.Builder()
+                .setName("阿迪王跑鞋")
+                .setUnit("双")
+                .setPrice(NumberUtil.create("700", "1.43", "0.57"))// 0.815
+                .create();
+        new GoodsUtil.Builder()
+                .setName("鸡圈")
+                .setUnit("条")
+                .setPrice(NumberUtil.create("1200", "3", "0.5"))// 1.5
+                .create();
+
+
+        new GoodsUtil.Builder()
+                .setName("蚵仔煎")
+                .setUnit("份")
                 .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
                 .create();
-
         new GoodsUtil.Builder()
-                .setName("黑心棉")
-                .setUnit("件")
-                .setPrice(NumberUtil.create("999", "2.5", "0.3"))
+                .setName("土笋冻")
+                .setUnit("块")
+                .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
                 .create();
-
-        new GoodsUtil.Builder()
-                .setName("北京户口")
-                .setUnit("本")
-                .setPrice(NumberUtil.create("120000", "2.2", "1"))
-                .create();
-
-        new GoodsUtil.Builder()
-                .setName("名校学历")
-                .setUnit("本")
-                .setPrice(NumberUtil.create("80000", "2", "0.9"))
-                .create();
-
-        new GoodsUtil.Builder()
-                .setName("走私海洛因")
-                .setUnit("包")
-                .setPrice(NumberUtil.create("10000", "3", "0.1"))
-                .create();
-
         new GoodsUtil.Builder()
                 .setName("高考答案")
+                .setUnit("块")
+                .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
+                .create();
+        new GoodsUtil.Builder()
+                .setName("五香卷")
+                .setUnit("条")
+                .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
+                .create();
+        new GoodsUtil.Builder()
+                .setName("沙茶面")
+                .setUnit("碗")
+                .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
+                .create();
+        new GoodsUtil.Builder()
+                .setName("四果汤")
+                .setUnit("碗")
+                .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
+                .create();
+        new GoodsUtil.Builder()
+                .setName("黄冈数学")
+                .setUnit("本")
+                .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
+                .create();
+        new GoodsUtil.Builder()
+                .setName("福伯烧仙草")
+                .setUnit("杯")
+                .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
+                .create();
+        new GoodsUtil.Builder()
+                .setName("润饼菜")
                 .setUnit("份")
-                .setPrice(NumberUtil.create("700000", "4", "0.8"))
+                .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
                 .create();
-
         new GoodsUtil.Builder()
-                .setName("走私汽车")
+                .setName("烧肉粽")
+                .setUnit("份")
+                .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
+                .create();
+        new GoodsUtil.Builder()
+                .setName("洪濑鸡爪")
+                .setUnit("斤")
+                .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
+                .create();
+        new GoodsUtil.Builder()
+                .setName("姜母鸭")
+                .setUnit("只")
+                .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
+                .create();
+        new GoodsUtil.Builder()
+                .setName("崇武鱼卷")
+                .setUnit("条")
+                .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
+                .create();
+        new GoodsUtil.Builder()
+                .setName("兰州拉面")
+                .setUnit("碗")
+                .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
+                .create();
+        new GoodsUtil.Builder()
+                .setName("牛肉羹")
+                .setUnit("碗")
+                .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
+                .create();
+        new GoodsUtil.Builder()
+                .setName("永春白鸭")
+                .setUnit("只")
+                .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
+                .create();
+        new GoodsUtil.Builder()
+                .setName("炸醋肉")
+                .setUnit("份")
+                .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
+                .create();
+        new GoodsUtil.Builder()
+                .setName("绿豆饼")
+                .setUnit("包")
+                .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
+                .create();
+        new GoodsUtil.Builder()
+                .setName("安溪铁观音")
+                .setUnit("罐")
+                .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
+                .create();
+        new GoodsUtil.Builder()
+                .setName("浪琴手表")
+                .setUnit("只")
+                .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
+                .create();
+        new GoodsUtil.Builder()
+                .setName("小沙弥摆件")
+                .setUnit("尊")
+                .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
+                .create();
+        new GoodsUtil.Builder()
+                .setName("李志演唱会门票")
+                .setUnit("张")
+                .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
+                .create();
+        new GoodsUtil.Builder()
+                .setName("迷笛音乐节门票")
+                .setUnit("张")
+                .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
+                .create();
+        new GoodsUtil.Builder()
+                .setName("民国老花镜")
+                .setUnit("副")
+                .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
+                .create();
+        new GoodsUtil.Builder()
+                .setName("小叶紫檀手串")
+                .setUnit("串")
+                .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
+                .create();
+        new GoodsUtil.Builder()
+                .setName("深沪鱼丸")
+                .setUnit("包")
+                .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
+                .create();
+        new GoodsUtil.Builder()
+                .setName("死飞自行车")
                 .setUnit("辆")
-                .setPrice(NumberUtil.create("100000", "2", "1"))
+                .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
                 .create();
-
         new GoodsUtil.Builder()
-                .setName("水货手机")
-                .setUnit("部")
-                .setPrice(NumberUtil.create("15000", "1.5", "0.3"))
+                .setName("凤凰牌单车")
+                .setUnit("辆")
+                .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
                 .create();
-
         new GoodsUtil.Builder()
-                .setName("劣质化妆品")
-                .setUnit("盒")
-                .setPrice(NumberUtil.create("1500", "2", "0.5"))
+                .setName("泰国洗面奶")
+                .setUnit("支")
+                .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
+                .create();
+        new GoodsUtil.Builder()
+                .setName("宫崎骏手稿")
+                .setUnit("份")
+                .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
+                .create();
+        new GoodsUtil.Builder()
+                .setName("盗墓笔记")
+                .setUnit("本")
+                .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
+                .create();
+        new GoodsUtil.Builder()
+                .setName("全单吉他")
+                .setUnit("把")
+                .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
+                .create();
+        new GoodsUtil.Builder()
+                .setName("全自动麻将桌")
+                .setUnit("张")
+                .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
+                .create();
+        new GoodsUtil.Builder()
+                .setName("德国牧羊犬")
+                .setUnit("只")
+                .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
+                .create();
+        new GoodsUtil.Builder()
+                .setName("哈士奇")
+                .setUnit("只")
+                .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
+                .create();
+        new GoodsUtil.Builder()
+                .setName("阿拉斯加雪橇犬")
+                .setUnit("只")
+                .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
+                .create();
+        new GoodsUtil.Builder()
+                .setName("中华田园犬")
+                .setUnit("只")
+                .setPrice(NumberUtil.create("1200", "3.5", "0.2"))
                 .create();
     }
 
@@ -125,79 +294,23 @@ public class DataUtil {
     private static void initGoodEvent() {
         new EventUtil.Builder()
                 .setIsGood(true)
-                .setTitle("类型一：仅有物品的事件")
-                .setMessage("内容，仅有物品的事件")
-                .addGoods(GoodsUtil.getGoods("北京户口"))
-                .addGoods(GoodsUtil.getGoods("走私海洛因"))
-                .addGoods(GoodsUtil.getGoods("高考答案"))
-                .addGoods(GoodsUtil.getGoods("劣质化妆品"))
-                .addGoods(GoodsUtil.getGoods("假冒茅台"))
-                .create();
-
-        new EventUtil.Builder()
-                .setIsGood(true)
-                .setTitle("类型二：仅有现金的事件")
-                .setMessage("内容，仅有现金的事件")
-                .setCash(NumberUtil.create("-1000", "4", "0.1"))
-                .create();
-
-        new EventUtil.Builder()
-                .setIsGood(true)
-                .setTitle("类型三：仅有负债的事件")
-                .setMessage("内容，仅有负债的事件")
-                .setDebt(NumberUtil.create("1500", "5", "1"))
-                .create();
-
-        new EventUtil.Builder()
-                .setIsGood(true)
-                .setTitle("类型四：仅有存款的事件")
-                .setMessage("内容，仅有存款的事件")
-                .setDeposit(NumberUtil.create("-2000", "4", "0.2"))
-                .create();
-
-        new EventUtil.Builder()
-                .setIsGood(true)
-                .setTitle("类型五：有物品有现金的事件")
-                .setMessage("内容，有物品有现金的事件")
-                .setCash(NumberUtil.create("5000", "2", "0.5"))
-                .addGoods(GoodsUtil.getGoods("水货手机"))
-                .addGoods(GoodsUtil.getGoods("假冒茅台"))
-                .addGoods(GoodsUtil.getGoods("黑心棉"))
-                .create();
-
-        new EventUtil.Builder()
-                .setIsGood(true)
-                .setTitle("类型六：有现金有负债有存款的事件")
-                .setMessage("内容，有现金有负债有存款的事件")
-                .setCash(NumberUtil.create("-3000", "2", "0.5"))
-                .setDebt(NumberUtil.create("3500", "2", "0.5"))
-                .setDeposit(NumberUtil.create("-4000", "2", "0.5"))
-                .create();
-
-        new EventUtil.Builder()
-                .setIsGood(true)
                 .setTitle("类型七：所有类型都有的事件")
                 .setMessage("内容，所有类型都有的事件")
-                .setCash(NumberUtil.create("-3000", "2", "0.5"))
-                .setDebt(NumberUtil.create("3500", "2", "0.5"))
-                .setDeposit(NumberUtil.create("-4000", "2", "0.5"))
-                .setHealth(NumberUtil.create("-40", "1", "0.5"))
-                .addGoods(GoodsUtil.getGoods("北京户口"))
-                .addGoods(GoodsUtil.getGoods("走私海洛因"))
-                .addGoods(GoodsUtil.getGoods("高考答案"))
-                .addGoods(GoodsUtil.getGoods("劣质化妆品"))
-                .addGoods(GoodsUtil.getGoods("假冒茅台"))
                 .create();
-
-        new EventUtil.Builder()
-                .setIsGood(true)
-                .setTitle("类型八：现金负债存款事件")
-                .setMessage("内容，现金负债存款事件")
-                .setCash(NumberUtil.create("2000", "4", "-4"))
-                .setDebt(NumberUtil.create("1500", "4", "-4"))
-                .setDeposit(NumberUtil.create("-2000", "4", "-4"))
-                .create();
-
+//        new EventUtil.Builder()
+//                .setIsGood(true)
+//                .setTitle("类型七：所有类型都有的事件")
+//                .setMessage("内容，所有类型都有的事件")
+//                .setCash(NumberUtil.create("-3000", "2", "0.5"))
+//                .setDebt(NumberUtil.create("3500", "2", "0.5"))
+//                .setDeposit(NumberUtil.create("-4000", "2", "0.5"))
+//                .setHealth(NumberUtil.create("-40", "1", "0.5"))
+//                .addGoods(GoodsUtil.getGoods("北京户口"))
+//                .addGoods(GoodsUtil.getGoods("走私海洛因"))
+//                .addGoods(GoodsUtil.getGoods("高考答案"))
+//                .addGoods(GoodsUtil.getGoods("劣质化妆品"))
+//                .addGoods(GoodsUtil.getGoods("假冒茅台"))
+//                .create();
     }
 
     private static void initSelectEvent() {
