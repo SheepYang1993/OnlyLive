@@ -103,7 +103,6 @@ public class GameActivity extends BaseActivity {
     private ShopDialog mShopDialog;// 交易对话框
     private Player mPlayer;
     private boolean isShowNews = false;// 设置是否显示新闻事件
-    private long mCurrentTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,43 +110,9 @@ public class GameActivity extends BaseActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_game);
         ButterKnife.bind(this);
-        initListener();
         initDialog();
         initData();
         checkIsStart();
-    }
-
-    private void initListener() {
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                int color = getResources().getColor(R.color.word_black);
-                rb1.setTextColor(color);
-                rb2.setTextColor(color);
-                rb3.setTextColor(color);
-                rb4.setTextColor(color);
-                rb5.setTextColor(color);
-                switch (checkedId) {
-                    case R.id.rb_1:
-                        rb1.setTextColor(getResources().getColor(R.color.white));
-                        break;
-                    case R.id.rb_2:
-                        rb2.setTextColor(getResources().getColor(R.color.white));
-                        break;
-                    case R.id.rb_3:
-                        rb3.setTextColor(getResources().getColor(R.color.white));
-                        break;
-                    case R.id.rb_4:
-                        rb4.setTextColor(getResources().getColor(R.color.white));
-                        break;
-                    case R.id.rb_5:
-                        rb5.setTextColor(getResources().getColor(R.color.white));
-                        break;
-                    default:
-                        break;
-                }
-            }
-        });
     }
 
     private void initData() {
@@ -562,32 +527,17 @@ public class GameActivity extends BaseActivity {
             case R.id.btn_quit:
                 showQuitDialog();
                 break;
-            case R.id.btn1:// 选择城市
-                selectCity(btn1.getText().toString());
-                break;
+            case R.id.btn1:
             case R.id.btn2:
-                selectCity(btn2.getText().toString());
-                break;
             case R.id.btn3:
-                selectCity(btn3.getText().toString());
-                break;
             case R.id.btn4:
-                selectCity(btn4.getText().toString());
-                break;
             case R.id.btn5:
-                selectCity(btn5.getText().toString());
-                break;
             case R.id.btn6:
-                selectCity(btn6.getText().toString());
-                break;
             case R.id.btn7:
-                selectCity(btn7.getText().toString());
-                break;
             case R.id.btn8:
-                selectCity(btn8.getText().toString());
-                break;
             case R.id.btn9:
-                selectCity(btn9.getText().toString());
+                // 选择城市
+                selectCity(((Button) view).getText().toString());
                 break;
             case R.id.rb_1:// 银行
                 if (!checkIsStart()) {

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/theme2_white"
-    android:orientation="vertical"
-    tools:context="me.sheepyang.onlylive.activity.MainActivity">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/theme2_white"
+              android:orientation="vertical"
+              tools:context="me.sheepyang.onlylive.activity.MainActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
             android:layout_height="40dp"
             android:layout_margin="10dp"
             android:background="@drawable/btn_gray_selector"
-            android:text="重来" />
+            android:text="重来"/>
 
         <Button
             android:id="@+id/btn_quit"
@@ -26,7 +26,7 @@
             android:layout_alignParentEnd="true"
             android:layout_margin="10dp"
             android:background="@drawable/btn_gray_selector"
-            android:text="退出" />
+            android:text="退出"/>
     </RelativeLayout>
 
     <LinearLayout
@@ -50,7 +50,7 @@
                 android:background="@drawable/btn_green_selector"
                 android:text="六灌路"
                 android:textColor="@color/word_black"
-                android:textSize="24sp" />
+                android:textSize="24sp"/>
 
             <Button
                 android:id="@+id/btn2"
@@ -61,7 +61,7 @@
                 android:background="@drawable/btn_green_selector"
                 android:text="金鱼巷"
                 android:textColor="@color/word_black"
-                android:textSize="24sp" />
+                android:textSize="24sp"/>
 
             <Button
                 android:id="@+id/btn3"
@@ -72,7 +72,7 @@
                 android:background="@drawable/btn_green_selector"
                 android:text="关岳庙"
                 android:textColor="@color/word_black"
-                android:textSize="24sp" />
+                android:textSize="24sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -90,7 +90,7 @@
                 android:background="@drawable/btn_green_selector"
                 android:text="西街"
                 android:textColor="@color/word_black"
-                android:textSize="24sp" />
+                android:textSize="24sp"/>
 
             <Button
                 android:id="@+id/btn5"
@@ -101,7 +101,7 @@
                 android:background="@drawable/btn_green_selector"
                 android:text="开元寺"
                 android:textColor="@color/word_black"
-                android:textSize="24sp" />
+                android:textSize="24sp"/>
 
             <Button
                 android:id="@+id/btn6"
@@ -112,7 +112,7 @@
                 android:background="@drawable/btn_green_selector"
                 android:text="中山路"
                 android:textColor="@color/word_black"
-                android:textSize="24sp" />
+                android:textSize="24sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -130,7 +130,7 @@
                 android:background="@drawable/btn_green_selector"
                 android:text="涂门街"
                 android:textColor="@color/word_black"
-                android:textSize="24sp" />
+                android:textSize="24sp"/>
 
             <Button
                 android:id="@+id/btn8"
@@ -141,7 +141,7 @@
                 android:background="@drawable/btn_green_selector"
                 android:text="天后宫"
                 android:textColor="@color/word_black"
-                android:textSize="24sp" />
+                android:textSize="24sp"/>
 
             <Button
                 android:id="@+id/btn9"
@@ -152,7 +152,7 @@
                 android:background="@drawable/btn_green_selector"
                 android:text="胭脂巷"
                 android:textColor="@color/word_black"
-                android:textSize="24sp" />
+                android:textSize="24sp"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -161,7 +161,7 @@
         android:layout_height="2dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:background="@color/theme2_green" />
+        android:background="@color/theme2_green"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -176,7 +176,7 @@
             android:layout_marginRight="5dp"
             android:text="现金"
             android:textColor="@color/word_black"
-            android:textSize="24sp" />
+            android:textSize="24sp"/>
 
         <TextView
             android:id="@+id/tv_cash"
@@ -186,7 +186,7 @@
             android:singleLine="true"
             android:text="——"
             android:textColor="@color/theme1_blue_dark2"
-            android:textSize="20sp" />
+            android:textSize="20sp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -194,7 +194,7 @@
             android:layout_marginRight="5dp"
             android:text="健康"
             android:textColor="@color/word_black"
-            android:textSize="24sp" />
+            android:textSize="24sp"/>
 
         <TextView
             android:id="@+id/tv_health"
@@ -205,7 +205,7 @@
             android:singleLine="true"
             android:text="——"
             android:textColor="@color/theme1_blue_dark2"
-            android:textSize="20sp" />
+            android:textSize="20sp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -221,7 +221,7 @@
             android:layout_marginRight="5dp"
             android:text="负债"
             android:textColor="@color/word_black"
-            android:textSize="24sp" />
+            android:textSize="24sp"/>
 
         <TextView
             android:id="@+id/tv_debt"
@@ -231,7 +231,7 @@
             android:singleLine="true"
             android:text="——"
             android:textColor="@color/theme1_red"
-            android:textSize="20sp" />
+            android:textSize="20sp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -239,7 +239,7 @@
             android:layout_marginRight="5dp"
             android:text="房子"
             android:textColor="@color/word_black"
-            android:textSize="24sp" />
+            android:textSize="24sp"/>
 
         <TextView
             android:id="@+id/tv_house"
@@ -250,7 +250,7 @@
             android:singleLine="true"
             android:text="——/——"
             android:textColor="@color/word_black"
-            android:textSize="20sp" />
+            android:textSize="20sp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -266,7 +266,7 @@
             android:layout_marginRight="5dp"
             android:text="存款"
             android:textColor="@color/word_black"
-            android:textSize="24sp" />
+            android:textSize="24sp"/>
 
         <TextView
             android:id="@+id/tv_deposit"
@@ -276,7 +276,7 @@
             android:singleLine="true"
             android:text="——"
             android:textColor="@color/theme1_blue_dark2"
-            android:textSize="20sp" />
+            android:textSize="20sp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -284,7 +284,7 @@
             android:layout_marginRight="5dp"
             android:text="周数"
             android:textColor="@color/word_black"
-            android:textSize="24sp" />
+            android:textSize="24sp"/>
 
         <TextView
             android:id="@+id/tv_week"
@@ -295,7 +295,7 @@
             android:singleLine="true"
             android:text="——/——"
             android:textColor="@color/word_black"
-            android:textSize="20sp" />
+            android:textSize="20sp"/>
     </LinearLayout>
 
     <RadioGroup
@@ -317,8 +317,8 @@
             android:button="@android:color/transparent"
             android:gravity="center"
             android:text="银行"
-            android:textColor="@color/word_black"
-            android:textSize="24sp" />
+            android:textColor="@drawable/text_black_white_selector"
+            android:textSize="24sp"/>
 
         <RadioButton
             android:id="@+id/rb_2"
@@ -331,8 +331,8 @@
             android:button="@android:color/transparent"
             android:gravity="center"
             android:text="医院"
-            android:textColor="@color/word_black"
-            android:textSize="24sp" />
+            android:textColor="@drawable/text_black_white_selector"
+            android:textSize="24sp"/>
 
         <RadioButton
             android:id="@+id/rb_3"
@@ -345,8 +345,8 @@
             android:button="@android:color/transparent"
             android:gravity="center"
             android:text="还债"
-            android:textColor="@color/word_black"
-            android:textSize="24sp" />
+            android:textColor="@drawable/text_black_white_selector"
+            android:textSize="24sp"/>
 
         <RadioButton
             android:id="@+id/rb_4"
@@ -359,8 +359,8 @@
             android:button="@android:color/transparent"
             android:gravity="center"
             android:text="买卖"
-            android:textColor="@color/word_black"
-            android:textSize="24sp" />
+            android:textColor="@drawable/text_black_white_selector"
+            android:textSize="24sp"/>
 
         <RadioButton
             android:id="@+id/rb_5"
@@ -373,8 +373,8 @@
             android:button="@android:color/transparent"
             android:gravity="center"
             android:text="租房"
-            android:textColor="@color/word_black"
-            android:textSize="24sp" />
+            android:textColor="@drawable/text_black_white_selector"
+            android:textSize="24sp"/>
     </RadioGroup>
 
 </LinearLayout>
