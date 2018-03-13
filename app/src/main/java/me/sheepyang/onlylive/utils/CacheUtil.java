@@ -2,10 +2,10 @@ package me.sheepyang.onlylive.utils;
 
 import android.content.Context;
 
-import static me.sheepyang.onlylive.app.Constants.INIT_GAME_HOUSE_LEVEL1;
-import static me.sheepyang.onlylive.app.Constants.INIT_GAME_HOUSE_LEVEL2;
-import static me.sheepyang.onlylive.app.Constants.INIT_GAME_HOUSE_LEVEL3;
-import static me.sheepyang.onlylive.app.Constants.INIT_GAME_HOUSE_LEVEL4;
+import static me.sheepyang.onlylive.utils.DataUtil.INIT_GAME_HOUSE_LEVEL1;
+import static me.sheepyang.onlylive.utils.DataUtil.INIT_GAME_HOUSE_LEVEL2;
+import static me.sheepyang.onlylive.utils.DataUtil.INIT_GAME_HOUSE_LEVEL3;
+import static me.sheepyang.onlylive.utils.DataUtil.INIT_GAME_HOUSE_LEVEL4;
 
 /**
  * Created by SheepYang on 2016/11/25.

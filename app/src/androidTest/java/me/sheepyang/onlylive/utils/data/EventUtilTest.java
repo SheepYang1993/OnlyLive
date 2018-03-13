@@ -5,7 +5,7 @@ import android.support.test.runner.AndroidJUnit4;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import me.sheepyang.onlylive.entity.Event;
+import me.sheepyang.onlylive.greenentity.Event;
 import me.sheepyang.onlylive.utils.MyLog;
 
 /**

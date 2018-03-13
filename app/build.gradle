@@ -30,7 +30,7 @@ android {
 
 greendao {
     schemaVersion 1
-    daoPackage 'me.sheepyang.onlylive.entity.dao'
+    daoPackage 'me.sheepyang.onlylive.greenentity.dao'
     targetGenDir 'src/main/java'
     // schemaVersion--> 指定数据库schema版本号，迁移等操作会用到
     // daoPackage --> dao的包名，包名默认是entity所在的包;

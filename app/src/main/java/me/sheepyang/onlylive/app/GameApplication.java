@@ -9,8 +9,8 @@ import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
 
 import cn.bmob.v3.Bmob;
-import me.sheepyang.onlylive.entity.dao.DaoMaster;
-import me.sheepyang.onlylive.entity.dao.DaoSession;
+import me.sheepyang.onlylive.greenentity.dao.DaoMaster;
+import me.sheepyang.onlylive.greenentity.dao.DaoSession;
 import me.sheepyang.onlylive.utils.MyLog;
 
 /**

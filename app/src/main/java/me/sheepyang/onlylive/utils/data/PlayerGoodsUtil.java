@@ -5,12 +5,12 @@ import org.greenrobot.greendao.query.QueryBuilder;
 import java.util.List;
 
 import me.sheepyang.onlylive.app.GameApplication;
-import me.sheepyang.onlylive.entity.Goods;
-import me.sheepyang.onlylive.entity.JoinPlayerGoodsToPlayer;
-import me.sheepyang.onlylive.entity.PlayerGoods;
-import me.sheepyang.onlylive.entity.ShopGoods;
-import me.sheepyang.onlylive.entity.dao.JoinPlayerGoodsToPlayerDao;
-import me.sheepyang.onlylive.entity.dao.PlayerGoodsDao;
+import me.sheepyang.onlylive.greenentity.Goods;
+import me.sheepyang.onlylive.greenentity.JoinPlayerGoodsToPlayer;
+import me.sheepyang.onlylive.greenentity.PlayerGoods;
+import me.sheepyang.onlylive.greenentity.ShopGoods;
+import me.sheepyang.onlylive.greenentity.dao.JoinPlayerGoodsToPlayerDao;
+import me.sheepyang.onlylive.greenentity.dao.PlayerGoodsDao;
 import me.sheepyang.onlylive.utils.MathUtil;
 
 /**

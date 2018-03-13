@@ -2,7 +2,7 @@ package me.sheepyang.onlylive.utils;
 
 import java.util.Random;
 
-import me.sheepyang.onlylive.entity.Number;
+import me.sheepyang.onlylive.greenentity.Number;
 
 /**
  * 随机数工具类

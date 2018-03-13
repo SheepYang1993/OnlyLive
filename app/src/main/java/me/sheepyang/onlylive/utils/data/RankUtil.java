@@ -5,8 +5,8 @@ import org.greenrobot.greendao.query.QueryBuilder;
 import java.util.List;
 
 import me.sheepyang.onlylive.app.GameApplication;
-import me.sheepyang.onlylive.entity.Rank;
-import me.sheepyang.onlylive.entity.dao.RankDao;
+import me.sheepyang.onlylive.greenentity.Rank;
+import me.sheepyang.onlylive.greenentity.dao.RankDao;
 
 /**
  * Created by SheepYang on 2016/11/28.

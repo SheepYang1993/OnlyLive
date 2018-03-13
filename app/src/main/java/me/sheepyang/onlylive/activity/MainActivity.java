@@ -23,13 +23,11 @@ import me.sheepyang.onlylive.activity.setting.GoodsListActivity;
 import me.sheepyang.onlylive.activity.setting.InitGameDataActivity;
 import me.sheepyang.onlylive.activity.setting.SettingActivity;
 import me.sheepyang.onlylive.domain.SettingData;
-import me.sheepyang.onlylive.entity.Rank;
 import me.sheepyang.onlylive.utils.AppManager;
 import me.sheepyang.onlylive.utils.CacheUtil;
 import me.sheepyang.onlylive.utils.DataUtil;
 import me.sheepyang.onlylive.utils.MyLog;
 import me.sheepyang.onlylive.utils.data.PlayerUtil;
-import me.sheepyang.onlylive.utils.data.RankUtil;
 import me.sheepyang.onlylive.widget.dialog.SelectGameModeDialog;
 
 import static me.sheepyang.onlylive.widget.dialog.SelectGameModeDialog.MODE_NEW_GAME;

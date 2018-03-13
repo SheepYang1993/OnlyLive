@@ -7,13 +7,11 @@ import java.util.HashSet;
 import java.util.List;
 
 import me.sheepyang.onlylive.app.GameApplication;
-import me.sheepyang.onlylive.entity.Goods;
-import me.sheepyang.onlylive.entity.Number;
-import me.sheepyang.onlylive.entity.dao.GoodsDao;
+import me.sheepyang.onlylive.greenentity.Goods;
+import me.sheepyang.onlylive.greenentity.Number;
+import me.sheepyang.onlylive.greenentity.dao.GoodsDao;
 import me.sheepyang.onlylive.utils.MyLog;
 import me.sheepyang.onlylive.utils.RandomUtil;
-
-import static android.R.attr.name;
 
 /**
  * Created by SheepYang on 2016/10/20 21:50.

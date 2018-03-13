@@ -15,14 +15,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.sheepyang.onlylive.R;
-import me.sheepyang.onlylive.entity.Goods;
+import me.sheepyang.onlylive.greenentity.Goods;
 import me.sheepyang.onlylive.utils.MathUtil;
 import me.sheepyang.onlylive.utils.MyToast;
 import me.sheepyang.onlylive.utils.data.GoodsUtil;
 import me.sheepyang.onlylive.utils.data.NumberUtil;
 import me.sheepyang.onlylive.widget.MarqueeTextView;
-
-import static android.R.attr.name;
 
 /**
  * Created by SheepYang on 2016/11/26 11:15.

@@ -1,4 +1,4 @@
-package me.sheepyang.onlylive.entity;
+package me.sheepyang.onlylive.greenentity;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;

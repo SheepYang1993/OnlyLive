@@ -16,7 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.sheepyang.onlylive.R;
 import me.sheepyang.onlylive.adapter.GoodsAdapter;
-import me.sheepyang.onlylive.entity.Goods;
+import me.sheepyang.onlylive.greenentity.Goods;
 import me.sheepyang.onlylive.utils.data.GoodsUtil;
 import me.sheepyang.onlylive.widget.recyclerview.NoAlphaItemAnimator;
 

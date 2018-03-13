@@ -2,7 +2,6 @@ package me.sheepyang.onlylive.utils;
 
 import android.content.Context;
 
-import me.sheepyang.onlylive.app.Constants;
 import me.sheepyang.onlylive.utils.data.EventUtil;
 import me.sheepyang.onlylive.utils.data.GoodsUtil;
 import me.sheepyang.onlylive.utils.data.NumberUtil;
@@ -12,6 +11,29 @@ import me.sheepyang.onlylive.utils.data.NumberUtil;
  * Created by SheepYang on 2016/10/13 00:24.
  */
 public class DataUtil {
+
+    // 默认的重新开始一盘游戏的数值
+    public static final String INIT_GAME_CASH = "99999991000";// 现金
+    public static final String INIT_GAME_DEBT = "9000";// 负债
+    public static final String INIT_GAME_DEPOSIT = "50";// 存款
+    public static final String INIT_GAME_HEALTH = "80";// 健康
+    public static final String INIT_GAME_HOUSE = "0";// 房子数量
+    public static final String INIT_GAME_WEEK = "0";// 周数
+    public static final String INIT_GAME_HOUSE_TOTAL = "80";// 总房子数量
+    public static final String INIT_GAME_WEEK_TOTAL = "52";// 游戏总周数
+    public static final String INIT_GAME_SHOP_GOODS_NUMBER = "10";// 商店销售物品数量
+    public static final String INIT_GAME_DEBT_RATE_MAX = "1.5";// 负债利息最高倍率
+    public static final String INIT_GAME_DEBT_RATE_MIN = "1.4";// 负债利息最低倍率
+    public static final String INIT_GAME_GOODS_NUMBER = "5";// 随机最多获得物品个数
+    public static final String INIT_GAME_HEALTH_COST = "2000";// 恢复100健康花费
+    public static final String INIT_GAME_HOUSE_LEVEL1_COST = "800000";// 升级房子费用1
+    public static final String INIT_GAME_HOUSE_LEVEL2_COST = "1200000";// 升级房子费用2
+    public static final String INIT_GAME_HOUSE_LEVEL3_COST = "1800000";// 升级房子费用3
+    public static final String INIT_GAME_HOUSE_LEVEL4_COST = "3600000";// 升级房子费用4
+    public static final String INIT_GAME_HOUSE_LEVEL1 = "120";// 房子等级1数量
+    public static final String INIT_GAME_HOUSE_LEVEL2 = "160";// 房子等级2数量
+    public static final String INIT_GAME_HOUSE_LEVEL3 = "200";// 房子等级3数量
+    public static final String INIT_GAME_HOUSE_LEVEL4 = "240";// 房子等级4数量
 
     public static void initGame(Context context) {
         initGameCache(context);
@@ -26,27 +48,27 @@ public class DataUtil {
      * @param context
      */
     private static void initGameCache(Context context) {
-        CacheUtil.setInitGameCash(context, Constants.INIT_GAME_CASH);// 现金
-        CacheUtil.setInitGameDebt(context, Constants.INIT_GAME_DEBT);// 负债
-        CacheUtil.setInitGameDeposit(context, Constants.INIT_GAME_DEPOSIT);// 存款
-        CacheUtil.setInitGameHealth(context, Constants.INIT_GAME_HEALTH);// 健康
-        CacheUtil.setInitGameHouse(context, Constants.INIT_GAME_HOUSE);// 使用空间
-        CacheUtil.setInitGameHouseTotal(context, Constants.INIT_GAME_HOUSE_TOTAL);// 总房子数量
-        CacheUtil.setInitGameWeek(context, Constants.INIT_GAME_WEEK);// 当前周数
-        CacheUtil.setInitGameWeekTotal(context, Constants.INIT_GAME_WEEK_TOTAL);// 游戏总周数
-        CacheUtil.setInitGameShopGoodsNumber(context, Constants.INIT_GAME_SHOP_GOODS_NUMBER);// 商店出售物品数
-        CacheUtil.setInitGameDebtRateMax(context, Constants.INIT_GAME_DEBT_RATE_MAX);// 负债利息最高倍率
-        CacheUtil.setInitGameDebtRateMin(context, Constants.INIT_GAME_DEBT_RATE_MIN);// 负债利息最低倍率
-        CacheUtil.setInitGameGoodsNumber(context, Constants.INIT_GAME_GOODS_NUMBER);// 物品最多获得个数
-        CacheUtil.setInitGameHealthCost(context, Constants.INIT_GAME_HEALTH_COST);// 恢复100健康费用
-        CacheUtil.setInitGameHouseLevel1Cost(context, Constants.INIT_GAME_HOUSE_LEVEL1_COST);// 房子空间1数量
-        CacheUtil.setInitGameHouseLevel2Cost(context, Constants.INIT_GAME_HOUSE_LEVEL2_COST);// 房子空间2数量
-        CacheUtil.setInitGameHouseLevel3Cost(context, Constants.INIT_GAME_HOUSE_LEVEL3_COST);// 房子空间3数量
-        CacheUtil.setInitGameHouseLevel4Cost(context, Constants.INIT_GAME_HOUSE_LEVEL4_COST);// 房子空间4数量
-        CacheUtil.setInitGameHouseLevel1(context, Constants.INIT_GAME_HOUSE_LEVEL1);// 升级房子费用1
-        CacheUtil.setInitGameHouseLevel2(context, Constants.INIT_GAME_HOUSE_LEVEL2);// 升级房子费用2
-        CacheUtil.setInitGameHouseLevel3(context, Constants.INIT_GAME_HOUSE_LEVEL3);// 升级房子费用3
-        CacheUtil.setInitGameHouseLevel4(context, Constants.INIT_GAME_HOUSE_LEVEL4);// 升级房子费用4
+        CacheUtil.setInitGameCash(context, INIT_GAME_CASH);// 现金
+        CacheUtil.setInitGameDebt(context, INIT_GAME_DEBT);// 负债
+        CacheUtil.setInitGameDeposit(context, INIT_GAME_DEPOSIT);// 存款
+        CacheUtil.setInitGameHealth(context, INIT_GAME_HEALTH);// 健康
+        CacheUtil.setInitGameHouse(context, INIT_GAME_HOUSE);// 使用空间
+        CacheUtil.setInitGameHouseTotal(context, INIT_GAME_HOUSE_TOTAL);// 总房子数量
+        CacheUtil.setInitGameWeek(context, INIT_GAME_WEEK);// 当前周数
+        CacheUtil.setInitGameWeekTotal(context, INIT_GAME_WEEK_TOTAL);// 游戏总周数
+        CacheUtil.setInitGameShopGoodsNumber(context, INIT_GAME_SHOP_GOODS_NUMBER);// 商店出售物品数
+        CacheUtil.setInitGameDebtRateMax(context, INIT_GAME_DEBT_RATE_MAX);// 负债利息最高倍率
+        CacheUtil.setInitGameDebtRateMin(context, INIT_GAME_DEBT_RATE_MIN);// 负债利息最低倍率
+        CacheUtil.setInitGameGoodsNumber(context, INIT_GAME_GOODS_NUMBER);// 物品最多获得个数
+        CacheUtil.setInitGameHealthCost(context, INIT_GAME_HEALTH_COST);// 恢复100健康费用
+        CacheUtil.setInitGameHouseLevel1Cost(context, INIT_GAME_HOUSE_LEVEL1_COST);// 房子空间1数量
+        CacheUtil.setInitGameHouseLevel2Cost(context, INIT_GAME_HOUSE_LEVEL2_COST);// 房子空间2数量
+        CacheUtil.setInitGameHouseLevel3Cost(context, INIT_GAME_HOUSE_LEVEL3_COST);// 房子空间3数量
+        CacheUtil.setInitGameHouseLevel4Cost(context, INIT_GAME_HOUSE_LEVEL4_COST);// 房子空间4数量
+        CacheUtil.setInitGameHouseLevel1(context, INIT_GAME_HOUSE_LEVEL1);// 升级房子费用1
+        CacheUtil.setInitGameHouseLevel2(context, INIT_GAME_HOUSE_LEVEL2);// 升级房子费用2
+        CacheUtil.setInitGameHouseLevel3(context, INIT_GAME_HOUSE_LEVEL3);// 升级房子费用3
+        CacheUtil.setInitGameHouseLevel4(context, INIT_GAME_HOUSE_LEVEL4);// 升级房子费用4
 
         CacheUtil.setInit(context, true);
     }

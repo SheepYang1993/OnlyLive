@@ -1,13 +1,14 @@
-package me.sheepyang.onlylive.entity;
+package me.sheepyang.onlylive.greenentity;
 
+import org.greenrobot.greendao.DaoException;
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.ToOne;
-import org.greenrobot.greendao.annotation.Generated;
-import org.greenrobot.greendao.DaoException;
-import me.sheepyang.onlylive.entity.dao.DaoSession;
-import me.sheepyang.onlylive.entity.dao.GoodsDao;
-import me.sheepyang.onlylive.entity.dao.NumberDao;
+
+import me.sheepyang.onlylive.greenentity.dao.DaoSession;
+import me.sheepyang.onlylive.greenentity.dao.GoodsDao;
+import me.sheepyang.onlylive.greenentity.dao.NumberDao;
 
 /**
  * 物品
@@ -116,12 +117,6 @@ public class Goods {
     }
     @Generated(hash = 791875021)
     private transient Long number__resolvedKey;
-    /** called by internal mechanisms, do not call yourself. */
-    @Generated(hash = 2112467424)
-    public void __setDaoSession(DaoSession daoSession) {
-        this.daoSession = daoSession;
-        myDao = daoSession != null ? daoSession.getGoodsDao() : null;
-    }
     /** Used for active entity operations. */
     @Generated(hash = 258717323)
     private transient GoodsDao myDao;
@@ -157,6 +152,12 @@ public class Goods {
     }
     public void setId(Long id) {
         this.id = id;
+    }
+    /** called by internal mechanisms, do not call yourself. */
+    @Generated(hash = 2112467424)
+    public void __setDaoSession(DaoSession daoSession) {
+        this.daoSession = daoSession;
+        myDao = daoSession != null ? daoSession.getGoodsDao() : null;
     }
     @Generated(hash = 584686666)
     public Goods(Long id, String name, String unit, Long numberId, Long priceId) {

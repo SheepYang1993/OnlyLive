@@ -12,7 +12,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.sheepyang.onlylive.R;
-import me.sheepyang.onlylive.entity.ShopGoods;
+import me.sheepyang.onlylive.greenentity.ShopGoods;
 
 /**
  * Created by SheepYang on 2016/10/28 21:26.

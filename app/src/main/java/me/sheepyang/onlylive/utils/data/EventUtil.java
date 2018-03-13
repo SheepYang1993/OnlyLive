@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.sheepyang.onlylive.app.GameApplication;
-import me.sheepyang.onlylive.entity.Event;
-import me.sheepyang.onlylive.entity.Goods;
-import me.sheepyang.onlylive.entity.Number;
-import me.sheepyang.onlylive.entity.dao.EventDao;
+import me.sheepyang.onlylive.greenentity.Event;
+import me.sheepyang.onlylive.greenentity.Goods;
+import me.sheepyang.onlylive.greenentity.Number;
+import me.sheepyang.onlylive.greenentity.dao.EventDao;
 import me.sheepyang.onlylive.utils.RandomUtil;
 
 /**

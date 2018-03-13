@@ -18,11 +18,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.sheepyang.onlylive.R;
-import me.sheepyang.onlylive.entity.Event;
-import me.sheepyang.onlylive.entity.Goods;
-import me.sheepyang.onlylive.entity.Player;
-import me.sheepyang.onlylive.entity.PlayerGoods;
-import me.sheepyang.onlylive.entity.Rank;
+import me.sheepyang.onlylive.greenentity.Event;
+import me.sheepyang.onlylive.greenentity.Goods;
+import me.sheepyang.onlylive.greenentity.Player;
+import me.sheepyang.onlylive.greenentity.PlayerGoods;
+import me.sheepyang.onlylive.greenentity.Rank;
 import me.sheepyang.onlylive.utils.CacheUtil;
 import me.sheepyang.onlylive.utils.DateUtil;
 import me.sheepyang.onlylive.utils.MathUtil;
@@ -517,6 +517,7 @@ public class GameActivity extends BaseActivity {
     }
 
     @OnClick({R.id.btn_restart, R.id.btn_quit, R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4, R.id.btn5, R.id.btn6, R.id.btn7, R.id.btn8, R.id.btn9, R.id.rb_1, R.id.rb_2, R.id.rb_3, R.id.rb_4, R.id.rb_5})
+    @Override
     public void onClick(View view) {
         super.onClick(view);
         switch (view.getId()) {
@@ -539,31 +540,36 @@ public class GameActivity extends BaseActivity {
                 // 选择城市
                 selectCity(((Button) view).getText().toString());
                 break;
-            case R.id.rb_1:// 银行
+            // 银行
+            case R.id.rb_1:
                 if (!checkIsStart()) {
                     return;
                 }
                 showBankDialog();
                 break;
-            case R.id.rb_2:// 医院
+            case R.id.rb_2:
+                // 医院
                 if (!checkIsStart()) {
                     return;
                 }
                 showHospitalDialog();
                 break;
-            case R.id.rb_3:// 还债
+            // 还债
+            case R.id.rb_3:
                 if (!checkIsStart()) {
                     return;
                 }
                 showRepayDebtDialog();
                 break;
-            case R.id.rb_4:// 买卖
+            // 买卖
+            case R.id.rb_4:
                 if (!checkIsStart()) {
                     return;
                 }
                 showShopDialog(mPlayer.getCity());
                 break;
-            case R.id.rb_5:// 租房
+            // 租房
+            case R.id.rb_5:
                 if (!checkIsStart()) {
                     return;
                 }
@@ -585,11 +591,14 @@ public class GameActivity extends BaseActivity {
         } else {
             if (checkWeek()) {
                 String debt = MathUtil.getInterest(mContext, mPlayer.getDebt());
-                mPlayer.setDebt(debt);// 设置当前负债，算法是 当前负债 *（min~max）倍，后期再优化利息的算法
-                mPlayer.setCity(city);// 设置当前所在城市
+                //TODO 设置当前负债，算法是 当前负债 *（min~max）倍， 后期再优化利息的算法
+                mPlayer.setDebt(debt);
+                // 设置当前所在城市
+                mPlayer.setCity(city);
                 PlayerUtil.setPlayer(mPlayer);
                 refreshPlayerData();
-                mShopDialog.setShopGoodsList(ShopGoodsUtil.getShopGoodsList(GoodsUtil.getRandomList(Integer.valueOf(CacheUtil.getInitGameShopGoodsNumber(mContext)))));// 设置商店物品，仅有切换过城市，商店物品价格才会变化
+                // 设置商店物品，仅有切换过城市，商店物品价格才会变化
+                mShopDialog.setShopGoodsList(ShopGoodsUtil.getShopGoodsList(GoodsUtil.getRandomList(Integer.valueOf(CacheUtil.getInitGameShopGoodsNumber(mContext)))));
                 showSurpriseDialog();
             }
         }
@@ -704,7 +713,7 @@ public class GameActivity extends BaseActivity {
     private void showHospitalDialog() {
         dismissAllDialog();
         if (MathUtil.eq(mPlayer.getHealth(), "100")) {
-            mHospitalDialog.setMessage("你现在壮的跟头牛似得，不需要治疗！");
+            mHospitalDialog.setMessage(getString(R.string.game_hospital_health_good));
         } else {
             mHospitalDialog.setMessage("你当前的健康值" + mPlayer.getHealth() + "，治愈需要花费" + getTreatmentMoney() + "元，需要治疗么？");
         }
@@ -1162,7 +1171,8 @@ public class GameActivity extends BaseActivity {
     public String getTreatmentMoney() {
         if (MathUtil.gt(mPlayer.getHealth(), "0") && MathUtil.lt(mPlayer.getHealth(), "100")) {
             String treatmentMoney = CacheUtil.getInitGameHealthCost(mContext);
-            String percent = MathUtil.divide(MathUtil.subtract("100", mPlayer.getHealth()), "100", 2);// 需治疗的生命占总生命 百分比
+            // 需治疗的生命占总生命 百分比
+            String percent = MathUtil.divide(MathUtil.subtract("100", mPlayer.getHealth()), "100", 2);
             return MathUtil.multiply(percent, treatmentMoney);
         }
         return "0";

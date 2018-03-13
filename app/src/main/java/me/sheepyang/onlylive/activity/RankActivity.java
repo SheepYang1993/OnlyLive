@@ -12,7 +12,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.sheepyang.onlylive.R;
 import me.sheepyang.onlylive.adapter.RankAdapter;
-import me.sheepyang.onlylive.entity.Rank;
+import me.sheepyang.onlylive.greenentity.Rank;
 import me.sheepyang.onlylive.utils.data.RankUtil;
 import me.sheepyang.onlylive.widget.dialog.MessageDialog;
 import me.sheepyang.onlylive.widget.recyclerview.NoAlphaItemAnimator;

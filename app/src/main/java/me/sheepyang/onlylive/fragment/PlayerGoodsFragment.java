@@ -15,8 +15,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.sheepyang.onlylive.R;
 import me.sheepyang.onlylive.adapter.PlayerGoodsAdapter;
-import me.sheepyang.onlylive.entity.PlayerGoods;
-import me.sheepyang.onlylive.entity.ShopGoods;
+import me.sheepyang.onlylive.greenentity.PlayerGoods;
+import me.sheepyang.onlylive.greenentity.ShopGoods;
 import me.sheepyang.onlylive.utils.data.PlayerGoodsUtil;
 
 /**

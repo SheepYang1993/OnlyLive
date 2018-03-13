@@ -7,8 +7,8 @@ import org.greenrobot.greendao.query.QueryBuilder;
 import java.util.List;
 
 import me.sheepyang.onlylive.app.GameApplication;
-import me.sheepyang.onlylive.entity.Player;
-import me.sheepyang.onlylive.entity.dao.PlayerDao;
+import me.sheepyang.onlylive.greenentity.Player;
+import me.sheepyang.onlylive.greenentity.dao.PlayerDao;
 import me.sheepyang.onlylive.utils.CacheUtil;
 
 /**

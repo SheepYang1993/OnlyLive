@@ -16,11 +16,10 @@ import butterknife.ButterKnife;
 import me.sheepyang.onlylive.R;
 import me.sheepyang.onlylive.activity.BaseActivity;
 import me.sheepyang.onlylive.adapter.EventAdapter;
-import me.sheepyang.onlylive.entity.Event;
+import me.sheepyang.onlylive.greenentity.Event;
 import me.sheepyang.onlylive.utils.data.EventUtil;
 import me.sheepyang.onlylive.utils.data.PlayerUtil;
 import me.sheepyang.onlylive.widget.dialog.EventDialog;
-import me.sheepyang.onlylive.widget.dialog.GoodsDialog;
 import me.sheepyang.onlylive.widget.dialog.MessageDialog;
 import me.sheepyang.onlylive.widget.recyclerview.NoAlphaItemAnimator;
 

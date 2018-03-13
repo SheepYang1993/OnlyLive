@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 
 import java.util.List;
 
-import me.sheepyang.onlylive.entity.Goods;
+import me.sheepyang.onlylive.greenentity.Goods;
 import me.sheepyang.onlylive.utils.MyLog;
 
 /**

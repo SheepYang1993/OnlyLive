@@ -3,9 +3,9 @@ package me.sheepyang.onlylive.utils.data;
 import java.util.List;
 
 import me.sheepyang.onlylive.app.GameApplication;
-import me.sheepyang.onlylive.entity.Goods;
-import me.sheepyang.onlylive.entity.ShopGoods;
-import me.sheepyang.onlylive.entity.dao.ShopGoodsDao;
+import me.sheepyang.onlylive.greenentity.Goods;
+import me.sheepyang.onlylive.greenentity.ShopGoods;
+import me.sheepyang.onlylive.greenentity.dao.ShopGoodsDao;
 import me.sheepyang.onlylive.utils.RandomUtil;
 
 /**

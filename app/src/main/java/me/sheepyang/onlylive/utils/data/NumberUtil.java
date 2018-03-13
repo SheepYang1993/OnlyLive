@@ -1,8 +1,8 @@
 package me.sheepyang.onlylive.utils.data;
 
 import me.sheepyang.onlylive.app.GameApplication;
-import me.sheepyang.onlylive.entity.Number;
-import me.sheepyang.onlylive.entity.dao.NumberDao;
+import me.sheepyang.onlylive.greenentity.Number;
+import me.sheepyang.onlylive.greenentity.dao.NumberDao;
 
 /**
  * Created by SheepYang on 2016/10/20 22:02.

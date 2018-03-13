@@ -14,7 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.sheepyang.onlylive.R;
 import me.sheepyang.onlylive.adapter.ShopGoodsAdapter;
-import me.sheepyang.onlylive.entity.ShopGoods;
+import me.sheepyang.onlylive.greenentity.ShopGoods;
 
 /**
  * Created by SheepYang on 2016/10/27 22:24.

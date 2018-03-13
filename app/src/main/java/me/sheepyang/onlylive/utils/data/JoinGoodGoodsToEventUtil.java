@@ -5,11 +5,10 @@ import org.greenrobot.greendao.query.QueryBuilder;
 import java.util.List;
 
 import me.sheepyang.onlylive.app.GameApplication;
-import me.sheepyang.onlylive.entity.Event;
-import me.sheepyang.onlylive.entity.Goods;
-import me.sheepyang.onlylive.entity.JoinGoodGoodsToEvent;
-import me.sheepyang.onlylive.entity.dao.EventDao;
-import me.sheepyang.onlylive.entity.dao.JoinGoodGoodsToEventDao;
+import me.sheepyang.onlylive.greenentity.Event;
+import me.sheepyang.onlylive.greenentity.Goods;
+import me.sheepyang.onlylive.greenentity.JoinGoodGoodsToEvent;
+import me.sheepyang.onlylive.greenentity.dao.JoinGoodGoodsToEventDao;
 
 /**
  * Created by SheepYang on 2016/11/23.
