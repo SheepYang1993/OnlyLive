@@ -9,6 +9,7 @@ import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
 
 import cn.bmob.v3.Bmob;
+import me.sheepyang.onlylive.greenentity.GreenHelper;
 import me.sheepyang.onlylive.greenentity.dao.DaoMaster;
 import me.sheepyang.onlylive.greenentity.dao.DaoSession;
 import me.sheepyang.onlylive.utils.MyLog;
@@ -18,7 +19,7 @@ import me.sheepyang.onlylive.utils.MyLog;
  */
 
 public class GameApplication extends Application {
-    private DaoMaster.DevOpenHelper mHelper;
+    private GreenHelper mHelper;
     private SQLiteDatabase db;
     private DaoMaster mDaoMaster;
     private DaoSession mDaoSession;
@@ -78,11 +79,11 @@ public class GameApplication extends Application {
         // 可能你已经注意到了，你并不需要去编写「CREATE TABLE」这样的 SQL 语句，因为 greenDAO 已经帮你做了。
         // 注意：默认的 DaoMaster.DevOpenHelper 会在数据库升级时，删除所有的表，意味着这将导致数据的丢失。
         // 所以，在正式的项目中，你还应该做一层封装，来实现数据库的安全升级。
-        mHelper = new DaoMaster.DevOpenHelper(this, "only-live-game-db", null);
+        mHelper = new GreenHelper(this);
         db = mHelper.getWritableDatabase();
         // 注意：该数据库连接属于 DaoMaster，所以多个 Session 指的是相同的数据库连接。
-        mDaoMaster = new DaoMaster(db);
-        mDaoSession = mDaoMaster.newSession();
+        mDaoMaster = GreenHelper.getDaoMaster(this);
+        mDaoSession = GreenHelper.getDaoSession(this);
     }
 
     public DaoSession getDaoSession() {

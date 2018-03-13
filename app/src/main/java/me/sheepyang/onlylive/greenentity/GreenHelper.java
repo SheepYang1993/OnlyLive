@@ -30,7 +30,7 @@ public class GreenHelper extends DaoMaster.OpenHelper {
     private static DaoMaster daoMaster;
     private static DaoSession daoSession;
 
-    public static final String DBNAME = "greendao.db";
+    public static final String DBNAME = "only_live_game.db";
 
     public GreenHelper(Context context) {
         super(context, DBNAME, null);
