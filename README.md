@@ -30,5 +30,5 @@
 ##### 支持新增/删除/修改商品价格、利率浮动等
 ![preview](https://s2.ax1x.com/2019/03/26/AU2xhj.png)
 
-#### apk下载地址： https://github.com/SheepYang1993/CobWeb
+#### apk下载地址： https://www.pgyer.com/zYB2
 #### github地址： https://github.com/SheepYang1993/CobWeb
