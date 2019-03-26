@@ -1,6 +1,6 @@
 # OnlyLive
 ### Android实现买卖商品小游戏，仿手游《混》《买房记》
-### 2年前为了学习GreenDao，写的练手项目，欢迎指点
+### 之前为了学习GreenDao，写的练手项目，欢迎指点
 
 #### 1、主界面
 ![preview](https://s2.ax1x.com/2019/03/26/AU23fs.png)
